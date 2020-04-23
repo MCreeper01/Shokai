@@ -19,6 +19,7 @@ public class PSAttack : PlayerState
     public override void FixedUpdate(PlayerController pc)
     {
         pc.Move();
+        pc.Aim();
     }
 
     public override void Update(PlayerController pc)

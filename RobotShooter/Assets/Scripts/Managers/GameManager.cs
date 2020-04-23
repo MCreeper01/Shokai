@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        audioManager.Play("MainMenuMusic2");
+        
     }
 
     // Start is called before the first frame update
@@ -57,27 +57,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (!isGameRunning) StartGame();     
-    }
-
-    public void OnLevelWasLoaded(int level)
-    {
-        StartGame();
-        StartCoroutine(SetMusic(level));
-    }
-
-    public IEnumerator SetMusic(int level)
-    {
-        yield return new WaitForSeconds(0.1f);
-        audioManager.StopAll();
-        if (level == 0)
-        {
-            audioManager.Play("MainMenuMusic2");
-        }
-        if (level == 1)
-        {
-            audioManager.Play("InGameMusic3");
-        }
-    }
+    }    
 
     public void ChangeScene(string scene)
     {        
