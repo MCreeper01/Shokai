@@ -18,7 +18,7 @@ public class PSIdle : PlayerState {
 
     public override void FixedUpdate(PlayerController pc)
     {
-
+        pc.Aim();
     }
 
     public override void Update(PlayerController pc)
