@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e75a28ae98272394a9fd158bec517357, type: 3}
+  m_Name: PlayerModel
+  m_EditorClassIdentifier: 
+  MAX_HEALTH: 100
+  MAX_SHIELD: 100
+  MAX_CHARGER_AMMO_AR: 30
+  yawRotationalSpeed: 360
+  pitchRotationalSpeed: 180
+  minPitch: -80
+  maxPitch: 50
+  invertedYaw: 0
+  invertedPitch: 1
+  speed: 10
+  leftKeyCode: 97
+  rightKeyCode: 100
+  upKeyCode: 119
+  downKeyCode: 115
+  interactKey: 101
+  runKeyCode: 304
+  jumpKeyCode: 32
+  fastSpeedMultiplier: 1.2
+  jumpSpeed: 5
+  shootARCooldown: 0.3
+  mouseShootButton: 0
+  rangeAR: 100
+  fireRateAR: 10
+  damageAR: 50
+  godMode: 57
