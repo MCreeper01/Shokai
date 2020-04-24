@@ -6,18 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class UIController : AController
 {
-
     [Header("Canvas")]
-    public Image fadePanel;
-    public GameObject interact;
+    public Image fadePanel;    
     public GameObject HUD;
+    public GameObject shopInterface;
     public GameObject pause;
     public GameObject gameOver;
 
     [Header("HUD")]
-    public Image healthBar;
-    public Image energyBar;
-    //public GameObject interactiveText;
+    public Text bulletAR;
+    public Text interactiveText;
+
+    [Header("SHOP")]
+    public Text description;
 
     [Header("Pause")]
     public bool paused;
@@ -26,19 +27,14 @@ public class UIController : AController
     {
         //gameOver.SetActive(false);
 
-        //interactiveText.SetActive(false);
+        shopInterface.SetActive(false);
+        interactiveText.gameObject.SetActive(false);
     }
 
     // Use this for initialization
-    public void StartGame(bool restart)
+    public void StartGame()
     {
-        interact.SetActive(false);
-        paused = false;
-        pause.SetActive(false); //No funciona al start game, però si a l'awake
-        fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, 0);
-
-        ChangeLife(100);
-        ChangeEnergy(100);
+        ChangeARAmmo(gc.player.playerModel.MAX_CHARGER_AMMO_AR);
     }
 
     // Update is called once per frame
@@ -49,44 +45,41 @@ public class UIController : AController
 
     public void Pause()
     {
-        gc.audioManager.Stop("Footsteps");
-        paused = !paused;
+        /*paused = !paused;
         pause.SetActive(paused);
-        Time.timeScale = paused ? 0 : 1;
+        Time.timeScale = paused ? 0 : 1;*/
     }
 
     public void ChangeLife(float value)
     {
-        healthBar.fillAmount = value / 100;
+        //healthBar.fillAmount = value / 100;
+    }
+
+    public void Shop()
+    {
+        shopInterface.SetActive(!shopInterface.activeSelf);
+    }
+
+    public void ChangeARAmmo(float value)
+    {
+        bulletAR.text = value.ToString();
     }
 
     public void ChangeEnergy(float value)
     {
-        energyBar.fillAmount = value / 100;
-    }
+        //energyBar.fillAmount = value / 100;
+    }   
 
-    public void EnableDoorText(bool haveKey)
+    public void ShowInteractiveText(string text)
     {
-        interact.SetActive(true);
-        Text text = interact.GetComponentInChildren<Text>();
-        text.text = haveKey ? "Press [" + gc.player.playerModel.interactKey + "] to open door." : "You need a key to open this door.";
-    }
-
-    public void DisableDoorText()
-    {
-        interact.SetActive(false);
-    }
-
-    /*public void ShowInteractiveText(string text)
-    {
-        interactiveText.GetComponentInChildren<Text>().text = text;
-        interactiveText.SetActive(true);
+        interactiveText.text = text;
+        interactiveText.gameObject.SetActive(true);
     }
 
     public void HideInteractiveText()
     {
-        interactiveText.SetActive(false);
-    }*/
+        interactiveText.gameObject.SetActive(false);
+    }
 
 
     public void GameOver(bool show)

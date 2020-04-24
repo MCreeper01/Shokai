@@ -13,12 +13,15 @@ public class PSIdle : PlayerState {
 
     public override void CheckTransition(PlayerController pc)
     {
-        if (Input.GetMouseButtonDown(pc.playerModel.mouseShootButton)) pc.ChangeState(new PSAttack(pc));
+        if (pc.moving) pc.ChangeState(new PSMovement(pc));
+        if (Input.GetMouseButton(pc.playerModel.mouseShootButton)) pc.ChangeState(new PSShoot(pc));
     }
 
     public override void FixedUpdate(PlayerController pc)
     {
         pc.Aim();
+        if (Input.GetKeyDown(pc.playerModel.reloadKeyCode) && pc.CanReload()) pc.ReloadAR();
+        if (Input.GetKeyDown(pc.playerModel.interactKey) && pc.atShop) pc.Shop(true);
     }
 
     public override void Update(PlayerController pc)

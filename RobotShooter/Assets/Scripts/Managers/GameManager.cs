@@ -34,9 +34,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     private void StartGame()
     {
-        if (player != null /*&& checkpointController != null*/) player.StartGame();
-        if (uiController != null) uiController.StartGame(false);
-        //if (checkpointController != null) checkpointController.StartGame();
+        if (player != null) player.StartGame();
+        if (uiController != null && player != null) uiController.StartGame();
         if (audioManager != null) audioManager.StartGame();
         isGameRunning = true;
     }
@@ -56,7 +55,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isGameRunning) StartGame();     
+        if (!isGameRunning) Invoke("StartGame", .1f);     
     }    
 
     public void ChangeScene(string scene)
