@@ -33,11 +33,13 @@ public class PlayerModel : ScriptableObject
     public float jumpSpeed = 5;
 
     [Header("SHOOT")]
+    public KeyCode reloadKeyCode = KeyCode.R;
     public float shootARCooldown = 0.3f;
     public int mouseShootButton = 0;
     public float rangeAR = 100f;
     public float fireRateAR = 10f;    
     public float damageAR = 50;
+    public float shootForce = 100;
 
     [Header("TESTING")]
     public KeyCode godMode = KeyCode.Alpha9;
