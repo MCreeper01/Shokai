@@ -17,9 +17,13 @@ public class RoundController : MonoBehaviour
     public float spawnTime;
     public float fightTime;
 
+    [Header("Maps")]
+    public Map[] maps;
+
     [Header("Debug")]
     public int currentPeak;
     public int currentRound;
+    public int currentMap;
 
     private int currentEnemies; //Total enemies on screen
     private int minEnemies; //Change depending on peak
@@ -27,10 +31,10 @@ public class RoundController : MonoBehaviour
 
     private float elapsedTime;
 
-
     // Start is called before the first frame update
     void Start()
     {
+        currentMap = 2; //Remove in the future!!!
         currentRound = 0;
         currentPeak = 0;
         elapsedTime = 0;
@@ -88,8 +92,11 @@ public class RoundController : MonoBehaviour
             case State.INITIAL:
                 break;
             case State.PREPARATION:
-                currentPeak = 1;
+                currentPeak = 0;
                 currentRound++;
+                if (currentMap == 1) currentMap = 2; //Remove in the future!!!
+                else currentMap = 1; //Remove in the future!!!
+                LoadCurrentMap();
                 break;
             case State.SPAWN:
                 currentPeak++;
@@ -103,4 +110,22 @@ public class RoundController : MonoBehaviour
         elapsedTime = 0;
         currentState = newState;
     }
+
+    void LoadCurrentMap()
+    {
+        foreach (Map m in maps)
+        {
+            m.map.SetActive(false);
+            if (m.id == currentMap) m.map.SetActive(true);
+        }
+
+        switch (currentMap)
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+    }
+
 }
