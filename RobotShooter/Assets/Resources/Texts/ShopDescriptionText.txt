@@ -1,0 +1,5 @@
+
+jetpack
+granade
+laser
+mine

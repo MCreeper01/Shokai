@@ -102,7 +102,7 @@ public class PlayerController : AController
         {
             godMode = !godMode;
             Debug.Log("God Mode: " + (godMode ? "enabled" : "disabled"));
-        }        
+        }
         //#endif
     }
 
@@ -279,9 +279,17 @@ public class PlayerController : AController
 
     public void Shop(bool show)
     {
-        gc.uiController.Shop();
-        if (show) ChangeState(new PSUncontrolable(this));
-        else ChangeState(new PSIdle(this));
+        gc.uiController.shopInterface.SetActive(!gc.uiController.shopInterface.activeSelf);
+        if (show)
+        {
+            ChangeState(new PSUncontrolable(this));
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            ChangeState(new PSMovement(this));
+            Cursor.lockState = CursorLockMode.Locked;
+        } 
     }
 
     public void Die()

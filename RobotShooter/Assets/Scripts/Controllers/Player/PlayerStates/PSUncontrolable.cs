@@ -18,11 +18,11 @@ public class PSUncontrolable : PlayerState
 
     public override void FixedUpdate(PlayerController pc)
     {
-        if (Input.GetKeyDown(pc.playerModel.interactKey) && pc.atShop) pc.Shop(false);
+        //if (Input.GetKeyDown(pc.playerModel.interactKey) && pc.atShop) pc.Shop(false);
     }
 
     public override void Update(PlayerController pc)
     {
-
+        if (Input.GetKeyDown(pc.playerModel.interactKey) && pc.atShop) pc.Shop(false);
     }
 }
