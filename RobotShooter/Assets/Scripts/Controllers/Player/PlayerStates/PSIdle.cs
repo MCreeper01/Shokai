@@ -20,8 +20,8 @@ public class PSIdle : PlayerState {
     public override void FixedUpdate(PlayerController pc)
     {
         pc.Aim();
+        pc.Move();
         if (Input.GetKeyDown(pc.playerModel.reloadKeyCode) && pc.CanReload()) pc.ReloadAR();
-        if (Input.GetKeyDown(pc.playerModel.interactKey) && pc.atShop) pc.Shop(true);
     }
 
     public override void Update(PlayerController pc)
