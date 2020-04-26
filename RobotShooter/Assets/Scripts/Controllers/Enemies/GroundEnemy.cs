@@ -8,6 +8,7 @@ public class GroundEnemy : MonoBehaviour
     public enum State { INITIAL, CHASE, ATTACK, HIT, DEATH }
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
+
     public Transform player;
     [Header("Stats")]
     public float health;
@@ -15,11 +16,13 @@ public class GroundEnemy : MonoBehaviour
     public float maxDistAttack;
     public float healthLostByHit;
 
+    NavMeshSurface[] surfaces;
+
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
+        
         
     }
 
