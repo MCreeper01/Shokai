@@ -327,25 +327,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  maxEnemies: 0
-  maxPeaks: 3
-  numMaps: 0
+  maxEnemiesOnScreen: 0
+  peakEnemySpawnPercentages: 23000000140000002d000000
+  enemySpawners: []
   preparationTime: 2
   spawnTime: 2
   fightTime: 2
   maps:
   - id: 1
     difficulty: 0
-    enemySpawnPercentage:
-    - 20
-    - 80
+    enemySpawnPercentage: 3200000032000000
     map: {fileID: 1927994406}
+    bake: {fileID: 0}
   - id: 2
     difficulty: 2
-    enemySpawnPercentage:
-    - 50
-    - 50
+    enemySpawnPercentage: 0a0000005a000000
     map: {fileID: 1696242255}
+    bake: {fileID: 0}
   currentPeak: 0
   currentRound: 0
   currentMap: 0
