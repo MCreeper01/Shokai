@@ -16,7 +16,7 @@ public class GroundEnemy : MonoBehaviour
     public float maxDistAttack;
     public float healthLostByHit;
 
-    NavMeshSurface[] surfaces;
+    public NavMeshSurface[] surfaces;
 
     // Start is called before the first frame update
     void Start()
