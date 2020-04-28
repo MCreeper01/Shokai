@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class RoundController : MonoBehaviour
 {
@@ -10,9 +11,12 @@ public class RoundController : MonoBehaviour
 
     [Header("EnemySpawns")]
     public int maxEnemiesOnScreen;
-    private int minEnemies; //If enemies are below this number, next peak will start
-    public int[] peakEnemySpawnPercentages = new int[PEAKS];
-    public GameObject[] enemySpawners;
+    public int minEnemiesForNextPeak; //If enemies are below this number, next peak will start
+    public int firstRoundTotalEnemies;
+    public Enemy[] enemies;
+    public Transform[] groundedEnemySpawners;
+    public Transform[] airEnemySpawners;
+    public int[] peakEnemySpawnPercentages; //Percantage of each kind of enemy depending on the peak (the leagth of the array is the number of peaks for each round)
 
     private int roundTotalEnemies;
     private int currentEnemies; //Total enemies on screen
@@ -33,17 +37,6 @@ public class RoundController : MonoBehaviour
 
     private float elapsedTime;
 
-    private const int PEAKS = 3;
-
-    void OnValidate()
-    {
-        if (peakEnemySpawnPercentages.Length != PEAKS)
-        {
-            Debug.LogWarning("Peak Percentage array length cannot be changed on the inspector, please ask MCreeper00 if you want more info :)");
-            Array.Resize(ref peakEnemySpawnPercentages, PEAKS);
-        }
-    }
-
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +44,7 @@ public class RoundController : MonoBehaviour
         currentRound = 0;
         currentPeak = 0;
         elapsedTime = 0;
+        roundTotalEnemies = firstRoundTotalEnemies;
     }
 
     // Update is called once per frame
@@ -65,13 +59,12 @@ public class RoundController : MonoBehaviour
                 if (elapsedTime >= preparationTime) ChangeState(State.SPAWN);
                 break;
             case State.SPAWN:
-                SpawnEnemies();
                 if (elapsedTime >= spawnTime) ChangeState(State.FIGHT);
                 break;
             case State.FIGHT:
                 if (elapsedTime >= fightTime) //O enemics més petit que el mínim
                 {
-                    if (currentPeak < PEAKS) ChangeState(State.SPAWN);
+                    if (currentPeak < peakEnemySpawnPercentages.Length) ChangeState(State.SPAWN);
                     else ChangeState(State.CLEAR);
                 }
                 break;
@@ -114,6 +107,7 @@ public class RoundController : MonoBehaviour
                 break;
             case State.SPAWN:
                 currentPeak++;
+                SpawnEnemies();
                 break;
             case State.FIGHT:
                 break;
@@ -127,8 +121,6 @@ public class RoundController : MonoBehaviour
 
     void SpawnEnemies()
     {
-        roundTotalEnemies = 30; //remove later
-
         Map currentMap = null;
         foreach (Map m in maps)
         {
@@ -136,25 +128,37 @@ public class RoundController : MonoBehaviour
         }
 
         int peakTotalEnemies = roundTotalEnemies * peakEnemySpawnPercentages[currentPeak - 1] / 100; //This number represents the amout of enemies that will be spawned during this peak.
-        int[] peakTotalEnemiesPerEnemyType = new int[currentMap.enemySpawnPercentage.Length]; //This array represents the amout of enemies of each type that will be spawned during this peak.
-        float[] spawnRateTimePerEnemyType = new float[peakTotalEnemiesPerEnemyType.Length]; //This array represents the time between the enemy spawns of each type during this peak.
+        int[] peakTotalEnemiesPerEnemyType = new int[enemies.Length]; //This array represents the amout of enemies of each type that will be spawned during this peak.
+        float[] spawnRateTimePerEnemyType = new float[enemies.Length]; //This array represents the time between the enemy spawns of each type during this peak.
 
-        for (int i = 0; i < peakTotalEnemiesPerEnemyType.Length; i++)
+        for (int i = 0; i < enemies.Length; i++)
         {
             peakTotalEnemiesPerEnemyType[i] = peakTotalEnemies * currentMap.enemySpawnPercentage[i] / 100;
             spawnRateTimePerEnemyType[i] = spawnTime / peakTotalEnemiesPerEnemyType[i];
+            StartCoroutine(SpawnTimer(i, spawnRateTimePerEnemyType[i]));
         }
+    }
+
+    IEnumerator SpawnTimer(int id, float time)
+    {
+        Transform spawnPoint;
+        if (enemies[id].dimension == Enemy.Dimension.GROUND) spawnPoint = groundedEnemySpawners[UnityEngine.Random.Range(0, groundedEnemySpawners.Length)];
+        else spawnPoint = airEnemySpawners[UnityEngine.Random.Range(0, airEnemySpawners.Length)];
+        Instantiate(enemies[id].enemyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+
+        yield return new WaitForSeconds(time);
+        if (currentState == State.SPAWN) StartCoroutine(SpawnTimer(id, time));
     }
 
     void LoadCurrentMap()
     {
         foreach (Map m in maps)
         {
-            m.map.SetActive(false);
+            m.mapPrefab.SetActive(false);
             //m.bake.SetActive(false);
             if (m.id == currentMap)
             {
-                m.map.SetActive(true);
+                m.mapPrefab.SetActive(true);
                 //m.bake.SetActive(true);
             }
         }
