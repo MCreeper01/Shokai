@@ -16,8 +16,6 @@ public class GroundEnemy : MonoBehaviour
     public float maxDistAttack;
     public float healthLostByHit;
 
-    public NavMeshSurface[] surfaces;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -84,13 +82,13 @@ public class GroundEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                Debug.Log("Chase");
+                //Debug.Log("Chase");
                 InvokeRepeating("GoToTarget", 0, 1f);
                 
                 agent.isStopped = false;
                 break;
             case State.ATTACK:
-                Debug.Log("Attack");
+                //Debug.Log("Attack");
                 break;
             case State.HIT:
                 health -= healthLostByHit;

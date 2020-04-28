@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class FlyingEnemy : MonoBehaviour
 {
-    public enum State { INITIAL, CHASE, ATTACK, GO_BACK, HIT, DEATH }
+    public enum State { INITIAL, CHASE, AVOID1, AVOID2, ATTACK, GO_BACK, HIT, DEATH }
     public State currentState = State.INITIAL;
 
+    NavMeshAgent agent;
     public Transform player;
     [Header("Stats")]
     public float health;
@@ -20,10 +22,19 @@ public class FlyingEnemy : MonoBehaviour
     Vector3 direction;
     float elapsedTime = 0;
 
+    Ray[] rays;
+
     // Start is called before the first frame update
     void Start()
     {
+        agent = GetComponent<NavMeshAgent>();
+        agent.enabled = false;
+
+        rays = new Ray[3];
         
+        rays[0].direction = transform.forward;        
+        rays[1].direction = transform.forward;        
+        rays[2].direction = transform.forward;
     }
 
     // Update is called once per frame
@@ -45,15 +56,38 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                     break;
                 }
-                transform.LookAt(direction);
-                AvoidObstacles();
-                if (elapsedTime >= 0.5f)
-                {
-                    direction = (player.transform.position - transform.position).normalized;
-                    elapsedTime = 0;
-                }
+                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
+                AvoidObstacles();               
                 transform.position += direction * speed * Time.deltaTime;
-                elapsedTime += Time.deltaTime;
+                break;
+            case State.AVOID1:
+                if (health <= 0)
+                {
+                    ChangeState(State.DEATH);
+                    break;
+                }
+                if (DistanceToTargetSquared(gameObject, player.gameObject) <= minDistAttack * minDistAttack)
+                {
+                    ChangeState(State.ATTACK);
+                    break;
+                }
+                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
+                AvoidObstacles2();                
+                break;
+            case State.AVOID2:
+                if (health <= 0)
+                {
+                    ChangeState(State.DEATH);
+                    break;
+                }
+                if (DistanceToTargetSquared(gameObject, player.gameObject) <= minDistAttack * minDistAttack)
+                {
+                    ChangeState(State.ATTACK);
+                    break;
+                }
+                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
+                AvoidObstacles2();
+                transform.position += direction * speed * Time.deltaTime;
                 break;
             case State.ATTACK:
                 if (health <= 0)
@@ -61,6 +95,12 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.DEATH);
                     break;
                 }
+                if (DistanceToTargetSquared(gameObject, player.gameObject) >= maxDistAttack * maxDistAttack)
+                {
+                    ChangeState(State.CHASE);
+                    break;
+                }
+                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
                 break;
             case State.GO_BACK:
                 if (health <= 0)
@@ -68,8 +108,10 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.DEATH);
                     break;
                 }
+                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
                 break;
             case State.HIT:
+                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
                 break;
             case State.DEATH:
                 Destroy(gameObject, 1f);
@@ -82,6 +124,12 @@ public class FlyingEnemy : MonoBehaviour
         switch (currentState)
         {
             case State.CHASE:
+                break;
+            case State.AVOID1:
+                agent.isStopped = true;
+                agent.enabled = false;
+                break;
+            case State.AVOID2:
                 break;
             case State.ATTACK:
                 break;
@@ -96,9 +144,22 @@ public class FlyingEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                direction = (player.transform.position - transform.position).normalized;
+                Debug.Log("Chase");
+                direction = (new Vector3(player.position.x, player.position.y + 1, player.position.z) - transform.position).normalized;
+                break;
+            case State.AVOID1:
+                Debug.Log("Avoid1");
+                agent.enabled = true;
+                agent.destination = new Vector3(player.position.x, player.position.y + 1, player.position.z);
+                agent.baseOffset = transform.position.y;
+                agent.isStopped = false;
+                break;
+            case State.AVOID2:
+                Debug.Log("Avoid2");
+                direction = new Vector3(direction.x, 0, direction.z);
                 break;
             case State.ATTACK:
+                Debug.Log("Attack");
                 break;
             case State.GO_BACK:
                 break;
@@ -123,33 +184,55 @@ public class FlyingEnemy : MonoBehaviour
 
     void AvoidObstacles()
     {
-        Vector3 rayDirection;
-        int lastRay;
-        RaycastHit hit;
-        /*
-        for (int r = -1; r < 3; r++)
+        rays[0].origin = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+        rays[1].origin = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+        rays[2].origin = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+        rays[0].direction = rayPoints[0].transform.position - rays[0].origin;
+        rays[1].direction = rayPoints[1].transform.position - rays[1].origin;
+        rays[2].direction = rayPoints[2].transform.position - rays[2].origin;
+        RaycastHit hit;        
+        for (int i = 0; i < rays.Length; i++)
         {
-            for (int c = -1; c < 3; c++)
+            if (Physics.Raycast(rays[i], out hit, 3))
             {
-                //rayDirection = new Vector3(transform.forward.x + (Mathf.Cos(c) * Mathf.Cos(r)), transform.forward.y + (Mathf.Cos(c) * Mathf.Sin(r)), Mathf.Sin(c));
-                //rayDirection = new Vector3((transform.forward + (c * transform.right)).normalized, transform.forward + (c * transform.right).normalized), 0);
-                //rayDirection = Quaternion.Euler(0, rayAngle, 0).eulerAngles * transform.forward;
-                if (Physics.Raycast(transform.position, rayDirection, out hit, Mathf.Infinity))
+                if (hit.normal.normalized == new Vector3(0, 1, 0))
                 {
-                    
+                    ChangeState(State.AVOID2);
+                    break;
                 }
-                Debug.DrawRay(transform.position, rayDirection * 1000, Color.red);
+                else
+                {
+                    ChangeState(State.AVOID1);
+                    break;
+                }
             }
-        }*/
-        
-        for (int i = 0; i < 9; i++)
+            Debug.DrawRay(rays[i].origin, rays[i].direction * 3, Color.red);
+        }
+    }
+    void AvoidObstacles2()
+    {
+        rays[0].origin = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+        rays[1].origin = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+        rays[2].origin = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+        rays[0].direction = rayPoints[0].transform.position - rays[0].origin;
+        rays[1].direction = rayPoints[1].transform.position - rays[1].origin;
+        rays[2].direction = rayPoints[2].transform.position - rays[2].origin;
+        RaycastHit hit;
+        bool hasHitted = false;
+
+        for (int i = 0; i < rays.Length; i++)
         {
-            rayDirection = (rayPoints[i].transform.position - transform.position).normalized;
-            if (Physics.Raycast(transform.position, rayDirection, out hit, 2))
+            if (Physics.Raycast(rays[i], out hit, 3))
             {
-                direction = new Vector3(transform.forward.x + hit.normal.x, 0, transform.forward.z + hit.normal.z);
+                hasHitted = true;
+                break;
             }
-            Debug.DrawRay(transform.position, rayDirection * 2, Color.red);
+            Debug.DrawRay(rays[i].origin, rays[i].direction * 3, Color.red);
+        }
+
+        if (!hasHitted)
+        {
+            ChangeState(State.CHASE);
         }
     }
 }
