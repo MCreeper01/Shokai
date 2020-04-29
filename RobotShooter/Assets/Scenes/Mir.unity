@@ -571,9 +571,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  maxEnemiesOnScreen: 0
-  minEnemiesForNextPeak: 0
+  maxEnemiesOnScreen: 8
   firstRoundTotalEnemies: 30
+  totalEnemiesIncrementPerRound: 10
+  minEnemiesPercentage: 50
   enemies:
   - name: GroundEnemy
     enemyPrefab: {fileID: 4818868987153150698, guid: 38575aae982d4cb4fb9e5ddd44611dae,
@@ -596,7 +597,7 @@ MonoBehaviour:
   peakEnemySpawnPercentages: 23000000140000002d000000
   preparationTime: 2
   spawnTime: 2
-  fightTime: 2
+  fightTime: 30
   maps:
   - id: 1
     difficulty: 0
@@ -611,6 +612,10 @@ MonoBehaviour:
   currentPeak: 0
   currentRound: 0
   currentMap: 0
+  roundTotalEnemies: 0
+  currentEnemies: 0
+  minEnemies: 0
+  extraEnemies: 
 --- !u!4 &1815823321
 Transform:
   m_ObjectHideFlags: 0
