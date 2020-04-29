@@ -92,6 +92,7 @@ public class GroundEnemy : MonoBehaviour
                 break;
             case State.HIT:
                 health -= healthLostByHit;
+                Invoke("ChangeTo", 1.0f);
                 break;
             case State.DEATH:
                 break;
@@ -121,5 +122,10 @@ public class GroundEnemy : MonoBehaviour
         {
             ChangeState(State.HIT);
         }
+    }
+
+    void ChangeTo()
+    {
+        ChangeState(State.ATTACK);
     }
 }

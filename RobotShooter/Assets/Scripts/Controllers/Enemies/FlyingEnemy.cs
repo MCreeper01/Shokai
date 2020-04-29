@@ -10,10 +10,14 @@ public class FlyingEnemy : MonoBehaviour
 
     NavMeshAgent agent;
     public Transform player;
+    public GameObject bullet;
+    public Transform cannon;
+    public LayerMask mask;
     [Header("Stats")]
     public float health;
     public float minDistAttack;
     public float maxDistAttack;
+    public float goBackDist;
     public float healthLostByHit;
     public float speed;
     //public float rayAngle;
@@ -23,6 +27,10 @@ public class FlyingEnemy : MonoBehaviour
     float elapsedTime = 0;
 
     Ray[] rays;
+    Ray playerRay;
+    RaycastHit rayHit;
+    NavMeshHit hit;
+    float height;
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +39,6 @@ public class FlyingEnemy : MonoBehaviour
         agent.enabled = false;
 
         rays = new Ray[3];
-        
-        rays[0].direction = transform.forward;        
-        rays[1].direction = transform.forward;        
-        rays[2].direction = transform.forward;
     }
 
     // Update is called once per frame
@@ -51,13 +55,30 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.DEATH);
                     break;
                 }
+                if (DistanceToTargetSquared(gameObject, player.gameObject) <= goBackDist * goBackDist)
+                {
+                    ChangeState(State.GO_BACK);
+                    break;
+                }
                 if (DistanceToTargetSquared(gameObject, player.gameObject) <= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                     break;
                 }
                 transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
-                AvoidObstacles();               
+                //AvoidObstacles();
+                if (PlayerHit())
+                {
+                    if (rayHit.distance < 3)
+                    {
+                        ChangeState(State.AVOID1);
+                    }
+                    else
+                    {
+
+                    }
+                }
+                //height = Mathf.Lerp(transform.position.y, player.position.y, Mathf.Clamp01(DistanceToTarget(gameObject, player.gameObject)));
                 transform.position += direction * speed * Time.deltaTime;
                 break;
             case State.AVOID1:
@@ -72,7 +93,17 @@ public class FlyingEnemy : MonoBehaviour
                     break;
                 }
                 transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
-                AvoidObstacles2();                
+                //agent.baseOffset = Mathf.Lerp(transform.position.y, player.position.y, Mathf.Lerp(0, agent.remainingDistance, Time.deltaTime));//lerp d'altura //lerp de distància
+                if (transform.position.y <= player.position.y)
+                {
+                    agent.baseOffset = Mathf.Lerp(transform.position.y, player.position.y + Random.Range(10, 25), 0.1f * Time.deltaTime);
+                }                
+                //AvoidObstacles2();
+                if (!PlayerHit())
+                {
+                    ChangeState(State.CHASE);
+                }
+                elapsedTime += Time.deltaTime;
                 break;
             case State.AVOID2:
                 if (health <= 0)
@@ -95,6 +126,11 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.DEATH);
                     break;
                 }
+                if (DistanceToTargetSquared(gameObject, player.gameObject) <= goBackDist * goBackDist)
+                {
+                    ChangeState(State.GO_BACK);
+                    break;
+                }
                 if (DistanceToTargetSquared(gameObject, player.gameObject) >= maxDistAttack * maxDistAttack)
                 {
                     ChangeState(State.CHASE);
@@ -108,7 +144,12 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.DEATH);
                     break;
                 }
+                if (DistanceToTargetSquared(gameObject, player.gameObject) >= minDistAttack * minDistAttack)
+                {
+                    ChangeState(State.ATTACK);
+                }
                 transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
+                transform.position += direction * speed * Time.deltaTime;
                 break;
             case State.HIT:
                 transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
@@ -126,12 +167,12 @@ public class FlyingEnemy : MonoBehaviour
             case State.CHASE:
                 break;
             case State.AVOID1:
-                agent.isStopped = true;
-                agent.enabled = false;
+                Invoke("StopPathfinding", 0.5f);
                 break;
             case State.AVOID2:
                 break;
             case State.ATTACK:
+                CancelInvoke("InstanceBullet");
                 break;
             case State.GO_BACK:
                 break;
@@ -160,10 +201,14 @@ public class FlyingEnemy : MonoBehaviour
                 break;
             case State.ATTACK:
                 Debug.Log("Attack");
+                InvokeRepeating("InstanceBullet", 0, 0.5f);
                 break;
             case State.GO_BACK:
+                direction = -transform.forward * 2;
                 break;
             case State.HIT:
+                health -= healthLostByHit;
+                Invoke("ChangeTo", 1.0f);
                 break;
             case State.DEATH:
                 break;
@@ -193,7 +238,7 @@ public class FlyingEnemy : MonoBehaviour
         RaycastHit hit;        
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], out hit, 3))
+            if (Physics.Raycast(rays[i], out hit, 3, mask.value))
             {
                 if (hit.normal.normalized == new Vector3(0, 1, 0))
                 {
@@ -202,6 +247,7 @@ public class FlyingEnemy : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log(hit.transform.gameObject);
                     ChangeState(State.AVOID1);
                     break;
                 }
@@ -222,17 +268,54 @@ public class FlyingEnemy : MonoBehaviour
 
         for (int i = 0; i < rays.Length; i++)
         {
-            if (Physics.Raycast(rays[i], out hit, 3))
+            if (Physics.Raycast(rays[i], out hit, 4, mask.value))
             {
                 hasHitted = true;
                 break;
             }
-            Debug.DrawRay(rays[i].origin, rays[i].direction * 3, Color.red);
+            Debug.DrawRay(rays[i].origin, rays[i].direction * 4, Color.red);
         }
 
         if (!hasHitted)
         {
             ChangeState(State.CHASE);
         }
+    }
+
+    bool PlayerHit()
+    {
+        playerRay.origin = transform.position;
+        playerRay.direction = player.position - transform.position;
+        if (Physics.Raycast(playerRay, out rayHit, 50, mask.value))
+        {
+            return true;
+        }
+        Debug.DrawRay(playerRay.origin, playerRay.direction * 50, Color.blue);
+        return false;
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.tag == "PlayerBullet")//tag de la bullet del player
+        {
+            ChangeState(State.HIT);
+        }
+    }
+
+    void ChangeTo()
+    {
+        ChangeState(State.ATTACK);
+    }
+
+    void InstanceBullet()
+    {
+        GameObject b;
+        b = Instantiate(bullet, cannon.position, Quaternion.identity);
+        b.transform.forward = player.transform.position - transform.position;
+    }
+
+    void StopPathfinding()
+    {
+        agent.enabled = false;
     }
 }
