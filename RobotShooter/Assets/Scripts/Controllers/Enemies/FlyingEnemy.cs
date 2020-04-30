@@ -80,6 +80,7 @@ public class FlyingEnemy : MonoBehaviour
                     }
                 }
                 //height = Mathf.Lerp(transform.position.y, player.position.y, Mathf.Clamp01(DistanceToTarget(gameObject, player.gameObject)));
+                direction = (new Vector3(player.position.x, player.position.y + 1, player.position.z) - transform.position).normalized;
                 transform.position += direction * speed * Time.deltaTime;
                 elapsedTime += Time.deltaTime;
                 break;
