@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class FlyingEnemy : MonoBehaviour
 {
-    public enum State { INITIAL, CHASE, AVOID1, AVOID2, ATTACK, GO_BACK, HIT, DEATH }
+    public enum State { INITIAL, CHASE, AVOID1, AVOID2, GO_UP, ATTACK, GO_BACK, HIT, DEATH }
     public State currentState = State.INITIAL;
 
     NavMeshAgent agent;
@@ -47,6 +47,7 @@ public class FlyingEnemy : MonoBehaviour
         switch (currentState)
         {
             case State.INITIAL:
+                elapsedTime = 5.0f;
                 ChangeState(State.CHASE);
                 break;
             case State.CHASE:
@@ -73,13 +74,14 @@ public class FlyingEnemy : MonoBehaviour
                     {
                         ChangeState(State.AVOID1);
                     }
-                    else
+                    else if (elapsedTime >= 5.0f)
                     {
-
+                        ChangeState(State.GO_UP);
                     }
                 }
                 //height = Mathf.Lerp(transform.position.y, player.position.y, Mathf.Clamp01(DistanceToTarget(gameObject, player.gameObject)));
                 transform.position += direction * speed * Time.deltaTime;
+                elapsedTime += Time.deltaTime;
                 break;
             case State.AVOID1:
                 if (health <= 0)
@@ -93,17 +95,17 @@ public class FlyingEnemy : MonoBehaviour
                     break;
                 }
                 transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
-                //agent.baseOffset = Mathf.Lerp(transform.position.y, player.position.y, Mathf.Lerp(0, agent.remainingDistance, Time.deltaTime));//lerp d'altura //lerp de distància
+                /*
                 if (transform.position.y <= player.position.y)
                 {
                     agent.baseOffset = Mathf.Lerp(transform.position.y, player.position.y + Random.Range(10, 25), 0.1f * Time.deltaTime);
-                }                
+                }   */             
                 //AvoidObstacles2();
                 if (!PlayerHit())
                 {
                     ChangeState(State.CHASE);
                 }
-                elapsedTime += Time.deltaTime;
+                
                 break;
             case State.AVOID2:
                 if (health <= 0)
@@ -120,6 +122,18 @@ public class FlyingEnemy : MonoBehaviour
                 AvoidObstacles2();
                 transform.position += direction * speed * Time.deltaTime;
                 break;
+            case State.GO_UP:
+                if (!PlayerHit())
+                {
+                    ChangeState(State.CHASE);
+                }
+                if (elapsedTime >= 2.0f)
+                {
+                    ChangeState(State.CHASE);
+                }
+                transform.position += direction * speed * Time.deltaTime;
+                elapsedTime += Time.deltaTime;
+                break;
             case State.ATTACK:
                 if (health <= 0)
                 {
@@ -135,6 +149,10 @@ public class FlyingEnemy : MonoBehaviour
                 {
                     ChangeState(State.CHASE);
                     break;
+                }
+                if (transform.position.y < player.transform.position.y)
+                {
+                    transform.position += direction * speed * Time.deltaTime;
                 }
                 transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
                 break;
@@ -171,6 +189,8 @@ public class FlyingEnemy : MonoBehaviour
                 break;
             case State.AVOID2:
                 break;
+            case State.GO_UP:
+                break;
             case State.ATTACK:
                 CancelInvoke("InstanceBullet");
                 break;
@@ -186,6 +206,7 @@ public class FlyingEnemy : MonoBehaviour
         {
             case State.CHASE:
                 Debug.Log("Chase");
+                elapsedTime = 0;
                 direction = (new Vector3(player.position.x, player.position.y + 1, player.position.z) - transform.position).normalized;
                 break;
             case State.AVOID1:
@@ -199,8 +220,14 @@ public class FlyingEnemy : MonoBehaviour
                 Debug.Log("Avoid2");
                 direction = new Vector3(direction.x, 0, direction.z);
                 break;
+            case State.GO_UP:
+                Debug.Log("Go Up");
+                elapsedTime = 0;
+                direction = direction + Vector3.up * 10;
+                break;
             case State.ATTACK:
                 Debug.Log("Attack");
+                direction = Vector3.up;
                 InvokeRepeating("InstanceBullet", 0, 0.5f);
                 break;
             case State.GO_BACK:
