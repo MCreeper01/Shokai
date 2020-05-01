@@ -13,18 +13,28 @@ public class PSMovement : PlayerState {
 
     public override void CheckTransition(PlayerController pc)
     {
-        if (Input.GetMouseButton(pc.playerModel.mouseShootButton)) pc.ChangeState(new PSShoot(pc));
+        if (Input.GetMouseButton(pc.playerModel.mouseShootButton) && pc.shooting) pc.CheckWeaponToShoot();
+        if (Input.GetMouseButtonDown(pc.playerModel.mouseShootButton) && !pc.shooting) pc.CheckWeaponToShoot();
     }
 
     public override void FixedUpdate(PlayerController pc)
     {
-        pc.Move();
-        pc.Aim();
-        if (Input.GetKeyDown(pc.playerModel.reloadKeyCode) && pc.CanReload()) pc.ReloadAR();
+       
+        
     }
 
     public override void Update(PlayerController pc)
     {
+        pc.Move();
+        pc.Aim();
         if (Input.GetKeyDown(pc.playerModel.interactKey) && pc.atShop) pc.Shop(true);
+        if (Input.GetKeyDown(pc.playerModel.changeWeaponKey)) pc.ChangeWeapon();
+        if (pc.actualShotgunShootCooldown > 0)
+        {
+            pc.actualShotgunShootCooldown -= Time.deltaTime;
+            if (pc.actualShotgunShootCooldown <= 0) pc.actualShotgunShootCooldown = 0;
+        }
+        pc.CheckHabilities();
+        pc.CoolOverheat();
     }
 }

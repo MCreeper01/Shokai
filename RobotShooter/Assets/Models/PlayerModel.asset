@@ -18,22 +18,50 @@ MonoBehaviour:
   yawRotationalSpeed: 360
   pitchRotationalSpeed: 180
   minPitch: -80
-  maxPitch: 50
+  maxPitch: 70
   invertedYaw: 0
   invertedPitch: 1
-  speed: 10
+  normalSpeed: 10
+  dashSpeedMultiplier: 3
+  crouchSpeedMultiplier: 0.5
   leftKeyCode: 97
   rightKeyCode: 100
   upKeyCode: 119
   downKeyCode: 115
   interactKey: 101
+  dashKey: 304
+  crouchKey: 306
+  alternativeCrouchKey: 99
+  normalControllerCenter: {x: 0, y: 0, z: 0}
+  crouchedControllerCenter: {x: 0, y: 0.3, z: 0}
+  normalControllerHeigh: 2
+  crouchedControllerHeigh: 1.2
+  dashTime: 0.5
   runKeyCode: 304
   jumpKeyCode: 32
   fastSpeedMultiplier: 1.2
   jumpSpeed: 5
-  shootARCooldown: 0.3
+  changeWeaponKey: 102
   mouseShootButton: 0
+  shootARCooldown: 0.1
   rangeAR: 100
   fireRateAR: 10
-  damageAR: 50
+  shootForceAR: 100
+  maxOverheatAR: 100
+  bulletOverheat: 2
+  overHeatNormalReload: 30
+  overHeatSlowReload: 15
+  shootShotgunCooldown: 1
+  rangeShotgun: 20
+  shotgunDamage: 350
+  pelletCount: 12
+  shotgunSpreadAngle: 10
+  launcherCooldown: 0.7
+  shootForceLauncher: 25
+  hability1Key: 49
+  hability2Key: 50
+  hability3Key: 51
+  hability4Key: 52
+  jetpackVerticalSpeed: 10
+  defenseKey: 113
   godMode: 57
