@@ -147,19 +147,6 @@ public class RoundController : MonoBehaviour
             if (m.id == this.currentMap) currentMap = m;
         }
 
-        //int peakTotalEnemies = roundTotalEnemies * peakEnemySpawnPercentages[currentPeak - 1] / 100; //This number represents the amout of enemies that will be spawned during this peak.
-        //int[] peakTotalEnemiesPerEnemyType = new int[enemies.Length]; //This array represents the amout of enemies of each type that will be spawned during this peak.
-        //float[] spawnRateTimePerEnemyType = new float[enemies.Length]; //This array represents the time between the enemy spawns of each type during this peak.
-
-        //if (useMinEnemiesPercentage) minEnemies = (peakTotalEnemies + currentEnemies) * minEnemiesPercentage / 100;
-
-        //for (int i = 0; i < enemies.Length; i++)
-        //{
-        //    peakTotalEnemiesPerEnemyType[i] = peakTotalEnemies * currentMap.enemySpawnPercentage[i] / 100;
-        //    spawnRateTimePerEnemyType[i] = spawnTime / peakTotalEnemiesPerEnemyType[i];
-        //    StartCoroutine(SpawnTimer(i, spawnRateTimePerEnemyType[i]));
-        //}
-
         int peakTotalEnemies = roundTotalEnemies * peakEnemySpawnPercentages[currentPeak - 1] / 100; //This number represents the amout of enemies that will be spawned during this peak.
         if (currentPeak == peakEnemySpawnPercentages.Length) peakTotalEnemies = roundTotalEnemies - enemiesSpawnedOnCurrentRound; //The remaining enemies are spawned on the last peak (this avoid losses on the integer division)
         enemiesSpawnedOnCurrentRound += peakTotalEnemies;
