@@ -571,10 +571,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  maxEnemiesOnScreen: 8
+  maxEnemiesOnScreen: 100
   firstRoundTotalEnemies: 30
   totalEnemiesIncrementPerRound: 10
+  useMinEnemiesPercentage: 1
   minEnemiesPercentage: 50
+  minEnemies: 0
   enemies:
   - name: GroundEnemy
     enemyPrefab: {fileID: 4818868987153150698, guid: 38575aae982d4cb4fb9e5ddd44611dae,
@@ -614,7 +616,7 @@ MonoBehaviour:
   currentMap: 0
   roundTotalEnemies: 0
   currentEnemies: 0
-  minEnemies: 0
+  enemiesSpawnedOnCurrentRound: 0
   extraEnemies: 
 --- !u!4 &1815823321
 Transform:
