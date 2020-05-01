@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class SlotsController : MonoBehaviour
+public class SlotsController : AController
 {
     [Header("Habilities")]
     public Hability[] habilities;
@@ -16,7 +16,7 @@ public class SlotsController : MonoBehaviour
     public RawImage[] defenseSlots;
 
     // Start is called before the first frame update
-    void Start()
+    public void StartGame()
     {
         
     }
@@ -28,13 +28,14 @@ public class SlotsController : MonoBehaviour
     }
 
     public void SetIconToHabilitySlot(string name)
-    {
+    {        
         Hability h = Array.Find(habilities, hability => hability.name == name);
         if (h == null)
         {
             Debug.LogWarning(name + " not found.");
             return;
         }
+        if (h.cost > gc.player.cash) return;
         foreach (RawImage slot in habilitySlots)
         {
             if (!slot.gameObject.activeSelf || slot.gameObject.GetComponent<SlotInfo>().content == h.name)
@@ -47,6 +48,8 @@ public class SlotsController : MonoBehaviour
                 {
                     if (sInfo.charges + h.charges <= h.maxCharges) sInfo.ChangeCharges(h.charges);
                     else sInfo.ChangeCharges(h.maxCharges - h.charges);
+                    gc.player.cash -= h.cost;
+                    gc.uiController.ChangeCash(gc.player.cash);
                 }                
                 return;
             }
@@ -61,6 +64,7 @@ public class SlotsController : MonoBehaviour
             Debug.LogWarning(name + " not found.");
             return;
         }
+        if (d.cost > gc.player.cash) return;
         foreach (RawImage slot in defenseSlots)
         {
             if (!slot.gameObject.activeSelf || slot.gameObject.GetComponent<SlotInfo>().content == d.name)
@@ -73,9 +77,26 @@ public class SlotsController : MonoBehaviour
                 {
                     if (sInfo.charges + d.charges <= d.maxCharges) sInfo.ChangeCharges(d.charges);
                     else sInfo.ChangeCharges(d.maxCharges - d.charges);
-                }
+                    gc.player.cash -= d.cost;
+                    gc.uiController.ChangeCash(gc.player.cash);
+                }                
                 return;
             }
         }
+    }
+
+    public int ReturnCost(string name)
+    {
+        Hability h = Array.Find(habilities, hability => hability.name == name);
+        if (h == null)
+        {
+            h = Array.Find(defenses, defense => defense.name == name);
+            if (h == null)
+            {
+                Debug.LogWarning(name + " not found.");
+                return 0;
+            }                
+        }
+        return h.cost;
     }
 }

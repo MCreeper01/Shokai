@@ -26,4 +26,17 @@ public class SlotInfo : MonoBehaviour
         charges += moreCharges;
         chargesText.text = charges.ToString();
     }
+
+    public void Consume()
+    {
+        charges--;
+        chargesText.text = charges.ToString();
+        if (charges == 0)
+        {
+            content = "None";
+            GetComponent<RawImage>().texture = null;
+            gameObject.SetActive(false);
+        } 
+        
+    }
 }

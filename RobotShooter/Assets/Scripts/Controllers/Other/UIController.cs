@@ -14,11 +14,15 @@ public class UIController : AController
     public GameObject gameOver;
 
     [Header("HUD")]
-    public Text bulletAR;
+    public Image overheatAR;
     public Text interactiveText;
+    public Text cashText;
 
-    [Header("SHOP")]
-    public Text description;
+    [Header("Shop")]
+    public Text jetpackCost;
+    public Text grenadeCost;
+    public Text laserCost;
+    public Text mineCost;
 
     [Header("Pause")]
     public bool paused;
@@ -34,7 +38,12 @@ public class UIController : AController
     // Use this for initialization
     public void StartGame()
     {
-        ChangeARAmmo(gc.player.playerModel.MAX_CHARGER_AMMO_AR);
+        ChangeAROverheat(gc.player.playerModel.MAX_CHARGER_AMMO_AR);
+
+        jetpackCost.text = gc.slotsController.ReturnCost("Jetpack").ToString();
+        grenadeCost.text = gc.slotsController.ReturnCost("Grenade").ToString();
+        laserCost.text = gc.slotsController.ReturnCost("Laser").ToString();
+        mineCost.text = gc.slotsController.ReturnCost("Mine").ToString();
     }
 
     // Update is called once per frame
@@ -55,14 +64,19 @@ public class UIController : AController
         //healthBar.fillAmount = value / 100;
     }
 
+    public void ChangeCash(int value)
+    {
+        cashText.text = "Cash: " + value;
+    }
+
     public void Shop()
     {
         shopInterface.SetActive(!shopInterface.activeSelf);
     }
 
-    public void ChangeARAmmo(float value)
+    public void ChangeAROverheat(float value)
     {
-        bulletAR.text = value.ToString();
+        overheatAR.fillAmount = value / 100;
     }
 
     public void ChangeEnergy(float value)

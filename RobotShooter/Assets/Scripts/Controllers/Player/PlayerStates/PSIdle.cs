@@ -21,7 +21,6 @@ public class PSIdle : PlayerState {
     {
         pc.Aim();
         pc.Move();
-        if (Input.GetKeyDown(pc.playerModel.reloadKeyCode) && pc.CanReload()) pc.ReloadAR();
     }
 
     public override void Update(PlayerController pc)
