@@ -6,9 +6,10 @@ public class GrenadeController : MonoBehaviour
 {
     //public GameObject explosionEffect;
 
-    public float delay = 3f;
-    public float explosionRadius = 5f;
-    public float force = 500f;
+    public float delay;
+    public float explosionRadius;
+    public float force;
+    public float damage;
 
     private float countdownDelay;
     private bool hasExploded = false;
@@ -38,16 +39,22 @@ public class GrenadeController : MonoBehaviour
 
         foreach (Collider nearbyObject in colliders)
         {
-            Rigidbody rgb = nearbyObject.GetComponent<Rigidbody>();
+            /*Rigidbody rgb = nearbyObject.GetComponent<Rigidbody>();
             if (rgb != null)
             {
                 rgb.AddExplosionForce(force, transform.position, explosionRadius);
-            }
+            }*/
 
-            //apply damage
+            GroundEnemy gEnemy = nearbyObject.GetComponent<GroundEnemy>();
+            if (gEnemy != null) gEnemy.TakeDamage(damage);
+            else
+            {
+                FlyingEnemy fEnemy = nearbyObject.GetComponent<FlyingEnemy>();
+                if (fEnemy != null) fEnemy.TakeDamage(damage);
+            }
+            Destroy(gameObject);
         }
 
-        Destroy(gameObject);
-        
+        Destroy(gameObject);        
     }
 }

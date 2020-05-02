@@ -5,10 +5,10 @@ using UnityEditor;
 using UnityEngine;
 using Random = System.Random;
 
-public class RoundController : MonoBehaviour
+public class RoundController : AController
 {
     public enum State { INITIAL, PREPARATION, SPAWN, FIGHT, CLEAR};
-    public State currentState = State.INITIAL;
+    public State currentState;
 
     [Header("EnemySpawns")]
     [Tooltip("Maximum number of enemies that will be displayed on screen.")]
@@ -51,13 +51,30 @@ public class RoundController : MonoBehaviour
     private float elapsedTime;
 
     // Start is called before the first frame update
-    void Start()
+    /*void Start()
     {
         if (useMinEnemiesPercentage) minEnemies = 0;
 
         currentRound = 0;
         currentPeak = 0;
         currentMap = 2; //Remove in the future!!!
+
+        roundTotalEnemies = firstRoundTotalEnemies - totalEnemiesIncrementPerRound;
+        currentEnemies = 0;
+        elapsedTime = 0;
+        enemiesSpawnedOnCurrentRound = 0;
+        extraEnemies = new int[enemies.Length];
+    }*/
+
+    public void StartGame()
+    {
+        currentState = State.INITIAL;
+
+        if (useMinEnemiesPercentage) minEnemies = 0;
+
+        currentRound = 0;
+        currentPeak = 0;
+        currentMap = 2; //Remove in the future!!!        
 
         roundTotalEnemies = firstRoundTotalEnemies - totalEnemiesIncrementPerRound;
         currentEnemies = 0;
@@ -119,6 +136,7 @@ public class RoundController : MonoBehaviour
             case State.PREPARATION:
                 currentPeak = 0;
                 currentRound++;
+                if (gc.uiController != null) gc.uiController.IncreaseRound();
                 roundTotalEnemies += totalEnemiesIncrementPerRound;
                 enemiesSpawnedOnCurrentRound = 0;
                 if (currentMap == 1) currentMap = 2; //Remove in the future!!!
@@ -204,11 +222,11 @@ public class RoundController : MonoBehaviour
     {
         foreach (Map m in maps)
         {
-            m.mapPrefab.SetActive(false);
+            m.map.SetActive(false);
             //m.bake.SetActive(false);
             if (m.id == currentMap)
             {
-                m.mapPrefab.SetActive(true);
+                m.map.SetActive(true);
                 //m.bake.SetActive(true);
             }
         }

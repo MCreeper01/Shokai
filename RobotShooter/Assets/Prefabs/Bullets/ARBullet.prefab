@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1678891417222217493}
   - component: {fileID: 1678891417222217488}
   - component: {fileID: 1678891417222217492}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ARBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 100
   damage: 10
+  duration: 3
 --- !u!135 &1678891417222217488
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -31,12 +31,17 @@ public class PSLaser : PlayerState
     {
         if (!pc.lineRenderer.gameObject.activeSelf) pc.lineRenderer.gameObject.SetActive(true);
         Vector3 endRaycastPos = Vector3.forward * pc.playerModel.laserDistance;
-        RaycastHit l_RaycastHit;
-        if (Physics.Raycast(new Ray(pc.lineRenderer.transform.position, pc.lineRenderer.transform.forward), out l_RaycastHit, pc.playerModel.laserDistance, pc.shootLayerMask.value))
+        RaycastHit hit;
+        if (Physics.Raycast(new Ray(pc.lineRenderer.transform.position, pc.lineRenderer.transform.forward), out hit, pc.playerModel.laserDistance, pc.shootLayerMask.value))
         {
-            endRaycastPos = Vector3.forward * l_RaycastHit.distance;
-            //hacer daño
-
+            endRaycastPos = Vector3.forward * hit.distance;
+            GroundEnemy gEnemy = hit.collider.GetComponent<GroundEnemy>();
+            if (gEnemy != null) gEnemy.TakeDamage(pc.playerModel.laserDamage);
+            else
+            {
+                FlyingEnemy fEnemy = hit.collider.GetComponent<FlyingEnemy>();
+                if (fEnemy != null) fEnemy.TakeDamage(pc.playerModel.laserDamage);
+            }
         }
         pc.lineRenderer.SetPosition(1, endRaycastPos);
         time -= Time.deltaTime;

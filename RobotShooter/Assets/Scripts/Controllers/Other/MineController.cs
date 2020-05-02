@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MineController : MonoBehaviour
 {
-    public float damage = 20;
+    public float damage;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +20,16 @@ public class MineController : MonoBehaviour
 
     void OnTriggerEnter(Collider col)
     {
-        // damage enemies
+        if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            GroundEnemy gEnemy = col.GetComponent<GroundEnemy>();
+            if (gEnemy != null) gEnemy.TakeDamage(damage);
+            else
+            {
+                FlyingEnemy fEnemy = col.GetComponent<FlyingEnemy>();
+                if (fEnemy != null) fEnemy.TakeDamage(damage);
+            }
+            Destroy(gameObject);
+        }
     }
 }

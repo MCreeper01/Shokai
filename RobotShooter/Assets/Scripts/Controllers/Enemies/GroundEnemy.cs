@@ -9,7 +9,7 @@ public class GroundEnemy : MonoBehaviour
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
 
-    public Transform player;
+    [HideInInspector] public PlayerController player;
     [Header("Stats")]
     public float health;
     public float minDistAttack;
@@ -19,9 +19,8 @@ public class GroundEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameManager.instance.player;
         agent = GetComponent<NavMeshAgent>();
-        
-        
     }
 
     // Update is called once per frame
@@ -33,11 +32,6 @@ public class GroundEnemy : MonoBehaviour
                 ChangeState(State.CHASE);
                 break;
             case State.CHASE:
-                if (health <= 0)
-                {
-                    ChangeState(State.DEATH);
-                    break;
-                }
                 if (DistanceToTargetSquared(gameObject, player.gameObject) <= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
@@ -45,11 +39,6 @@ public class GroundEnemy : MonoBehaviour
                 }
                 break;
             case State.ATTACK:
-                if (health <= 0)
-                {
-                    ChangeState(State.DEATH);
-                    break;
-                }
                 if (DistanceToTargetSquared(gameObject, player.gameObject) >= maxDistAttack * maxDistAttack)
                 {
                     ChangeState(State.CHASE);
@@ -57,9 +46,10 @@ public class GroundEnemy : MonoBehaviour
                 }
                 break;
             case State.HIT:
+                if (health <= 0) ChangeState(State.DEATH);
                 break;
             case State.DEATH:
-                Destroy(gameObject, 1f);
+                Destroy(gameObject);//, 1f);
                 break;
         }
     }
@@ -82,23 +72,28 @@ public class GroundEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                //Debug.Log("Chase");
-                InvokeRepeating("GoToTarget", 0, 1f);
-                
+                InvokeRepeating("GoToTarget", 0, 1f);                
                 agent.isStopped = false;
                 break;
             case State.ATTACK:
-                //Debug.Log("Attack");
                 break;
             case State.HIT:
                 health -= healthLostByHit;
                 Invoke("ChangeTo", 1.0f);
                 break;
             case State.DEATH:
+                GameManager.instance.roundController.DecreaseEnemyCount();
                 break;
         }
 
         currentState = newState;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (currentState == State.DEATH) return;
+        ChangeState(State.HIT);
+        health -= damage;
     }
 
     float DistanceToTarget(GameObject me, GameObject target)
@@ -113,7 +108,7 @@ public class GroundEnemy : MonoBehaviour
 
     void GoToTarget()
     {
-        agent.destination = player.position;
+        agent.destination = player.transform.position;
     }
 
     void OnTriggerEnter(Collider collider)

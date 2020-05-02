@@ -6,8 +6,7 @@ public class PSDead : PlayerState
 {
     public PSDead(PlayerController pc)
     {
-        pc.godMode = true;
-        AudioManager.instance.Play("PlayerDeath");
+        
         
     }
 

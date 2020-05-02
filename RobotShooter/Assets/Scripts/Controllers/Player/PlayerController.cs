@@ -116,7 +116,7 @@ public class PlayerController : AController
 
         pitch = 0;
 
-        cash = 1000;
+        cash = 100000;
 
         actualWeapon = Weapon.rifle;
 
@@ -137,6 +137,9 @@ public class PlayerController : AController
         AnyStateUpdate();
         //Debug.Log(currentState);
         //Debug.Log(actualWeapon);
+        //Debug.Log("Gliding: " + gliding);
+        //Debug.Log(readyToGlind);
+        //Debug.Log(onGround);
     }
 
     private void FixedUpdate()
@@ -172,16 +175,13 @@ public class PlayerController : AController
         if (godMode) return;
 
         currentHealth -= damage;
-        gc.uiController.ChangeLife(currentHealth);
+        gc.uiController.ChangeHealth(currentHealth);
 
         if (currentHealth <= 0 && !godMode)
         {
             ChangeState(new PSDead(this));
             return;
         }
-
-        float rnd = Random.Range(1, 5);
-        AudioManager.instance.Play("PlayerHit" + rnd);
 
     }
 
@@ -279,7 +279,7 @@ public class PlayerController : AController
         //GRAVITY
         //…
         if (Input.GetKeyDown(playerModel.jumpKeyCode) != onGround && !readyToGlind) readyToGlind = true;
-        if (verticalSpeed <= 0 && Input.GetKey(playerModel.jumpKeyCode) != onGround && readyToGlind)
+        if (verticalSpeed <= 0 && Input.GetKey(playerModel.jumpKeyCode) && !onGround && readyToGlind)
         {
             readyToGlind = false;
             gliding = true;
@@ -435,9 +435,21 @@ public class PlayerController : AController
         {
             case Weapon.rifle:
                 actualARShootCooldown = playerModel.shootARCooldown;
-                
-                GameObject bulletAR = Instantiate(bulletARPrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
-                bulletAR.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
+                GameObject bulletAR;
+                RaycastHit hitAR;
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitAR, Mathf.Infinity, shootLayerMask))
+                {
+                    Vector3 dir = hitAR.point - bulletSpawner.transform.position;
+                    dir.Normalize();
+                    bulletAR = Instantiate(bulletARPrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
+                    bulletAR.transform.forward = dir;
+                    bulletAR.GetComponent<Rigidbody>().AddForce(dir * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
+                }
+                else
+                {
+                    bulletAR = Instantiate(bulletARPrefab, bulletSpawner.transform.position, Camera.main.transform.rotation);
+                    bulletAR.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
+                }               
 
                 actualOverheat += playerModel.bulletOverheat;
 
@@ -457,14 +469,22 @@ public class PlayerController : AController
                     pellets[i] = Random.rotation;
                     Quaternion rot = Quaternion.RotateTowards(bulletSpawner.transform.rotation, pellets[i], playerModel.shotgunSpreadAngle);
                     RaycastHit hit; 
-                    if (Physics.Raycast(bulletSpawner.transform.position, rot * Vector3.forward, out hit, playerModel.rangeShotgun, shootLayerMask))
+                    if (Physics.Raycast(Camera.main.transform.position, rot * Vector3.forward, out hit, playerModel.rangeShotgun, shootLayerMask))
                     {
-                        Debug.DrawRay(bulletSpawner.transform.position, rot * Vector3.forward, Color.red);   
+                        Debug.DrawRay(Camera.main.transform.position, rot * Vector3.forward, Color.red);   
                         
                         //GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                         GameObject impactHoleGO = Instantiate(impactHole, new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z), Quaternion.LookRotation(hit.normal));
 
                         impactHoleGO.transform.parent = hit.transform;
+
+                        GroundEnemy gEnemy = hit.collider.GetComponent<GroundEnemy>();
+                        if (gEnemy != null) gEnemy.TakeDamage(playerModel.shotgunDamage);
+                        else
+                        {
+                            FlyingEnemy fEnemy = hit.collider.GetComponent<FlyingEnemy>();
+                            if (fEnemy != null) fEnemy.TakeDamage(playerModel.shotgunDamage);
+                        }
 
                         /*imitHoles.Add(impactHoleGO);
 
