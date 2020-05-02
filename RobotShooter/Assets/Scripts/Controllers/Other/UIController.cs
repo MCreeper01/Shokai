@@ -14,9 +14,11 @@ public class UIController : AController
     public GameObject gameOver;
 
     [Header("HUD")]
+    public Image healthbar;
     public Image overheatAR;
     public Text interactiveText;
     public Text cashText;
+    public Text roundCounter;
 
     [Header("Shop")]
     public Text jetpackCost;
@@ -59,9 +61,14 @@ public class UIController : AController
         Time.timeScale = paused ? 0 : 1;*/
     }
 
-    public void ChangeLife(float value)
+    public void ChangeHealth(float value)
     {
-        //healthBar.fillAmount = value / 100;
+        healthbar.fillAmount = value / 100;
+    }
+
+    public void IncreaseRound()
+    {
+        roundCounter.text = gc.roundController.currentRound.ToString();
     }
 
     public void ChangeCash(int value)

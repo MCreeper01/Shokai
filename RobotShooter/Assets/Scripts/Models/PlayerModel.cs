@@ -6,81 +6,81 @@ using UnityEngine;
 public class PlayerModel : ScriptableObject
 {
     [Header("INIT_VALUES")]
-    public float MAX_HEALTH = 100;
-    public float MAX_SHIELD = 100;
-    public int MAX_CHARGER_AMMO_AR = 30;
+    public float MAX_HEALTH;
+    public float MAX_SHIELD;
+    public int MAX_CHARGER_AMMO_AR;
 
     [Header("ROTATION")]
-    public float yawRotationalSpeed = 360.0f;
-    public float pitchRotationalSpeed = 180.0f;
-    public float minPitch = -80.0f;
-    public float maxPitch = 70.0f;    
-    public bool invertedYaw = false;
-    public bool invertedPitch = true;    
+    public float yawRotationalSpeed;
+    public float pitchRotationalSpeed;
+    public float minPitch;
+    public float maxPitch;    
+    public bool invertedYaw;
+    public bool invertedPitch;    
 
     [Header("MOVEMENT")]
-    public float normalSpeed = 10.0f;
-    public float dashSpeedMultiplier = 3.0f;
-    public float crouchSpeedMultiplier = 0.5f;
-    public KeyCode leftKeyCode = KeyCode.A;
-    public KeyCode rightKeyCode = KeyCode.D;
-    public KeyCode upKeyCode = KeyCode.W;
-    public KeyCode downKeyCode = KeyCode.S;
-    public KeyCode interactKey = KeyCode.E;
-    public KeyCode dashKey = KeyCode.LeftShift;
-    public KeyCode crouchKey = KeyCode.LeftControl;
-    public KeyCode alternativeCrouchKey = KeyCode.C;
-    public Vector3 normalControllerCenter = new Vector3(0, 0, 0);
-    public Vector3 crouchedControllerCenter = new Vector3(0, 0.3f, 0);
-    public float normalControllerHeigh = 2;
-    public float crouchedControllerHeigh = 1.2f;
-    public float dashTime = 0.5f;
+    public float normalSpeed;
+    public float dashSpeedMultiplier;
+    public float crouchSpeedMultiplier;
+    public KeyCode leftKeyCode;
+    public KeyCode rightKeyCode;
+    public KeyCode upKeyCode;
+    public KeyCode downKeyCode;
+    public KeyCode interactKey;
+    public KeyCode dashKey;
+    public KeyCode crouchKey;
+    public KeyCode alternativeCrouchKey;
+    public Vector3 normalControllerCenter;
+    public Vector3 crouchedControllerCenter;
+    public float normalControllerHeigh;
+    public float crouchedControllerHeigh;
+    public float dashTime;
 
     [Header("RUN & JUMP")]
-    public KeyCode runKeyCode = KeyCode.LeftShift;
-    public KeyCode jumpKeyCode = KeyCode.Space;
-    public float fastSpeedMultiplier = 1.2f;
-    public float jumpSpeed = 5;
-    public float verticalGlideSpeed = -1;
+    public KeyCode runKeyCode;
+    public KeyCode jumpKeyCode;
+    public float fastSpeedMultiplier;
+    public float jumpSpeed;
+    public float verticalGlideSpeed;
 
     [Header("SHOOT")]
-    public KeyCode changeWeaponKey = KeyCode.F;
-    public int mouseShootButton = 0;
+    public KeyCode changeWeaponKey;
+    public int mouseShootButton;
 
     [Header("ASSAULT RIFLE")]
-    public float shootARCooldown = 0.1f;
-    public float rangeAR = 100f;
-    public float fireRateAR = 10f;    
-    public float shootForceAR = 100;
-    public float maxOverheatAR = 100;
-    public float bulletOverheat = 2;
-    public float overHeatNormalReload = 30;
-    public float overHeatSlowReload = 15;
+    public float shootARCooldown;
+    public float rangeAR; 
+    public float shootForceAR;
+    public float maxOverheatAR;
+    public float bulletOverheat;
+    public float overHeatNormalReload;
+    public float overHeatSlowReload;
 
     [Header("SHOTGUN")]
-    public float shootShotgunCooldown = 1f;
-    public float rangeShotgun = 20f;
-    public float shotgunDamage = 350f;
-    public int pelletCount = 12;
-    public float shotgunSpreadAngle = 10;
+    public float shootShotgunCooldown;
+    public float rangeShotgun;
+    public float shotgunDamage;
+    public int pelletCount;
+    public float shotgunSpreadAngle;
 
     [Header("LAUNCHER")]
-    public float launcherCooldown = 0.7f;
-    public float shootForceLauncher = 25f;
+    public float launcherCooldown;
+    public float shootForceLauncher;
 
     [Header("HABILITIES")]
-    public KeyCode hability1Key = KeyCode.Alpha1;
-    public KeyCode hability2Key = KeyCode.Alpha2;
-    public KeyCode hability3Key = KeyCode.Alpha3;
-    public KeyCode hability4Key = KeyCode.Alpha4;
-    public float jetpackVerticalSpeed = 10f;
-    public float laserDistance = 250.0f;
-    public float laserTime = 3;
+    public KeyCode hability1Key;
+    public KeyCode hability2Key;
+    public KeyCode hability3Key;
+    public KeyCode hability4Key;
+    public float jetpackVerticalSpeed;
+    public float laserDistance;
+    public float laserTime;
+    public float laserDamage;
 
     [Header("DEFENSES")]
-    public KeyCode defenseKey = KeyCode.Q;
-    public float distancePlaceDefense = 3f;
+    public KeyCode defenseKey;
+    public float distancePlaceDefense;
 
     [Header("TESTING")]
-    public KeyCode godMode = KeyCode.Alpha9;
+    public KeyCode godMode;
 }

@@ -9,7 +9,7 @@ public class FlyingEnemy : MonoBehaviour
     public State currentState = State.INITIAL;
 
     NavMeshAgent agent;
-    public Transform player;
+    [HideInInspector] public PlayerController player;
     public GameObject bullet;
     public Transform cannon;
     public LayerMask mask;
@@ -18,7 +18,6 @@ public class FlyingEnemy : MonoBehaviour
     public float minDistAttack;
     public float maxDistAttack;
     public float goBackDist;
-    public float healthLostByHit;
     public float speed;
     //public float rayAngle;
     public GameObject[] rayPoints;
@@ -38,6 +37,8 @@ public class FlyingEnemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.enabled = false;
 
+        player = GameManager.instance.player;
+
         rays = new Ray[3];
     }
 
@@ -51,11 +52,6 @@ public class FlyingEnemy : MonoBehaviour
                 ChangeState(State.CHASE);
                 break;
             case State.CHASE:
-                if (health <= 0)
-                {
-                    ChangeState(State.DEATH);
-                    break;
-                }
                 if (DistanceToTargetSquared(gameObject, player.gameObject) <= goBackDist * goBackDist)
                 {
                     ChangeState(State.GO_BACK);
@@ -66,7 +62,7 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                     break;
                 }
-                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
+                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
                 //AvoidObstacles();
                 if (PlayerHit())
                 {
@@ -80,22 +76,17 @@ public class FlyingEnemy : MonoBehaviour
                     }
                 }
                 //height = Mathf.Lerp(transform.position.y, player.position.y, Mathf.Clamp01(DistanceToTarget(gameObject, player.gameObject)));
-                direction = (new Vector3(player.position.x, player.position.y + 1, player.position.z) - transform.position).normalized;
+                direction = (new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z) - transform.position).normalized;
                 transform.position += direction * speed * Time.deltaTime;
                 elapsedTime += Time.deltaTime;
                 break;
             case State.AVOID1:
-                if (health <= 0)
-                {
-                    ChangeState(State.DEATH);
-                    break;
-                }
                 if (DistanceToTargetSquared(gameObject, player.gameObject) <= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                     break;
                 }
-                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
+                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
                 /*
                 if (transform.position.y <= player.position.y)
                 {
@@ -109,17 +100,12 @@ public class FlyingEnemy : MonoBehaviour
                 
                 break;
             case State.AVOID2:
-                if (health <= 0)
-                {
-                    ChangeState(State.DEATH);
-                    break;
-                }
                 if (DistanceToTargetSquared(gameObject, player.gameObject) <= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                     break;
                 }
-                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
+                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
                 AvoidObstacles2();
                 transform.position += direction * speed * Time.deltaTime;
                 break;
@@ -136,11 +122,6 @@ public class FlyingEnemy : MonoBehaviour
                 elapsedTime += Time.deltaTime;
                 break;
             case State.ATTACK:
-                if (health <= 0)
-                {
-                    ChangeState(State.DEATH);
-                    break;
-                }
                 if (DistanceToTargetSquared(gameObject, player.gameObject) <= goBackDist * goBackDist)
                 {
                     ChangeState(State.GO_BACK);
@@ -155,26 +136,22 @@ public class FlyingEnemy : MonoBehaviour
                 {
                     transform.position += direction * speed * Time.deltaTime;
                 }
-                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
+                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
                 break;
-            case State.GO_BACK:
-                if (health <= 0)
-                {
-                    ChangeState(State.DEATH);
-                    break;
-                }
+            case State.GO_BACK:                
                 if (DistanceToTargetSquared(gameObject, player.gameObject) >= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                 }
-                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
+                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
                 transform.position += direction * speed * Time.deltaTime;
                 break;
             case State.HIT:
-                transform.LookAt(new Vector3(player.position.x, player.position.y + 1, player.position.z));
+                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
+                if (health <= 0) ChangeState(State.DEATH);
                 break;
             case State.DEATH:
-                Destroy(gameObject, 1f);
+                Destroy(gameObject);//, 1f);
                 break;
         }
     }
@@ -206,28 +183,23 @@ public class FlyingEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                Debug.Log("Chase");
                 elapsedTime = 0;
-                direction = (new Vector3(player.position.x, player.position.y + 1, player.position.z) - transform.position).normalized;
+                direction = (new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z) - transform.position).normalized;
                 break;
             case State.AVOID1:
-                Debug.Log("Avoid1");
                 agent.enabled = true;
-                agent.destination = new Vector3(player.position.x, player.position.y + 1, player.position.z);
+                agent.destination = new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
                 agent.baseOffset = transform.position.y;
                 agent.isStopped = false;
                 break;
             case State.AVOID2:
-                Debug.Log("Avoid2");
                 direction = new Vector3(direction.x, 0, direction.z);
                 break;
             case State.GO_UP:
-                Debug.Log("Go Up");
                 elapsedTime = 0;
                 direction = direction + Vector3.up * 10;
                 break;
             case State.ATTACK:
-                Debug.Log("Attack");
                 direction = Vector3.up;
                 InvokeRepeating("InstanceBullet", 0, 0.5f);
                 break;
@@ -235,14 +207,21 @@ public class FlyingEnemy : MonoBehaviour
                 direction = -transform.forward * 2;
                 break;
             case State.HIT:
-                health -= healthLostByHit;
                 Invoke("ChangeTo", 1.0f);
                 break;
             case State.DEATH:
+                GameManager.instance.roundController.DecreaseEnemyCount();
                 break;
         }
 
         currentState = newState;
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (currentState == State.DEATH) return;
+        ChangeState(State.HIT);
+        health -= damage;
     }
 
     float DistanceToTarget(GameObject me, GameObject target)
@@ -313,7 +292,7 @@ public class FlyingEnemy : MonoBehaviour
     bool PlayerHit()
     {
         playerRay.origin = transform.position;
-        playerRay.direction = player.position - transform.position;
+        playerRay.direction = player.transform.position - transform.position;
         if (Physics.Raycast(playerRay, out rayHit, 50, mask.value))
         {
             return true;

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public UIController uiController;
     [HideInInspector] public PlayerController player;
     [HideInInspector] public SlotsController slotsController;
+    [HideInInspector] public RoundController roundController;
     //[HideInInspector] public CheckpointController checkpointController;
     [HideInInspector] public AudioManager audioManager;
     [HideInInspector] public bool isGameRunning = false;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
         if (uiController != null && player != null) uiController.StartGame();
         if (audioManager != null) audioManager.StartGame();
         if (slotsController != null) slotsController.StartGame();
+        if (roundController != null) roundController.StartGame();
         isGameRunning = true;
     }
 
@@ -52,6 +54,8 @@ public class GameManager : MonoBehaviour
             slotsController = (SlotsController)c;
         else if (c is UIController)
             uiController = (UIController)c;
+        else if (c is RoundController)
+            roundController = (RoundController)c;
         //else if (c is CheckpointController)
             //checkpointController = (CheckpointController)c;
     }

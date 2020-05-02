@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5692141774538730582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5692141774538730584}
+  - component: {fileID: 5692141774538730585}
+  m_Layer: 0
+  m_Name: RoundController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5692141774538730584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5692141774538730582}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.007635, y: -2.4145977, z: -10.563226}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5692141774538730585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5692141774538730582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dc14a5684889dd4abea09987a479a46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  maxEnemiesOnScreen: 100
+  firstRoundTotalEnemies: 30
+  totalEnemiesIncrementPerRound: 10
+  useMinEnemiesPercentage: 1
+  minEnemiesPercentage: 50
+  minEnemies: 0
+  enemies:
+  - name: GroundEnemy
+    enemyPrefab: {fileID: 4896865318677097886, guid: cf0dbc8545edfb141a85b5c929a9191d,
+      type: 3}
+    dimension: 0
+  - name: AirEnemy
+    enemyPrefab: {fileID: 1643527431393625981, guid: 42f2f266bdcd8954d870c38200ce1a56,
+      type: 3}
+    dimension: 1
+  groundedEnemySpawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  airEnemySpawners:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  peakEnemySpawnPercentages: 23000000140000002d000000
+  preparationTime: 2
+  spawnTime: 2
+  fightTime: 30
+  maps:
+  - id: 1
+    difficulty: 0
+    enemySpawnPercentage: 3200000032000000
+    map: {fileID: 0}
+    bake: {fileID: 0}
+  - id: 2
+    difficulty: 2
+    enemySpawnPercentage: 0a0000005a000000
+    map: {fileID: 0}
+    bake: {fileID: 0}
+  currentPeak: 0
+  currentRound: 0
+  currentMap: 0
+  roundTotalEnemies: 0
+  currentEnemies: 0
+  enemiesSpawnedOnCurrentRound: 0
+  extraEnemies: 

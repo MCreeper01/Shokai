@@ -41,11 +41,11 @@ MonoBehaviour:
   jumpKeyCode: 32
   fastSpeedMultiplier: 1.2
   jumpSpeed: 5
+  verticalGlideSpeed: -1
   changeWeaponKey: 102
   mouseShootButton: 0
   shootARCooldown: 0.1
   rangeAR: 100
-  fireRateAR: 10
   shootForceAR: 100
   maxOverheatAR: 100
   bulletOverheat: 2
@@ -53,7 +53,7 @@ MonoBehaviour:
   overHeatSlowReload: 15
   shootShotgunCooldown: 1
   rangeShotgun: 20
-  shotgunDamage: 350
+  shotgunDamage: 17
   pelletCount: 12
   shotgunSpreadAngle: 10
   launcherCooldown: 0.7
@@ -63,5 +63,9 @@ MonoBehaviour:
   hability3Key: 51
   hability4Key: 52
   jetpackVerticalSpeed: 10
+  laserDistance: 250
+  laserTime: 3
+  laserDamage: 1000000
   defenseKey: 113
-  godMode: 57
+  distancePlaceDefense: 3
+  godMode: 282

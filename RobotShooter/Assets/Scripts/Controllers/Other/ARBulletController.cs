@@ -6,8 +6,7 @@ public class ARBulletController : MonoBehaviour
 {
     public float speed;
     public float damage;
-
-    private float duration = 3;
+    public float duration;
 
     // Update is called once per frame
     void Update()
@@ -20,7 +19,13 @@ public class ARBulletController : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            //aplicar daño al enemigo
+            GroundEnemy gEnemy = col.GetComponent<GroundEnemy>();
+            if (gEnemy != null) gEnemy.TakeDamage(damage);
+            else
+            {
+                FlyingEnemy fEnemy = col.GetComponent<FlyingEnemy>();
+                if (fEnemy != null) fEnemy.TakeDamage(damage);
+            }
             Destroy(gameObject);
         }
     }
