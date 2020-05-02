@@ -19,10 +19,12 @@ public class FlyingEnemy : MonoBehaviour
     public float maxDistAttack;
     public float goBackDist;
     public float speed;
-    //public float rayAngle;
+    public float fireRate;
+    public float repathTime;
+
     public GameObject[] rayPoints;
 
-    Vector3 direction;
+    public Vector3 direction;
     float elapsedTime = 0;
 
     Ray[] rays;
@@ -191,6 +193,7 @@ public class FlyingEnemy : MonoBehaviour
                 agent.destination = new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
                 agent.baseOffset = transform.position.y;
                 agent.isStopped = false;
+                InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.AVOID2:
                 direction = new Vector3(direction.x, 0, direction.z);
@@ -201,13 +204,13 @@ public class FlyingEnemy : MonoBehaviour
                 break;
             case State.ATTACK:
                 direction = Vector3.up;
-                InvokeRepeating("InstanceBullet", 0, 0.5f);
+                InvokeRepeating("InstanceBullet", 0, fireRate);
                 break;
             case State.GO_BACK:
                 direction = -transform.forward * 2;
                 break;
             case State.HIT:
-                Invoke("ChangeTo", 1.0f);
+                Invoke("ChangeToAttack", 1.0f);
                 break;
             case State.DEATH:
                 GameManager.instance.roundController.DecreaseEnemyCount();
@@ -222,6 +225,11 @@ public class FlyingEnemy : MonoBehaviour
         if (currentState == State.DEATH) return;
         ChangeState(State.HIT);
         health -= damage;
+    }
+
+    void GoToTarget()
+    {
+        agent.destination = new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
     }
 
     float DistanceToTarget(GameObject me, GameObject target)
@@ -301,15 +309,7 @@ public class FlyingEnemy : MonoBehaviour
         return false;
     }
 
-    void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.tag == "PlayerBullet")//tag de la bullet del player
-        {
-            ChangeState(State.HIT);
-        }
-    }
-
-    void ChangeTo()
+    void ChangeToAttack()
     {
         ChangeState(State.ATTACK);
     }

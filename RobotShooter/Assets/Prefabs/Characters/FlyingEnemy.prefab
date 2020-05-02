@@ -173,11 +173,13 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 512
-  health: 100
+  health: 20
   minDistAttack: 5
   maxDistAttack: 6
   goBackDist: 4
-  speed: 3
+  speed: 5
+  fireRate: 1
+  repathTime: 1
   rayPoints:
   - {fileID: 1643527432210193901}
   - {fileID: 1643527430815105974}

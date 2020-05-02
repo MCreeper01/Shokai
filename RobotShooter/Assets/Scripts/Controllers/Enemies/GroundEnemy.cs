@@ -9,18 +9,22 @@ public class GroundEnemy : MonoBehaviour
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
 
+    public GameObject collPoint;
     [HideInInspector] public PlayerController player;
     [Header("Stats")]
     public float health;
     public float minDistAttack;
     public float maxDistAttack;
-    public float healthLostByHit;
+    public float damage;
+    public float speed;
+    public float repathTime;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameManager.instance.player;
         agent = GetComponent<NavMeshAgent>();
+        agent.speed = speed;
     }
 
     // Update is called once per frame
@@ -61,7 +65,8 @@ public class GroundEnemy : MonoBehaviour
             case State.CHASE:
                 agent.isStopped = true;
                 break;
-            case State.ATTACK:                
+            case State.ATTACK:
+                StopCoroutine("ActivateCollider");
                 break;
             case State.HIT:
                 break;
@@ -72,14 +77,14 @@ public class GroundEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                InvokeRepeating("GoToTarget", 0, 1f);                
+                InvokeRepeating("GoToTarget", 0, repathTime);
                 agent.isStopped = false;
                 break;
             case State.ATTACK:
+                StartCoroutine("ActivateCollider");
                 break;
             case State.HIT:
-                health -= healthLostByHit;
-                Invoke("ChangeTo", 1.0f);
+                Invoke("ChangeToAttack", 0.5f);
                 break;
             case State.DEATH:
                 GameManager.instance.roundController.DecreaseEnemyCount();
@@ -111,16 +116,28 @@ public class GroundEnemy : MonoBehaviour
         agent.destination = player.transform.position;
     }
 
-    void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.tag == "PlayerBullet")//tag de la bullet del player
-        {
-            ChangeState(State.HIT);
-        }
-    }
-
-    void ChangeTo()
+    void ChangeToAttack()
     {
         ChangeState(State.ATTACK);
+    }
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.gameObject.tag == "Player")
+        {
+            player.TakeDamage(damage, 0);
+        }        
+    }
+
+    IEnumerator ActivateCollider()
+    {
+        while (true)
+        {            
+            collPoint.GetComponent<BoxCollider>().enabled = true;
+            yield return new WaitForSeconds(0.1f);
+            collPoint.GetComponent<BoxCollider>().enabled = false;
+            yield return new WaitForSeconds(1.0f);
+        }
+        
     }
 }
