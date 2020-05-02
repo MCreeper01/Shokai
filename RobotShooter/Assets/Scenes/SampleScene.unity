@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -130,7 +130,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 11555265}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Map1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 21931323}
   - component: {fileID: 21931322}
   - component: {fileID: 21931321}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P5T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 45055033}
   - component: {fileID: 45055032}
   - component: {fileID: 45055031}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   - component: {fileID: 67434088}
   - component: {fileID: 67434087}
   - component: {fileID: 67434086}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 73707104}
   - component: {fileID: 73707103}
   - component: {fileID: 73707102}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 86160759}
   - component: {fileID: 86160758}
   - component: {fileID: 86160757}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 92191398}
   - component: {fileID: 92191397}
   - component: {fileID: 92191396}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,7 +857,7 @@ GameObject:
   - component: {fileID: 94104717}
   - component: {fileID: 94104716}
   - component: {fileID: 94104715}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,7 +950,7 @@ GameObject:
   - component: {fileID: 121399994}
   - component: {fileID: 121399993}
   - component: {fileID: 121399992}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1043,7 +1043,7 @@ GameObject:
   - component: {fileID: 144037208}
   - component: {fileID: 144037207}
   - component: {fileID: 144037206}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 178507171}
   - component: {fileID: 178507170}
   - component: {fileID: 178507169}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1259,7 +1259,7 @@ GameObject:
   - component: {fileID: 180031722}
   - component: {fileID: 180031721}
   - component: {fileID: 180031720}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P4T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1352,7 +1352,7 @@ GameObject:
   - component: {fileID: 206977913}
   - component: {fileID: 206977912}
   - component: {fileID: 206977911}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1445,7 +1445,7 @@ GameObject:
   - component: {fileID: 213062043}
   - component: {fileID: 213062042}
   - component: {fileID: 213062041}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1538,7 +1538,7 @@ GameObject:
   - component: {fileID: 235936720}
   - component: {fileID: 235936719}
   - component: {fileID: 235936718}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P8T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1628,7 +1628,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 236779824}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P4T2M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1663,7 +1663,7 @@ GameObject:
   - component: {fileID: 237640954}
   - component: {fileID: 237640953}
   - component: {fileID: 237640952}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1803,7 +1803,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 242847946}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: E4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1908,7 +1908,7 @@ GameObject:
   - component: {fileID: 255702881}
   - component: {fileID: 255702880}
   - component: {fileID: 255702879}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2031,7 +2031,7 @@ GameObject:
   - component: {fileID: 266019660}
   - component: {fileID: 266019659}
   - component: {fileID: 266019658}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L2T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2175,7 +2175,7 @@ GameObject:
   - component: {fileID: 284954728}
   - component: {fileID: 284954727}
   - component: {fileID: 284954726}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2268,7 +2268,7 @@ GameObject:
   - component: {fileID: 315173848}
   - component: {fileID: 315173847}
   - component: {fileID: 315173846}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2361,7 +2361,7 @@ GameObject:
   - component: {fileID: 360243318}
   - component: {fileID: 360243317}
   - component: {fileID: 360243316}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2454,7 +2454,7 @@ GameObject:
   - component: {fileID: 385478757}
   - component: {fileID: 385478756}
   - component: {fileID: 385478755}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2547,9 +2547,9 @@ GameObject:
   - component: {fileID: 400439083}
   - component: {fileID: 400439082}
   - component: {fileID: 400439081}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ColliderLava4
-  m_TagString: Untagged
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2576,7 +2576,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400439079}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -2637,7 +2637,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 410543758}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Part2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2673,7 +2673,7 @@ GameObject:
   - component: {fileID: 420055496}
   - component: {fileID: 420055495}
   - component: {fileID: 420055494}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2766,7 +2766,7 @@ GameObject:
   - component: {fileID: 448712268}
   - component: {fileID: 448712267}
   - component: {fileID: 448712266}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2859,7 +2859,7 @@ GameObject:
   - component: {fileID: 448875348}
   - component: {fileID: 448875347}
   - component: {fileID: 448875346}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L4T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2953,7 +2953,7 @@ GameObject:
   - component: {fileID: 452816731}
   - component: {fileID: 452816730}
   - component: {fileID: 452816729}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3186,7 +3186,7 @@ GameObject:
   - component: {fileID: 480083829}
   - component: {fileID: 480083828}
   - component: {fileID: 480083827}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3288,7 +3288,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 481924028}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P2T1M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3323,7 +3323,7 @@ GameObject:
   - component: {fileID: 495848021}
   - component: {fileID: 495848020}
   - component: {fileID: 495848019}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P6T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3416,7 +3416,7 @@ GameObject:
   - component: {fileID: 507611318}
   - component: {fileID: 507611317}
   - component: {fileID: 507611316}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L1T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3631,7 +3631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 575096740}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P4T1M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3696,7 +3696,7 @@ GameObject:
   - component: {fileID: 648298161}
   - component: {fileID: 648298160}
   - component: {fileID: 648298159}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3786,7 +3786,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 670769269}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P1T1M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3821,7 +3821,7 @@ GameObject:
   - component: {fileID: 678168305}
   - component: {fileID: 678168304}
   - component: {fileID: 678168303}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3914,7 +3914,7 @@ GameObject:
   - component: {fileID: 687782706}
   - component: {fileID: 687782705}
   - component: {fileID: 687782704}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4099,7 +4099,7 @@ GameObject:
   - component: {fileID: 709382578}
   - component: {fileID: 709382577}
   - component: {fileID: 709382576}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4192,7 +4192,7 @@ GameObject:
   - component: {fileID: 714231288}
   - component: {fileID: 714231287}
   - component: {fileID: 714231286}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4321,7 +4321,7 @@ GameObject:
   - component: {fileID: 742020161}
   - component: {fileID: 742020160}
   - component: {fileID: 742020159}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4414,7 +4414,7 @@ GameObject:
   - component: {fileID: 748704567}
   - component: {fileID: 748704566}
   - component: {fileID: 748704565}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4507,7 +4507,7 @@ GameObject:
   - component: {fileID: 755355623}
   - component: {fileID: 755355622}
   - component: {fileID: 755355621}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4627,7 +4627,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 765310605}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P2T2M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4663,7 +4663,7 @@ GameObject:
   - component: {fileID: 765595764}
   - component: {fileID: 765595763}
   - component: {fileID: 765595762}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4787,7 +4787,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 775367353}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P1T2M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4822,7 +4822,7 @@ GameObject:
   - component: {fileID: 784519787}
   - component: {fileID: 784519786}
   - component: {fileID: 784519785}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P2T3M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4915,7 +4915,7 @@ GameObject:
   - component: {fileID: 790159240}
   - component: {fileID: 790159239}
   - component: {fileID: 790159238}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5074,7 +5074,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 796344570}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Part1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5110,7 +5110,7 @@ GameObject:
   - component: {fileID: 817922251}
   - component: {fileID: 817922250}
   - component: {fileID: 817922249}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P3T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5230,7 +5230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 831593266}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Entrances
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5267,7 +5267,7 @@ GameObject:
   - component: {fileID: 836079370}
   - component: {fileID: 836079369}
   - component: {fileID: 836079368}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P1T3M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5360,7 +5360,7 @@ GameObject:
   - component: {fileID: 843850546}
   - component: {fileID: 843850545}
   - component: {fileID: 843850544}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5453,9 +5453,9 @@ GameObject:
   - component: {fileID: 879891114}
   - component: {fileID: 879891113}
   - component: {fileID: 879891112}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ColliderLava2
-  m_TagString: Untagged
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5482,7 +5482,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 879891110}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -5546,7 +5546,7 @@ GameObject:
   - component: {fileID: 885856830}
   - component: {fileID: 885856829}
   - component: {fileID: 885856828}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5636,7 +5636,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 890158654}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5673,7 +5673,7 @@ GameObject:
   - component: {fileID: 892197588}
   - component: {fileID: 892197587}
   - component: {fileID: 892197586}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5766,7 +5766,7 @@ GameObject:
   - component: {fileID: 905405287}
   - component: {fileID: 905405286}
   - component: {fileID: 905405285}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5856,7 +5856,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 915301046}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P3T2M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5892,7 +5892,7 @@ GameObject:
   - component: {fileID: 925295079}
   - component: {fileID: 925295078}
   - component: {fileID: 925295077}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5985,7 +5985,7 @@ GameObject:
   - component: {fileID: 946736039}
   - component: {fileID: 946736038}
   - component: {fileID: 946736037}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P1T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6078,7 +6078,7 @@ GameObject:
   - component: {fileID: 951784452}
   - component: {fileID: 951784451}
   - component: {fileID: 951784450}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6168,7 +6168,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 957678769}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Map2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6301,7 +6301,7 @@ GameObject:
   - component: {fileID: 995278752}
   - component: {fileID: 995278751}
   - component: {fileID: 995278750}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6532,7 +6532,7 @@ GameObject:
   - component: {fileID: 1030440157}
   - component: {fileID: 1030440156}
   - component: {fileID: 1030440155}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: L3T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6626,7 +6626,7 @@ GameObject:
   - component: {fileID: 1036532350}
   - component: {fileID: 1036532349}
   - component: {fileID: 1036532348}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6719,7 +6719,7 @@ GameObject:
   - component: {fileID: 1083847877}
   - component: {fileID: 1083847876}
   - component: {fileID: 1083847875}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6812,9 +6812,9 @@ GameObject:
   - component: {fileID: 1111556573}
   - component: {fileID: 1111556572}
   - component: {fileID: 1111556571}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ColliderLava3
-  m_TagString: Untagged
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6841,7 +6841,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1111556569}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -6905,7 +6905,7 @@ GameObject:
   - component: {fileID: 1112533177}
   - component: {fileID: 1112533176}
   - component: {fileID: 1112533175}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6998,7 +6998,7 @@ GameObject:
   - component: {fileID: 1124811873}
   - component: {fileID: 1124811872}
   - component: {fileID: 1124811871}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7141,7 +7141,7 @@ GameObject:
   - component: {fileID: 1198615374}
   - component: {fileID: 1198615373}
   - component: {fileID: 1198615372}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7234,7 +7234,7 @@ GameObject:
   - component: {fileID: 1214361989}
   - component: {fileID: 1214361988}
   - component: {fileID: 1214361987}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7357,7 +7357,7 @@ GameObject:
   - component: {fileID: 1249135796}
   - component: {fileID: 1249135795}
   - component: {fileID: 1249135794}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7450,7 +7450,7 @@ GameObject:
   - component: {fileID: 1256483656}
   - component: {fileID: 1256483655}
   - component: {fileID: 1256483654}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7543,7 +7543,7 @@ GameObject:
   - component: {fileID: 1296998127}
   - component: {fileID: 1296998126}
   - component: {fileID: 1296998125}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P7T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7666,7 +7666,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1314219696}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Part3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7699,7 +7699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1317993796}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: E1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7838,7 +7838,7 @@ GameObject:
   - component: {fileID: 1364433981}
   - component: {fileID: 1364433980}
   - component: {fileID: 1364433979}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7931,7 +7931,7 @@ GameObject:
   - component: {fileID: 1368731551}
   - component: {fileID: 1368731550}
   - component: {fileID: 1368731549}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P3T3M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8024,7 +8024,7 @@ GameObject:
   - component: {fileID: 1374201086}
   - component: {fileID: 1374201085}
   - component: {fileID: 1374201084}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8147,7 +8147,7 @@ GameObject:
   - component: {fileID: 1404910097}
   - component: {fileID: 1404910096}
   - component: {fileID: 1404910095}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8240,7 +8240,7 @@ GameObject:
   - component: {fileID: 1411076117}
   - component: {fileID: 1411076116}
   - component: {fileID: 1411076115}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8330,7 +8330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1414951392}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P2T2M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8362,7 +8362,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1432886249}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: E3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8403,7 +8403,7 @@ GameObject:
   - component: {fileID: 1443826783}
   - component: {fileID: 1443826782}
   - component: {fileID: 1443826781}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8493,7 +8493,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1458279575}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P3T1M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8528,7 +8528,7 @@ GameObject:
   - component: {fileID: 1468523654}
   - component: {fileID: 1468523653}
   - component: {fileID: 1468523652}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P2T1M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8621,7 +8621,7 @@ GameObject:
   - component: {fileID: 1499950107}
   - component: {fileID: 1499950106}
   - component: {fileID: 1499950105}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9032,7 +9032,7 @@ GameObject:
   - component: {fileID: 1591947977}
   - component: {fileID: 1591947976}
   - component: {fileID: 1591947975}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9125,7 +9125,7 @@ GameObject:
   - component: {fileID: 1602385558}
   - component: {fileID: 1602385557}
   - component: {fileID: 1602385556}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9218,7 +9218,7 @@ GameObject:
   - component: {fileID: 1616663609}
   - component: {fileID: 1616663608}
   - component: {fileID: 1616663607}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9361,7 +9361,7 @@ GameObject:
   - component: {fileID: 1640567749}
   - component: {fileID: 1640567748}
   - component: {fileID: 1640567747}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9484,7 +9484,7 @@ GameObject:
   - component: {fileID: 1683503239}
   - component: {fileID: 1683503238}
   - component: {fileID: 1683503237}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9574,7 +9574,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1683793082}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P3T2M2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9609,7 +9609,7 @@ GameObject:
   - component: {fileID: 1702036364}
   - component: {fileID: 1702036363}
   - component: {fileID: 1702036362}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9702,7 +9702,7 @@ GameObject:
   - component: {fileID: 1719332995}
   - component: {fileID: 1719332994}
   - component: {fileID: 1719332993}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9795,7 +9795,7 @@ GameObject:
   - component: {fileID: 1734657345}
   - component: {fileID: 1734657344}
   - component: {fileID: 1734657343}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P4T3M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9889,7 +9889,7 @@ GameObject:
   - component: {fileID: 1738165362}
   - component: {fileID: 1738165361}
   - component: {fileID: 1738165365}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10063,9 +10063,9 @@ GameObject:
   - component: {fileID: 1765015847}
   - component: {fileID: 1765015846}
   - component: {fileID: 1765015845}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ColliderLava1
-  m_TagString: Untagged
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10092,7 +10092,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1765015843}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -10156,7 +10156,7 @@ GameObject:
   - component: {fileID: 1766331663}
   - component: {fileID: 1766331662}
   - component: {fileID: 1766331661}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10246,7 +10246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1770833367}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P1T2M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10401,7 +10401,7 @@ GameObject:
   - component: {fileID: 1788028469}
   - component: {fileID: 1788028468}
   - component: {fileID: 1788028467}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10494,7 +10494,7 @@ GameObject:
   - component: {fileID: 1788990448}
   - component: {fileID: 1788990447}
   - component: {fileID: 1788990446}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10584,7 +10584,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1840613722}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: E2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10625,7 +10625,7 @@ GameObject:
   - component: {fileID: 1840944381}
   - component: {fileID: 1840944380}
   - component: {fileID: 1840944379}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10718,7 +10718,7 @@ GameObject:
   - component: {fileID: 1865373971}
   - component: {fileID: 1865373970}
   - component: {fileID: 1865373969}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10811,7 +10811,7 @@ GameObject:
   - component: {fileID: 1875174495}
   - component: {fileID: 1875174494}
   - component: {fileID: 1875174493}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10901,7 +10901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1942476506}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Part4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10967,7 +10967,7 @@ GameObject:
   - component: {fileID: 1981662856}
   - component: {fileID: 1981662855}
   - component: {fileID: 1981662854}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11188,7 +11188,7 @@ GameObject:
   - component: {fileID: 2055221085}
   - component: {fileID: 2055221084}
   - component: {fileID: 2055221083}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Rampa2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11281,7 +11281,7 @@ GameObject:
   - component: {fileID: 2143495036}
   - component: {fileID: 2143495035}
   - component: {fileID: 2143495034}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11371,7 +11371,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2146215017}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: P4T2M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

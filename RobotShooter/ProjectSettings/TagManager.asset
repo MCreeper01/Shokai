@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Shop
+  - Lava
   layers:
   - Default
   - TransparentFX

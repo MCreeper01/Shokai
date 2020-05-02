@@ -22,6 +22,11 @@ public class EnemyBullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        Destroy(gameObject);
+        if (collider.tag == "Player")
+        {
+            PlayerController player = collider.GetComponent<PlayerController>();
+            player.TakeDamage(damage, 0);
+            Destroy(gameObject);
+        }        
     }
 }

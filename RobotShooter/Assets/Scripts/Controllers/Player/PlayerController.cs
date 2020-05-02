@@ -170,7 +170,7 @@ public class PlayerController : AController
         //#endif    
     }
 
-    public void TakeDamage(int damage, int whoAttacked)
+    public void TakeDamage(float damage, int whoAttacked)
     {
         if (godMode) return;
 
@@ -620,7 +620,12 @@ public class PlayerController : AController
         {
             gc.uiController.ShowInteractiveText("Press [" + playerModel.interactKey + "] to enter the shop");
             atShop = true;
-        } 
+        }
+
+        if (collision.tag == "Lava")
+        {
+            //TakeDamage();
+        }
     }
 
     private void OnTriggerExit(Collider collision)
