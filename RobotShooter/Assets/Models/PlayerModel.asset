@@ -68,4 +68,5 @@ MonoBehaviour:
   laserDamage: 1000000
   defenseKey: 113
   distancePlaceDefense: 3
+  lavaDamage: 5
   godMode: 282

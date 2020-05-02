@@ -81,6 +81,7 @@ public class GroundEnemy : MonoBehaviour
                 agent.isStopped = false;
                 break;
             case State.ATTACK:
+                agent.isStopped = true;
                 StartCoroutine("ActivateCollider");
                 break;
             case State.HIT:
