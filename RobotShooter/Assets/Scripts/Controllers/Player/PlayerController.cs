@@ -374,7 +374,7 @@ public class PlayerController : AController
         switch (sInfo.content)
         {
             case "Mine":
-                if (!lineRenderer.gameObject.activeSelf)
+                if (!lineRenderer.gameObject.activeSelf && !withDefense)
                 {
                     previousState = currentState;
                     ChangeState(new PSDefense(this));

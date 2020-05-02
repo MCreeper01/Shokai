@@ -107,10 +107,10 @@ MonoBehaviour:
   atShop: 0
   placeDefenseMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 512
   shootLayerMask:
     serializedVersion: 2
-    m_Bits: 2049
+    m_Bits: 2561
   bulletARPrefab: {fileID: 1678891417222217503, guid: 1b3448114e4b3e840be564cc51cd36fc,
     type: 3}
   grenadePrefab: {fileID: 5609607751278844699, guid: ed394c242f8082141a99c7be4362be7f,
@@ -506,7 +506,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 3637
+    m_Bits: 6709
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
