@@ -193,7 +193,10 @@ public class FlyingEnemy : MonoBehaviour
                 agent.destination = new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
                 agent.baseOffset = transform.position.y;
                 agent.isStopped = false;
-                InvokeRepeating("GoToTarget", 0, repathTime);
+                if (!agent.enabled)
+                {
+                    InvokeRepeating("GoToTarget", 0, repathTime);
+                }                
                 break;
             case State.AVOID2:
                 direction = new Vector3(direction.x, 0, direction.z);

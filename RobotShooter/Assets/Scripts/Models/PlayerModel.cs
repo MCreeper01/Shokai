@@ -81,6 +81,9 @@ public class PlayerModel : ScriptableObject
     public KeyCode defenseKey;
     public float distancePlaceDefense;
 
+    [Header("OTHER")]
+    public float lavaDamage;
+
     [Header("TESTING")]
     public KeyCode godMode;
 }

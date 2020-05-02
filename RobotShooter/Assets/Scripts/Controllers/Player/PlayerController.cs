@@ -620,11 +620,14 @@ public class PlayerController : AController
         {
             gc.uiController.ShowInteractiveText("Press [" + playerModel.interactKey + "] to enter the shop");
             atShop = true;
-        }
+        }        
+    }
 
+    private void OnTriggerStay(Collider collision)
+    {
         if (collision.tag == "Lava")
         {
-            //TakeDamage();
+            TakeDamage(playerModel.lavaDamage * Time.deltaTime, 0);
         }
     }
 

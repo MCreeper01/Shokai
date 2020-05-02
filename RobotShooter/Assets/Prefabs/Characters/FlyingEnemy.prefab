@@ -184,6 +184,7 @@ MonoBehaviour:
   - {fileID: 1643527432210193901}
   - {fileID: 1643527430815105974}
   - {fileID: 1643527431484412415}
+  direction: {x: 0, y: 0, z: 0}
 --- !u!195 &1643527431393625971
 NavMeshAgent:
   m_ObjectHideFlags: 0
