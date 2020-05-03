@@ -366,7 +366,7 @@ public class PlayerController : AController
                 }                
                 break;
             case "Laser":
-                if (!withDefense)
+                if (!withDefense && !lineRenderer.gameObject.activeSelf)
                 {
                     previousState = currentState;
                     sInfo.Consume();
