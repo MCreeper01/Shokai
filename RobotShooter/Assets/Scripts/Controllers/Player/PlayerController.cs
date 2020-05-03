@@ -29,6 +29,7 @@ public class PlayerController : AController
     [HideInInspector] public int cash;
     private Vector3 previousMovement;
     private float actualDashTime;
+    private float recoveringFromDash;
 
     [HideInInspector] public bool atShop = false;
     private bool uncontrolable = false;
@@ -238,15 +239,16 @@ public class PlayerController : AController
             characterController.center = playerModel.crouchedControllerCenter;
             characterController.height = playerModel.crouchedControllerHeigh;
         }
+        else if (recoveringFromDash > 0) 
+        {
+            l_SpeedMultiplier = playerModel.recoverDashMultiplier;
+        }
         else
         {
             l_SpeedMultiplier = 1;
             characterController.center = playerModel.normalControllerCenter;
             characterController.height = playerModel.normalControllerHeigh;
         } 
-
-        if (Input.GetKey(playerModel.runKeyCode))
-            l_SpeedMultiplier = playerModel.fastSpeedMultiplier;
         //…
 
         //…
@@ -257,7 +259,7 @@ public class PlayerController : AController
                 verticalSpeed = playerModel.jumpSpeed;
                 if (crouching) crouching = false;
             }
-            if (Input.GetKeyDown(playerModel.dashKey) && !dashing && !crouching)
+            if (Input.GetKeyDown(playerModel.dashKey) && !dashing && !crouching && recoveringFromDash <= 0)
             {
                 dashing = true;
                 actualDashTime = playerModel.dashTime;
@@ -310,7 +312,13 @@ public class PlayerController : AController
 
         if (dashing) actualDashTime -= Time.deltaTime;
 
-        if (actualDashTime <= 0) dashing = false;        
+        if (recoveringFromDash > 0) recoveringFromDash -= Time.deltaTime;
+
+        if (actualDashTime <= 0 && dashing == true) 
+        {
+            recoveringFromDash = playerModel.recoveringFromDashTime;
+            dashing = false;        
+        }
         if (gliding && Input.GetKeyUp(playerModel.jumpKeyCode)) gliding = false;
     }
 

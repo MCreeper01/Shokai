@@ -28,7 +28,7 @@ public class PSMovement : PlayerState {
         pc.Move();
         pc.Aim();
         if (Input.GetKeyDown(pc.playerModel.interactKey) && pc.atShop) pc.Shop(true);
-        if (Input.GetKeyDown(pc.playerModel.changeWeaponKey)) pc.ChangeWeapon();
+        if (Input.GetKeyDown(pc.playerModel.changeWeaponKey) || Input.GetMouseButtonDown(pc.playerModel.alternativeChangeWeapon)) pc.ChangeWeapon();
         if (pc.actualShotgunShootCooldown > 0)
         {
             pc.actualShotgunShootCooldown -= Time.deltaTime;

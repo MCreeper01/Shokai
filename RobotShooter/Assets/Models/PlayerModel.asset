@@ -21,8 +21,9 @@ MonoBehaviour:
   maxPitch: 70
   invertedYaw: 0
   invertedPitch: 1
-  normalSpeed: 10
+  normalSpeed: 16
   dashSpeedMultiplier: 3
+  recoverDashMultiplier: 0.5
   crouchSpeedMultiplier: 0.5
   leftKeyCode: 97
   rightKeyCode: 100
@@ -36,37 +37,39 @@ MonoBehaviour:
   crouchedControllerCenter: {x: 0, y: 0.3, z: 0}
   normalControllerHeigh: 2
   crouchedControllerHeigh: 1.2
-  dashTime: 0.5
+  dashTime: 0.2
+  recoveringFromDashTime: 0.3
   runKeyCode: 304
   jumpKeyCode: 32
   fastSpeedMultiplier: 1.2
-  jumpSpeed: 5
-  verticalGlideSpeed: -1
+  jumpSpeed: 7
+  verticalGlideSpeed: -2
   changeWeaponKey: 102
+  alternativeChangeWeapon: 1
   mouseShootButton: 0
   shootARCooldown: 0.1
-  rangeAR: 100
+  rangeAR: 200
   shootForceAR: 100
   maxOverheatAR: 100
   bulletOverheat: 2
-  overHeatNormalReload: 30
-  overHeatSlowReload: 15
+  overHeatNormalReload: 35
+  overHeatSlowReload: 25
   shootShotgunCooldown: 1
-  rangeShotgun: 20
-  shotgunDamage: 17
+  rangeShotgun: 30
+  shotgunDamage: 18
   pelletCount: 12
-  shotgunSpreadAngle: 10
+  shotgunSpreadAngle: 8
   launcherCooldown: 0.7
   shootForceLauncher: 25
   hability1Key: 49
   hability2Key: 50
   hability3Key: 51
   hability4Key: 52
-  jetpackVerticalSpeed: 10
+  jetpackVerticalSpeed: 25
   laserDistance: 250
   laserTime: 3
   laserDamage: 1000000
   defenseKey: 113
   distancePlaceDefense: 3
-  lavaDamage: 5
+  lavaDamage: 20
   godMode: 282

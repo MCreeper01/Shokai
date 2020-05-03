@@ -19,6 +19,7 @@ public class ARBulletController : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
+            Debug.Log("hit");
             GroundEnemy gEnemy = col.GetComponent<GroundEnemy>();
             if (gEnemy != null) gEnemy.TakeDamage(damage);
             else
