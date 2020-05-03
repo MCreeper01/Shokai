@@ -97,6 +97,9 @@ MonoBehaviour:
   speed: 30
   damage: 10
   duration: 5
+  mask:
+    serializedVersion: 2
+    m_Bits: 2561
 --- !u!135 &1678891417222217488
 SphereCollider:
   m_ObjectHideFlags: 0

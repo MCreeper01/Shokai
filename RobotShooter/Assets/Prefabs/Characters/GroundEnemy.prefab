@@ -158,7 +158,7 @@ MonoBehaviour:
   currentState: 0
   collPoint: {fileID: 3247009217353815680}
   player: {fileID: 0}
-  health: 10
+  health: 20
   minDistAttack: 6
   maxDistAttack: 10
   damage: 10
