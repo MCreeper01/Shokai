@@ -22,6 +22,8 @@ public class FlyingEnemy : MonoBehaviour
     public float fireRate;
     public float repathTime;
 
+    public int cashDropped;
+
     public GameObject[] rayPoints;
 
     public Vector3 direction;
@@ -216,6 +218,7 @@ public class FlyingEnemy : MonoBehaviour
                 Invoke("ChangeToAttack", 1.0f);
                 break;
             case State.DEATH:
+                GameManager.instance.player.IncreaseCash(cashDropped);
                 GameManager.instance.roundController.DecreaseEnemyCount();
                 break;
         }

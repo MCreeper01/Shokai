@@ -18,6 +18,7 @@ public class GroundEnemy : MonoBehaviour
     public float damage;
     public float speed;
     public float repathTime;
+    public int cashDropped;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,8 @@ public class GroundEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.forward = new Vector3(player.transform.position.x - transform.position.x, 0, player.transform.position.z - transform.position.z);
+
         switch (currentState)
         {
             case State.INITIAL:
@@ -88,6 +91,7 @@ public class GroundEnemy : MonoBehaviour
                 Invoke("ChangeToAttack", 0.5f);
                 break;
             case State.DEATH:
+                GameManager.instance.player.IncreaseCash(cashDropped);
                 GameManager.instance.roundController.DecreaseEnemyCount();
                 break;
         }
@@ -120,15 +124,7 @@ public class GroundEnemy : MonoBehaviour
     void ChangeToAttack()
     {
         ChangeState(State.ATTACK);
-    }
-
-    void OnTriggerEnter(Collider coll)
-    {
-        if (coll.gameObject.tag == "Player")
-        {
-            player.TakeDamage(damage, 0);
-        }        
-    }
+    }    
 
     IEnumerator ActivateCollider()
     {

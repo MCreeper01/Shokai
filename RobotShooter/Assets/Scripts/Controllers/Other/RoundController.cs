@@ -89,7 +89,7 @@ public class RoundController : AController
         switch (currentState)
         {
             case State.INITIAL:
-                ChangeState(State.PREPARATION);
+                Invoke("StartRound", .1f);
                 break;
             case State.PREPARATION:
                 if (elapsedTime >= preparationTime) ChangeState(State.SPAWN);
@@ -216,6 +216,11 @@ public class RoundController : AController
                 break;
             }
         }
+    }
+
+    void StartRound()
+    {
+        ChangeState(State.PREPARATION);
     }
 
     void LoadCurrentMap()

@@ -108,6 +108,7 @@ public class PlayerController : AController
 
         //MOUSE
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Use this for initialization
@@ -117,7 +118,7 @@ public class PlayerController : AController
 
         pitch = 0;
 
-        cash = 100000;
+        cash = playerModel.INITIAL_CASH;
 
         actualWeapon = Weapon.rifle;
 
@@ -437,6 +438,12 @@ public class PlayerController : AController
         Destroy(attachedDefense);
     }
 
+    public void IncreaseCash(int cash)
+    {
+        this.cash += cash;
+        gc.uiController.ChangeCash(this.cash);
+    }
+
     public void Shoot()
     {
         switch (actualWeapon)
@@ -576,6 +583,7 @@ public class PlayerController : AController
     public void Shop(bool show)
     {
         gc.uiController.shopInterface.SetActive(!gc.uiController.shopInterface.activeSelf);
+        Cursor.visible = show;
         if (show)
         {
             previousState = currentState;
@@ -628,7 +636,11 @@ public class PlayerController : AController
         {
             gc.uiController.ShowInteractiveText("Press [" + playerModel.interactKey + "] to enter the shop");
             atShop = true;
-        }        
+        }
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            if (collision.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collision.gameObject.GetComponentInParent<GroundEnemy>().damage, 0);
+        }
     }
 
     private void OnTriggerStay(Collider collision)

@@ -63,7 +63,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isGameRunning) Invoke("StartGame", .1f);     
+        if (!isGameRunning) Invoke("StartGame", .1f);
+        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
     }    
 
     public void ChangeScene(string scene)

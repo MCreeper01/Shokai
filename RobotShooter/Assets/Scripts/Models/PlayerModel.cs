@@ -9,6 +9,7 @@ public class PlayerModel : ScriptableObject
     public float MAX_HEALTH;
     public float MAX_SHIELD;
     public int MAX_CHARGER_AMMO_AR;
+    public int INITIAL_CASH;
 
     [Header("ROTATION")]
     public float yawRotationalSpeed;

@@ -158,12 +158,13 @@ MonoBehaviour:
   currentState: 0
   collPoint: {fileID: 3247009217353815680}
   player: {fileID: 0}
-  health: 50
+  health: 30
   minDistAttack: 6
   maxDistAttack: 10
   damage: 10
   speed: 15
   repathTime: 1
+  cashDropped: 25
 --- !u!195 &4896865318677097887
 NavMeshAgent:
   m_ObjectHideFlags: 0
