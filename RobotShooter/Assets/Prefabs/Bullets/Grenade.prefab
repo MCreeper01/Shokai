@@ -125,5 +125,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 3
-  explosionRadius: 5
+  explosionRadius: 15
   force: 500
+  damage: 50

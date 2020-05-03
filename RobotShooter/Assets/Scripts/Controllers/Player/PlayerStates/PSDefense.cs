@@ -14,7 +14,7 @@ public class PSDefense : PlayerState
     public override void CheckTransition(PlayerController pc)
     {
         if (Input.GetMouseButtonDown(pc.playerModel.mouseShootButton)) pc.PlaceDeffense();
-        if (Input.GetKeyDown(pc.playerModel.changeWeaponKey))
+        if (Input.GetKeyDown(pc.playerModel.changeWeaponKey) || Input.GetMouseButtonDown(pc.playerModel.alternativeChangeWeapon))
         {
             pc.DestroyDefense();
             pc.gun.SetActive(true);

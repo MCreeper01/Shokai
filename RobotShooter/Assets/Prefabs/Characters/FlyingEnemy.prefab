@@ -173,9 +173,9 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 512
-  health: 20
-  minDistAttack: 5
-  maxDistAttack: 6
+  health: 10
+  minDistAttack: 15
+  maxDistAttack: 20
   goBackDist: 4
   speed: 5
   fireRate: 1

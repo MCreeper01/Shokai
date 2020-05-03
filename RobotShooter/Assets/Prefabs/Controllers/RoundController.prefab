@@ -70,7 +70,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   peakEnemySpawnPercentages: 23000000140000002d000000
-  preparationTime: 2
+  preparationTime: 30
   spawnTime: 2
   fightTime: 30
   maps:

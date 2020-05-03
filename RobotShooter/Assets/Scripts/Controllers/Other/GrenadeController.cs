@@ -54,7 +54,6 @@ public class GrenadeController : MonoBehaviour
             }
             Destroy(gameObject);
         }
-
         Destroy(gameObject);        
     }
 }

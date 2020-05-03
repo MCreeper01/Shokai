@@ -21,6 +21,7 @@ public class PlayerModel : ScriptableObject
     [Header("MOVEMENT")]
     public float normalSpeed;
     public float dashSpeedMultiplier;
+    public float recoverDashMultiplier;
     public float crouchSpeedMultiplier;
     public KeyCode leftKeyCode;
     public KeyCode rightKeyCode;
@@ -35,6 +36,7 @@ public class PlayerModel : ScriptableObject
     public float normalControllerHeigh;
     public float crouchedControllerHeigh;
     public float dashTime;
+    public float recoveringFromDashTime;
 
     [Header("RUN & JUMP")]
     public KeyCode runKeyCode;
@@ -45,6 +47,7 @@ public class PlayerModel : ScriptableObject
 
     [Header("SHOOT")]
     public KeyCode changeWeaponKey;
+    public int alternativeChangeWeapon;
     public int mouseShootButton;
 
     [Header("ASSAULT RIFLE")]
