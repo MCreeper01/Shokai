@@ -180,6 +180,7 @@ MonoBehaviour:
   speed: 5
   fireRate: 1
   repathTime: 1
+  cashDropped: 40
   rayPoints:
   - {fileID: 1643527432210193901}
   - {fileID: 1643527430815105974}

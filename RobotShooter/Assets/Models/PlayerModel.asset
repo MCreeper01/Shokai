@@ -15,8 +15,9 @@ MonoBehaviour:
   MAX_HEALTH: 100
   MAX_SHIELD: 100
   MAX_CHARGER_AMMO_AR: 30
-  yawRotationalSpeed: 360
-  pitchRotationalSpeed: 180
+  INITIAL_CASH: 200
+  yawRotationalSpeed: 180
+  pitchRotationalSpeed: 90
   minPitch: -80
   maxPitch: 70
   invertedYaw: 0
