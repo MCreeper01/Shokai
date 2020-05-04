@@ -458,12 +458,12 @@ public class PlayerController : AController
                     dir.Normalize();
                     bulletAR = Instantiate(bulletARPrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
                     bulletAR.transform.forward = dir;
-                    bulletAR.GetComponent<Rigidbody>().AddForce(dir * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
+                    //bulletAR.GetComponent<Rigidbody>().AddForce(dir * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
                 }
                 else
                 {
                     bulletAR = Instantiate(bulletARPrefab, bulletSpawner.transform.position, Camera.main.transform.rotation);
-                    bulletAR.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
+                    //bulletAR.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
                 }               
 
                 actualOverheat += playerModel.bulletOverheat;
@@ -637,7 +637,7 @@ public class PlayerController : AController
             gc.uiController.ShowInteractiveText("Press [" + playerModel.interactKey + "] to enter the shop");
             atShop = true;
         }
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
             if (collision.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collision.gameObject.GetComponentInParent<GroundEnemy>().damage, 0);
         }

@@ -3794,7 +3794,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 481924028}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: P2T1M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4187,7 +4187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 575096740}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: P4T1M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4483,7 +4483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 670769269}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: P1T1M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5403,7 +5403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 765310605}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: P2T2M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6696,7 +6696,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 915301046}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: P3T2M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7865,7 +7865,7 @@ GameObject:
   - component: {fileID: 1112533177}
   - component: {fileID: 1112533176}
   - component: {fileID: 1112533175}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Rampa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9530,7 +9530,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1458279575}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: P3T1M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10222,7 +10222,7 @@ GameObject:
   - component: {fileID: 1602385558}
   - component: {fileID: 1602385557}
   - component: {fileID: 1602385556}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Platform1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11660,7 +11660,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1770833367}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: P1T2M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13051,7 +13051,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2146215017}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: P4T2M1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

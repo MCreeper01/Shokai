@@ -64,6 +64,19 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (!isGameRunning) Invoke("StartGame", .1f);
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            foreach (GroundEnemy enemy in GameObject.FindObjectsOfType<GroundEnemy>())
+            {
+                Destroy(enemy.gameObject);
+                roundController.DecreaseEnemyCount();
+            }
+            foreach (FlyingEnemy enemy in GameObject.FindObjectsOfType<FlyingEnemy>())
+            {
+                Destroy(enemy.gameObject);
+                roundController.DecreaseEnemyCount();
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
     }    
 
