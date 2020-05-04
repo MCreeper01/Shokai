@@ -1,5 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
+    Assembly-CSharp-Editor.dll:
+    - UnityEditor.AI.NavMeshAssetManager
     Assembly-CSharp.dll:
     - ARBulletController
     - AudioManager
