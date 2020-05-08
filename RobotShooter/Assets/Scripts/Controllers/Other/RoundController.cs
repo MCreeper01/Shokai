@@ -8,7 +8,7 @@ using Random = System.Random;
 public class RoundController : AController
 {
     public enum State { INITIAL, PREPARATION, SPAWN, FIGHT, CLEAR};
-    public State currentState;
+    public State currentState = State.INITIAL;
 
     [Header("EnemySpawns")]
     [Tooltip("Maximum number of enemies that will be displayed on screen.")]
@@ -50,26 +50,24 @@ public class RoundController : AController
 
     private float elapsedTime;
 
-    // Start is called before the first frame update
-    /*void Start()
-    {
-        if (useMinEnemiesPercentage) minEnemies = 0;
+    //// Start is called before the first frame update
+    //void Start()
+    //{
+    //    if (useMinEnemiesPercentage) minEnemies = 0;
 
-        currentRound = 0;
-        currentPeak = 0;
-        currentMap = 2; //Remove in the future!!!
+    //    currentRound = 0;
+    //    currentPeak = 0;
+    //    currentMap = 2; //Remove in the future!!!
 
-        roundTotalEnemies = firstRoundTotalEnemies - totalEnemiesIncrementPerRound;
-        currentEnemies = 0;
-        elapsedTime = 0;
-        enemiesSpawnedOnCurrentRound = 0;
-        extraEnemies = new int[enemies.Length];
-    }*/
+    //    roundTotalEnemies = firstRoundTotalEnemies - totalEnemiesIncrementPerRound;
+    //    currentEnemies = 0;
+    //    elapsedTime = 0;
+    //    enemiesSpawnedOnCurrentRound = 0;
+    //    extraEnemies = new int[enemies.Length];
+    //}
 
     public void StartGame()
     {
-        currentState = State.INITIAL;
-
         if (useMinEnemiesPercentage) minEnemies = 0;
 
         currentRound = 0;
@@ -81,6 +79,8 @@ public class RoundController : AController
         elapsedTime = 0;
         enemiesSpawnedOnCurrentRound = 0;
         extraEnemies = new int[enemies.Length];
+
+        ChangeState(State.PREPARATION);
     }
 
     // Update is called once per frame
@@ -89,7 +89,6 @@ public class RoundController : AController
         switch (currentState)
         {
             case State.INITIAL:
-                Invoke("StartRound", .1f);
                 break;
             case State.PREPARATION:
                 if (elapsedTime >= preparationTime) ChangeState(State.SPAWN);
@@ -139,6 +138,10 @@ public class RoundController : AController
                 if (gc.uiController != null) gc.uiController.IncreaseRound();
                 roundTotalEnemies += totalEnemiesIncrementPerRound;
                 enemiesSpawnedOnCurrentRound = 0;
+                if (currentRound > 1)
+                {
+                    GameEvents.instance.RoundChange();
+                }
                 if (currentMap == 1) currentMap = 2; //Remove in the future!!!
                 else currentMap = 1; //Remove in the future!!!
                 LoadCurrentMap();
@@ -216,11 +219,6 @@ public class RoundController : AController
                 break;
             }
         }
-    }
-
-    void StartRound()
-    {
-        ChangeState(State.PREPARATION);
     }
 
     void LoadCurrentMap()
