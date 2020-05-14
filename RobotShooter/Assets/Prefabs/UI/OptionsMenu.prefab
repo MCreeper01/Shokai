@@ -3017,7 +3017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultShowFPS: 0
-  defaultBrightness: 0.5
+  defaultBrightness: 1
   defaultSensitivity: 0.5
   defaultGeneralVolume: 0.5
   defaultFXVolume: 0.5
@@ -3028,6 +3028,7 @@ MonoBehaviour:
   generalVolume: {fileID: 91980357369296974}
   fxVolume: {fileID: 91980356408081289}
   musicVolume: {fileID: 91980358142982780}
+  canvasPanel: {fileID: 0}
 --- !u!1 &91980357665163778
 GameObject:
   m_ObjectHideFlags: 0

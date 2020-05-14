@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class OptionsMenuController : MonoBehaviour
 {
+    const float SENSITIVITY_MIDDLE_VALUE = 90;
+
     [Header("Default Settings")]
     public bool defaultShowFPS;
     [Range(0.0f, 1.0f)]
@@ -27,14 +29,22 @@ public class OptionsMenuController : MonoBehaviour
     public Slider generalVolume;
     public Slider fxVolume;
     public Slider musicVolume;
+    public Image canvasPanel;
 
     void Start()
     {
         gameObject.SetActive(false);
-        InitializeOptions();
+        InitializePlayerPrefs();
+
+        ShowFPS(Convert.ToBoolean(PlayerPrefs.GetInt("showFPS")));
+        ChangeBrightness(PlayerPrefs.GetFloat("brightness"));
+        ChangeSensitivity(PlayerPrefs.GetFloat("sensitivity"));
+        ChangeGeneralVolume(PlayerPrefs.GetFloat("generalVolume"));
+        ChangeFXVolume(PlayerPrefs.GetFloat("fxVolume"));
+        ChangeMusicVolume(PlayerPrefs.GetFloat("musicVolume"));
     }
 
-    void InitializeOptions()
+    void InitializePlayerPrefs()
     {
         showFPS.isOn = Convert.ToBoolean(PlayerPrefs.GetInt("showFPS"));
         brightness.value = PlayerPrefs.GetFloat("brightness");
@@ -52,11 +62,17 @@ public class OptionsMenuController : MonoBehaviour
     public void ChangeBrightness(float value)
     {
         PlayerPrefs.SetFloat("brightness", value);
+        canvasPanel.color = new Color(0, 0, 0, (1 - value) / 255 * 100); //Opacity value between 0-1
     }
 
     public void ChangeSensitivity(float value)
     {
         PlayerPrefs.SetFloat("sensitivity", value);
+        if (GameManager.instance.player != null)
+        {
+            GameManager.instance.player.playerModel.yawRotationalSpeed = value * SENSITIVITY_MIDDLE_VALUE;
+            GameManager.instance.player.playerModel.pitchRotationalSpeed = value * (SENSITIVITY_MIDDLE_VALUE / 2);
+        }
     }
 
     public void ChangeGeneralVolume(float value)
@@ -83,7 +99,7 @@ public class OptionsMenuController : MonoBehaviour
         ChangeFXVolume(defaultFXVolume);
         ChangeMusicVolume(defaultMusicVolume);
 
-        InitializeOptions();
+        InitializePlayerPrefs();
     }
 
 }
