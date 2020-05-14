@@ -12,6 +12,10 @@ public class Pathfinder3D
     List<Node> closedList;
     public bool pathFound = false;
 
+    //PathFollowing
+    public float wayPointReachedRadius = 0.2f;
+    public int currentWayPointIndex = 0;
+
     public Pathfinder3D()
     {
         openList = new List<Node>();
@@ -23,6 +27,21 @@ public class Pathfinder3D
         openList.Clear();
         closedList.Clear();
 
+        startNode = ProvisionalManager.Instance.currentGraph.Graph[0];
+        endNode = ProvisionalManager.Instance.currentGraph.Graph[0];
+        foreach (Node n in ProvisionalManager.Instance.currentGraph.Graph)
+        {
+            if (DistanceToTarget(n.position, agent.transform.position) < DistanceToTarget(startNode.position, agent.transform.position))
+            {
+                startNode = n;
+            }
+
+            if (DistanceToTarget(n.position, goal) < DistanceToTarget(endNode.position, goal))
+            {
+                endNode = n;
+            }
+        }
+        
         //Registre startNode
         startNode.predecessor = null;
         startNode.costFromStart = 0;
@@ -31,8 +50,8 @@ public class Pathfinder3D
         openList.Add(startNode);
 
         current = startNode;
-
-        while (openList != null && !pathFound)
+        
+        while (openList.Count > 0 && !pathFound)
         {
             foreach (Node n in openList)
             {
@@ -41,7 +60,7 @@ public class Pathfinder3D
                     current = n;
                 }
             }
-
+            
             if (current == endNode)
             {
                 pathFound = true;
@@ -51,11 +70,41 @@ public class Pathfinder3D
                 foreach (Connection connection in current.Connections)
                 {
                     Node successor = connection.successor;
+                    
+                    if (ContainsLoop(openList, successor) == false && ContainsLoop(closedList, successor) == false)
+                    {
+                        successor.costFromStart = current.costFromStart + connection.cost;
+                        successor.estimatedCostToGoal = current.costFromStart + connection.cost + Heuristic(successor, endNode);
+                        openList.Add(successor);
+                    }/*
+                    else if (openList.Contains(successor))
+                    {
+                        if (current.costFromStart + connection.cost < successor.costFromStart)
+                        {
+                            successor.predecessor = current;
+                            successor.costFromStart = current.costFromStart + connection.cost;
+                            successor.estimatedCostToGoal = current.costFromStart + connection.cost + Heuristic(successor, endNode);
+                            connection.successor = successor;
+                        }
+                    }
+                    else if (closedList.Contains(successor))
+                    {
+                        if (current.costFromStart + connection.cost < successor.costFromStart)
+                        {
+                            successor.predecessor = current;
+                            successor.costFromStart = current.costFromStart + connection.cost;
+                            successor.estimatedCostToGoal = current.costFromStart + connection.cost + Heuristic(successor, endNode);
+                            connection.successor = successor;
+
+                            closedList.Remove(successor);
+                            openList.Add(successor);
+                        }
+                    }*/
                 }
             }
 
             openList.Remove(current);
-            closedList.Add(current);
+            closedList.Add(current);            
         }
 
         if (pathFound)
@@ -101,5 +150,17 @@ public class Pathfinder3D
     float DistanceToTargetSquared(Vector3 me, Vector3 target)
     {
         return (target - me).sqrMagnitude;
+    }
+
+    bool ContainsLoop(List<Node> list, Node value)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            if (list[i] == value)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

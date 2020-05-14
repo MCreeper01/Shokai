@@ -9,7 +9,8 @@ public class FlyingEnemy : MonoBehaviour
     public State currentState = State.INITIAL;
 
     NavMeshAgent agent;
-    [HideInInspector] public PlayerController player;
+    //[HideInInspector] public PlayerController player;
+    GameObject player;
     public GameObject bullet;
     public Transform cannon;
     public LayerMask mask;
@@ -35,20 +36,52 @@ public class FlyingEnemy : MonoBehaviour
     NavMeshHit hit;
     float height;
 
+
+    //Pathfinding 3D
+    Path3D p;
+    Pathfinder3D pathfinder = new Pathfinder3D();
+
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.enabled = false;
 
-        player = GameManager.instance.player;
+        //player = GameManager.instance.player;
+        player = GameObject.FindGameObjectWithTag("Player");
 
         rays = new Ray[3];
+
+
+        pathfinder.goal = player.transform.position;
+        if (ProvisionalManager.Instance.currentGraph.Graph.Count > 0)
+        {
+            p = pathfinder.AStar(gameObject);
+        }        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (pathfinder.pathFound)
+        {
+            for (int i = 0; i < p.Path.Count - 1; i++)
+            {
+                Debug.DrawLine(p.Path[i].position, p.Path[i + 1].position);
+            }
+
+            if (pathfinder.currentWayPointIndex < p.Path.Count)
+            {
+                direction = (p.Path[pathfinder.currentWayPointIndex].position - transform.position).normalized;
+                transform.position += direction * 2 * Time.deltaTime;
+
+                if (DistanceToTargetSquaredPlus(transform.position, p.Path[pathfinder.currentWayPointIndex].position) <= pathfinder.wayPointReachedRadius * pathfinder.wayPointReachedRadius)
+                {
+                    pathfinder.currentWayPointIndex++;
+                }
+            }
+        }
+        /*
         switch (currentState)
         {
             case State.INITIAL:
@@ -90,14 +123,14 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                     break;
                 }
-                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
+                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));*/
                 /*
                 if (transform.position.y <= player.position.y)
                 {
                     agent.baseOffset = Mathf.Lerp(transform.position.y, player.position.y + Random.Range(10, 25), 0.1f * Time.deltaTime);
                 }   */             
                 //AvoidObstacles2();
-                if (!PlayerHit())
+                /*if (!PlayerHit())
                 {
                     ChangeState(State.CHASE);
                 }
@@ -157,7 +190,7 @@ public class FlyingEnemy : MonoBehaviour
             case State.DEATH:
                 Destroy(gameObject);//, 1f);
                 break;
-        }
+        }*/
     }
 
     void ChangeState(State newState)
@@ -246,6 +279,11 @@ public class FlyingEnemy : MonoBehaviour
     float DistanceToTargetSquared(GameObject me, GameObject target)
     {
         return (target.transform.position - me.transform.position).sqrMagnitude;
+    }
+
+    float DistanceToTargetSquaredPlus(Vector3 me, Vector3 target)
+    {
+        return (target - me).sqrMagnitude;
     }
 
     void AvoidObstacles()
