@@ -104,6 +104,7 @@ MonoBehaviour:
   crouching: 0
   dashing: 0
   cash: 0
+  canRecover: 0
   atShop: 0
   placeDefenseMask:
     serializedVersion: 2
@@ -128,6 +129,10 @@ MonoBehaviour:
   lineRenderer: {fileID: 5755931945208983780}
   pointAttachDefense: {fileID: 5755931946208162607}
   minePrefab: {fileID: 5181300982327122169, guid: effcef4c29af1f24b8c34e627376d652,
+    type: 3}
+  terrainTurretPrefab: {fileID: 6515199956467571897, guid: 5c5fc1b17f2550d4a824803d4209b56c,
+    type: 3}
+  airTurretPrefab: {fileID: 7531448386182606488, guid: c7dea96638566e94cab0aac41abb91b9,
     type: 3}
   onGround: 0
   verticalSpeed: 0
@@ -506,7 +511,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 14901
+    m_Bits: 268450357
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

@@ -27,12 +27,16 @@ public class PlayerController : AController
     [HideInInspector] public bool crouching;
     [HideInInspector] public bool dashing;
     [HideInInspector] public int cash;
+    [HideInInspector] public bool canRecover;
     private Vector3 previousMovement;
     private float actualDashTime;
     private float recoveringFromDash;
 
     [HideInInspector] public bool atShop = false;
     private bool uncontrolable = false;
+
+    private float currentShieldDelay;
+    private bool shieldDelay;
 
     public LayerMask placeDefenseMask;
 
@@ -64,6 +68,8 @@ public class PlayerController : AController
     [Header("DEFENSES")]
     public Transform pointAttachDefense;
     public GameObject minePrefab;
+    public GameObject terrainTurretPrefab;
+    public GameObject airTurretPrefab;
 
     private float gravityMultiplier = 1;
 
@@ -129,6 +135,8 @@ public class PlayerController : AController
         currentHealth = playerModel.MAX_HEALTH;
         currentShield = playerModel.MAX_SHIELD;
 
+        StartCoroutine(RecoverShield());
+
         ChangeState(new PSMovement(this));
     }
 
@@ -142,6 +150,7 @@ public class PlayerController : AController
         //Debug.Log("Gliding: " + gliding);
         //Debug.Log(readyToGlind);
         //Debug.Log(onGround);
+        if (Input.GetKeyDown(KeyCode.M)) TakeDamage(20, 0);
     }
 
     private void FixedUpdate()
@@ -169,22 +178,38 @@ public class PlayerController : AController
             godMode = !godMode;
             Debug.Log("God Mode: " + (godMode ? "enabled" : "disabled"));
         }
-        //#endif    
+        //#endif 
+        if (currentShieldDelay > 0 && shieldDelay) currentShieldDelay -= Time.deltaTime;
+        else if (currentShieldDelay <= 0 && shieldDelay)
+        {
+            canRecover = true;
+            shieldDelay = false;
+        } 
     }
 
     public void TakeDamage(float damage, int whoAttacked)
     {
         if (godMode) return;
 
-        currentHealth -= damage;
-        gc.uiController.ChangeHealth(currentHealth);
-
-        if (currentHealth <= 0 && !godMode)
+        if (currentShield > 0)
         {
-            ChangeState(new PSDead(this));
-            return;
+            currentShield -= damage;
+            gc.uiController.ChangeShield(currentShield);
         }
+        else
+        {
+            currentHealth -= damage;
+            gc.uiController.ChangeHealth(currentHealth);
 
+            if (currentHealth <= 0 && !godMode)
+            {
+                ChangeState(new PSDead(this));
+                return;
+            }
+        }
+        canRecover = false;
+        shieldDelay = true;
+        currentShieldDelay = playerModel.secondsToWaitShield;
     }
 
     private IEnumerator Inmunity(float time)
@@ -374,6 +399,15 @@ public class PlayerController : AController
                     ChangeState(new PSLaser(this));
                 }                
                 break;
+            case "Health":
+                if (!withDefense && !lineRenderer.gameObject.activeSelf && currentHealth < playerModel.MAX_HEALTH)
+                {
+                    currentHealth += playerModel.instantHealthCure;
+                    if (currentHealth > playerModel.MAX_HEALTH) currentHealth = playerModel.MAX_HEALTH;
+                    gc.uiController.ChangeHealth(currentHealth);
+                    sInfo.Consume();
+                }
+                break;
         }
     }
 
@@ -390,6 +424,23 @@ public class PlayerController : AController
                     defenseSlotNum = num;
                 }                
                 break;
+            case "TerrainTurret":
+                if (!lineRenderer.gameObject.activeSelf && !withDefense)
+                {
+                    previousState = currentState;
+                    ChangeState(new PSDefense(this));
+                    defenseSlotNum = num;
+                }
+                break;
+            case "AirTurret":
+                if (!lineRenderer.gameObject.activeSelf && !withDefense)
+                {
+                    previousState = currentState;
+                    ChangeState(new PSDefense(this));
+                    defenseSlotNum = num;
+                }
+                break;
+
         }
     }
 
@@ -400,6 +451,20 @@ public class PlayerController : AController
             case "Mine":
                 attachedDefense = Instantiate(minePrefab, pointAttachDefense.position, pointAttachDefense.rotation);
                 attachedDefense.GetComponent<SphereCollider>().enabled = false;
+                break;
+            case "TerrainTurret":
+                attachedDefense = Instantiate(terrainTurretPrefab, pointAttachDefense.position, pointAttachDefense.rotation);
+                attachedDefense.GetComponent<TerrainTurretController>().placed = false;
+                attachedDefense.GetComponent<TerrainTurretController>().impactZone.enabled = false;
+                foreach (BoxCollider collider in attachedDefense.GetComponentsInChildren<BoxCollider>()) collider.enabled = false;
+                break;
+            case "AirTurret":
+                attachedDefense = Instantiate(airTurretPrefab, pointAttachDefense.position, pointAttachDefense.rotation);
+                attachedDefense.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                attachedDefense.GetComponent<AirTurretController>().placed = false;
+                attachedDefense.GetComponent<AirTurretController>().impactZone.enabled = false;
+                foreach (BoxCollider collider in attachedDefense.GetComponentsInChildren<BoxCollider>()) collider.enabled = false;
+                foreach (CapsuleCollider col in attachedDefense.GetComponentsInChildren<CapsuleCollider>()) col.enabled = false;
                 break;
         }
     }
@@ -422,6 +487,14 @@ public class PlayerController : AController
                     GameObject mine = Instantiate(minePrefab, hit.point, attachedDefense.transform.rotation);
                     mine.GetComponent<SphereCollider>().enabled = true;
                     break;
+                case "TerrainTurret":
+                    GameObject terrainTurret = Instantiate(terrainTurretPrefab, hit.point, attachedDefense.transform.rotation);
+                    terrainTurret.GetComponent<TerrainTurretController>().placed = true;
+                    break;
+                case "AirTurret":
+                    GameObject airTurret = Instantiate(airTurretPrefab, hit.point, attachedDefense.transform.rotation);
+                    airTurret.GetComponent<AirTurretController>().placed = true;
+                    break;
             }
             DestroyDefense();
             gun.SetActive(true);
@@ -442,6 +515,27 @@ public class PlayerController : AController
     {
         this.cash += cash;
         gc.uiController.ChangeCash(this.cash);
+    }
+
+    IEnumerator RecoverShield()
+    {        
+        yield return new WaitForSeconds(playerModel.shieldRegenTickRate);
+        if (canRecover)
+        {
+            if (currentShield + playerModel.shieldRegenPerTick < playerModel.MAX_SHIELD)
+            {
+                currentShield += playerModel.shieldRegenPerTick;
+                gc.uiController.ChangeShield(currentShield);
+            }
+            else currentShield = playerModel.MAX_SHIELD;            
+        }
+        StartCoroutine(RecoverShield());
+    }
+
+    IEnumerator WaitForRecoverShield()
+    {
+        yield return new WaitForSeconds(playerModel.secondsToWaitShield);
+        canRecover = true;
     }
 
     public void Shoot()

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class SlotsController : AController
+public class ShopController : AController
 {
     [Header("Habilities")]
     public Hability[] habilities;

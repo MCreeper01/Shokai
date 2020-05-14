@@ -38,6 +38,9 @@ public class PlayerModel : ScriptableObject
     public float crouchedControllerHeigh;
     public float dashTime;
     public float recoveringFromDashTime;
+    public float shieldRegenTickRate;
+    public float shieldRegenPerTick;
+    public float secondsToWaitShield;
 
     [Header("RUN & JUMP")]
     public KeyCode runKeyCode;
@@ -80,6 +83,7 @@ public class PlayerModel : ScriptableObject
     public float laserDistance;
     public float laserTime;
     public float laserDamage;
+    public float instantHealthCure;
 
     [Header("DEFENSES")]
     public KeyCode defenseKey;
