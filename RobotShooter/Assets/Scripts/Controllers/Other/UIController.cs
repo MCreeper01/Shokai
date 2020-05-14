@@ -15,6 +15,7 @@ public class UIController : AController
 
     [Header("HUD")]
     public Image healthbar;
+    public Image shieldbar;
     public Image overheatAR;
     public Text interactiveText;
     public Text cashText;
@@ -24,7 +25,9 @@ public class UIController : AController
     public Text jetpackCost;
     public Text grenadeCost;
     public Text laserCost;
+    public Text healthCost;
     public Text mineCost;
+    public Text terrainTurretCost;
 
     [Header("Pause")]
     public bool paused;
@@ -45,7 +48,9 @@ public class UIController : AController
         jetpackCost.text = gc.slotsController.ReturnCost("Jetpack").ToString();
         grenadeCost.text = gc.slotsController.ReturnCost("Grenade").ToString();
         laserCost.text = gc.slotsController.ReturnCost("Laser").ToString();
+        healthCost.text = gc.slotsController.ReturnCost("Health").ToString();
         mineCost.text = gc.slotsController.ReturnCost("Mine").ToString();
+        terrainTurretCost.text = gc.slotsController.ReturnCost("TerrainTurret").ToString();
     }
 
     // Update is called once per frame
@@ -64,6 +69,19 @@ public class UIController : AController
     public void ChangeHealth(float value)
     {
         healthbar.fillAmount = value / 100;
+        ChangeShieldPos();
+    }
+
+    public void ChangeShield(float value)
+    {
+        shieldbar.fillAmount = value / 100;
+    }
+
+    public void ChangeShieldPos()
+    {
+        shieldbar.transform.localPosition = new Vector3((healthbar.transform.localPosition.x - healthbar.rectTransform.rect.width / 2) + 
+            healthbar.rectTransform.rect.width * healthbar.fillAmount + shieldbar.rectTransform.rect.width / 2, 
+            shieldbar.transform.localPosition.y, shieldbar.transform.localPosition.z);
     }
 
     public void IncreaseRound()

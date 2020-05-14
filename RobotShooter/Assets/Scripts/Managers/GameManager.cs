@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public UIController uiController;
     [HideInInspector] public PlayerController player;
-    [HideInInspector] public SlotsController slotsController;
+    [HideInInspector] public ShopController slotsController;
     [HideInInspector] public RoundController roundController;
     //[HideInInspector] public CheckpointController checkpointController;
     [HideInInspector] public AudioManager audioManager;
@@ -50,8 +50,8 @@ public class GameManager : MonoBehaviour
             player = (PlayerController)c;
         else if (c is AudioManager)
             audioManager = (AudioManager)c;
-        else if (c is SlotsController)
-            slotsController = (SlotsController)c;
+        else if (c is ShopController)
+            slotsController = (ShopController)c;
         else if (c is UIController)
             uiController = (UIController)c;
         else if (c is RoundController)
