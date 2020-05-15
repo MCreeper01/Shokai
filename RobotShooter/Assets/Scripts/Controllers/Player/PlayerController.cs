@@ -56,6 +56,8 @@ public class PlayerController : AController
     private int grenadesSlotNum;
     private int defenseSlotNum;
     [HideInInspector] public int grenadeAmmo;
+    private bool empActive;
+    private float currentEmpDuration;
 
     [HideInInspector] public int currentARChargerAmmoCount;
 
@@ -185,6 +187,16 @@ public class PlayerController : AController
             canRecover = true;
             shieldDelay = false;
         } 
+
+        if (empActive)
+        {
+            currentEmpDuration -= Time.deltaTime;
+            if (currentEmpDuration <= 0)
+            {
+                empActive = false;
+                currentEmpDuration = playerModel.empDuration;
+            }
+        }
     }
 
     public void TakeDamage(float damage, int whoAttacked)
@@ -350,13 +362,13 @@ public class PlayerController : AController
 
     public void UseDirectHability(int num)
     {
-        SlotInfo sInfo = gc.slotsController.habilitySlots[num].gameObject.GetComponent<SlotInfo>();
+        SlotInfo sInfo = gc.shopController.habilitySlots[num].gameObject.GetComponent<SlotInfo>();
         if (sInfo.charges > 0) HabilityEffect(sInfo, num);
     }
 
     public void UseDirectDeffense(int num)
     {
-        SlotInfo sInfo = gc.slotsController.defenseSlots[num].gameObject.GetComponent<SlotInfo>();
+        SlotInfo sInfo = gc.shopController.defenseSlots[num].gameObject.GetComponent<SlotInfo>();
         if (sInfo.charges > 0) DefenseEffect(sInfo, num);
     }
 
@@ -405,6 +417,27 @@ public class PlayerController : AController
                     currentHealth += playerModel.instantHealthCure;
                     if (currentHealth > playerModel.MAX_HEALTH) currentHealth = playerModel.MAX_HEALTH;
                     gc.uiController.ChangeHealth(currentHealth);
+                    sInfo.Consume();
+                }
+                break;
+            case "StickyGrenade":
+                break;
+            case "EMP":
+                empActive = true;
+                if (!withDefense && !lineRenderer.gameObject.activeSelf && empActive)
+                {
+                    Collider[] colliders = Physics.OverlapSphere(transform.position, playerModel.empRadius);
+
+                    foreach (Collider nearbyObject in colliders)
+                    {
+                        GroundEnemy gEnemy = nearbyObject.GetComponent<GroundEnemy>();
+                        if (gEnemy != null) Debug.Log("ground aturded"); //gEnemy.Aturd();
+                        else
+                        {
+                            FlyingEnemy fEnemy = nearbyObject.GetComponent<FlyingEnemy>();
+                            if (fEnemy != null) Debug.Log("fly aturded");// fEnemy.Aturd();
+                        }
+                    }
                     sInfo.Consume();
                 }
                 break;
@@ -498,7 +531,7 @@ public class PlayerController : AController
             }
             DestroyDefense();
             gun.SetActive(true);
-            SlotInfo sInfo = gc.slotsController.defenseSlots[defenseSlotNum].GetComponent<SlotInfo>();
+            SlotInfo sInfo = gc.shopController.defenseSlots[defenseSlotNum].GetComponent<SlotInfo>();
             sInfo.Consume();
             ChangeState(previousState);
         }
@@ -623,7 +656,7 @@ public class PlayerController : AController
 
     public void ChangeGrenadeAmmo()
     {
-        SlotInfo sInfo = gc.slotsController.habilitySlots[grenadesSlotNum].GetComponent<SlotInfo>();
+        SlotInfo sInfo = gc.shopController.habilitySlots[grenadesSlotNum].GetComponent<SlotInfo>();
         sInfo.Consume();
         grenadeAmmo--;       
     }

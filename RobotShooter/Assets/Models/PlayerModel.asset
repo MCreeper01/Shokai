@@ -74,6 +74,8 @@ MonoBehaviour:
   laserTime: 3
   laserDamage: 1000000
   instantHealthCure: 40
+  empRadius: 5
+  empDuration: 1
   defenseKey: 113
   distancePlaceDefense: 3
   lavaDamage: 20
