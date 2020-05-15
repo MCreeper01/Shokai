@@ -3022,6 +3022,8 @@ MonoBehaviour:
   defaultGeneralVolume: 0.5
   defaultFXVolume: 0.5
   defaultMusicVolume: 0.5
+  minSensitivity: 100
+  maxSensitivity: 500
   showFPS: {fileID: 91980356099030357}
   brightness: {fileID: 91980356536447039}
   sensitivity: {fileID: 91980356282017518}

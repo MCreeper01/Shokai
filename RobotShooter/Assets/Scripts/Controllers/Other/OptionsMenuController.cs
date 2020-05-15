@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class OptionsMenuController : MonoBehaviour
 {
-    const float SENSITIVITY_MIDDLE_VALUE = 90;
-
     [Header("Default Settings")]
     public bool defaultShowFPS;
     [Range(0.0f, 1.0f)]
@@ -22,6 +20,10 @@ public class OptionsMenuController : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float defaultMusicVolume;
 
+    [Header("Values")]
+    public float minSensitivity;
+    public float maxSensitivity;
+
     [Header("Game Objects")]
     public Toggle showFPS;
     public Slider brightness;
@@ -34,6 +36,7 @@ public class OptionsMenuController : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false);
+        maxSensitivity -= minSensitivity;
         InitializePlayerPrefs();
 
         ShowFPS(Convert.ToBoolean(PlayerPrefs.GetInt("showFPS")));
@@ -70,8 +73,8 @@ public class OptionsMenuController : MonoBehaviour
         PlayerPrefs.SetFloat("sensitivity", value);
         if (GameManager.instance.player != null)
         {
-            GameManager.instance.player.playerModel.yawRotationalSpeed = value * SENSITIVITY_MIDDLE_VALUE;
-            GameManager.instance.player.playerModel.pitchRotationalSpeed = value * (SENSITIVITY_MIDDLE_VALUE / 2);
+            GameManager.instance.player.playerModel.yawRotationalSpeed = minSensitivity + (value * maxSensitivity);
+            GameManager.instance.player.playerModel.pitchRotationalSpeed = (minSensitivity + (value * maxSensitivity)) / 2;
         }
     }
 

@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
                 roundController.DecreaseEnemyCount();
             }
         }
-        if (Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
     }    
 
     public void ChangeScene(string scene)
