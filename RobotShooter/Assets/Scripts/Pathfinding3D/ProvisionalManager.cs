@@ -8,6 +8,7 @@ public class ProvisionalManager : MonoBehaviour
 
 
     public VolumetricGraph currentGraph;
+    public GameObject flyEnemy;
     
     public static ProvisionalManager Instance
     {
@@ -31,7 +32,10 @@ public class ProvisionalManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject g = Instantiate(flyEnemy, new Vector3(Random.Range(10, 30), Random.Range(10, 30), Random.Range(10, 30)), Quaternion.identity);
+        }
     }
 
     // Update is called once per frame

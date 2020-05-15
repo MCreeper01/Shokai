@@ -79,11 +79,16 @@ public class VolumetricGraph : MonoBehaviour
         foreach (Node pn in Graph)
         {
             foreach (Node successor in Graph)
-            {
+            {/*
                 if (pn.Connections.Count >= 25)
                 {
                     break;
-                }
+                }*/
+                /*if (DistanceToTargetSquared(pn.position, successor.position) > 10.0f)
+                {
+                    continue;
+                }*/
+
                 Ray r = new Ray
                 {
                     origin = pn.position,
@@ -100,6 +105,11 @@ public class VolumetricGraph : MonoBehaviour
                 }
             }
         }
+    }
+
+    float DistanceToTargetSquared(Vector3 me, Vector3 target)
+    {
+        return (target - me).sqrMagnitude;
     }
 
     public void OnDrawGizmosSelected()
