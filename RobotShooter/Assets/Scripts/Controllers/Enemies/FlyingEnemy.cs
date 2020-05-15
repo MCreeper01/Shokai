@@ -57,7 +57,7 @@ public class FlyingEnemy : MonoBehaviour
         if (ProvisionalManager.Instance.currentGraph.Graph.Count > 0)
         {            
             //Debug.Log(ProvisionalManager.Instance.currentGraph.Graph.Count);
-            p = pathfinder.AStar(gameObject);
+            //p = pathfinder.AStar(gameObject);
             Debug.Log(p);
         }        
     }
