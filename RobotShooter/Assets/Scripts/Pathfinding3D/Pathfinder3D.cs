@@ -50,20 +50,24 @@ public class Pathfinder3D
         openList.Add(startNode);
 
         current = startNode;
-        
+        int times = 0;
         while (openList.Count > 0 && !pathFound)
         {
+            times++;
             foreach (Node n in openList)
             {
                 if (n.estimatedCostToGoal < current.estimatedCostToGoal)
                 {
+                    endNode.predecessor = current;
                     current = n;
                 }
             }
             
             if (current == endNode)
             {
+                Debug.Log("Path found");
                 pathFound = true;
+                break;
             }
             else
             {
@@ -73,38 +77,48 @@ public class Pathfinder3D
                     
                     if (ContainsLoop(openList, successor) == false && ContainsLoop(closedList, successor) == false)
                     {
+                        //Debug.Log("yesss");
+                        successor.predecessor = current;
                         successor.costFromStart = current.costFromStart + connection.cost;
                         successor.estimatedCostToGoal = current.costFromStart + connection.cost + Heuristic(successor, endNode);
+                        //connection.successor = successor;
                         openList.Add(successor);
-                    }/*
-                    else if (openList.Contains(successor))
+                    }
+                    else if (ContainsLoop(openList, successor))
                     {
                         if (current.costFromStart + connection.cost < successor.costFromStart)
                         {
                             successor.predecessor = current;
                             successor.costFromStart = current.costFromStart + connection.cost;
                             successor.estimatedCostToGoal = current.costFromStart + connection.cost + Heuristic(successor, endNode);
-                            connection.successor = successor;
+                            //connection.successor = successor;
                         }
                     }
-                    else if (closedList.Contains(successor))
+                    else if (ContainsLoop(closedList, successor))
                     {
                         if (current.costFromStart + connection.cost < successor.costFromStart)
                         {
                             successor.predecessor = current;
                             successor.costFromStart = current.costFromStart + connection.cost;
                             successor.estimatedCostToGoal = current.costFromStart + connection.cost + Heuristic(successor, endNode);
-                            connection.successor = successor;
+                            //connection.successor = successor;
 
                             closedList.Remove(successor);
                             openList.Add(successor);
                         }
-                    }*/
+                    }
                 }
             }
-
+            //Debug.Log(current.position);
+            //Debug.Log(times);
             openList.Remove(current);
-            closedList.Add(current);            
+            closedList.Add(current);
+            //Debug.Log(openList.Count);
+
+            if (times >= 338)
+            {
+                break;
+            }
         }
 
         if (pathFound)
@@ -112,10 +126,13 @@ public class Pathfinder3D
             Path3D p = new Path3D();
             Node c = endNode;
             p.Path.Add(c);
-            for (int i = 1; c != startNode; i++)
+            //Debug.Log(closedList[0].predecessor);
+            while(c != startNode)
             {
                 p.Path.Add(c.predecessor);
+                Debug.Log(c.predecessor);
                 c = c.predecessor;
+                //Debug.Log(c);
             }
 
             p.Path.Reverse();
@@ -134,12 +151,12 @@ public class Pathfinder3D
 
     int Heuristic(Node start, Node end)
     {
-        //return Mathf.RoundToInt(Mathf.Sqrt(Mathf.Pow(start.position.x - end.position.x, 2) + Mathf.Pow(start.position.y - end.position.y, 2) + Mathf.Pow(start.position.z - end.position.z, 2)));
+        return Mathf.RoundToInt(Mathf.Sqrt(Mathf.Pow(start.position.x - end.position.x, 2) + Mathf.Pow(start.position.y - end.position.y, 2) + Mathf.Pow(start.position.z - end.position.z, 2)));
         //return 0;
         float dx = Mathf.Abs(start.position.x - end.position.x);
         float dy = Mathf.Abs(start.position.y - end.position.y);
         float dz = Mathf.Abs(start.position.z - end.position.z);
-        return Mathf.RoundToInt((dx + dy + dz) - (2 - Mathf.Sqrt(2)) * Mathf.Min(Mathf.Min(dx, dy), dz));
+        //return Mathf.RoundToInt((dx + dy + dz) - (2 - Mathf.Sqrt(2)) * Mathf.Min(Mathf.Min(dx, dy), dz));
     }
 
     float DistanceToTarget(Vector3 me, Vector3 target)

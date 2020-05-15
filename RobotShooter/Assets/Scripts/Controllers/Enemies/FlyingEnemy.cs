@@ -39,7 +39,7 @@ public class FlyingEnemy : MonoBehaviour
 
     //Pathfinding 3D
     Path3D p;
-    Pathfinder3D pathfinder = new Pathfinder3D();
+    Pathfinder3D pathfinder;
 
     // Start is called before the first frame update
     void Start()
@@ -52,11 +52,13 @@ public class FlyingEnemy : MonoBehaviour
 
         rays = new Ray[3];
 
-
-        pathfinder.goal = player.transform.position;
+        pathfinder = new Pathfinder3D();
+        pathfinder.goal = new Vector3(player.transform.position.x, player.transform.position.y + 5, player.transform.position.z);
         if (ProvisionalManager.Instance.currentGraph.Graph.Count > 0)
-        {
+        {            
+            //Debug.Log(ProvisionalManager.Instance.currentGraph.Graph.Count);
             p = pathfinder.AStar(gameObject);
+            Debug.Log(p);
         }        
     }
 
@@ -65,6 +67,7 @@ public class FlyingEnemy : MonoBehaviour
     {
         if (pathfinder.pathFound)
         {
+            Debug.Log("Yesss");
             for (int i = 0; i < p.Path.Count - 1; i++)
             {
                 Debug.DrawLine(p.Path[i].position, p.Path[i + 1].position);

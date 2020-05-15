@@ -167,7 +167,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  player: {fileID: 0}
   bullet: {fileID: 909655672932287967, guid: 360402765aaed7d44aa167fc0d401fb8, type: 3}
   cannon: {fileID: 1643527431432338805}
   mask:
@@ -193,7 +192,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643527431393625981}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 1
   m_Speed: 3
