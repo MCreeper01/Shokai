@@ -25,17 +25,18 @@ public class ProvisionalManager : MonoBehaviour
 
     void Awake()
     {
-        currentGraph.CrearNodes();
-        currentGraph.CrearConnexions();
+        //currentGraph.CrearNodes();
+        //currentGraph.CrearConnexions();
+        //currentGraph.CrearGridNodes();
     }
 
     // Start is called before the first frame update
     void Start()
-    {
+    {/*
         for (int i = 0; i < 5; i++)
         {
             GameObject g = Instantiate(flyEnemy, new Vector3(Random.Range(10, 30), Random.Range(10, 30), Random.Range(10, 30)), Quaternion.identity);
-        }
+        }*/
     }
 
     // Update is called once per frame

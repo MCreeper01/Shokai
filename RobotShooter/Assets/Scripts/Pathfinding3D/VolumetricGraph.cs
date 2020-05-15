@@ -11,17 +11,51 @@ public class VolumetricGraph : MonoBehaviour
     public int geometryLayer;
     public float erosionOffset;
 
+
+    //Grid graph
+    int gridX, gridY, gridZ;
+    public Vector3 gridWorldSize = new Vector3(20, 20, 20);
+    public float floorElevation = 1;
+    public float radius;
+
     // Start is called before the first frame update
     void Start()
     {
-        CrearNodes();
-        CrearConnexions();
+        //CrearNodes();
+        //CrearConnexions();
+        CrearGridNodes();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    void CrearGridNodes()
+    {
+        Graph.Clear();
+        gridX = Mathf.RoundToInt(gridWorldSize.x / distanceBtwNodes);
+        gridY = Mathf.RoundToInt(gridWorldSize.y / distanceBtwNodes);
+        gridZ = Mathf.RoundToInt(gridWorldSize.z / distanceBtwNodes);
+        for (int x = 0; x < gridX; x++)
+        {
+            for (int y = 0; y < gridY; y++)
+            {
+                for (int z = 0; z < gridZ; z++)
+                {
+                    Node n = new Node();
+                    n.position = new Vector3(x * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.x / 2, y * distanceBtwNodes + floorElevation, z * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.z / 2);
+                    Graph.Add(n);
+                }
+            }
+        }
+        Debug.Log(Graph.Count);
+    }
+
+    void CrearCircleGrid()
+    {
+
     }
 
     GameObject[] FindActiveGameObjectsWithLayer(int layer)
