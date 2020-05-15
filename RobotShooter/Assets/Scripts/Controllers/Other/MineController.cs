@@ -5,6 +5,8 @@ using UnityEngine;
 public class MineController : MonoBehaviour
 {
     public float damage;
+    public float damageToPlayer;
+    public float explosionRadius;
 
     // Start is called before the first frame update
     void Start()
@@ -22,12 +24,29 @@ public class MineController : MonoBehaviour
     {
         if (col.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            GroundEnemy gEnemy = col.GetComponent<GroundEnemy>();
-            if (gEnemy != null) gEnemy.TakeDamage(damage);
-            else
+            Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+
+            foreach (Collider nearbyObject in colliders)
             {
-                FlyingEnemy fEnemy = col.GetComponent<FlyingEnemy>();
-                if (fEnemy != null) fEnemy.TakeDamage(damage);
+                /*Rigidbody rgb = nearbyObject.GetComponent<Rigidbody>();
+                if (rgb != null)
+                {
+                    rgb.AddExplosionForce(force, transform.position, explosionRadius);
+                }*/
+
+                GroundEnemy gEnemy = nearbyObject.GetComponent<GroundEnemy>();
+                if (gEnemy != null) gEnemy.TakeDamage(damage);
+                else
+                {
+                    FlyingEnemy fEnemy = nearbyObject.GetComponent<FlyingEnemy>();
+                    if (fEnemy != null) fEnemy.TakeDamage(damage);
+                    else
+                    {
+                        PlayerController player = nearbyObject.GetComponent<PlayerController>();
+                        if (player != null) player.TakeDamage(damageToPlayer, 0);
+                    }
+                }
+                //Destroy(gameObject);
             }
             Destroy(gameObject);
         }

@@ -84,6 +84,8 @@ public class PlayerModel : ScriptableObject
     public float laserTime;
     public float laserDamage;
     public float instantHealthCure;
+    public float empRadius;
+    public float empDuration;
 
     [Header("DEFENSES")]
     public KeyCode defenseKey;

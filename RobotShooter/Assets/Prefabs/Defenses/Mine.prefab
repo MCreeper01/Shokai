@@ -140,6 +140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 200
+  damageToPlayer: 25
+  explosionRadius: 10
 --- !u!1 &5181300982966967673
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,8 +26,11 @@ public class UIController : AController
     public Text grenadeCost;
     public Text laserCost;
     public Text healthCost;
+    public Text stickyGrenadeCost;
+    public Text empCost;
     public Text mineCost;
     public Text terrainTurretCost;
+    public Text airTurretCost;
 
     [Header("Pause")]
     public bool paused;
@@ -45,12 +48,15 @@ public class UIController : AController
     {
         ChangeAROverheat(gc.player.playerModel.MAX_CHARGER_AMMO_AR);
 
-        jetpackCost.text = gc.slotsController.ReturnCost("Jetpack").ToString();
-        grenadeCost.text = gc.slotsController.ReturnCost("Grenade").ToString();
-        laserCost.text = gc.slotsController.ReturnCost("Laser").ToString();
-        healthCost.text = gc.slotsController.ReturnCost("Health").ToString();
-        mineCost.text = gc.slotsController.ReturnCost("Mine").ToString();
-        terrainTurretCost.text = gc.slotsController.ReturnCost("TerrainTurret").ToString();
+        jetpackCost.text = gc.shopController.ReturnCost("Jetpack").ToString();
+        grenadeCost.text = gc.shopController.ReturnCost("Grenade").ToString();
+        laserCost.text = gc.shopController.ReturnCost("Laser").ToString();
+        healthCost.text = gc.shopController.ReturnCost("Health").ToString();
+        stickyGrenadeCost.text = gc.shopController.ReturnCost("StickyGrenade").ToString();
+        empCost.text = gc.shopController.ReturnCost("EMP").ToString();
+        mineCost.text = gc.shopController.ReturnCost("Mine").ToString();
+        terrainTurretCost.text = gc.shopController.ReturnCost("TerrainTurret").ToString();
+        airTurretCost.text = gc.shopController.ReturnCost("AirTurret").ToString();
     }
 
     // Update is called once per frame
