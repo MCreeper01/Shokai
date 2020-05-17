@@ -65,7 +65,7 @@ public class FlyingEnemy : MonoBehaviour
         {
             case State.INITIAL:
                 elapsedTime = 5.0f;
-                ChangeState(State.CHASE);
+                //ChangeState(State.CHASE);
                 break;
             case State.CHASE:
                 if (DistanceToTargetSquared(gameObject, player.gameObject) <= goBackDist * goBackDist)
@@ -154,10 +154,6 @@ public class FlyingEnemy : MonoBehaviour
         {
             case State.CHASE:
                 elapsedTime = 0;
-                //direction = (new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z) - transform.position).normalized;
-                target = new Vector3(player.transform.position.x, player.transform.position.y + Random.Range(1, 10), player.transform.position.z);
-                pathfinder.goal = target;
-                pathfinder.currentWayPointIndex = 0;
                 if (ProvisionalManager.Instance.currentGraph.Graph.Count > 0)
                 {
                     InvokeRepeating("GoToTarget", 0, repathTime);
@@ -192,10 +188,9 @@ public class FlyingEnemy : MonoBehaviour
 
     void GoToTarget()
     {
-        pathfinder.currentWayPointIndex = 0;        
+        pathfinder.currentWayPointIndex = 0;
         pathfinder.goal = new Vector3(player.transform.position.x, player.transform.position.y + Random.Range(1, 10), player.transform.position.z); ;
         p = pathfinder.AStar(gameObject);
-        //agent.destination = new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z);
     }
 
     float DistanceToTarget(GameObject me, GameObject target)
