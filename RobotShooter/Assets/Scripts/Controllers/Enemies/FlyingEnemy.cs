@@ -214,8 +214,8 @@ public class FlyingEnemy : MonoBehaviour
             case State.GO_BACK:
                 direction = -transform.forward * 2;
                 break;
-            case State.HIT:
-                Invoke("ChangeToAttack", 1.0f);
+            case State.HIT:                
+                Invoke("ChangeToAttack", 1.0f);                
                 break;
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(cashDropped);
@@ -229,8 +229,9 @@ public class FlyingEnemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (currentState == State.DEATH) return;
-        ChangeState(State.HIT);
         health -= damage;
+        if (health <= 0) ChangeState(State.DEATH);        
+        else ChangeState(State.HIT);        
     }
 
     void GoToTarget()

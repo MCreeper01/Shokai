@@ -15,6 +15,7 @@ public class UIController : AController
 
     [Header("HUD")]
     public Image healthbar;
+    public Image shieldbar;
     public Image overheatAR;
     public Text interactiveText;
     public Text cashText;
@@ -24,10 +25,18 @@ public class UIController : AController
     public Text jetpackCost;
     public Text grenadeCost;
     public Text laserCost;
+    public Text healthCost;
+    public Text stickyGrenadeCost;
+    public Text empCost;
     public Text mineCost;
+    public Text terrainTurretCost;
+    public Text airTurretCost;
+    public Text timerText;
 
     [Header("Pause")]
     public bool paused;
+
+    private float shopTimer;
 
     void Awake()
     {
@@ -42,16 +51,33 @@ public class UIController : AController
     {
         ChangeAROverheat(gc.player.playerModel.MAX_CHARGER_AMMO_AR);
 
-        jetpackCost.text = gc.slotsController.ReturnCost("Jetpack").ToString();
-        grenadeCost.text = gc.slotsController.ReturnCost("Grenade").ToString();
-        laserCost.text = gc.slotsController.ReturnCost("Laser").ToString();
-        mineCost.text = gc.slotsController.ReturnCost("Mine").ToString();
+        jetpackCost.text = gc.shopController.ReturnCost("Jetpack").ToString();
+        grenadeCost.text = gc.shopController.ReturnCost("Grenade").ToString();
+        laserCost.text = gc.shopController.ReturnCost("Laser").ToString();
+        healthCost.text = gc.shopController.ReturnCost("Health").ToString();
+        stickyGrenadeCost.text = gc.shopController.ReturnCost("StickyGrenade").ToString();
+        empCost.text = gc.shopController.ReturnCost("EMP").ToString();
+        mineCost.text = gc.shopController.ReturnCost("Mine").ToString();
+        terrainTurretCost.text = gc.shopController.ReturnCost("TerrainTurret").ToString();
+        airTurretCost.text = gc.shopController.ReturnCost("AirTurret").ToString();
+
+        shopTimer = gc.roundController.preparationTime;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) Pause();
+        /*if (gc.roundController.currentState == RoundController.State.PREPARATION)
+        {
+            shopTimer -= Time.deltaTime;
+            if (gc.player.atShop) timerText.text = shopTimer.ToString();
+            if (shopTimer <= 0)
+            {
+                shopTimer = gc.roundController.preparationTime;
+                gc.player.Shop(false);
+            }                      
+        }*/
     }
 
     public void Pause()
@@ -64,6 +90,19 @@ public class UIController : AController
     public void ChangeHealth(float value)
     {
         healthbar.fillAmount = value / 100;
+        ChangeShieldPos();
+    }
+
+    public void ChangeShield(float value)
+    {
+        shieldbar.fillAmount = value / 100;
+    }
+
+    public void ChangeShieldPos()
+    {
+        shieldbar.transform.localPosition = new Vector3((healthbar.transform.localPosition.x - healthbar.rectTransform.rect.width / 2) + 
+            healthbar.rectTransform.rect.width * healthbar.fillAmount + shieldbar.rectTransform.rect.width / 2, 
+            shieldbar.transform.localPosition.y, shieldbar.transform.localPosition.z);
     }
 
     public void IncreaseRound()

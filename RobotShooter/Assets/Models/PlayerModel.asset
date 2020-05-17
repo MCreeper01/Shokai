@@ -40,6 +40,9 @@ MonoBehaviour:
   crouchedControllerHeigh: 1.2
   dashTime: 0.2
   recoveringFromDashTime: 0.3
+  shieldRegenTickRate: 0.1
+  shieldRegenPerTick: 1
+  secondsToWaitShield: 3
   runKeyCode: 304
   jumpKeyCode: 32
   fastSpeedMultiplier: 1.2
@@ -70,6 +73,9 @@ MonoBehaviour:
   laserDistance: 250
   laserTime: 3
   laserDamage: 1000000
+  instantHealthCure: 40
+  empRadius: 5
+  empDuration: 1
   defenseKey: 113
   distancePlaceDefense: 3
   lavaDamage: 20

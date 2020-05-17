@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector] public UIController uiController;
     [HideInInspector] public PlayerController player;
-    [HideInInspector] public SlotsController slotsController;
+    [HideInInspector] public ShopController shopController;
     [HideInInspector] public RoundController roundController;
     //[HideInInspector] public CheckpointController checkpointController;
     [HideInInspector] public AudioManager audioManager;
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
         if (player != null) player.StartGame();
         if (uiController != null && player != null) uiController.StartGame();
         if (audioManager != null) audioManager.StartGame();
-        if (slotsController != null) slotsController.StartGame();
+        if (shopController != null) shopController.StartGame();
         if (roundController != null) roundController.StartGame();
         isGameRunning = true;
     }
@@ -50,8 +50,8 @@ public class GameManager : MonoBehaviour
             player = (PlayerController)c;
         else if (c is AudioManager)
             audioManager = (AudioManager)c;
-        else if (c is SlotsController)
-            slotsController = (SlotsController)c;
+        else if (c is ShopController)
+            shopController = (ShopController)c;
         else if (c is UIController)
             uiController = (UIController)c;
         else if (c is RoundController)
