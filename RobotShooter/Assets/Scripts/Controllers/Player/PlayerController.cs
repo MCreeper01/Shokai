@@ -44,6 +44,7 @@ public class PlayerController : AController
     public LayerMask shootLayerMask;
     public GameObject bulletARPrefab;
     public GameObject grenadePrefab;
+    public GameObject stickyGrenadePrefab;
     public GameObject bulletSpawner;
     [HideInInspector] public float actualOverheat = 0;
     [HideInInspector] public bool saturatedAR = false;
@@ -58,6 +59,7 @@ public class PlayerController : AController
     [HideInInspector] public int grenadeAmmo;
     private bool empActive;
     private float currentEmpDuration;
+    private bool hasNormalGrenade;
 
     [HideInInspector] public int currentARChargerAmmoCount;
 
@@ -400,6 +402,7 @@ public class PlayerController : AController
                         DestroyDefense();
                         gun.SetActive(true);
                     }
+                    hasNormalGrenade = true;
                     ChangeState(new PSGrenadeLauncher(this));
                 }                
                 break;
@@ -421,6 +424,19 @@ public class PlayerController : AController
                 }
                 break;
             case "StickyGrenade":
+                if (!lineRenderer.gameObject.activeSelf)
+                {
+                    grenadesSlotNum = num;
+                    grenadeAmmo = sInfo.charges;
+                    if (actualWeapon != Weapon.launcher) actualWeapon = Weapon.launcher;
+                    if (withDefense)
+                    {
+                        DestroyDefense();
+                        gun.SetActive(true);
+                    }
+                    hasNormalGrenade = false;
+                    ChangeState(new PSGrenadeLauncher(this));
+                }
                 break;
             case "EMP":
                 empActive = true;
@@ -646,8 +662,16 @@ public class PlayerController : AController
                 }                
                 break;
             case Weapon.launcher:
-                GameObject grenade = Instantiate(grenadePrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
-                grenade.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceLauncher * grenade.GetComponent<Rigidbody>().mass, ForceMode.VelocityChange);                
+                if (hasNormalGrenade)
+                {
+                    GameObject grenade = Instantiate(grenadePrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
+                    grenade.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceLauncher * grenade.GetComponent<Rigidbody>().mass, ForceMode.VelocityChange);
+                }
+                else
+                {
+                    GameObject stickyGrenade = Instantiate(stickyGrenadePrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
+                    stickyGrenade.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceLauncher * stickyGrenade.GetComponent<Rigidbody>().mass, ForceMode.VelocityChange);
+                }
                 ChangeGrenadeAmmo();
                 break;
         }

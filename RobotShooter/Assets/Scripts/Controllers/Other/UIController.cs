@@ -31,9 +31,12 @@ public class UIController : AController
     public Text mineCost;
     public Text terrainTurretCost;
     public Text airTurretCost;
+    public Text timerText;
 
     [Header("Pause")]
     public bool paused;
+
+    private float shopTimer;
 
     void Awake()
     {
@@ -57,12 +60,24 @@ public class UIController : AController
         mineCost.text = gc.shopController.ReturnCost("Mine").ToString();
         terrainTurretCost.text = gc.shopController.ReturnCost("TerrainTurret").ToString();
         airTurretCost.text = gc.shopController.ReturnCost("AirTurret").ToString();
+
+        shopTimer = gc.roundController.preparationTime;
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) Pause();
+        /*if (gc.roundController.currentState == RoundController.State.PREPARATION)
+        {
+            shopTimer -= Time.deltaTime;
+            if (gc.player.atShop) timerText.text = shopTimer.ToString();
+            if (shopTimer <= 0)
+            {
+                shopTimer = gc.roundController.preparationTime;
+                gc.player.Shop(false);
+            }                      
+        }*/
     }
 
     public void Pause()

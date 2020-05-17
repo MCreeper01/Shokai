@@ -116,6 +116,8 @@ MonoBehaviour:
     type: 3}
   grenadePrefab: {fileID: 5609607751278844699, guid: ed394c242f8082141a99c7be4362be7f,
     type: 3}
+  stickyGrenadePrefab: {fileID: 2541946761492140400, guid: a932d876dbaf20d4ca70924681dbee4f,
+    type: 3}
   bulletSpawner: {fileID: 5755931945526096670}
   actualOverheat: 0
   saturatedAR: 0
