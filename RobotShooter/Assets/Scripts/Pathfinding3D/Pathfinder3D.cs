@@ -26,6 +26,7 @@ public class Pathfinder3D
     {
         openList.Clear();
         closedList.Clear();
+        pathFound = false;
 
         startNode = ProvisionalManager.Instance.currentGraph.Graph[0];
         endNode = ProvisionalManager.Instance.currentGraph.Graph[0];
@@ -53,12 +54,12 @@ public class Pathfinder3D
         int times = 0;
         while (openList.Count > 0 && !pathFound)
         {
-            times++;
+            //times++;
             foreach (Node n in openList)
             {
                 if (n.estimatedCostToGoal < current.estimatedCostToGoal)
                 {
-                    endNode.predecessor = current;
+                    //endNode.predecessor = current;                    
                     current = n;
                 }
             }
@@ -113,12 +114,12 @@ public class Pathfinder3D
             //Debug.Log(times);
             openList.Remove(current);
             closedList.Add(current);
-            //Debug.Log(openList.Count);
-
-            if (times >= 338)
+            /*
+            if (times >= 300)
             {
+                Debug.Log("Path fail");
                 break;
-            }
+            }*/
         }
 
         if (pathFound)
@@ -130,7 +131,7 @@ public class Pathfinder3D
             while(c != startNode)
             {
                 p.Path.Add(c.predecessor);
-                Debug.Log(c.predecessor);
+                //Debug.Log(c.predecessor);
                 c = c.predecessor;
                 //Debug.Log(c);
             }
