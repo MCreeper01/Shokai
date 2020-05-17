@@ -232,10 +232,10 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 512
-  distanceBtwNodes: 2
+  distanceBtwNodes: 5
   geometryLayer: 9
   erosionOffset: 1
-  gridWorldSize: {x: 20, y: 20, z: 20}
+  gridWorldSize: {x: 100, y: 50, z: 100}
   floorElevation: 3
   maxRadius: 50
 --- !u!4 &678431636

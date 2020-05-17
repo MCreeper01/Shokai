@@ -21,11 +21,7 @@ public class VolumetricGraph : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //CrearNodes();
-        //CrearGridNodes();
-        //CrearConnexions();
 
-        //CrearCircleGrid();
     }
 
     // Update is called once per frame
@@ -68,7 +64,7 @@ public class VolumetricGraph : MonoBehaviour
                         //num = Random.Range(1, 5);
                         for (int i = 0; i < objectsWithLayer.Length; i++)
                         {
-                            c = objectsWithLayer[i].GetComponent<Collider>();                            
+                            c = objectsWithLayer[i].GetComponent<Collider>();
                             if (c.bounds.Contains(pos))
                             {
                                 Graph.Remove(n);

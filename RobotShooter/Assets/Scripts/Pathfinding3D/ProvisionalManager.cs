@@ -36,7 +36,7 @@ public class ProvisionalManager : MonoBehaviour
         currentGraph.CrearGridNodes();
         currentGraph.CrearConnexions();
         
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 1; i++)
         {
             GameObject g = Instantiate(flyEnemy, new Vector3(Random.Range(10, 30), Random.Range(10, 30), Random.Range(10, 30)), Quaternion.identity);
         }
