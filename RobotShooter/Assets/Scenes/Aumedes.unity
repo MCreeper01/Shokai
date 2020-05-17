@@ -232,11 +232,12 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 512
-  distanceBtwNodes: 5
+  distanceBtwNodes: 2
   geometryLayer: 9
   erosionOffset: 1
-  gridWorldSize: {x: 150, y: 30, z: 150}
-  floorElevation: 1
+  gridWorldSize: {x: 20, y: 20, z: 20}
+  floorElevation: 3
+  maxRadius: 50
 --- !u!4 &678431636
 Transform:
   m_ObjectHideFlags: 0
@@ -245,7 +246,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 678431634}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.26975775, y: 0.09457493, z: 0.07418823}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -520,7 +521,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1063481371}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 0.7, z: -5.9}
+  m_LocalPosition: {x: -7, y: 3, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1247,7 +1248,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1694184204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.24, y: 0.66, z: -6.39}
+  m_LocalPosition: {x: -8.82, y: 0.66, z: -6.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1527,11 +1528,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FlyingEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 1643527431393625981, guid: 42f2f266bdcd8954d870c38200ce1a56,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42f2f266bdcd8954d870c38200ce1a56, type: 3}

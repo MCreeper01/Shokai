@@ -32,11 +32,14 @@ public class ProvisionalManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {/*
-        for (int i = 0; i < 5; i++)
+    {
+        currentGraph.CrearGridNodes();
+        currentGraph.CrearConnexions();
+        
+        for (int i = 0; i < 20; i++)
         {
             GameObject g = Instantiate(flyEnemy, new Vector3(Random.Range(10, 30), Random.Range(10, 30), Random.Range(10, 30)), Quaternion.identity);
-        }*/
+        }
     }
 
     // Update is called once per frame

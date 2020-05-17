@@ -16,14 +16,16 @@ public class VolumetricGraph : MonoBehaviour
     int gridX, gridY, gridZ;
     public Vector3 gridWorldSize = new Vector3(20, 20, 20);
     public float floorElevation = 1;
-    public float radius;
+    public float maxRadius;
 
     // Start is called before the first frame update
     void Start()
     {
         //CrearNodes();
+        //CrearGridNodes();
         //CrearConnexions();
-        CrearGridNodes();
+
+        //CrearCircleGrid();
     }
 
     // Update is called once per frame
@@ -32,9 +34,12 @@ public class VolumetricGraph : MonoBehaviour
         
     }
 
-    void CrearGridNodes()
+    public void CrearGridNodes()
     {
         Graph.Clear();
+        GameObject[] objectsWithLayer = FindActiveGameObjectsWithLayer(geometryLayer);
+        Collider c;
+        int num;
         gridX = Mathf.RoundToInt(gridWorldSize.x / distanceBtwNodes);
         gridY = Mathf.RoundToInt(gridWorldSize.y / distanceBtwNodes);
         gridZ = Mathf.RoundToInt(gridWorldSize.z / distanceBtwNodes);
@@ -44,9 +49,33 @@ public class VolumetricGraph : MonoBehaviour
             {
                 for (int z = 0; z < gridZ; z++)
                 {
-                    Node n = new Node();
-                    n.position = new Vector3(x * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.x / 2, y * distanceBtwNodes + floorElevation, z * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.z / 2);
-                    Graph.Add(n);
+                    if (y > gridY * 0.2f)
+                    {
+                        num = Random.Range(1, 20);
+                        if (num == 1)
+                        {
+                            Node n = new Node();
+                            n.position = new Vector3(x * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.x / 2, y * distanceBtwNodes + floorElevation, z * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.z / 2);
+                            Graph.Add(n);
+                        }
+                    }
+                    else
+                    {
+                        Vector3 pos = new Vector3(x * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.x / 2, y * distanceBtwNodes + floorElevation, z * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.z / 2);
+                        Node n = new Node();
+                        n.position = pos;
+                        Graph.Add(n);
+                        //num = Random.Range(1, 5);
+                        for (int i = 0; i < objectsWithLayer.Length; i++)
+                        {
+                            c = objectsWithLayer[i].GetComponent<Collider>();                            
+                            if (c.bounds.Contains(pos))
+                            {
+                                Graph.Remove(n);
+                                break;
+                            }     
+                        }                                                
+                    }                    
                 }
             }
         }
@@ -55,7 +84,26 @@ public class VolumetricGraph : MonoBehaviour
 
     void CrearCircleGrid()
     {
-
+        Graph.Clear();
+        int num = 1;
+        //for (int height = 0; height < gridWorldSize.y; height++)
+        //{
+            for (int radius = 0; radius < maxRadius; radius++)
+            {
+            //num = Mathf.RoundToInt(Mathf.Lerp(1, maxRadius, radius / maxRadius));
+                
+                Debug.Log(num);
+                for (int i = 0; i < num; i++)
+                {
+                    float angle = i * Mathf.PI * 2f / num;
+                    Node n = new Node();
+                    n.position = new Vector3(Mathf.Cos(angle) * radius, 0, Mathf.Sin(angle) * radius);
+                    Graph.Add(n);
+                }
+                num = num * 2;
+            }
+        //}  
+        Debug.Log(Graph.Count);
     }
 
     GameObject[] FindActiveGameObjectsWithLayer(int layer)
@@ -130,10 +178,11 @@ public class VolumetricGraph : MonoBehaviour
                 };
 
                 RaycastHit hit;
-                if (!Physics.Raycast(r.origin, r.direction, out hit, 500, wallMask.value))
+                if (!Physics.Raycast(r.origin, r.direction, out hit, (successor.position - pn.position).magnitude, wallMask.value))
                 {
                     Connection c = new Connection();
-                    c.cost = Mathf.RoundToInt(r.direction.magnitude);
+                    //c.cost = Mathf.RoundToInt((successor.position - pn.position).magnitude);
+                    c.cost = 1;
                     c.successor = successor;
                     pn.Connections.Add(c);
                 }
@@ -155,6 +204,12 @@ public class VolumetricGraph : MonoBehaviour
                 Gizmos.color = Color.blue;
                 Gizmos.DrawWireSphere(n.position, 0.2f);
             }
+            /*foreach (Connection c in Graph[0].Connections)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawLine(Graph[0].position, c.successor.position);
+                Debug.Log(c.cost);
+            }*/
         }
     }
 }
