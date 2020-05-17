@@ -2,4 +2,9 @@
 jetpack
 granade
 laser
+sticky grenade
+instant health
+emp
 mine
+terrain turret
+aerial turret

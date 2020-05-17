@@ -102,8 +102,9 @@ public class GroundEnemy : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (currentState == State.DEATH) return;
-        ChangeState(State.HIT);
         health -= damage;
+        if (health <= 0) ChangeState(State.DEATH);
+        else ChangeState(State.HIT);
     }
 
     float DistanceToTarget(GameObject me, GameObject target)
