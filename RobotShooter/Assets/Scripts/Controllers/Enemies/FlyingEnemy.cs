@@ -155,7 +155,7 @@ public class FlyingEnemy : MonoBehaviour
                 if (health <= 0) ChangeState(State.DEATH);
                 break;
             case State.DEATH:
-                Destroy(gameObject);//, 1f);
+                //, 1f);
                 break;
         }
     }
@@ -220,6 +220,7 @@ public class FlyingEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(cashDropped);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                Destroy(gameObject);
                 break;
         }
 

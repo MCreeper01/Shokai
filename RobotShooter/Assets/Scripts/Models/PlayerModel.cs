@@ -80,6 +80,7 @@ public class PlayerModel : ScriptableObject
     public KeyCode hability3Key;
     public KeyCode hability4Key;
     public float jetpackVerticalSpeed;
+    public float resetFallVelocity;
     public float laserDistance;
     public float laserTime;
     public float laserDamage;
@@ -92,6 +93,7 @@ public class PlayerModel : ScriptableObject
     public float distancePlaceDefense;
 
     [Header("OTHER")]
+    public KeyCode pauseKey;
     public float lavaDamage;
 
     [Header("TESTING")]

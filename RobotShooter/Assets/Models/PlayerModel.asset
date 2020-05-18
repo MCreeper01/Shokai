@@ -70,6 +70,7 @@ MonoBehaviour:
   hability3Key: 51
   hability4Key: 52
   jetpackVerticalSpeed: 25
+  resetFallVelocity: -1
   laserDistance: 250
   laserTime: 3
   laserDamage: 1000000
@@ -78,5 +79,6 @@ MonoBehaviour:
   empDuration: 1
   defenseKey: 113
   distancePlaceDefense: 3
+  pauseKey: 112
   lavaDamage: 20
   godMode: 282

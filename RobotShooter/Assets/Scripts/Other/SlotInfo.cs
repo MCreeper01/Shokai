@@ -36,7 +36,15 @@ public class SlotInfo : MonoBehaviour
             content = "None";
             GetComponent<RawImage>().texture = null;
             gameObject.SetActive(false);
-        } 
-        
+        }         
+    }
+
+    public void Reset()
+    {
+        content = "None";
+        charges = 0;
+        chargesText.text = charges.ToString();
+        GetComponent<RawImage>().texture = null;
+        gameObject.SetActive(false);
     }
 }

@@ -199,6 +199,10 @@ public class PlayerController : AController
                 currentEmpDuration = playerModel.empDuration;
             }
         }
+
+        if (Input.GetKeyDown(playerModel.pauseKey)) gc.uiController.Pause();
+        if (Input.GetKeyDown(KeyCode.Y)) gc.shopController.MoveShop(true);
+        if (Input.GetKeyDown(KeyCode.U)) gc.shopController.MoveShop(false);
     }
 
     public void TakeDamage(float damage, int whoAttacked)
@@ -359,7 +363,11 @@ public class PlayerController : AController
             recoveringFromDash = playerModel.recoveringFromDashTime;
             dashing = false;        
         }
-        if (gliding && Input.GetKeyUp(playerModel.jumpKeyCode)) gliding = false;
+        if (gliding && Input.GetKeyUp(playerModel.jumpKeyCode))
+        {
+            gliding = false;
+            verticalSpeed = playerModel.resetFallVelocity;
+        } 
     }
 
     public void UseDirectHability(int num)
@@ -389,6 +397,7 @@ public class PlayerController : AController
         {
             case "Jetpack":
                 verticalSpeed = playerModel.jetpackVerticalSpeed;
+                if (gliding) gliding = false;
                 sInfo.Consume();
                 break;
             case "Grenade": 
@@ -558,6 +567,15 @@ public class PlayerController : AController
     {
         withDefense = false;
         Destroy(attachedDefense);
+    }
+
+    public void RestartRound()
+    {
+        currentHealth = playerModel.MAX_HEALTH;
+        currentShield = playerModel.MAX_SHIELD;
+        gc.uiController.ChangeHealth(currentHealth);
+        gc.uiController.ChangeShield(currentShield);
+        gc.shopController.ResetHabilitiesAndDefenses();
     }
 
     public void IncreaseCash(int cash)

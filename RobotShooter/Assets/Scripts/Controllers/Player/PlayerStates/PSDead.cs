@@ -6,7 +6,7 @@ public class PSDead : PlayerState
 {
     public PSDead(PlayerController pc)
     {
-        
+        GameManager.instance.uiController.GameOver(true);
         
     }
 

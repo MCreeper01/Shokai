@@ -93,6 +93,7 @@ public class GroundEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(cashDropped);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                Destroy(gameObject);
                 break;
         }
 
