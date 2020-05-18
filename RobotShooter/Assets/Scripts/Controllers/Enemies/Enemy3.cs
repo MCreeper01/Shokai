@@ -15,9 +15,9 @@ public class Enemy3 : MonoBehaviour
     public GameObject bullet;
     public Transform[] Cannons;
     bool rightCannon = true;
-    bool canMove = false;
     float elapsedTime = 0;
-    Vector3 target;
+    [HideInInspector]
+    public GameObject target;
 
     [Header("Stats")]
     public float health;
@@ -39,6 +39,7 @@ public class Enemy3 : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
+        target = player;
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
     }
@@ -61,6 +62,12 @@ public class Enemy3 : MonoBehaviour
                 transform.forward = agent.velocity;
                 break;
             case State.ATTACK:
+                if (target == null)
+                {
+                    target = player;
+                    ChangeState(State.CHASE);
+                    break;
+                }
                 if (DistanceToTargetSquared(gameObject, player.gameObject) >= maxDistAttack * maxDistAttack)
                 {
                     ChangeState(State.CHASE);
@@ -106,7 +113,6 @@ public class Enemy3 : MonoBehaviour
         {
             case State.CHASE:
                 agent.enabled = true;
-                target = player.transform.position;
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
@@ -116,15 +122,7 @@ public class Enemy3 : MonoBehaviour
                 break;
             case State.HIT:
                 GameManager.instance.player.IncreaseCash(hitIncome);
-                if (canMove)
-                {
-                    ChangeState(State.CHASE);
-                }
-                else
-                {
-                    Invoke("ChangeToChase", hitTime);
-                }
-                canMove = !canMove;
+                ChangeState(State.CHASE);
                 break;
             case State.STUNNED:
                 rb.constraints = RigidbodyConstraints.FreezePosition;
@@ -141,11 +139,34 @@ public class Enemy3 : MonoBehaviour
         currentState = newState;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage/*, GameObject attacker*/)
     {
         if (currentState == State.DEATH) return;
         ChangeState(State.HIT);
         health -= damage;
+        /*target = attacker;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 5);
+        if (colliders.Length > 0)
+        {
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                if (colliders[i].GetType() == typeof(GroundEnemy))
+                {
+                    GroundEnemy ge = colliders[i].gameObject.GetComponent<GroundEnemy>();
+                    ge.target = attacker;
+                }
+                else if (colliders[i].GetType() == typeof(Enemy3))
+                {
+                    Enemy3 te = colliders[i].gameObject.GetComponent<Enemy3>();
+                    te.target = attacker;
+                }
+            }
+        }*/
+    }
+
+    public void IncreaseStates(float health, float dmg)
+    {
+
     }
 
     float DistanceToTarget(GameObject me, GameObject target)
@@ -160,7 +181,7 @@ public class Enemy3 : MonoBehaviour
 
     void GoToTarget()
     {
-        agent.destination = target;
+        agent.destination = target.transform.position;
     }
 
     void ChangeToChase()

@@ -31,7 +31,7 @@ public class TankBullet : MonoBehaviour
             if (pc != null)
             {
                 
-                //pc.TakeDamage(damage, 0);
+                pc.TakeDamage(damage, 0);
             }
         }
         Destroy(gameObject);
