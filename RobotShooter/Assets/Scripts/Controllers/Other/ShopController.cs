@@ -6,7 +6,11 @@ using System;
 
 public class ShopController : AController
 {
+    [Header ("SHOP")]
     public GameObject shop;
+    public float shopAnimationSpeed;
+    public float shopMinimumHeight;
+    public float shopMaximumHeight;
     [Header("Habilities")]
     public Hability[] habilities;
     [Header("Defenses")]
@@ -19,7 +23,8 @@ public class ShopController : AController
     // Start is called before the first frame update
     public void StartGame()
     {
-        
+        GameEvents.instance.onPreparationFinish += OnPreparationFinish;
+        GameEvents.instance.onRoundFinish += OnRoundFinish;        
     }
 
     // Update is called once per frame
@@ -102,11 +107,25 @@ public class ShopController : AController
         }
     }
 
-    public void MoveShop (bool hide)
+    void OnPreparationFinish()
+    {
+        StartCoroutine(MoveShop(true));
+    }
+
+    void OnRoundFinish()
+    {
+        StartCoroutine(MoveShop(false));
+    }
+
+    public IEnumerator MoveShop (bool hide)
     {
         if (hide)
         {
-            //fer el transform
+            while (shop.transform.position.y > shopMinimumHeight)
+            {
+                shop.transform.Translate(-Vector3.up * shopAnimationSpeed * Time.deltaTime);
+                yield return 0;
+            }
             shop.transform.GetChild(0).gameObject.GetComponent<BoxCollider>().enabled = false;
             if (gc.player.atShop)
             {
@@ -117,7 +136,11 @@ public class ShopController : AController
         }
         else
         {
-            //fer el transform
+            while (shop.transform.position.y < shopMaximumHeight)
+            {
+                shop.transform.Translate(Vector3.up * shopAnimationSpeed * Time.deltaTime);
+                yield return 0;
+            }
             shop.transform.GetChild(0).gameObject.GetComponent<BoxCollider>().enabled = true;
         }
     }

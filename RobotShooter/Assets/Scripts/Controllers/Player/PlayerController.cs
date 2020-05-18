@@ -124,6 +124,8 @@ public class PlayerController : AController
     // Use this for initialization
     public void StartGame()
     {
+        GameEvents.instance.onTransitionStart += OnTransitionStart;
+
         transform.position = initPos;
 
         pitch = 0;
@@ -498,7 +500,6 @@ public class PlayerController : AController
                     defenseSlotNum = num;
                 }
                 break;
-
         }
     }
 
@@ -569,13 +570,18 @@ public class PlayerController : AController
         Destroy(attachedDefense);
     }
 
-    public void RestartRound()
+    public void OnTransitionStart()
     {
         currentHealth = playerModel.MAX_HEALTH;
         currentShield = playerModel.MAX_SHIELD;
         gc.uiController.ChangeHealth(currentHealth);
         gc.uiController.ChangeShield(currentShield);
         gc.shopController.ResetHabilitiesAndDefenses();
+        if (actualWeapon == Weapon.launcher)
+        {
+            actualWeapon = pastWeapon;
+            currentState = previousState;
+        } 
     }
 
     public void IncreaseCash(int cash)
@@ -735,7 +741,7 @@ public class PlayerController : AController
             }
         }
        
-        if (Time.time > 0.1f)gc.uiController.ChangeAROverheat(actualOverheat);
+        if (Time.time > 0.1f) gc.uiController.ChangeAROverheat(actualOverheat);
     }
 
     public bool CanShootAR()
@@ -810,13 +816,21 @@ public class PlayerController : AController
         {
             if (collision.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collision.gameObject.GetComponentInParent<GroundEnemy>().damage, 0);
         }
+        if (collision.tag == "CenterPlatform")
+        {
+            gc.roundController.OnTransitionTriggerEnter();
+        }
     }
 
     private void OnTriggerStay(Collider collision)
     {
         if (collision.tag == "Lava")
         {
-            TakeDamage(playerModel.lavaDamage * Time.deltaTime, 0);
+            TakeDamage (playerModel.lavaDamage * Time.deltaTime, 0);
+        }
+        if (collision.tag == "DeathZone")
+        {
+            TakeDamage (currentHealth, 0);
         }
     }
 

@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public RoundController roundController;
     //[HideInInspector] public CheckpointController checkpointController;
     [HideInInspector] public AudioManager audioManager;
-    [HideInInspector] public bool isGameRunning = false;
 
 
     private void Awake()
@@ -26,6 +25,7 @@ public class GameManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(this);
+        Invoke("StartGame", .1f);
     }
 
     void Start()
@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
         if (audioManager != null) audioManager.StartGame();
         if (shopController != null) shopController.StartGame();
         if (roundController != null) roundController.StartGame();
-        isGameRunning = true;
     }
 
     public void AddController(AController c)
@@ -63,7 +62,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isGameRunning) Invoke("StartGame", .1f);
         if (Input.GetKeyDown(KeyCode.T))
         {
             foreach (GroundEnemy enemy in GameObject.FindObjectsOfType<GroundEnemy>())
@@ -78,6 +76,11 @@ public class GameManager : MonoBehaviour
             }
         }
     }    
+
+    void OnLevelWasLoaded (int level)
+    {
+        Invoke("StartGame", .1f);
+    }
 
     public void ChangeScene(string scene)
     {        
