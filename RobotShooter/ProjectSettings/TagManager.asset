@@ -6,8 +6,7 @@ TagManager:
   tags:
   - Shop
   - Lava
-  - CenterPlatform
-  - DeathZone
+  - CriticalBox
   layers:
   - Default
   - TransparentFX
