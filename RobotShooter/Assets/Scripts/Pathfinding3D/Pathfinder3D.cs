@@ -134,10 +134,10 @@ public class Pathfinder3D
             }
 
             p.Path.Reverse();
-
+            /*
             Node finalNode = new Node();
             finalNode.position = goal;
-            p.Path.Add(finalNode);
+            p.Path.Add(finalNode);*/
 
             return p;
         }

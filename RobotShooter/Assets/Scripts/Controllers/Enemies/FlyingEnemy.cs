@@ -8,10 +8,10 @@ public class FlyingEnemy : MonoBehaviour
     public enum State { INITIAL, CHASE, ATTACK, GO_BACK, HIT, STUNNED, DEATH }
     public State currentState = State.INITIAL;
 
-    NavMeshAgent agent;
     //[HideInInspector] public PlayerController player;
     GameObject player;
-    Vector3 target;
+    [HideInInspector]
+    public Vector3 target;
     public GameObject bullet;
     public Transform cannon;
     public LayerMask mask;
@@ -47,9 +47,6 @@ public class FlyingEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.enabled = false;
-
         //player = GameManager.instance.player;
         player = GameObject.FindGameObjectWithTag("Player");
 

@@ -9,8 +9,8 @@ public class GroundEnemy : MonoBehaviour
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
-    bool canMove = false;
-    Vector3 target;
+    [HideInInspector]
+    public GameObject target;
 
     public GameObject collPoint;
     //[HideInInspector] public PlayerController player;
@@ -35,6 +35,7 @@ public class GroundEnemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
+        target = player;
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
     }
@@ -42,7 +43,7 @@ public class GroundEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.forward = new Vector3(player.transform.position.x - transform.position.x, 0, player.transform.position.z - transform.position.z);
+        transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
 
         switch (currentState)
         {
@@ -50,14 +51,20 @@ public class GroundEnemy : MonoBehaviour
                 ChangeState(State.CHASE);
                 break;
             case State.CHASE:
-                if (DistanceToTargetSquared(gameObject, player.gameObject) <= minDistAttack * minDistAttack)
+                if (DistanceToTargetSquared(gameObject, target) <= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                     break;
                 }
                 break;
             case State.ATTACK:
-                if (DistanceToTargetSquared(gameObject, player.gameObject) >= maxDistAttack * maxDistAttack)
+                if (target == null)
+                {
+                    target = player;
+                    ChangeState(State.CHASE);
+                    break;
+                }
+                if (DistanceToTargetSquared(gameObject, target) >= maxDistAttack * maxDistAttack)
                 {
                     ChangeState(State.CHASE);
                     break;
@@ -78,7 +85,6 @@ public class GroundEnemy : MonoBehaviour
         switch (currentState)
         {
             case State.CHASE:
-                //agent.isStopped = true;
                 CancelInvoke("GoToTarget");
                 agent.enabled = false;
                 break;
@@ -98,31 +104,20 @@ public class GroundEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                agent.enabled = true;
-                target = player.transform.position;
-                InvokeRepeating("GoToTarget", 0, repathTime);                
-                //agent.isStopped = false;
+                agent.enabled = true;                
+                InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
-                //agent.isStopped = true;
                 obstacle.enabled = true;
                 StartCoroutine("ActivateCollider");
                 break;
-            case State.HIT:
+            case State.HIT:                
                 GameManager.instance.player.IncreaseCash(hitIncome);
-                if (canMove)
-                {
-                    ChangeState(State.CHASE);
-                }
-                else
-                {
-                    Invoke("ChangeToChase", hitTime);
-                }
-                canMove = !canMove;
                 break;
             case State.STUNNED:
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
+                ChangeState(State.CHASE);
                 break;
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
@@ -134,11 +129,29 @@ public class GroundEnemy : MonoBehaviour
         currentState = newState;
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage/*, GameObject attacker*/)
     {
         if (currentState == State.DEATH) return;
         ChangeState(State.HIT);
         health -= damage;
+        /*target = attacker;
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 5);
+        if (colliders.Length > 0)
+        {
+            for (int i = 0; i < colliders.Length; i++)
+            {                
+                if (colliders[i].GetType() == typeof(GroundEnemy))
+                {
+                    GroundEnemy ge = colliders[i].gameObject.GetComponent<GroundEnemy>();
+                    ge.target = attacker;
+                }
+                else if (colliders[i].GetType() == typeof(Enemy3))
+                {
+                    Enemy3 te = colliders[i].gameObject.GetComponent<Enemy3>();
+                    te.target = attacker;
+                }
+            }
+        } */       
     }
 
     public void ActivateStun()
@@ -158,7 +171,7 @@ public class GroundEnemy : MonoBehaviour
 
     void GoToTarget()
     {
-        agent.destination = target;
+        agent.destination = target.transform.position;
     }
 
     void ChangeToChase()

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shop
   - Lava
+  - CriticalBox
   layers:
   - Default
   - TransparentFX
