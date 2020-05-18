@@ -20,9 +20,27 @@ public class GameEvents : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public event Action onRoundChange;
-    public void RoundChange()
+    //End of CLEAR state, before the map animation
+    public event Action onRoundFinish;
+    public void RoundFinish()
     {
-        if (onRoundChange != null) onRoundChange();
+        //Debug.Log("RoundFinish");
+        if (onRoundFinish != null) onRoundFinish();
+    }
+
+    //Start of the PREPARATION state, after the map animation
+    public event Action onRoundStart;
+    public void RoundStart()
+    {
+        //Debug.Log("RoundStart");
+        if (onRoundStart != null) onRoundStart();
+    }
+
+    //End of the PREPARATION state
+    public event Action onPreparationFinish;
+    public void PreparationFinish()
+    {
+        //Debug.Log("PreparationFinish");
+        if (onPreparationFinish != null) onPreparationFinish();
     }
 }

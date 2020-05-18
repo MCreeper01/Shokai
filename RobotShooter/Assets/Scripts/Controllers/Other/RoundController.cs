@@ -123,6 +123,7 @@ public class RoundController : AController
             case State.INITIAL:
                 break;
             case State.PREPARATION:
+                GameEvents.instance.PreparationFinish();
                 break;
             case State.SPAWN:
                 break;
@@ -132,6 +133,7 @@ public class RoundController : AController
                 transitionTrigger.SetActive(false);
                 break;
             case State.TRANSITION:
+                GameEvents.instance.RoundFinish();
                 break;
         }
 
@@ -146,10 +148,7 @@ public class RoundController : AController
                 if (gc.uiController != null) gc.uiController.IncreaseRound();
                 roundTotalEnemies += totalEnemiesIncrementPerRound;
                 enemiesSpawnedOnCurrentRound = 0;
-                if (currentRound > 1)
-                {
-                    //GameEvents.instance.RoundChange();
-                }
+                GameEvents.instance.RoundStart();
                 break;
             case State.SPAWN:
                 currentPeak++;
