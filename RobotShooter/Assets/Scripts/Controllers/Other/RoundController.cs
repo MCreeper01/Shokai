@@ -7,8 +7,8 @@ using Random = System.Random;
 
 public class RoundController : AController
 {
-    public enum State { INITIAL, PREPARATION, SPAWN, FIGHT, CLEAR};
-    public State currentState;
+    public enum State { INITIAL, PREPARATION, SPAWN, FIGHT, CLEAR, TRANSITION};
+    public State currentState = State.INITIAL;
 
     [Header("EnemySpawns")]
     [Tooltip("Maximum number of enemies that will be displayed on screen.")]
@@ -36,7 +36,10 @@ public class RoundController : AController
     public float fightTime;
 
     [Header("Maps")]
+    public float minMapAnimationHeight;
+    public float mapAnimationSpeed;
     public Map[] maps;
+    public GameObject transitionTrigger;
 
     [Header("Debug")]
     public int currentPeak;
@@ -50,37 +53,37 @@ public class RoundController : AController
 
     private float elapsedTime;
 
-    // Start is called before the first frame update
-    /*void Start()
-    {
-        if (useMinEnemiesPercentage) minEnemies = 0;
+    //// Start is called before the first frame update
+    //void Start()
+    //{
+    //    if (useMinEnemiesPercentage) minEnemies = 0;
 
-        currentRound = 0;
-        currentPeak = 0;
-        currentMap = 2; //Remove in the future!!!
+    //    currentRound = 0;
+    //    currentPeak = 0;
+    //    currentMap = 2; //Remove in the future!!!
 
-        roundTotalEnemies = firstRoundTotalEnemies - totalEnemiesIncrementPerRound;
-        currentEnemies = 0;
-        elapsedTime = 0;
-        enemiesSpawnedOnCurrentRound = 0;
-        extraEnemies = new int[enemies.Length];
-    }*/
+    //    roundTotalEnemies = firstRoundTotalEnemies - totalEnemiesIncrementPerRound;
+    //    currentEnemies = 0;
+    //    elapsedTime = 0;
+    //    enemiesSpawnedOnCurrentRound = 0;
+    //    extraEnemies = new int[enemies.Length];
+    //}
 
     public void StartGame()
     {
-        currentState = State.INITIAL;
-
         if (useMinEnemiesPercentage) minEnemies = 0;
 
         currentRound = 0;
         currentPeak = 0;
-        currentMap = 2; //Remove in the future!!!        
+        currentMap = 1;
 
         roundTotalEnemies = firstRoundTotalEnemies - totalEnemiesIncrementPerRound;
         currentEnemies = 0;
         elapsedTime = 0;
         enemiesSpawnedOnCurrentRound = 0;
         extraEnemies = new int[enemies.Length];
+
+        ChangeState(State.PREPARATION);
     }
 
     // Update is called once per frame
@@ -89,7 +92,6 @@ public class RoundController : AController
         switch (currentState)
         {
             case State.INITIAL:
-                Invoke("StartRound", .1f);
                 break;
             case State.PREPARATION:
                 if (elapsedTime >= preparationTime) ChangeState(State.SPAWN);
@@ -103,7 +105,9 @@ public class RoundController : AController
                 if (currentEnemies <= 0) ChangeState(State.CLEAR);
                 break;
             case State.CLEAR:
-                if (currentEnemies <= 0) ChangeState(State.PREPARATION);
+                if (currentEnemies <= 0) transitionTrigger.SetActive(true);
+                break;
+            case State.TRANSITION:
                 break;
         }
 
@@ -119,12 +123,17 @@ public class RoundController : AController
             case State.INITIAL:
                 break;
             case State.PREPARATION:
+                GameEvents.instance.PreparationFinish();
                 break;
             case State.SPAWN:
                 break;
             case State.FIGHT:
                 break;
             case State.CLEAR:
+                transitionTrigger.SetActive(false);
+                break;
+            case State.TRANSITION:
+                GameEvents.instance.RoundFinish();
                 break;
         }
 
@@ -139,17 +148,18 @@ public class RoundController : AController
                 if (gc.uiController != null) gc.uiController.IncreaseRound();
                 roundTotalEnemies += totalEnemiesIncrementPerRound;
                 enemiesSpawnedOnCurrentRound = 0;
-                if (currentMap == 1) currentMap = 2; //Remove in the future!!!
-                else currentMap = 1; //Remove in the future!!!
-                LoadCurrentMap();
+                GameEvents.instance.RoundStart();
                 break;
             case State.SPAWN:
                 currentPeak++;
-                SpawnEnemies();
+                //SpawnEnemies();
                 break;
             case State.FIGHT:
                 break;
             case State.CLEAR:
+                break;
+            case State.TRANSITION:
+                StartCoroutine(LoadCurrentMap());
                 break;
         }
 
@@ -217,31 +227,67 @@ public class RoundController : AController
         }
     }
 
-    void StartRound()
+    IEnumerator LoadCurrentMap()
     {
-        ChangeState(State.PREPARATION);
-    }
+        //foreach (Map m in maps)
+        //{
+        //    m.map.SetActive(false);
+        //    //m.bake.SetActive(false);
+        //    if (m.id == currentMap)
+        //    {
+        //        m.map.SetActive(true);
+        //        //m.bake.SetActive(true);
+        //    }
+        //}
 
-    void LoadCurrentMap()
-    {
+        //switch (currentMap)
+        //{
+        //    case 1:
+        //        break;
+        //    case 2:
+        //        break;
+        //}
+
+        //Down Animation
+        Map currentMap = null;
         foreach (Map m in maps)
         {
-            m.map.SetActive(false);
-            //m.bake.SetActive(false);
-            if (m.id == currentMap)
-            {
-                m.map.SetActive(true);
-                //m.bake.SetActive(true);
-            }
+            if (m.id == this.currentMap) currentMap = m;
         }
 
-        switch (currentMap)
+        while (currentMap.map.transform.position.y > minMapAnimationHeight)
         {
-            case 1:
-                break;
-            case 2:
-                break;
+            currentMap.map.transform.Translate(-Vector3.forward * mapAnimationSpeed * Time.deltaTime);
+            yield return 0;
         }
+
+        //Map switch
+        currentMap.map.SetActive(false);
+
+        if (this.currentMap < maps.Length) this.currentMap++;
+        else this.currentMap = 1;
+
+        foreach (Map m in maps)
+        {
+            if (m.id == this.currentMap) currentMap = m;
+        }
+        currentMap.map.transform.position = new Vector3(0, minMapAnimationHeight, 0);
+        currentMap.map.SetActive(true);
+
+        //Up Animation
+        while (currentMap.map.transform.position.y < currentMap.animationHeight)
+        {
+            currentMap.map.transform.Translate(Vector3.forward * mapAnimationSpeed * Time.deltaTime);
+            yield return 0;
+        }
+
+        ChangeState(State.PREPARATION);
+
+    }
+
+    public void OnTransitionTriggerEnter()
+    {
+        ChangeState(State.TRANSITION);
     }
 
     void Debuging()
@@ -249,6 +295,7 @@ public class RoundController : AController
 #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus) || Input.GetKeyDown(KeyCode.Backspace)) DecreaseEnemyCount();
         if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus) || Input.GetKeyDown(KeyCode.Return)) currentEnemies++;
+        if (Input.GetKeyDown(KeyCode.F12) && transitionTrigger.activeSelf) ChangeState(State.TRANSITION);
 #endif
     }
 
