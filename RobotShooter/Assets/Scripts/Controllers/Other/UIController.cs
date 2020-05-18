@@ -10,7 +10,7 @@ public class UIController : AController
     public Image fadePanel;    
     public GameObject HUD;
     public GameObject shopInterface;
-    public GameObject pause;
+    public GameObject pauseMenu;
     public GameObject gameOver;
 
     [Header("HUD")]
@@ -36,6 +36,10 @@ public class UIController : AController
     [Header("Pause")]
     public bool paused;
 
+    [Header("Game Over")]
+    public Text scoreText;
+    public Text newRecordText;
+
     private float shopTimer;
 
     void Awake()
@@ -44,6 +48,8 @@ public class UIController : AController
 
         shopInterface.SetActive(false);
         interactiveText.gameObject.SetActive(false);
+        pauseMenu.SetActive(false);
+        gameOver.SetActive(false);
     }
 
     // Use this for initialization
@@ -67,7 +73,7 @@ public class UIController : AController
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) Pause();
+        //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) Pause();
         /*if (gc.roundController.currentState == RoundController.State.PREPARATION)
         {
             shopTimer -= Time.deltaTime;
@@ -82,9 +88,12 @@ public class UIController : AController
 
     public void Pause()
     {
-        /*paused = !paused;
-        pause.SetActive(paused);
-        Time.timeScale = paused ? 0 : 1;*/
+        paused = !paused;
+        Cursor.visible = paused;
+        pauseMenu.SetActive(paused);
+        if (paused) Cursor.lockState = CursorLockMode.None;
+        else Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = paused ? 0 : 1;
     }
 
     public void ChangeHealth(float value)
@@ -144,16 +153,22 @@ public class UIController : AController
 
     public void GameOver(bool show)
     {
+        Cursor.visible = show;
         if (show && !gameOver.activeSelf)
         {
             gameOver.SetActive(true);
-            gc.audioManager.Play("GameOver");
+            //gc.audioManager.Play("GameOver");
             HUD.SetActive(false);
+            scoreText.text = gc.player.cash.ToString();           
+            Cursor.lockState = CursorLockMode.None;
+            // if cash > highscore  newRecordText.SetActive(true);
+            // else newRecordText.SetActive(false);
         }
         else if (!show && gameOver.activeSelf)
         {
             gameOver.SetActive(false);
             HUD.SetActive(true);
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
 

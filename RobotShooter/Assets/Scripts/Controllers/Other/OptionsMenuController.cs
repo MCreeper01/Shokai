@@ -31,7 +31,7 @@ public class OptionsMenuController : MonoBehaviour
     public Slider generalVolume;
     public Slider fxVolume;
     public Slider musicVolume;
-    public Image canvasPanel;
+    public Image brightnessPanel;
 
     void Start()
     {
@@ -65,7 +65,7 @@ public class OptionsMenuController : MonoBehaviour
     public void ChangeBrightness(float value)
     {
         PlayerPrefs.SetFloat("brightness", value);
-        canvasPanel.color = new Color(0, 0, 0, (1 - value) / 255 * 100); //Opacity value between 0-1
+        brightnessPanel.color = new Color(0, 0, 0, (1 - value) / 255 * 100); //Opacity value between 0-1
     }
 
     public void ChangeSensitivity(float value)

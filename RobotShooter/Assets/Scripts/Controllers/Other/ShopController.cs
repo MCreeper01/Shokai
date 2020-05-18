@@ -6,6 +6,7 @@ using System;
 
 public class ShopController : AController
 {
+    public GameObject shop;
     [Header("Habilities")]
     public Hability[] habilities;
     [Header("Defenses")]
@@ -38,6 +39,22 @@ public class ShopController : AController
         if (h.cost > gc.player.cash) return;
         foreach (RawImage slot in habilitySlots)
         {
+            foreach (RawImage slot2 in habilitySlots)
+            {
+                SlotInfo sInfo2 = slot2.gameObject.GetComponent<SlotInfo>();
+                if (sInfo2.content == h.name)
+                {
+                    if (sInfo2.charges < h.maxCharges)
+                    {
+                        if (sInfo2.charges + h.charges <= h.maxCharges) sInfo2.ChangeCharges(h.charges);
+                        else sInfo2.ChangeCharges(h.maxCharges - h.charges);
+                        gc.player.cash -= h.cost;
+                        gc.uiController.ChangeCash(gc.player.cash);
+                        return;
+                    }
+                    else return;
+                }
+            }
             if (!slot.gameObject.activeSelf || slot.gameObject.GetComponent<SlotInfo>().content == h.name)
             {
                 SlotInfo sInfo = slot.gameObject.GetComponent<SlotInfo>();
@@ -50,7 +67,7 @@ public class ShopController : AController
                     else sInfo.ChangeCharges(h.maxCharges - h.charges);
                     gc.player.cash -= h.cost;
                     gc.uiController.ChangeCash(gc.player.cash);
-                }                
+                }
                 return;
             }
         }
@@ -85,6 +102,26 @@ public class ShopController : AController
         }
     }
 
+    public void MoveShop (bool hide)
+    {
+        if (hide)
+        {
+            //fer el transform
+            shop.transform.GetChild(0).gameObject.GetComponent<BoxCollider>().enabled = false;
+            if (gc.player.atShop)
+            {
+                gc.player.atShop = false;
+                gc.uiController.HideInteractiveText();
+                if (gc.uiController.shopInterface.activeSelf) gc.player.Shop(false);
+            } 
+        }
+        else
+        {
+            //fer el transform
+            shop.transform.GetChild(0).gameObject.GetComponent<BoxCollider>().enabled = true;
+        }
+    }
+
     public int ReturnCost(string name)
     {
         Hability h = Array.Find(habilities, hability => hability.name == name);
@@ -98,5 +135,19 @@ public class ShopController : AController
             }                
         }
         return h.cost;
+    }
+
+    public void ResetHabilitiesAndDefenses()
+    {
+        foreach (RawImage hSlot in habilitySlots)
+        {
+            SlotInfo sInfo = hSlot.GetComponent<SlotInfo>();
+            sInfo.Reset();
+        }
+        foreach (RawImage dSlot in defenseSlots)
+        {
+            SlotInfo sInfo = dSlot.GetComponent<SlotInfo>();
+            sInfo.Reset();
+        }
     }
 }
