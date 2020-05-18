@@ -758,7 +758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 91980357660756624, guid: 1ccebb0a6d8593f4d8bc950f8f34f35f,
         type: 3}
-      propertyPath: canvasPanel
+      propertyPath: brightnessPanel
       value: 
       objectReference: {fileID: 1058561433}
     - target: {fileID: 91980357660756630, guid: 1ccebb0a6d8593f4d8bc950f8f34f35f,

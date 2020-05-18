@@ -20,12 +20,20 @@ public class GameEvents : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    //End of CLEAR state, before the map animation
+    //All enemies cleared
     public event Action onRoundFinish;
     public void RoundFinish()
     {
         //Debug.Log("RoundFinish");
         if (onRoundFinish != null) onRoundFinish();
+    }
+
+    //Start of the TRANSITION state, before the map animation
+    public event Action onTransitionStart;
+    public void TransitionStart()
+    {
+        //Debug.Log("PreparationFinish");
+        if (onTransitionStart != null) onTransitionStart();
     }
 
     //Start of the PREPARATION state, after the map animation

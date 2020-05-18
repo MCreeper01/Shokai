@@ -105,7 +105,11 @@ public class RoundController : AController
                 if (currentEnemies <= 0) ChangeState(State.CLEAR);
                 break;
             case State.CLEAR:
-                if (currentEnemies <= 0) transitionTrigger.SetActive(true);
+                if (currentEnemies <= 0)
+                {
+                    transitionTrigger.SetActive(true);
+                    GameEvents.instance.RoundFinish();
+                } 
                 break;
             case State.TRANSITION:
                 break;
@@ -132,8 +136,7 @@ public class RoundController : AController
             case State.CLEAR:
                 transitionTrigger.SetActive(false);
                 break;
-            case State.TRANSITION:
-                GameEvents.instance.RoundFinish();
+            case State.TRANSITION:                
                 break;
         }
 
@@ -159,6 +162,7 @@ public class RoundController : AController
             case State.CLEAR:
                 break;
             case State.TRANSITION:
+                GameEvents.instance.TransitionStart();
                 StartCoroutine(LoadCurrentMap());
                 break;
         }
@@ -229,25 +233,6 @@ public class RoundController : AController
 
     IEnumerator LoadCurrentMap()
     {
-        //foreach (Map m in maps)
-        //{
-        //    m.map.SetActive(false);
-        //    //m.bake.SetActive(false);
-        //    if (m.id == currentMap)
-        //    {
-        //        m.map.SetActive(true);
-        //        //m.bake.SetActive(true);
-        //    }
-        //}
-
-        //switch (currentMap)
-        //{
-        //    case 1:
-        //        break;
-        //    case 2:
-        //        break;
-        //}
-
         //Down Animation
         Map currentMap = null;
         foreach (Map m in maps)
@@ -255,11 +240,13 @@ public class RoundController : AController
             if (m.id == this.currentMap) currentMap = m;
         }
 
+        currentMap.map.layer = LayerMask.NameToLayer("Default");
+
         while (currentMap.map.transform.position.y > minMapAnimationHeight)
         {
             currentMap.map.transform.Translate(-Vector3.forward * mapAnimationSpeed * Time.deltaTime);
             yield return 0;
-        }
+        }        
 
         //Map switch
         currentMap.map.SetActive(false);
@@ -273,6 +260,7 @@ public class RoundController : AController
         }
         currentMap.map.transform.position = new Vector3(0, minMapAnimationHeight, 0);
         currentMap.map.SetActive(true);
+        currentMap.map.layer = LayerMask.NameToLayer("Default");
 
         //Up Animation
         while (currentMap.map.transform.position.y < currentMap.animationHeight)
@@ -281,6 +269,7 @@ public class RoundController : AController
             yield return 0;
         }
 
+        currentMap.map.layer = LayerMask.NameToLayer("Geometry");
         ChangeState(State.PREPARATION);
 
     }
