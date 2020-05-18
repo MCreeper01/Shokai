@@ -45,10 +45,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   maxEnemiesOnScreen: 100
-  firstRoundTotalEnemies: 30
-  totalEnemiesIncrementPerRound: 10
+  firstRoundTotalEnemies: 20
+  totalEnemiesIncrementPerRound: 5
   useMinEnemiesPercentage: 1
-  minEnemiesPercentage: 50
+  minEnemiesPercentage: 80
   minEnemies: 0
   enemies:
   - name: GroundEnemy
@@ -70,20 +70,33 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   peakEnemySpawnPercentages: 23000000140000002d000000
-  preparationTime: 30
-  spawnTime: 2
+  preparationTime: 10
+  spawnTime: 5
   fightTime: 30
+  minMapAnimationHeight: -40
+  mapAnimationSpeed: 5
   maps:
   - id: 1
-    difficulty: 0
-    enemySpawnPercentage: 3200000032000000
+    enemySpawnPercentage: 550000000f000000
+    animationHeight: -2.8
     map: {fileID: 0}
     bake: {fileID: 0}
   - id: 2
-    difficulty: 2
-    enemySpawnPercentage: 0a0000005a000000
+    enemySpawnPercentage: 3c00000028000000
+    animationHeight: -2.9
     map: {fileID: 0}
     bake: {fileID: 0}
+  - id: 3
+    enemySpawnPercentage: 3c00000028000000
+    animationHeight: -2.9
+    map: {fileID: 0}
+    bake: {fileID: 0}
+  - id: 4
+    enemySpawnPercentage: 3c00000028000000
+    animationHeight: -15.5
+    map: {fileID: 0}
+    bake: {fileID: 0}
+  transitionTrigger: {fileID: 0}
   currentPeak: 0
   currentRound: 0
   currentMap: 0
