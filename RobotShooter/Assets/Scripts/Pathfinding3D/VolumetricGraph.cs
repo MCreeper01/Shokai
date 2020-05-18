@@ -52,6 +52,7 @@ public class VolumetricGraph : MonoBehaviour
                         {
                             Node n = new Node();
                             n.position = new Vector3(x * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.x / 2, y * distanceBtwNodes + floorElevation, z * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.z / 2);
+                            n.isValid = true;
                             Graph.Add(n);
                         }
                     }
@@ -60,6 +61,7 @@ public class VolumetricGraph : MonoBehaviour
                         Vector3 pos = new Vector3(x * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.x / 2, y * distanceBtwNodes + floorElevation, z * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.z / 2);
                         Node n = new Node();
                         n.position = pos;
+                        n.isValid = true;
                         Graph.Add(n);
                         //num = Random.Range(1, 5);
                         for (int i = 0; i < objectsWithLayer.Length; i++)

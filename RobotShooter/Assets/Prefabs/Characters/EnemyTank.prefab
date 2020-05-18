@@ -52,7 +52,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7136506697506487964
 Transform:
   m_ObjectHideFlags: 0
@@ -153,8 +153,10 @@ MonoBehaviour:
   speed: 2
   fireRate: 1
   repathTime: 1
-  cashDropped: 35
-  empTimeStun: 0
+  empTimeStun: 0.5
+  hitTime: 0.5
+  hitIncome: 0
+  killIncome: 0
 --- !u!195 &7136506697506487969
 NavMeshAgent:
   m_ObjectHideFlags: 0

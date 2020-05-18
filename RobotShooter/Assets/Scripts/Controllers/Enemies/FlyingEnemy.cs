@@ -23,8 +23,10 @@ public class FlyingEnemy : MonoBehaviour
     public float speed;
     public float fireRate;
     public float repathTime;
-
-    public int cashDropped;
+    public float empTimeStun;
+    public int hitIncome;
+    public int killIncome;
+    public float hitTime;
 
     public GameObject[] rayPoints;
 
@@ -53,19 +55,17 @@ public class FlyingEnemy : MonoBehaviour
 
         rays = new Ray[3];
 
-        pathfinder = new Pathfinder3D();               
+        pathfinder = new Pathfinder3D();
+        pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
     }
 
     // Update is called once per frame
     void Update()
-    {
-        
-        
+    {                
         switch (currentState)
         {
             case State.INITIAL:
-                elapsedTime = 5.0f;
-                //ChangeState(State.CHASE);
+                ChangeState(State.CHASE);
                 break;
             case State.CHASE:
                 if (DistanceToTargetSquared(gameObject, player.gameObject) <= goBackDist * goBackDist)
@@ -153,7 +153,6 @@ public class FlyingEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                elapsedTime = 0;
                 if (ProvisionalManager.Instance.currentGraph.Graph.Count > 0)
                 {
                     InvokeRepeating("GoToTarget", 0, repathTime);
@@ -167,10 +166,14 @@ public class FlyingEnemy : MonoBehaviour
                 direction = -transform.forward * 2;
                 break;
             case State.HIT:
-                Invoke("ChangeToChase", 0.5f);
+                GameManager.instance.player.IncreaseCash(hitIncome);
+                Invoke("ChangeToChase", hitTime);
+                break;
+            case State.STUNNED:
+                Invoke("ChangeToChase", empTimeStun);
                 break;
             case State.DEATH:
-                GameManager.instance.player.IncreaseCash(cashDropped);
+                GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
                 Destroy(gameObject);
                 break;

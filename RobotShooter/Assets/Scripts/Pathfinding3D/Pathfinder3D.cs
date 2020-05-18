@@ -5,8 +5,8 @@ using UnityEngine;
 public class Pathfinder3D
 {
     public Vector3 goal { get; set; }
-    Node startNode;
-    Node endNode;
+    public Node startNode;
+    public Node endNode;
     Node current;
     List<Node> openList;
     List<Node> closedList;
@@ -32,17 +32,17 @@ public class Pathfinder3D
         endNode = ProvisionalManager.Instance.currentGraph.Graph[0];
         foreach (Node n in ProvisionalManager.Instance.currentGraph.Graph)
         {
-            if (DistanceToTarget(n.position, agent.transform.position) < DistanceToTarget(startNode.position, agent.transform.position))
+            if (DistanceToTarget(n.position, agent.transform.position) < DistanceToTarget(startNode.position, agent.transform.position) /*&& n.isValid*/)
             {
                 startNode = n;
             }
 
-            if (DistanceToTarget(n.position, goal) < DistanceToTarget(endNode.position, goal))
+            if (DistanceToTarget(n.position, goal) < DistanceToTarget(endNode.position, goal) /*&& n.isValid*/)
             {
                 endNode = n;
             }
         }
-        
+
         //Registre startNode
         startNode.predecessor = null;
         startNode.costFromStart = 0;
@@ -51,15 +51,12 @@ public class Pathfinder3D
         openList.Add(startNode);
 
         current = startNode;
-        int times = 0;
         while (openList.Count > 0 && !pathFound)
         {
-            //times++;
             foreach (Node n in openList)
             {
                 if (n.estimatedCostToGoal < current.estimatedCostToGoal)
-                {
-                    //endNode.predecessor = current;                    
+                {                 
                     current = n;
                 }
             }

@@ -26,8 +26,10 @@ public class Enemy3 : MonoBehaviour
     public float speed;
     public float fireRate;
     public float repathTime;
-    public int cashDropped;
     public float empTimeStun;
+    public float hitTime;
+    public int hitIncome;
+    public int killIncome;
 
     // Start is called before the first frame update
     void Start()
@@ -71,8 +73,7 @@ public class Enemy3 : MonoBehaviour
                 break;
             case State.STUNNED:
                 break;
-            case State.DEATH:
-                Destroy(gameObject);
+            case State.DEATH:                
                 break;
         }
     }
@@ -82,7 +83,6 @@ public class Enemy3 : MonoBehaviour
         switch (currentState)
         {
             case State.CHASE:
-                //agent.isStopped = true;
                 CancelInvoke("GoToTarget");
                 agent.enabled = false;
                 break;
@@ -108,7 +108,6 @@ public class Enemy3 : MonoBehaviour
                 agent.enabled = true;
                 target = player.transform.position;
                 InvokeRepeating("GoToTarget", 0, repathTime);
-                //agent.isStopped = false;
                 break;
             case State.ATTACK:
                 rb.constraints = RigidbodyConstraints.FreezePosition;
@@ -116,13 +115,14 @@ public class Enemy3 : MonoBehaviour
                 InvokeRepeating("InstanceBullet", 0, fireRate);
                 break;
             case State.HIT:
+                GameManager.instance.player.IncreaseCash(hitIncome);
                 if (canMove)
                 {
                     ChangeState(State.CHASE);
                 }
                 else
                 {
-                    Invoke("ChangeToChase", 0.5f);
+                    Invoke("ChangeToChase", hitTime);
                 }
                 canMove = !canMove;
                 break;
@@ -132,8 +132,9 @@ public class Enemy3 : MonoBehaviour
                 Invoke("ChangeToChase", empTimeStun);
                 break;
             case State.DEATH:
-                GameManager.instance.player.IncreaseCash(cashDropped);
+                GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                Destroy(gameObject);
                 break;
         }
 

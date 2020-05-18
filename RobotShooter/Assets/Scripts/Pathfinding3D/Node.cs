@@ -6,6 +6,7 @@ public class Node
 {
     public Vector3 position;
     public Node predecessor;
+    public bool isValid;
     public int costFromStart;
     public int estimatedCostToGoal;
     public List<Connection> Connections = new List<Connection>();
