@@ -22,9 +22,11 @@ public class GroundEnemy : MonoBehaviour
     public float damage;
     public float speed;
     public float repathTime;
-    public int cashDropped;
     public float fightRate;
     public float empTimeStun;
+    public float hitTime;
+    public int hitIncome;
+    public int killIncome;
 
     // Start is called before the first frame update
     void Start()
@@ -66,8 +68,7 @@ public class GroundEnemy : MonoBehaviour
                 break;
             case State.STUNNED:
                 break;
-            case State.DEATH:
-                Destroy(gameObject);//, 1f);
+            case State.DEATH:                
                 break;
         }
     }
@@ -108,13 +109,14 @@ public class GroundEnemy : MonoBehaviour
                 StartCoroutine("ActivateCollider");
                 break;
             case State.HIT:
+                GameManager.instance.player.IncreaseCash(hitIncome);
                 if (canMove)
                 {
                     ChangeState(State.CHASE);
                 }
                 else
                 {
-                    Invoke("ChangeToChase", 0.5f);
+                    Invoke("ChangeToChase", hitTime);
                 }
                 canMove = !canMove;
                 break;
@@ -123,8 +125,9 @@ public class GroundEnemy : MonoBehaviour
                 Invoke("ChangeToChase", empTimeStun);
                 break;
             case State.DEATH:
-                GameManager.instance.player.IncreaseCash(cashDropped);
+                GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                Destroy(gameObject);
                 break;
         }
 
@@ -171,7 +174,6 @@ public class GroundEnemy : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             collPoint.GetComponent<BoxCollider>().enabled = false;
             yield return new WaitForSeconds(fightRate);
-        }
-        
+        }        
     }
 }
