@@ -57,11 +57,23 @@ public class TerrainTurretController : MonoBehaviour
                         {
                             hasTarget = false;
                             colliders.Remove(target.GetComponent<Collider>());
-                        } 
-                    } 
-                    else hasTarget = false;
+                        }
+                    }
+                    else
+                    {
+                        Enemy3 tEnemy = hit.collider.GetComponent<Enemy3>();
+                        if (tEnemy != null)
+                        {
+                            tEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
+                            if (tEnemy.health <= 0)
+                            {
+                                hasTarget = false;
+                                colliders.Remove(target.GetComponent<Collider>());
+                            }
+                        }
+                        else hasTarget = false;
+                    }
                 }
-
                 if (Vector3.Distance(pointShoot.position, target.transform.position) > range) hasTarget = false;
             }            
         }        

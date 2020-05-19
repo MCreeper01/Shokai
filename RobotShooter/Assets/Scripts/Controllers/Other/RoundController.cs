@@ -155,7 +155,7 @@ public class RoundController : AController
                 break;
             case State.SPAWN:
                 currentPeak++;
-                //SpawnEnemies();
+                SpawnEnemies();
                 break;
             case State.FIGHT:
                 break;

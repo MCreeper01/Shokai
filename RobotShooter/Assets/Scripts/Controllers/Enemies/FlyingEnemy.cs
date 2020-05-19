@@ -8,8 +8,8 @@ public class FlyingEnemy : MonoBehaviour
     public enum State { INITIAL, CHASE, ATTACK, GO_BACK, HIT, STUNNED, DEATH }
     public State currentState = State.INITIAL;
 
-    //[HideInInspector] public PlayerController player;
-    GameObject player;
+    [HideInInspector] public PlayerController player;
+    //GameObject player;
     [HideInInspector]
     public Vector3 target;
     public GameObject bullet;
@@ -47,8 +47,8 @@ public class FlyingEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //player = GameManager.instance.player;
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.instance.player;
+        //player = GameObject.FindGameObjectWithTag("Player");
 
         rays = new Ray[3];
 
@@ -85,7 +85,9 @@ public class FlyingEnemy : MonoBehaviour
                     if (pathfinder.currentWayPointIndex < p.Path.Count)
                     {
                         direction = (p.Path[pathfinder.currentWayPointIndex].position - transform.position).normalized;
-                        transform.position += direction * 2 * Time.deltaTime;
+                        transform.position += direction * speed * Time.deltaTime;
+                        //transform.Translate((p.Path[pathfinder.currentWayPointIndex].position - transform.position) * Time.deltaTime);
+                        //transform.position = Vector3.MoveTowards(transform.position, p.Path[pathfinder.currentWayPointIndex].position, 0.1f);
 
                         if (DistanceToTargetSquaredPlus(transform.position, p.Path[pathfinder.currentWayPointIndex].position) <= pathfinder.wayPointReachedRadius * pathfinder.wayPointReachedRadius)
                         {
@@ -105,11 +107,11 @@ public class FlyingEnemy : MonoBehaviour
                 {
                     ChangeState(State.CHASE);
                     break;
-                }
+                }/*
                 if (transform.position.y < player.transform.position.y)
                 {
                     transform.position += direction * speed * Time.deltaTime;
-                }
+                }*/
                 transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
                 break;
             case State.GO_BACK:                
@@ -156,7 +158,6 @@ public class FlyingEnemy : MonoBehaviour
                 }
                 break;
             case State.ATTACK:
-                direction = Vector3.up;
                 InvokeRepeating("InstanceBullet", 0, fireRate);
                 break;
             case State.GO_BACK:
@@ -164,7 +165,7 @@ public class FlyingEnemy : MonoBehaviour
                 break;
             case State.HIT:
                 GameManager.instance.player.IncreaseCash(hitIncome);
-                Invoke("ChangeToChase", hitTime);
+                ChangeState(State.CHASE);
                 break;
             case State.STUNNED:
                 Invoke("ChangeToChase", empTimeStun);

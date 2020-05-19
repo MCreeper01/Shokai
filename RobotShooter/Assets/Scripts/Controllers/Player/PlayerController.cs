@@ -666,6 +666,11 @@ public class PlayerController : AController
                         {
                             FlyingEnemy fEnemy = hit.collider.GetComponent<FlyingEnemy>();
                             if (fEnemy != null) fEnemy.TakeDamage(playerModel.shotgunDamage);
+                            else
+                            {
+                                Enemy3 tEnemy = hit.collider.GetComponent<Enemy3>();
+                                if (tEnemy != null) tEnemy.TakeDamage(playerModel.shotgunDamage);
+                            }
                         }
 
                         /*imitHoles.Add(impactHoleGO);

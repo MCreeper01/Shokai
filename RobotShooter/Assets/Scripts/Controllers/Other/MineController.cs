@@ -44,6 +44,11 @@ public class MineController : MonoBehaviour
                     {
                         PlayerController player = nearbyObject.GetComponent<PlayerController>();
                         if (player != null) player.TakeDamage(damageToPlayer, 0);
+                        else
+                        {
+                            Enemy3 tEnemy = nearbyObject.GetComponent<Enemy3>();
+                            if (tEnemy != null) tEnemy.TakeDamage(damage);
+                        }
                     }
                 }
                 //Destroy(gameObject);
