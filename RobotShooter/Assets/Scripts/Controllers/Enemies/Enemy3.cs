@@ -88,7 +88,7 @@ public class Enemy3 : MonoBehaviour
     {
         switch (currentState)
         {
-            case State.CHASE:
+            case State.CHASE:                
                 CancelInvoke("GoToTarget");
                 agent.enabled = false;
                 break;
@@ -142,9 +142,11 @@ public class Enemy3 : MonoBehaviour
         if (currentState == State.DEATH) return;
         ChangeState(State.HIT);
         health -= damage;
-        Debug.Log("TankHit");
-        /*target = attacker;
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 5);
+        /*if (attacker.GetType() != typeof(PlayerController))
+        {
+            target = attacker;
+        }   */     
+        /*Collider[] colliders = Physics.OverlapSphere(transform.position, 5);
         if (colliders.Length > 0)
         {
             for (int i = 0; i < colliders.Length; i++)
