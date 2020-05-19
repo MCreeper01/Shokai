@@ -82,22 +82,22 @@ MonoBehaviour:
   maps:
   - id: 1
     enemySpawnPercentage: 1e0000001e00000028000000
-    animationHeight: -2.8
+    animationHeight: -2.81
     map: {fileID: 0}
     bake: {fileID: 0}
   - id: 2
     enemySpawnPercentage: 1e0000001e00000028000000
-    animationHeight: -2.9
+    animationHeight: -2.8
     map: {fileID: 0}
     bake: {fileID: 0}
   - id: 3
     enemySpawnPercentage: 1e0000001e00000028000000
-    animationHeight: -2.9
+    animationHeight: -2.8
     map: {fileID: 0}
     bake: {fileID: 0}
   - id: 4
     enemySpawnPercentage: 1e0000001e00000028000000
-    animationHeight: -15.5
+    animationHeight: -8.61
     map: {fileID: 0}
     bake: {fileID: 0}
   transitionTrigger: {fileID: 0}
