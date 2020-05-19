@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3003989886929853553}
   - component: {fileID: 8266744730385169035}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CB4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5914574628978917883}
   - component: {fileID: 4471745648724404080}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CB2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8822242107592774100}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Cannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 5885671211909599207}
   - component: {fileID: 4876790709783508999}
   - component: {fileID: 5605581891015641902}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FlyingEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,17 +228,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  player: {fileID: 0}
   target: {x: 0, y: 0, z: 0}
   bullet: {fileID: 909655672932287967, guid: 360402765aaed7d44aa167fc0d401fb8, type: 3}
-  cannon: {fileID: 0}
+  cannon: {fileID: 8822242107592774100}
   mask:
     serializedVersion: 2
     m_Bits: 512
-  health: 0
+  health: 10
   minDistAttack: 10
   maxDistAttack: 15
   goBackDist: 6
-  speed: 10
+  speed: 15
   fireRate: 1
   repathTime: 5
   empTimeStun: 0.5
@@ -258,7 +259,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -272,7 +273,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3091747688205356107}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CriticalBoxes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 547192727551849037}
   - component: {fileID: 1200422422373129621}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CB3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +352,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4013071999037013089}
   - component: {fileID: 2416741579145639727}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CB1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7818218299464592916}
   - component: {fileID: 1546524359652790906}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CriticalBox
   m_TagString: CriticalBox
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7136506696591071098}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: RigntC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 7136506697506487969}
   - component: {fileID: 7136506697506487967}
   - component: {fileID: 1314292444}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: EnemyTank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,7 +200,7 @@ MonoBehaviour:
   fireRate: 1
   repathTime: 1
   empTimeStun: 0.5
-  hitTime: 0.5
+  hitTime: 0
   hitIncome: 0
   killIncome: 0
 --- !u!195 &7136506697506487969
@@ -266,7 +266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7136506698144841021}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LeftC
   m_TagString: Untagged
   m_Icon: {fileID: 0}

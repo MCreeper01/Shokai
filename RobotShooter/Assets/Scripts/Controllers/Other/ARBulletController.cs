@@ -7,6 +7,7 @@ public class ARBulletController : MonoBehaviour
     public float speed;
     public float damage;
     public float duration;
+    public float punish;
 
     public LayerMask mask;
 
@@ -39,6 +40,11 @@ public class ARBulletController : MonoBehaviour
                 {
                     FlyingEnemy fEnemy = hits[i].collider.GetComponent<FlyingEnemy>();
                     if (fEnemy != null) fEnemy.TakeDamage(damage);
+                    else
+                    {
+                        Enemy3 tEnemy = hits[i].collider.GetComponent<Enemy3>();
+                        if (tEnemy != null) tEnemy.TakeDamage(damage * punish);
+                    }
                 }
                 Destroy(gameObject);
             }

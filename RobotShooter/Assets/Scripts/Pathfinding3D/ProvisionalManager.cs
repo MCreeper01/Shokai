@@ -8,7 +8,7 @@ public class ProvisionalManager : MonoBehaviour
 
 
     public VolumetricGraph currentGraph;
-    public GameObject flyEnemy;
+    //public GameObject flyEnemy;
     
     public static ProvisionalManager Instance
     {
@@ -35,11 +35,11 @@ public class ProvisionalManager : MonoBehaviour
     {
         currentGraph.CrearGridNodes();
         currentGraph.CrearConnexions();
-        
+        /*
         for (int i = 0; i < 1; i++)
         {
             GameObject g = Instantiate(flyEnemy, new Vector3(Random.Range(10, 30), Random.Range(10, 30), Random.Range(10, 30)), Quaternion.identity);
-        }
+        }*/
     }
 
     // Update is called once per frame

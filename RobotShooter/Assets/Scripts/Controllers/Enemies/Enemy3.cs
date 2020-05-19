@@ -10,8 +10,8 @@ public class Enemy3 : MonoBehaviour
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
     Rigidbody rb;
-    //PlayerController player;
-    GameObject player;
+    PlayerController player;
+    //GameObject player;
     public GameObject bullet;
     public Transform[] Cannons;
     bool rightCannon = true;
@@ -34,12 +34,12 @@ public class Enemy3 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //player = GameManager.instance.player;
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.instance.player;
+        //player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
-        target = player;
+        target = player.gameObject;
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
     }
@@ -53,8 +53,7 @@ public class Enemy3 : MonoBehaviour
                 ChangeState(State.CHASE);
                 break;
             case State.CHASE:
-                Debug.DrawLine(transform.position, agent.nextPosition);
-                if (DistanceToTargetSquared(gameObject, player.gameObject) <= minDistAttack * minDistAttack)
+                if (DistanceToTargetSquared(gameObject, target) <= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                     break;
@@ -64,11 +63,11 @@ public class Enemy3 : MonoBehaviour
             case State.ATTACK:
                 if (target == null)
                 {
-                    target = player;
+                    target = player.gameObject;
                     ChangeState(State.CHASE);
                     break;
                 }
-                if (DistanceToTargetSquared(gameObject, player.gameObject) >= maxDistAttack * maxDistAttack)
+                if (DistanceToTargetSquared(gameObject, target) >= maxDistAttack * maxDistAttack)
                 {
                     ChangeState(State.CHASE);
                     break;
@@ -105,7 +104,6 @@ public class Enemy3 : MonoBehaviour
                 obstacle.enabled = false;
                 break;
             case State.DEATH:
-                Destroy(gameObject);
                 break;
         }
 
@@ -144,6 +142,7 @@ public class Enemy3 : MonoBehaviour
         if (currentState == State.DEATH) return;
         ChangeState(State.HIT);
         health -= damage;
+        Debug.Log("TankHit");
         /*target = attacker;
         Collider[] colliders = Physics.OverlapSphere(transform.position, 5);
         if (colliders.Length > 0)
@@ -197,15 +196,18 @@ public class Enemy3 : MonoBehaviour
     void InstanceBullet()
     {
         GameObject b;
+        Vector3 playerDir = player.transform.position - transform.position;
+        Vector3 bulletDirection = new Vector3(playerDir.x, 0, playerDir.z);
         if (rightCannon)
         {
             b = Instantiate(bullet, Cannons[0].position, Quaternion.identity);
+            bulletDirection = new Vector3(playerDir.x, 0, playerDir.z);
         }
         else
         {
             b = Instantiate(bullet, Cannons[1].position, Quaternion.identity);
         }
-        b.transform.forward = player.transform.position - transform.position;
+        b.transform.forward = bulletDirection;
         b.GetComponent<Rigidbody>().AddForce(/*(new Vector3(player.transform.position.x, player.transform.position.y + 2, player.transform.position.z) - transform.position)*/ b.transform.forward * 15, ForceMode.Impulse);
         rightCannon = !rightCannon;
     }

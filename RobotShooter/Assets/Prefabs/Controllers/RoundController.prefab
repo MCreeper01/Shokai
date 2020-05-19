@@ -55,8 +55,12 @@ MonoBehaviour:
     enemyPrefab: {fileID: 4896865318677097886, guid: cf0dbc8545edfb141a85b5c929a9191d,
       type: 3}
     dimension: 0
+  - name: TankEnemy
+    enemyPrefab: {fileID: 7136506697506487974, guid: 938f9637319c9a448978d17d8f19fb43,
+      type: 3}
+    dimension: 0
   - name: AirEnemy
-    enemyPrefab: {fileID: 1643527431393625981, guid: 42f2f266bdcd8954d870c38200ce1a56,
+    enemyPrefab: {fileID: 6331880731280348757, guid: 42f2f266bdcd8954d870c38200ce1a56,
       type: 3}
     dimension: 1
   groundedEnemySpawners:
@@ -77,22 +81,22 @@ MonoBehaviour:
   mapAnimationSpeed: 5
   maps:
   - id: 1
-    enemySpawnPercentage: 550000000f000000
+    enemySpawnPercentage: 1e0000001e00000028000000
     animationHeight: -2.8
     map: {fileID: 0}
     bake: {fileID: 0}
   - id: 2
-    enemySpawnPercentage: 3c00000028000000
+    enemySpawnPercentage: 1e0000001e00000028000000
     animationHeight: -2.9
     map: {fileID: 0}
     bake: {fileID: 0}
   - id: 3
-    enemySpawnPercentage: 3c00000028000000
+    enemySpawnPercentage: 1e0000001e00000028000000
     animationHeight: -2.9
     map: {fileID: 0}
     bake: {fileID: 0}
   - id: 4
-    enemySpawnPercentage: 3c00000028000000
+    enemySpawnPercentage: 1e0000001e00000028000000
     animationHeight: -15.5
     map: {fileID: 0}
     bake: {fileID: 0}

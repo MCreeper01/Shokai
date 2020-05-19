@@ -51,6 +51,11 @@ public class GrenadeController : MonoBehaviour
             {
                 FlyingEnemy fEnemy = nearbyObject.GetComponent<FlyingEnemy>();
                 if (fEnemy != null) fEnemy.TakeDamage(damage);
+                else
+                {
+                    Enemy3 tEnemy = nearbyObject.GetComponent<Enemy3>();
+                    if (tEnemy != null) tEnemy.TakeDamage(damage);
+                }
             }
             //Destroy(gameObject);
         }

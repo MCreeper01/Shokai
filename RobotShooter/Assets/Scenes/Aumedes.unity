@@ -235,7 +235,7 @@ MonoBehaviour:
   distanceBtwNodes: 4
   geometryLayer: 9
   erosionOffset: 1
-  gridWorldSize: {x: 150, y: 40, z: 150}
+  gridWorldSize: {x: 50, y: 40, z: 50}
   floorElevation: 1
   maxRadius: 50
 --- !u!4 &678431636
@@ -714,7 +714,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentGraph: {fileID: 678431635}
-  flyEnemy: {fileID: 8642222243276303884}
 --- !u!4 &1459017010
 Transform:
   m_ObjectHideFlags: 0
@@ -1473,6 +1472,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GroundEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4896865318677097886, guid: cf0dbc8545edfb141a85b5c929a9191d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4896865318677097956, guid: cf0dbc8545edfb141a85b5c929a9191d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1597,6 +1601,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTank
       objectReference: {fileID: 0}
+    - target: {fileID: 7136506697506487974, guid: 938f9637319c9a448978d17d8f19fb43,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 938f9637319c9a448978d17d8f19fb43, type: 3}
 --- !u!1001 &8642222243276303883
@@ -1619,7 +1628,7 @@ PrefabInstance:
     - target: {fileID: 1471749230466811538, guid: 42f2f266bdcd8954d870c38200ce1a56,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.051289
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1471749230466811538, guid: 42f2f266bdcd8954d870c38200ce1a56,
         type: 3}
@@ -1661,6 +1670,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5605581891015641902, guid: 42f2f266bdcd8954d870c38200ce1a56,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6331880731280348757, guid: 42f2f266bdcd8954d870c38200ce1a56,
         type: 3}
       propertyPath: m_Name
@@ -1668,9 +1682,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42f2f266bdcd8954d870c38200ce1a56, type: 3}
---- !u!1 &8642222243276303884 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6331880731280348757, guid: 42f2f266bdcd8954d870c38200ce1a56,
-    type: 3}
-  m_PrefabInstance: {fileID: 8642222243276303883}
-  m_PrefabAsset: {fileID: 0}

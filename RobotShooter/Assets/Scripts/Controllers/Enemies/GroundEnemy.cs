@@ -9,12 +9,13 @@ public class GroundEnemy : MonoBehaviour
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
+    Rigidbody rb;
     [HideInInspector]
     public GameObject target;
 
     public GameObject collPoint;
-    //[HideInInspector] public PlayerController player;
-    GameObject player;
+    [HideInInspector] public PlayerController player;
+    //GameObject player;
     [Header("Stats")]
     public float health;
     public float minDistAttack;
@@ -31,11 +32,12 @@ public class GroundEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //player = GameManager.instance.player;
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.instance.player;
+        //player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
-        target = player;
+        rb = GetComponent<Rigidbody>();
+        target = player.gameObject;
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
     }
@@ -60,7 +62,7 @@ public class GroundEnemy : MonoBehaviour
             case State.ATTACK:
                 if (target == null)
                 {
-                    target = player;
+                    target = player.gameObject;
                     ChangeState(State.CHASE);
                     break;
                 }
@@ -89,12 +91,14 @@ public class GroundEnemy : MonoBehaviour
                 agent.enabled = false;
                 break;
             case State.ATTACK:
+                rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 StopCoroutine("ActivateCollider");
                 break;
             case State.HIT:
                 break;
             case State.STUNNED:
+                rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
             case State.DEATH:
@@ -108,6 +112,7 @@ public class GroundEnemy : MonoBehaviour
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
+                rb.constraints = RigidbodyConstraints.FreezePosition;
                 obstacle.enabled = true;
                 StartCoroutine("ActivateCollider");
                 break;
@@ -115,6 +120,7 @@ public class GroundEnemy : MonoBehaviour
                 GameManager.instance.player.IncreaseCash(hitIncome);
                 break;
             case State.STUNNED:
+                rb.constraints = RigidbodyConstraints.FreezePosition;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
                 ChangeState(State.CHASE);

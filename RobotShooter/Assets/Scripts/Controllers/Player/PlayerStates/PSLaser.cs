@@ -41,6 +41,11 @@ public class PSLaser : PlayerState
             {
                 FlyingEnemy fEnemy = hit.collider.GetComponent<FlyingEnemy>();
                 if (fEnemy != null) fEnemy.TakeDamage(pc.playerModel.laserDamage);
+                else
+                {
+                    Enemy3 tEnemy = hit.collider.GetComponent<Enemy3>();
+                    if (tEnemy != null) tEnemy.TakeDamage(pc.playerModel.laserDamage);
+                }
             }
         }
         pc.lineRenderer.SetPosition(1, endRaycastPos);
