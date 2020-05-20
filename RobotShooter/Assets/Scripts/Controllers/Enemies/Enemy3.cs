@@ -14,6 +14,7 @@ public class Enemy3 : MonoBehaviour
     //GameObject player;
     public GameObject bullet;
     public Transform[] Cannons;
+    public Transform[] Arms;
     bool rightCannon = true;
     float elapsedTime = 0;
     [HideInInspector]
@@ -30,6 +31,7 @@ public class Enemy3 : MonoBehaviour
     public float hitTime;
     public int hitIncome;
     public int killIncome;
+    public float bulletImpulse;
 
     // Start is called before the first frame update
     void Start()
@@ -72,6 +74,8 @@ public class Enemy3 : MonoBehaviour
                     break;
                 }
                 transform.forward = new Vector3(player.transform.position.x - transform.position.x, 0, player.transform.position.z - transform.position.z);
+                Arms[0].LookAt(new Vector3(0, player.transform.position.y - Arms[0].position.y, 0));
+                Arms[1].LookAt(new Vector3(0, player.transform.position.y - Arms[1].position.y, 0));
                 break;
             case State.HIT:
                 if (health <= 0) ChangeState(State.DEATH);
@@ -115,8 +119,7 @@ public class Enemy3 : MonoBehaviour
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
-                rb.constraints = RigidbodyConstraints.FreezePosition;
-                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePosition;
                 obstacle.enabled = true;
                 InvokeRepeating("InstanceBullet", 0, fireRate);
                 break;
@@ -202,19 +205,16 @@ public class Enemy3 : MonoBehaviour
     void InstanceBullet()
     {
         GameObject b;
-        Vector3 playerDir = player.transform.position - transform.position;
-        Vector3 bulletDirection = new Vector3(playerDir.x, 0, playerDir.z);
         if (rightCannon)
         {
             b = Instantiate(bullet, Cannons[0].position, Quaternion.identity);
-            bulletDirection = new Vector3(playerDir.x, 0, playerDir.z);
         }
         else
         {
             b = Instantiate(bullet, Cannons[1].position, Quaternion.identity);
         }
-        b.transform.forward = bulletDirection;
-        b.GetComponent<Rigidbody>().AddForce(/*(new Vector3(player.transform.position.x, player.transform.position.y + 2, player.transform.position.z) - transform.position)*/ b.transform.forward * 15, ForceMode.Impulse);
+        
+        b.GetComponent<Rigidbody>().AddForce(Arms[0].forward * bulletImpulse, ForceMode.Impulse);
         rightCannon = !rightCannon;
     }
 }
