@@ -818,7 +818,11 @@ public class PlayerController : AController
     //COLLISIONS
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Lava")
+        {
 
+            Debug.Log("Hola");
+        }
     }
 
     private void OnTriggerEnter(Collider collision)
