@@ -63,7 +63,6 @@ public class Pathfinder3D
             
             if (current == endNode)
             {
-                Debug.Log("Path found");
                 pathFound = true;
                 break;
             }

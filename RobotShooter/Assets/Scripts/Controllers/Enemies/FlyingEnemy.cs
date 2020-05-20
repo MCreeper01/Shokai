@@ -24,7 +24,6 @@ public class FlyingEnemy : MonoBehaviour
     public float speed;
     public float fireRate;
     public float repathTime;
-    public float empTimeStun;
     public int hitIncome;
     public int killIncome;
     public float hitTime;
@@ -39,6 +38,7 @@ public class FlyingEnemy : MonoBehaviour
     RaycastHit rayHit;
     NavMeshHit hit;
     float height;
+    float empTimeStun;
 
 
     //Pathfinding 3D
@@ -233,6 +233,12 @@ public class FlyingEnemy : MonoBehaviour
     void ChangeToChase()
     {
         ChangeState(State.CHASE);
+    }
+
+    public void ActivateStun(float time)
+    {
+        empTimeStun = time;
+        ChangeState(State.STUNNED);
     }
 
     void InstanceBullet()

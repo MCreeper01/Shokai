@@ -17,6 +17,7 @@ public class Enemy3 : MonoBehaviour
     public Transform[] Arms;
     bool rightCannon = true;
     float elapsedTime = 0;
+    float empTimeStun;
     [HideInInspector]
     public GameObject target;
 
@@ -27,7 +28,6 @@ public class Enemy3 : MonoBehaviour
     public float speed;
     public float fireRate;
     public float repathTime;
-    public float empTimeStun;
     public float hitTime;
     public int hitIncome;
     public int killIncome;
@@ -147,12 +147,13 @@ public class Enemy3 : MonoBehaviour
     public void TakeDamage(float damage/*, GameObject attacker*/)
     {
         if (currentState == State.DEATH) return;
-        ChangeState(State.HIT);
         health -= damage;
+        if (health <= 0) ChangeState(State.DEATH);
+        else ChangeState(State.HIT);
         /*if (attacker.GetType() != typeof(PlayerController))
         {
             target = attacker;
-        }   */     
+        }   */
         /*Collider[] colliders = Physics.OverlapSphere(transform.position, 5);
         if (colliders.Length > 0)
         {
@@ -197,8 +198,9 @@ public class Enemy3 : MonoBehaviour
         ChangeState(State.CHASE);
     }
 
-    public void ActivateStun()
+    public void ActivateStun(float time)
     {
+        empTimeStun = time;
         ChangeState(State.STUNNED);
     }
 

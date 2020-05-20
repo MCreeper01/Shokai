@@ -21,6 +21,7 @@ public class TerrainTurretController : MonoBehaviour
     void Start()
     {
         impactZone.radius = range;
+        GameManager.instance.AddActiveDefense(gameObject);
     }
 
     // Update is called once per frame
@@ -49,7 +50,7 @@ public class TerrainTurretController : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
                 {
-                    GroundEnemy gEnemy = hit.collider.GetComponent<GroundEnemy>();
+                    GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
                     if (gEnemy != null)
                     {
                         gEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
@@ -77,6 +78,11 @@ public class TerrainTurretController : MonoBehaviour
                 if (Vector3.Distance(pointShoot.position, target.transform.position) > range) hasTarget = false;
             }            
         }        
+    }
+
+    public void DestroyDefenses()
+    {
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider collider)

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public RoundController roundController;
     //[HideInInspector] public CheckpointController checkpointController;
     [HideInInspector] public AudioManager audioManager;
+    List<GameObject> activeDefenses = new List<GameObject>();
 
 
     private void Awake()
@@ -62,19 +63,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            foreach (GroundEnemy enemy in GameObject.FindObjectsOfType<GroundEnemy>())
-            {
-                Destroy(enemy.gameObject);
-                roundController.DecreaseEnemyCount();
-            }
-            foreach (FlyingEnemy enemy in GameObject.FindObjectsOfType<FlyingEnemy>())
-            {
-                Destroy(enemy.gameObject);
-                roundController.DecreaseEnemyCount();
-            }
-        }
+        Debuging();
     }    
 
     void OnLevelWasLoaded (int level)
@@ -87,6 +76,20 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(scene);
         if (Time.timeScale == 0) Time.timeScale = 1;
         //isGameRunning = false;
+    }
+
+    public void DestroyDefenses()
+    {
+        foreach (GameObject defense in activeDefenses)
+        {
+            Destroy(defense);
+        }
+        activeDefenses.Clear();
+    }
+
+    public void AddActiveDefense(GameObject RestartGameElement)
+    {
+        activeDefenses.Add(RestartGameElement);
     }
 
     public void Restart()
@@ -103,6 +106,30 @@ public class GameManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
 #endif
         Application.Quit();
+    }
+
+    void Debuging()
+    {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            foreach (GroundEnemy enemy in GameObject.FindObjectsOfType<GroundEnemy>())
+            {
+                Destroy(enemy.gameObject);
+                roundController.DecreaseEnemyCount();
+            }
+            foreach (FlyingEnemy enemy in GameObject.FindObjectsOfType<FlyingEnemy>())
+            {
+                Destroy(enemy.gameObject);
+                roundController.DecreaseEnemyCount();
+            }
+            foreach (Enemy3 enemy in GameObject.FindObjectsOfType<Enemy3>())
+            {
+                Destroy(enemy.gameObject);
+                roundController.DecreaseEnemyCount();
+            }
+        }
+#endif
     }
 
 }

@@ -6041,6 +6041,7 @@ MonoBehaviour:
   HUD: {fileID: 7604321125467165203}
   shopInterface: {fileID: 7604321124787350405}
   pauseMenu: {fileID: 6739075768400493020}
+  optionsMenu: {fileID: 8023625631557884964}
   gameOver: {fileID: 1085048176305822972}
   healthbar: {fileID: 7521212095394237003}
   shieldbar: {fileID: 6084172654356214842}
