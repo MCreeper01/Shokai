@@ -52,13 +52,12 @@ public class Enemy3 : MonoBehaviour
             case State.INITIAL:
                 ChangeState(State.CHASE);
                 break;
-            case State.CHASE:
+            case State.CHASE:                
                 if (DistanceToTargetSquared(gameObject, target) <= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                     break;
                 }
-                transform.forward = agent.velocity;
                 break;
             case State.ATTACK:
                 if (target == null)
@@ -98,6 +97,8 @@ public class Enemy3 : MonoBehaviour
                 CancelInvoke("InstanceBullet");
                 break;
             case State.HIT:
+                rb.constraints = RigidbodyConstraints.None;
+                obstacle.enabled = false;
                 break;
             case State.STUNNED:
                 rb.constraints = RigidbodyConstraints.None;
@@ -115,15 +116,18 @@ public class Enemy3 : MonoBehaviour
                 break;
             case State.ATTACK:
                 rb.constraints = RigidbodyConstraints.FreezePosition;
+                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 obstacle.enabled = true;
                 InvokeRepeating("InstanceBullet", 0, fireRate);
                 break;
             case State.HIT:
+                rb.constraints = RigidbodyConstraints.FreezeAll;
+                obstacle.enabled = true;
                 GameManager.instance.player.IncreaseCash(hitIncome);
-                ChangeState(State.CHASE);
+                Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
-                rb.constraints = RigidbodyConstraints.FreezePosition;
+                rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
                 break;
@@ -182,7 +186,7 @@ public class Enemy3 : MonoBehaviour
 
     void GoToTarget()
     {
-        agent.destination = target.transform.position;
+        agent.destination = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
     }
 
     void ChangeToChase()

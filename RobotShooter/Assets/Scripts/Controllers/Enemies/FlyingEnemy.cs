@@ -15,6 +15,7 @@ public class FlyingEnemy : MonoBehaviour
     public GameObject bullet;
     public Transform cannon;
     public LayerMask mask;
+    Rigidbody rb;
     [Header("Stats")]
     public float health;
     public float minDistAttack;
@@ -52,6 +53,7 @@ public class FlyingEnemy : MonoBehaviour
 
         rays = new Ray[3];
 
+        rb = GetComponent<Rigidbody>();
         pathfinder = new Pathfinder3D();
         pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
     }
@@ -144,6 +146,10 @@ public class FlyingEnemy : MonoBehaviour
             case State.GO_BACK:
                 break;
             case State.HIT:
+                rb.constraints = RigidbodyConstraints.None;
+                break;
+            case State.STUNNED:
+                rb.constraints = RigidbodyConstraints.None;
                 break;
             case State.DEATH:
                 break;
@@ -164,10 +170,12 @@ public class FlyingEnemy : MonoBehaviour
                 direction = -transform.forward * 2;
                 break;
             case State.HIT:
+                rb.constraints = RigidbodyConstraints.FreezeAll;
                 GameManager.instance.player.IncreaseCash(hitIncome);
-                ChangeState(State.CHASE);
+                Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
+                rb.constraints = RigidbodyConstraints.FreezeAll;
                 Invoke("ChangeToChase", empTimeStun);
                 break;
             case State.DEATH:

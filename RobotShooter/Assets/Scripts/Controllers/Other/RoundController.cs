@@ -250,6 +250,7 @@ public class RoundController : AController
 
         //Map switch
         currentMap.map.SetActive(false);
+        currentMap.bake.SetActive(false);
 
         if (this.currentMap < maps.Length) this.currentMap++;
         else this.currentMap = 1;
@@ -260,6 +261,7 @@ public class RoundController : AController
         }
         currentMap.map.transform.position = new Vector3(0, minMapAnimationHeight, 0);
         currentMap.map.SetActive(true);
+        currentMap.bake.SetActive(true);
         currentMap.map.layer = LayerMask.NameToLayer("Default");
 
         //Up Animation
