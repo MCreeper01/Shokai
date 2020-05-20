@@ -148,7 +148,8 @@ public class PlayerController : AController
 
     // Update is called once per frame
     void Update()
-    {
+    {       
+        if (gc.uiController != null && (gc.uiController.paused)) return;
         currentState.Update(this);
         AnyStateUpdate();
         //Debug.Log(currentState);
@@ -200,11 +201,7 @@ public class PlayerController : AController
                 empActive = false;
                 currentEmpDuration = playerModel.empDuration;
             }
-        }
-
-        if (Input.GetKeyDown(playerModel.pauseKey)) gc.uiController.Pause();
-        if (Input.GetKeyDown(KeyCode.Y)) gc.shopController.MoveShop(true);
-        if (Input.GetKeyDown(KeyCode.U)) gc.shopController.MoveShop(false);
+        }          
     }
 
     public void TakeDamage(float damage, int whoAttacked)
@@ -457,12 +454,17 @@ public class PlayerController : AController
 
                     foreach (Collider nearbyObject in colliders)
                     {
-                        GroundEnemy gEnemy = nearbyObject.GetComponent<GroundEnemy>();
-                        if (gEnemy != null) Debug.Log("ground aturded"); //gEnemy.Aturd();
+                        GroundEnemy gEnemy = nearbyObject.GetComponentInParent<GroundEnemy>();
+                        if (gEnemy != null) gEnemy.ActivateStun(playerModel.empDuration);
                         else
                         {
-                            FlyingEnemy fEnemy = nearbyObject.GetComponent<FlyingEnemy>();
-                            if (fEnemy != null) Debug.Log("fly aturded");// fEnemy.Aturd();
+                            FlyingEnemy fEnemy = nearbyObject.GetComponentInParent<FlyingEnemy>();
+                            if (fEnemy != null) fEnemy.ActivateStun(playerModel.empDuration);
+                            else
+                            {
+                                Enemy3 tEnemy = nearbyObject.GetComponentInParent<Enemy3>();
+                                if (tEnemy != null) tEnemy.ActivateStun(playerModel.empDuration);
+                            }
                         }
                     }
                     sInfo.Consume();
@@ -533,6 +535,12 @@ public class PlayerController : AController
         Vector3 eulerAngles = pointAttachDefense.rotation.eulerAngles;
         attachedDefense.transform.position = pointAttachDefense.position;
         attachedDefense.gameObject.transform.localEulerAngles = new Vector3(0.0f, eulerAngles.y, eulerAngles.z);
+        if (attachedDefense == null)
+        {
+            ChangeState(previousState);
+            gun.SetActive(true);
+        }
+        
     }
 
     public void PlaceDeffense()
@@ -581,7 +589,8 @@ public class PlayerController : AController
         {
             actualWeapon = pastWeapon;
             currentState = previousState;
-        } 
+        }
+        gc.DestroyDefenses();
     }
 
     public void IncreaseCash(int cash)
@@ -613,6 +622,7 @@ public class PlayerController : AController
 
     public void Shoot()
     {
+        float multiplier = 1;
         switch (actualWeapon)
         {
             case Weapon.rifle:
@@ -653,18 +663,19 @@ public class PlayerController : AController
                     RaycastHit hit; 
                     if (Physics.Raycast(Camera.main.transform.position, rot * Vector3.forward, out hit, playerModel.rangeShotgun, shootLayerMask))
                     {
-                        Debug.DrawRay(Camera.main.transform.position, rot * Vector3.forward, Color.red);   
                         
+                        if (hit.collider.tag == "CriticalBox") multiplier = playerModel.criticalMultiplier;
+                        playerModel.shotgunDamage = playerModel.shotgunDamage * multiplier;
                         //GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                         GameObject impactHoleGO = Instantiate(impactHole, new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z), Quaternion.LookRotation(hit.normal));
 
                         impactHoleGO.transform.parent = hit.transform;
 
-                        GroundEnemy gEnemy = hit.collider.GetComponent<GroundEnemy>();
+                        GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
                         if (gEnemy != null) gEnemy.TakeDamage(playerModel.shotgunDamage);
                         else
                         {
-                            FlyingEnemy fEnemy = hit.collider.GetComponent<FlyingEnemy>();
+                            FlyingEnemy fEnemy = hit.collider.GetComponentInParent<FlyingEnemy>();
                             if (fEnemy != null) fEnemy.TakeDamage(playerModel.shotgunDamage);
                             else
                             {
@@ -848,4 +859,11 @@ public class PlayerController : AController
         } 
     }
 
+    void Debuging()
+    {
+#if UNITY_EDITOR
+        if (Input.GetKeyDown(KeyCode.Y)) gc.shopController.MoveShop(true);
+        if (Input.GetKeyDown(KeyCode.U)) gc.shopController.MoveShop(false);
+#endif
+    }
 }

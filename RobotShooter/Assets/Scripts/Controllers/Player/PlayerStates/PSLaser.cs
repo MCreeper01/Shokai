@@ -35,11 +35,11 @@ public class PSLaser : PlayerState
         if (Physics.Raycast(new Ray(pc.lineRenderer.transform.position, pc.lineRenderer.transform.forward), out hit, pc.playerModel.laserDistance, pc.shootLayerMask.value))
         {
             endRaycastPos = Vector3.forward * hit.distance;
-            GroundEnemy gEnemy = hit.collider.GetComponent<GroundEnemy>();
+            GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
             if (gEnemy != null) gEnemy.TakeDamage(pc.playerModel.laserDamage);
             else
             {
-                FlyingEnemy fEnemy = hit.collider.GetComponent<FlyingEnemy>();
+                FlyingEnemy fEnemy = hit.collider.GetComponentInParent<FlyingEnemy>();
                 if (fEnemy != null) fEnemy.TakeDamage(pc.playerModel.laserDamage);
                 else
                 {

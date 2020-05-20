@@ -77,7 +77,6 @@ public class VolumetricGraph : MonoBehaviour
                 }
             }
         }
-        Debug.Log(Graph.Count);
     }
 
     void CrearCircleGrid()

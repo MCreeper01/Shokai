@@ -21,6 +21,7 @@ public class ARBulletController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float multiplier = 1;
         duration -= Time.deltaTime;
         if (duration <= 0) Destroy(gameObject);
 
@@ -31,22 +32,26 @@ public class ARBulletController : MonoBehaviour
         for (int i = 0; i < hits.Length; i++)
         {
             LayerMask layer = hits[i].collider.gameObject.layer;
+            Debug.Log(hits[i].collider.tag);
+            if (hits[i].collider.tag == "CriticalBox") multiplier = GameManager.instance.player.playerModel.criticalMultiplier;
+            damage = damage * multiplier;
             //Debug.Log(hits[i].collider.name);
-            if (layer == LayerMask.NameToLayer("Enemy"))
+            if (layer == LayerMask.NameToLayer("Enemy")) 
             {
-                GroundEnemy gEnemy = hits[i].collider.GetComponent<GroundEnemy>();
+                GroundEnemy gEnemy = hits[i].collider.GetComponentInParent<GroundEnemy>();
                 if (gEnemy != null) gEnemy.TakeDamage(damage);
                 else
                 {
-                    FlyingEnemy fEnemy = hits[i].collider.GetComponent<FlyingEnemy>();
+                    FlyingEnemy fEnemy = hits[i].collider.GetComponentInParent<FlyingEnemy>();
                     if (fEnemy != null) fEnemy.TakeDamage(damage);
                     else
                     {
                         Enemy3 tEnemy = hits[i].collider.GetComponent<Enemy3>();
                         if (tEnemy != null) tEnemy.TakeDamage(damage * punish);
                     }
-                }
+                }                
                 Destroy(gameObject);
+                break;
             }
             if (layer == LayerMask.NameToLayer("Geometry"))
             {

@@ -12,6 +12,7 @@ public class GroundEnemy : MonoBehaviour
     Rigidbody rb;
     [HideInInspector]
     public GameObject target;
+    float empTimeStun;
 
     public GameObject collPoint;
     [HideInInspector] public PlayerController player;
@@ -24,7 +25,6 @@ public class GroundEnemy : MonoBehaviour
     public float speed;
     public float repathTime;
     public float fightRate;
-    public float empTimeStun;
     public float hitTime;
     public int hitIncome;
     public int killIncome;
@@ -129,7 +129,6 @@ public class GroundEnemy : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
-                ChangeState(State.CHASE);
                 break;
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
@@ -167,8 +166,9 @@ public class GroundEnemy : MonoBehaviour
         } */       
     }
 
-    public void ActivateStun()
+    public void ActivateStun(float time)
     {
+        empTimeStun = time;
         ChangeState(State.STUNNED);
     }
 

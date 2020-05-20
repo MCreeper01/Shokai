@@ -21,6 +21,7 @@ public class AirTurretController : MonoBehaviour
     void Start()
     {
         impactZone.radius = range;
+        GameManager.instance.AddActiveDefense(gameObject);
     }
 
     // Update is called once per frame
@@ -49,7 +50,7 @@ public class AirTurretController : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
                 {
-                    FlyingEnemy fEnemy = hit.collider.GetComponent<FlyingEnemy>();
+                    FlyingEnemy fEnemy = hit.collider.GetComponentInParent<FlyingEnemy>();
                     if (fEnemy != null)
                     {
                         fEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
@@ -65,6 +66,11 @@ public class AirTurretController : MonoBehaviour
                 if (Vector3.Distance(pointShoot.position, target.transform.position) > range) hasTarget = false;
             }
         }
+    }
+
+    public void DestroyDefenses()
+    {
+        if (this.gameObject != null && gameObject.Equals(null)) gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider collider)

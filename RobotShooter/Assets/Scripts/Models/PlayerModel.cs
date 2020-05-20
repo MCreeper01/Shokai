@@ -53,6 +53,7 @@ public class PlayerModel : ScriptableObject
     public KeyCode changeWeaponKey;
     public int alternativeChangeWeapon;
     public int mouseShootButton;
+    public float criticalMultiplier;
 
     [Header("ASSAULT RIFLE")]
     public float shootARCooldown;

@@ -11,6 +11,7 @@ public class UIController : AController
     public GameObject HUD;
     public GameObject shopInterface;
     public GameObject pauseMenu;
+    public GameObject optionsMenu;
     public GameObject gameOver;
 
     [Header("HUD")]
@@ -73,6 +74,7 @@ public class UIController : AController
     // Update is called once per frame
     void Update()
     {
+        if (gc != null && Input.GetKeyDown(gc.player.playerModel.pauseKey)) Pause();
         //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) Pause();
         /*if (gc.roundController.currentState == RoundController.State.PREPARATION)
         {
@@ -91,6 +93,8 @@ public class UIController : AController
         paused = !paused;
         Cursor.visible = paused;
         pauseMenu.SetActive(paused);
+        HUD.SetActive(!paused);
+        optionsMenu.SetActive(false);
         if (paused) Cursor.lockState = CursorLockMode.None;
         else Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = paused ? 0 : 1;

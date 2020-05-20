@@ -44,11 +44,11 @@ public class StickyGrenadeController : MonoBehaviour
                 rgb.AddExplosionForce(force, transform.position, explosionRadius);
             }*/
 
-            GroundEnemy gEnemy = nearbyObject.GetComponent<GroundEnemy>();
+            GroundEnemy gEnemy = nearbyObject.GetComponentInParent<GroundEnemy>();
             if (gEnemy != null) gEnemy.TakeDamage(damage);
             else
             {
-                FlyingEnemy fEnemy = nearbyObject.GetComponent<FlyingEnemy>();
+                FlyingEnemy fEnemy = nearbyObject.GetComponentInParent<FlyingEnemy>();
                 if (fEnemy != null) fEnemy.TakeDamage(damage);
                 else
                 {

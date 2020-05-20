@@ -11,13 +11,18 @@ public class MineController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameManager.instance.AddActiveDefense(gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void DestroyDefenses()
+    {
+        Destroy(gameObject);
     }
 
     void OnTriggerEnter(Collider col)
@@ -34,11 +39,11 @@ public class MineController : MonoBehaviour
                     rgb.AddExplosionForce(force, transform.position, explosionRadius);
                 }*/
 
-                GroundEnemy gEnemy = nearbyObject.GetComponent<GroundEnemy>();
+                GroundEnemy gEnemy = nearbyObject.GetComponentInParent<GroundEnemy>();
                 if (gEnemy != null) gEnemy.TakeDamage(damage);
                 else
                 {
-                    FlyingEnemy fEnemy = nearbyObject.GetComponent<FlyingEnemy>();
+                    FlyingEnemy fEnemy = nearbyObject.GetComponentInParent<FlyingEnemy>();
                     if (fEnemy != null) fEnemy.TakeDamage(damage);
                     else
                     {

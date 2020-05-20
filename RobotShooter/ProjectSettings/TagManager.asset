@@ -7,6 +7,8 @@ TagManager:
   - Shop
   - Lava
   - CriticalBox
+  - CenterPlatform
+  - DeathZone
   layers:
   - Default
   - TransparentFX
@@ -37,7 +39,7 @@ TagManager:
   - 
   - 
   - Turret
-  - 
+  - Quad
   - 
   - 
   m_SortingLayers:
