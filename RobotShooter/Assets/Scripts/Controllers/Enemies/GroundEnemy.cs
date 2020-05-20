@@ -96,6 +96,8 @@ public class GroundEnemy : MonoBehaviour
                 StopCoroutine("ActivateCollider");
                 break;
             case State.HIT:
+                rb.constraints = RigidbodyConstraints.None;
+                obstacle.enabled = false;
                 break;
             case State.STUNNED:
                 rb.constraints = RigidbodyConstraints.None;
@@ -113,14 +115,18 @@ public class GroundEnemy : MonoBehaviour
                 break;
             case State.ATTACK:
                 rb.constraints = RigidbodyConstraints.FreezePosition;
+                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 obstacle.enabled = true;
                 StartCoroutine("ActivateCollider");
                 break;
-            case State.HIT:                
+            case State.HIT:
+                rb.constraints = RigidbodyConstraints.FreezeAll;
+                obstacle.enabled = true;
                 GameManager.instance.player.IncreaseCash(hitIncome);
+                Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
-                rb.constraints = RigidbodyConstraints.FreezePosition;
+                rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
                 ChangeState(State.CHASE);
@@ -178,7 +184,7 @@ public class GroundEnemy : MonoBehaviour
 
     void GoToTarget()
     {
-        agent.destination = target.transform.position;
+        agent.destination = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
     }
 
     void ChangeToChase()
