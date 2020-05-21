@@ -93,10 +93,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef03bcc1580654a4ca83e3236f08741e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 125
-  damage: 10
+  speed: 120
+  damage: 20
   duration: 5
-  punish: 0.5
+  punish: 0.3
   mask:
     serializedVersion: 2
     m_Bits: 2561
