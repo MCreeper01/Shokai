@@ -27,6 +27,17 @@ public class EnemyBullet : MonoBehaviour
             PlayerController player = collider.GetComponent<PlayerController>();
             player.TakeDamage(damage, 0);
             Destroy(gameObject);
-        }        
+        }
+        if (collider.tag == "AirTurret")
+        {
+            collider.GetComponent<AirTurretController>().TakeDamage(damage);
+            Destroy(gameObject);
+        }
+        if (collider.tag == "GroundTurret")
+        {
+            collider.GetComponent<TerrainTurretController>().TakeDamage(damage);
+            Destroy(gameObject);
+        }
+        
     }
 }

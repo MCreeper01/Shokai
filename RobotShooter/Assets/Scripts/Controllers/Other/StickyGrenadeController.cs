@@ -52,7 +52,7 @@ public class StickyGrenadeController : MonoBehaviour
                 if (fEnemy != null) fEnemy.TakeDamage(damage);
                 else
                 {
-                    TankEnemy tEnemy = nearbyObject.GetComponent<TankEnemy>();
+                    TankEnemy tEnemy = nearbyObject.GetComponentInParent<TankEnemy>();
                     if (tEnemy != null) tEnemy.TakeDamage(damage);
                 }
             }

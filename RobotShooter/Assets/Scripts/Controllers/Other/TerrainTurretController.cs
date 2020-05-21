@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class TerrainTurretController : MonoBehaviour
 {
+    public float health;
     public float damagePerSecond;
     public float range;
     public Transform pointShoot;
@@ -62,7 +63,7 @@ public class TerrainTurretController : MonoBehaviour
                     }
                     else
                     {
-                        TankEnemy tEnemy = hit.collider.GetComponent<TankEnemy>();
+                        TankEnemy tEnemy = hit.collider.GetComponentInParent<TankEnemy>();
                         if (tEnemy != null)
                         {
                             tEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
@@ -80,6 +81,12 @@ public class TerrainTurretController : MonoBehaviour
         }        
     }
 
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0) DestroyDefenses();
+    }
+
     public void DestroyDefenses()
     {
         Destroy(gameObject);
@@ -87,7 +94,11 @@ public class TerrainTurretController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.GetComponentInParent<GroundEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider);        
+        if (collider.GetComponentInParent<GroundEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider);
+        if (collider.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
+        {
+            if (collider.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collider.gameObject.GetComponentInParent<GroundEnemy>().damage);
+        }
     }
 
     private void OnTriggerExit(Collider collider)

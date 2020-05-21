@@ -53,7 +53,7 @@ public class ARBulletController : MonoBehaviour
                     }
                     else
                     {
-                        TankEnemy tEnemy = hits[i].collider.GetComponent<TankEnemy>();
+                        TankEnemy tEnemy = hits[i].collider.GetComponentInParent<TankEnemy>();
                         if (tEnemy != null)
                         {
                             tEnemy.hittedByAR = true;

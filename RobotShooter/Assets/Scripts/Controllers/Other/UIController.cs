@@ -88,7 +88,7 @@ public class UIController : AController
                 gc.player.Shop(false);
             }                      
         }*/
-        if (preparationTimeText.gameObject.activeSelf) preparationTimeText.text = ((int)gc.roundController.preparationTime - (int)gc.roundController.elapsedTime).ToString();
+        if (gc != null && preparationTimeText.gameObject.activeSelf) preparationTimeText.text = ((int)gc.roundController.preparationTime - (int)gc.roundController.elapsedTime).ToString();
     }
 
     public void Pause()

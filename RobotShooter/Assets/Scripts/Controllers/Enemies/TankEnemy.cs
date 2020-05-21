@@ -80,6 +80,7 @@ public class TankEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                     break;
                 }
+                transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
                 break;
             case State.ATTACK:
                 if (target == null)
@@ -92,7 +93,7 @@ public class TankEnemy : MonoBehaviour
                     ChangeState(State.CHASE);
                     break;
                 }
-                transform.forward = new Vector3(player.transform.position.x - transform.position.x, 0, player.transform.position.z - transform.position.z);
+                transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
                 Arms[0].LookAt(new Vector3(0, player.transform.position.y - Arms[0].position.y, 0));
                 Arms[1].LookAt(new Vector3(0, player.transform.position.y - Arms[1].position.y, 0));
                 break;

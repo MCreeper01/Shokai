@@ -531,15 +531,14 @@ public class PlayerController : AController
                 attachedDefense = Instantiate(terrainTurretPrefab, pointAttachDefense.position, pointAttachDefense.rotation);
                 attachedDefense.GetComponent<TerrainTurretController>().placed = false;
                 attachedDefense.GetComponent<TerrainTurretController>().impactZone.enabled = false;
-                foreach (BoxCollider collider in attachedDefense.GetComponentsInChildren<BoxCollider>()) collider.enabled = false;
+                foreach (Collider collider in attachedDefense.GetComponents<Collider>()) collider.enabled = false;
                 break;
             case "AirTurret":
                 attachedDefense = Instantiate(airTurretPrefab, pointAttachDefense.position, pointAttachDefense.rotation);
                 attachedDefense.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 attachedDefense.GetComponent<AirTurretController>().placed = false;
                 attachedDefense.GetComponent<AirTurretController>().impactZone.enabled = false;
-                foreach (BoxCollider collider in attachedDefense.GetComponentsInChildren<BoxCollider>()) collider.enabled = false;
-                foreach (CapsuleCollider col in attachedDefense.GetComponentsInChildren<CapsuleCollider>()) col.enabled = false;
+                foreach (Collider collider in attachedDefense.GetComponents<Collider>()) collider.enabled = false;
                 break;
         }
     }
@@ -702,7 +701,7 @@ public class PlayerController : AController
                             } 
                             else
                             {
-                                TankEnemy tEnemy = hit.collider.GetComponent<TankEnemy>();
+                                TankEnemy tEnemy = hit.collider.GetComponentInParent<TankEnemy>();
                                 if (tEnemy != null)
                                 {
                                     tEnemy.TakeDamage(playerModel.shotgunDamage);
