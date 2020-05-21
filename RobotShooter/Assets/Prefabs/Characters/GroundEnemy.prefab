@@ -158,6 +158,7 @@ MonoBehaviour:
   hitIncome: 10
   criticalIncome: 20
   killIncome: 40
+  targetRadiusDetection: 1000
   healthInc: 10
   damageInc: 5
   maxDamage: 50

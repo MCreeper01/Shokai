@@ -9,6 +9,8 @@ TagManager:
   - CriticalBox
   - CenterPlatform
   - DeathZone
+  - AirTurret
+  - GroundTurret
   layers:
   - Default
   - TransparentFX

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class FlyingEnemy : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class FlyingEnemy : MonoBehaviour
     public LayerMask mask;
 
     [HideInInspector] public PlayerController player;
-    [HideInInspector] public Vector3 target;
+    [HideInInspector] public GameObject target;
     Rigidbody rb;
 
     [Header("Stats")]
@@ -30,6 +31,7 @@ public class FlyingEnemy : MonoBehaviour
     public int criticalIncome;
     public int killIncome;
     public float hitTime;
+    public float targetRadiusDetection;
 
     [Header("StatIncrements")]
     public float healthInc;
@@ -78,12 +80,17 @@ public class FlyingEnemy : MonoBehaviour
                 ChangeState(State.CHASE);
                 break;
             case State.CHASE:
-                if (DistanceToTargetSquared(gameObject, player.gameObject) <= goBackDist * goBackDist)
+                if (target == null)
+                {
+                    ChangeState(State.CHASE);
+                    break;
+                }
+                if (DistanceToTargetSquared(gameObject, target) <= goBackDist * goBackDist)
                 {
                     ChangeState(State.GO_BACK);
                     break;
                 }
-                if (DistanceToTargetSquared(gameObject, player.gameObject) <= minDistAttack * minDistAttack)
+                if (DistanceToTargetSquared(gameObject, target) <= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                     break;
@@ -108,35 +115,36 @@ public class FlyingEnemy : MonoBehaviour
                         }
                     }
                 }
-                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
+                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.ATTACK:
-                if (DistanceToTargetSquared(gameObject, player.gameObject) <= goBackDist * goBackDist)
+                if (target == null)
+                {
+                    ChangeState(State.CHASE);
+                    break;
+                }
+                if (DistanceToTargetSquared(gameObject, target) <= goBackDist * goBackDist)
                 {
                     ChangeState(State.GO_BACK);
                     break;
                 }
-                if (DistanceToTargetSquared(gameObject, player.gameObject) >= maxDistAttack * maxDistAttack)
+                if (DistanceToTargetSquared(gameObject, target) >= maxDistAttack * maxDistAttack)
                 {
                     ChangeState(State.CHASE);
                     break;
-                }/*
-                if (transform.position.y < player.transform.position.y)
-                {
-                    transform.position += direction * speed * Time.deltaTime;
-                }*/
-                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
+                }
+                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.GO_BACK:                
-                if (DistanceToTargetSquared(gameObject, player.gameObject) >= minDistAttack * minDistAttack)
+                if (DistanceToTargetSquared(gameObject, target) >= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                 }
-                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
+                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 transform.position += direction * speed * Time.deltaTime;
                 break;
             case State.HIT:
-                transform.LookAt(new Vector3(player.transform.position.x, player.transform.position.y + 1, player.transform.position.z));
+                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 if (health <= 0) ChangeState(State.DEATH);
                 break;
             case State.DEATH:                
@@ -218,8 +226,9 @@ public class FlyingEnemy : MonoBehaviour
 
     void GoToTarget()
     {
+        target = FindInstanceWithinRadius(gameObject, "Player", "AirTurret", "GroundTurret", targetRadiusDetection);
         pathfinder.currentWayPointIndex = 0;
-        pathfinder.goal = new Vector3(player.transform.position.x, player.transform.position.y + Random.Range(1, 10), player.transform.position.z); ;
+        pathfinder.goal = new Vector3(target.transform.position.x, target.transform.position.y + Random.Range(1, 10), target.transform.position.z); ;
         p = pathfinder.AStar(gameObject);
     }
 
@@ -267,5 +276,29 @@ public class FlyingEnemy : MonoBehaviour
         b = Instantiate(bullet, cannon.position, Quaternion.identity);
         b.transform.forward = player.transform.position - transform.position;
         b.GetComponent<EnemyBullet>().damage = damage;
+    }
+
+    public static GameObject FindInstanceWithinRadius(GameObject me, string tag, string tag2, string tag3, float radius)
+    {
+        GameObject[] targets = GameObject.FindGameObjectsWithTag(tag).Concat(GameObject.FindGameObjectsWithTag(tag2)).Concat(GameObject.FindGameObjectsWithTag(tag3)).ToArray();
+
+        if (targets.Length == 0) return null;
+
+        float dist = 0;
+        GameObject closest = targets[0];
+        float minDistance = (closest.transform.position - me.transform.position).magnitude;
+
+        for (int i = 1; i < targets.Length; i++)
+        {
+            dist = (targets[i].transform.position - me.transform.position).magnitude;
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                closest = targets[i];
+            }
+        }
+
+        if (minDistance < radius) return closest;
+        else return null;
     }
 }
