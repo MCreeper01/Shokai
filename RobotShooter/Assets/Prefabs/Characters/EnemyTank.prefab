@@ -139,19 +139,19 @@ MonoBehaviour:
   - {fileID: 8608254343052860182}
   target: {fileID: 0}
   hittedByAR: 0
-  health: 100
-  damage: 15
+  health: 500
+  damage: 20
   minDistAttack: 10
-  maxDistAttack: 13
-  speed: 5
-  fireRate: 1
+  maxDistAttack: 50
+  speed: 3
+  fireRate: 3
   repathTime: 1
   hitTime: 0
   hitIncome: 50
   punishHitIncome: 20
   criticalIncome: 100
   killIncome: 1000
-  bulletImpulse: 15
+  bulletImpulse: 50
   targetRadiusDetection: 1000
   healthInc: 10
   damageInc: 5

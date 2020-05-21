@@ -284,10 +284,10 @@ MonoBehaviour:
     m_Bits: 512
   player: {fileID: 0}
   target: {fileID: 0}
-  health: 15
+  health: 100
   damage: 5
-  minDistAttack: 10
-  maxDistAttack: 15
+  minDistAttack: 15
+  maxDistAttack: 20
   goBackDist: 6
   speed: 10
   fireRate: 1
