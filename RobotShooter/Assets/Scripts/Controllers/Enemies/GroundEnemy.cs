@@ -30,9 +30,17 @@ public class GroundEnemy : MonoBehaviour
     public int criticalIncome;
     public int killIncome;
 
+    [Header("StatIncrements")]
+    public float healthInc;
+    public float damageInc;
+    public float maxDamage;
+    public float speedInc;
+    public float maxSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
+
         player = GameManager.instance.player;
         //player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
@@ -41,6 +49,8 @@ public class GroundEnemy : MonoBehaviour
         target = player.gameObject;
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
+
+        IncrementStats();
     }
 
     // Update is called once per frame
@@ -165,6 +175,15 @@ public class GroundEnemy : MonoBehaviour
                 }
             }
         } */       
+    }
+
+    void IncrementStats()
+    {
+        health += healthInc * (GameManager.instance.roundController.currentRound - 1);
+        speed += speedInc * (GameManager.instance.roundController.currentRound - 1);
+        if (speed > maxSpeed) speed = maxSpeed;
+        damage += damageInc * (GameManager.instance.roundController.currentRound - 1);
+        if (damage > maxDamage) damage = maxDamage;
     }
 
     public void ActivateStun(float time)

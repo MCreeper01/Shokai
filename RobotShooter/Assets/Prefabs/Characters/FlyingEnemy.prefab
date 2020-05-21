@@ -277,14 +277,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  player: {fileID: 0}
-  target: {x: 0, y: 0, z: 0}
   bullet: {fileID: 909655672932287967, guid: 360402765aaed7d44aa167fc0d401fb8, type: 3}
   cannon: {fileID: 8822242107592774100}
   mask:
     serializedVersion: 2
     m_Bits: 512
+  player: {fileID: 0}
+  target: {x: 0, y: 0, z: 0}
   health: 15
+  damage: 5
   minDistAttack: 10
   maxDistAttack: 15
   goBackDist: 6
@@ -295,7 +296,11 @@ MonoBehaviour:
   criticalIncome: 10
   killIncome: 20
   hitTime: 0
-  rayPoints: []
+  healthInc: 10
+  damageInc: 5
+  maxDamage: 50
+  speedInc: 3
+  maxSpeed: 30
   direction: {x: 0, y: 0, z: 0}
 --- !u!54 &5605581891015641902
 Rigidbody:

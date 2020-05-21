@@ -62,7 +62,7 @@ public class TerrainTurretController : MonoBehaviour
                     }
                     else
                     {
-                        Enemy3 tEnemy = hit.collider.GetComponent<Enemy3>();
+                        TankEnemy tEnemy = hit.collider.GetComponent<TankEnemy>();
                         if (tEnemy != null)
                         {
                             tEnemy.TakeDamage(damagePerSecond * Time.deltaTime);

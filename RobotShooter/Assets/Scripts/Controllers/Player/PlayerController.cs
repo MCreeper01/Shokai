@@ -476,7 +476,7 @@ public class PlayerController : AController
                             if (fEnemy != null) fEnemy.ActivateStun(playerModel.empDuration);
                             else
                             {
-                                Enemy3 tEnemy = nearbyObject.GetComponentInParent<Enemy3>();
+                                TankEnemy tEnemy = nearbyObject.GetComponentInParent<TankEnemy>();
                                 if (tEnemy != null) tEnemy.ActivateStun(playerModel.empDuration);
                             }
                         }
@@ -702,7 +702,7 @@ public class PlayerController : AController
                             } 
                             else
                             {
-                                Enemy3 tEnemy = hit.collider.GetComponent<Enemy3>();
+                                TankEnemy tEnemy = hit.collider.GetComponent<TankEnemy>();
                                 if (tEnemy != null)
                                 {
                                     tEnemy.TakeDamage(playerModel.shotgunDamage);

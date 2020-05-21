@@ -260,6 +260,7 @@ MonoBehaviour:
   target: {fileID: 0}
   hittedByAR: 0
   health: 100
+  damage: 15
   minDistAttack: 8
   maxDistAttack: 10
   speed: 5
@@ -271,6 +272,11 @@ MonoBehaviour:
   criticalIncome: 100
   killIncome: 1000
   bulletImpulse: 15
+  healthInc: 10
+  damageInc: 5
+  maxDamage: 50
+  speedInc: 3
+  maxSpeed: 30
 --- !u!195 &7136506697506487969
 NavMeshAgent:
   m_ObjectHideFlags: 0
