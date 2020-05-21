@@ -52,6 +52,7 @@ MonoBehaviour:
   alternativeChangeWeapon: 1
   mouseShootButton: 0
   criticalMultiplier: 2
+  cooldownWaitToStart: 1
   shootARCooldown: 0.1
   rangeAR: 200
   shootForceAR: 100

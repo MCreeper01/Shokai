@@ -75,11 +75,11 @@ public class AirTurretController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.GetComponent<FlyingEnemy>() != null) colliders.Add(collider);
+        if (collider.GetComponentInParent<FlyingEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider);
     }
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.GetComponent<FlyingEnemy>() != null) colliders.Remove(collider);
+        if (collider.GetComponentInParent<FlyingEnemy>() != null) colliders.Remove(collider);
     }
 }

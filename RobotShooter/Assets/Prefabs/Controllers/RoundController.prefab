@@ -89,7 +89,7 @@ MonoBehaviour:
   mapAnimationSpeed: 5
   maps:
   - id: 1
-    enemySpawnPercentage: 1e0000001e00000028000000
+    enemySpawnPercentage: 320000001e00000014000000
     animationHeight: -2.81
     map: {fileID: 0}
     bake: {fileID: 0}
@@ -109,6 +109,8 @@ MonoBehaviour:
     map: {fileID: 0}
     bake: {fileID: 0}
   transitionTrigger: {fileID: 0}
+  roundPassedIncome: 500
+  plusIncomePerRound: 250
   currentPeak: 0
   currentRound: 0
   currentMap: 0

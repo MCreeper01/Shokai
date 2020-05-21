@@ -59,8 +59,10 @@ public class PlayerController : AController
     [HideInInspector] public int grenadeAmmo;
     private bool empActive;
     private float currentEmpDuration;
+    private float currentCooldownWaitToStart;
     private bool hasNormalGrenade;
 
+    [HideInInspector] public bool waitCooldown;
     [HideInInspector] public int currentARChargerAmmoCount;
 
     /*public LayerMask m_ShootLayerMask;
@@ -141,6 +143,8 @@ public class PlayerController : AController
         currentHealth = playerModel.MAX_HEALTH;
         currentShield = playerModel.MAX_SHIELD;
 
+        currentCooldownWaitToStart = playerModel.cooldownWaitToStart;
+
         StartCoroutine(RecoverShield());
 
         ChangeState(new PSMovement(this));
@@ -201,7 +205,17 @@ public class PlayerController : AController
                 empActive = false;
                 currentEmpDuration = playerModel.empDuration;
             }
-        }          
+        }  
+        
+        if (waitCooldown)
+        {
+            currentCooldownWaitToStart -= Time.deltaTime;
+            if (currentCooldownWaitToStart <= 0)
+            {
+                waitCooldown = false;
+                currentCooldownWaitToStart = playerModel.cooldownWaitToStart;
+            }
+        }
     }
 
     public void TakeDamage(float damage, int whoAttacked)
@@ -591,6 +605,7 @@ public class PlayerController : AController
             currentState = previousState;
         }
         gc.DestroyDefenses();
+        IncreaseCash(gc.roundController.roundPassedIncome);
     }
 
     public void IncreaseCash(int cash)
@@ -663,7 +678,7 @@ public class PlayerController : AController
                     RaycastHit hit; 
                     if (Physics.Raycast(Camera.main.transform.position, rot * Vector3.forward, out hit, playerModel.rangeShotgun, shootLayerMask))
                     {
-                        
+
                         if (hit.collider.tag == "CriticalBox") multiplier = playerModel.criticalMultiplier;
                         playerModel.shotgunDamage = playerModel.shotgunDamage * multiplier;
                         //GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
@@ -672,15 +687,27 @@ public class PlayerController : AController
                         impactHoleGO.transform.parent = hit.transform;
 
                         GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
-                        if (gEnemy != null) gEnemy.TakeDamage(playerModel.shotgunDamage);
+                        if (gEnemy != null)
+                        {
+                            gEnemy.TakeDamage(playerModel.shotgunDamage);
+                            if (multiplier == playerModel.criticalMultiplier) IncreaseCash(gEnemy.criticalIncome);
+                        } 
                         else
                         {
                             FlyingEnemy fEnemy = hit.collider.GetComponentInParent<FlyingEnemy>();
-                            if (fEnemy != null) fEnemy.TakeDamage(playerModel.shotgunDamage);
+                            if (fEnemy != null)
+                            {
+                                fEnemy.TakeDamage(playerModel.shotgunDamage);
+                                if (multiplier == playerModel.criticalMultiplier) IncreaseCash(fEnemy.criticalIncome);
+                            } 
                             else
                             {
                                 Enemy3 tEnemy = hit.collider.GetComponent<Enemy3>();
-                                if (tEnemy != null) tEnemy.TakeDamage(playerModel.shotgunDamage);
+                                if (tEnemy != null)
+                                {
+                                    tEnemy.TakeDamage(playerModel.shotgunDamage);
+                                    if (multiplier == playerModel.criticalMultiplier) IncreaseCash(tEnemy.criticalIncome);
+                                } 
                             }
                         }
 
@@ -714,8 +741,7 @@ public class PlayerController : AController
                 }
                 ChangeGrenadeAmmo();
                 break;
-        }
-       
+        }       
     }
 
     public void ChangeGrenadeAmmo()
@@ -742,22 +768,25 @@ public class PlayerController : AController
 
     public void CoolOverheat()
     {
-        if (actualOverheat > 0)
+        if (!waitCooldown || saturatedAR)
         {
-            if (!saturatedAR)
+            if (actualOverheat > 0)
             {
-                actualOverheat -= playerModel.overHeatNormalReload * Time.deltaTime;
-                if (actualOverheat < 0) actualOverheat = 0;
-            } 
-            else
-            {
-                actualOverheat -= playerModel.overHeatSlowReload * Time.deltaTime;
-                if (actualOverheat < 0) actualOverheat = 0;
-                if (actualOverheat <= 0) saturatedAR = false;
+                if (!saturatedAR)
+                {
+                    actualOverheat -= playerModel.overHeatNormalReload * Time.deltaTime;
+                    if (actualOverheat < 0) actualOverheat = 0;
+                }
+                else
+                {
+                    actualOverheat -= playerModel.overHeatSlowReload * Time.deltaTime;
+                    if (actualOverheat < 0) actualOverheat = 0;
+                    if (actualOverheat <= 0) saturatedAR = false;
+                }
             }
-        }
-       
-        if (Time.time > 0.1f) gc.uiController.ChangeAROverheat(actualOverheat);
+
+            if (Time.time > 0.1f) gc.uiController.ChangeAROverheat(actualOverheat);
+        }        
     }
 
     public bool CanShootAR()

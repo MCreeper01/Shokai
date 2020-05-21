@@ -27,6 +27,7 @@ public class GroundEnemy : MonoBehaviour
     public float fightRate;
     public float hitTime;
     public int hitIncome;
+    public int criticalIncome;
     public int killIncome;
 
     // Start is called before the first frame update

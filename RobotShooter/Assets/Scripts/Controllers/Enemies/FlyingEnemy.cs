@@ -25,6 +25,7 @@ public class FlyingEnemy : MonoBehaviour
     public float fireRate;
     public float repathTime;
     public int hitIncome;
+    public int criticalIncome;
     public int killIncome;
     public float hitTime;
 
@@ -192,7 +193,7 @@ public class FlyingEnemy : MonoBehaviour
     {
         if (currentState == State.DEATH) return;
         health -= damage;
-        if (health <= 0) ChangeState(State.DEATH);        
+        if (health <= 0) ChangeState(State.DEATH);    
         else ChangeState(State.HIT);        
     }
 

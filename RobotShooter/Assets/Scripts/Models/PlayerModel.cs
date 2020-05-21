@@ -54,6 +54,7 @@ public class PlayerModel : ScriptableObject
     public int alternativeChangeWeapon;
     public int mouseShootButton;
     public float criticalMultiplier;
+    public float cooldownWaitToStart;
 
     [Header("ASSAULT RIFLE")]
     public float shootARCooldown;

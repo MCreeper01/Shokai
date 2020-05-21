@@ -87,11 +87,11 @@ public class TerrainTurretController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.GetComponent<GroundEnemy>() != null) colliders.Add(collider);        
+        if (collider.GetComponentInParent<GroundEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider);        
     }
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.GetComponent<GroundEnemy>() != null) colliders.Remove(collider);
+        if (collider.GetComponentInParent<GroundEnemy>() != null) colliders.Remove(collider);
     }
 }
