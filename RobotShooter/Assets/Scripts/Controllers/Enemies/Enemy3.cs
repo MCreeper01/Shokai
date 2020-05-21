@@ -21,6 +21,8 @@ public class Enemy3 : MonoBehaviour
     [HideInInspector]
     public GameObject target;
 
+    [HideInInspector] public bool hittedByAR;
+
     [Header("Stats")]
     public float health;
     public float minDistAttack;
@@ -30,6 +32,8 @@ public class Enemy3 : MonoBehaviour
     public float repathTime;
     public float hitTime;
     public int hitIncome;
+    public int punishHitIncome;
+    public int criticalIncome;
     public int killIncome;
     public float bulletImpulse;
 
@@ -79,6 +83,7 @@ public class Enemy3 : MonoBehaviour
                 break;
             case State.HIT:
                 if (health <= 0) ChangeState(State.DEATH);
+                if (hittedByAR) hittedByAR = false;
                 break;
             case State.STUNNED:
                 break;
@@ -126,7 +131,8 @@ public class Enemy3 : MonoBehaviour
             case State.HIT:
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
-                GameManager.instance.player.IncreaseCash(hitIncome);
+                if (hittedByAR) GameManager.instance.player.IncreaseCash(punishHitIncome);
+                else GameManager.instance.player.IncreaseCash(hitIncome);
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:

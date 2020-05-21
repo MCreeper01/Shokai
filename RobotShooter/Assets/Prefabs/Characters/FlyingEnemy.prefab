@@ -291,9 +291,9 @@ MonoBehaviour:
   speed: 10
   fireRate: 1
   repathTime: 5
-  empTimeStun: 0.5
-  hitIncome: 0
-  killIncome: 0
+  hitIncome: 5
+  criticalIncome: 10
+  killIncome: 20
   hitTime: 0
   rayPoints: []
   direction: {x: 0, y: 0, z: 0}

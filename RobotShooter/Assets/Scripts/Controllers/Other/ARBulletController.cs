@@ -32,24 +32,36 @@ public class ARBulletController : MonoBehaviour
         for (int i = 0; i < hits.Length; i++)
         {
             LayerMask layer = hits[i].collider.gameObject.layer;
-            Debug.Log(hits[i].collider.tag);
             if (hits[i].collider.tag == "CriticalBox") multiplier = GameManager.instance.player.playerModel.criticalMultiplier;
             damage = damage * multiplier;
             //Debug.Log(hits[i].collider.name);
             if (layer == LayerMask.NameToLayer("Enemy")) 
             {
                 GroundEnemy gEnemy = hits[i].collider.GetComponentInParent<GroundEnemy>();
-                if (gEnemy != null) gEnemy.TakeDamage(damage);
+                if (gEnemy != null)
+                {
+                    gEnemy.TakeDamage(damage);
+                    if (multiplier == GameManager.instance.player.playerModel.criticalMultiplier) GameManager.instance.player.IncreaseCash(gEnemy.criticalIncome);
+                }
                 else
                 {
                     FlyingEnemy fEnemy = hits[i].collider.GetComponentInParent<FlyingEnemy>();
-                    if (fEnemy != null) fEnemy.TakeDamage(damage);
+                    if (fEnemy != null)
+                    {
+                        fEnemy.TakeDamage(damage);
+                        if (multiplier == GameManager.instance.player.playerModel.criticalMultiplier) GameManager.instance.player.IncreaseCash(fEnemy.criticalIncome);
+                    }
                     else
                     {
                         Enemy3 tEnemy = hits[i].collider.GetComponent<Enemy3>();
-                        if (tEnemy != null) tEnemy.TakeDamage(damage * punish);
+                        if (tEnemy != null)
+                        {
+                            tEnemy.hittedByAR = true;
+                            tEnemy.TakeDamage(damage);
+                            if (multiplier == GameManager.instance.player.playerModel.criticalMultiplier) GameManager.instance.player.IncreaseCash(tEnemy.criticalIncome);                          
+                        }
                     }
-                }                
+                }
                 Destroy(gameObject);
                 break;
             }

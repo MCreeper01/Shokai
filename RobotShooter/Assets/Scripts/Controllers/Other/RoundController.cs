@@ -41,10 +41,16 @@ public class RoundController : AController
     public Map[] maps;
     public GameObject transitionTrigger;
 
+    [Header("Income")]
+    public int roundPassedIncome;
+    public int plusIncomePerRound;
+
     [Header("Debug")]
     public int currentPeak;
     public int currentRound;
     public int currentMap;
+
+    
 
     public int roundTotalEnemies;
     public int currentEnemies; //Total enemies on screen
@@ -163,6 +169,7 @@ public class RoundController : AController
                 break;
             case State.TRANSITION:
                 GameEvents.instance.TransitionStart();
+                roundPassedIncome += plusIncomePerRound;
                 StartCoroutine(LoadCurrentMap());
                 break;
         }

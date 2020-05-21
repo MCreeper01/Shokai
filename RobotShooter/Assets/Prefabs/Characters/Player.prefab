@@ -130,11 +130,11 @@ MonoBehaviour:
     type: 3}
   lineRenderer: {fileID: 5755931945208983780}
   pointAttachDefense: {fileID: 5755931946208162607}
-  minePrefab: {fileID: 5181300982327122169, guid: effcef4c29af1f24b8c34e627376d652,
+  minePrefab: {fileID: 7127792791827856933, guid: effcef4c29af1f24b8c34e627376d652,
     type: 3}
-  terrainTurretPrefab: {fileID: 6515199956467571897, guid: 5c5fc1b17f2550d4a824803d4209b56c,
+  terrainTurretPrefab: {fileID: 5130022267700774322, guid: 5c5fc1b17f2550d4a824803d4209b56c,
     type: 3}
-  airTurretPrefab: {fileID: 7531448386182606488, guid: c7dea96638566e94cab0aac41abb91b9,
+  airTurretPrefab: {fileID: 1059153340823447458, guid: c7dea96638566e94cab0aac41abb91b9,
     type: 3}
   onGround: 0
   verticalSpeed: 0
@@ -500,7 +500,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 16597d2c00a8f84489901041ea618524,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.29
+      value: -0.41
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 16597d2c00a8f84489901041ea618524,
         type: 3}
@@ -510,22 +510,22 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 16597d2c00a8f84489901041ea618524,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.08641016
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 16597d2c00a8f84489901041ea618524,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.13052624
+      value: -0.13002956
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 16597d2c00a8f84489901041ea618524,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0.011376116
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 16597d2c00a8f84489901041ea618524,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9914449
+      value: 0.9876721
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 16597d2c00a8f84489901041ea618524,
         type: 3}
@@ -535,7 +535,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 16597d2c00a8f84489901041ea618524,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 16597d2c00a8f84489901041ea618524,
         type: 3}

@@ -154,10 +154,10 @@ MonoBehaviour:
   speed: 8
   repathTime: 1
   fightRate: 1
-  empTimeStun: 0
   hitTime: 0
-  hitIncome: 0
-  killIncome: 0
+  hitIncome: 10
+  criticalIncome: 20
+  killIncome: 40
 --- !u!195 &4896865318677097887
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -267,7 +267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 884438643456155057}
   - component: {fileID: 6582646236075576962}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: NormalCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

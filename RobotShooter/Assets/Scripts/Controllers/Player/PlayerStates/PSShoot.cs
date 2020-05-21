@@ -15,6 +15,7 @@ public class PSShoot : PlayerState
         {
             pc.shooting = false;
             pc.ChangeState(new PSMovement(pc));
+            pc.waitCooldown = true;
         } 
     }
 
