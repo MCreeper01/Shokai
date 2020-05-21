@@ -51,7 +51,7 @@ public class MineController : MonoBehaviour
                         if (player != null) player.TakeDamage(damageToPlayer, 0);
                         else
                         {
-                            TankEnemy tEnemy = nearbyObject.GetComponent<TankEnemy>();
+                            TankEnemy tEnemy = nearbyObject.GetComponentInParent<TankEnemy>();
                             if (tEnemy != null) tEnemy.TakeDamage(damage);
                         }
                     }

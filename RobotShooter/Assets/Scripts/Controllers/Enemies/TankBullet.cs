@@ -28,10 +28,16 @@ public class TankBullet : MonoBehaviour
         {
             PlayerController pc = colliders[i].GetComponent<PlayerController>();
 
-            if (pc != null)
+            if (pc != null) pc.TakeDamage(damage, 0);
+            else
             {
-                
-                pc.TakeDamage(damage, 0);
+                TerrainTurretController tTurret = colliders[i].GetComponent<TerrainTurretController>();
+                if (tTurret != null) tTurret.TakeDamage(damage);
+                else
+                {
+                    AirTurretController aTurret = colliders[i].GetComponent<AirTurretController>();
+                    if (aTurret != null) aTurret.TakeDamage(damage);
+                }
             }
         }
         Destroy(gameObject);

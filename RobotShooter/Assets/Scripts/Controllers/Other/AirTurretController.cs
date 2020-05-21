@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AirTurretController : MonoBehaviour
 {
+    public float health;
     public float damagePerSecond;
     public float range;
     public Transform pointShoot;
@@ -68,14 +69,24 @@ public class AirTurretController : MonoBehaviour
         }
     }
 
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        if (health <= 0) DestroyDefenses();
+    }
+
     public void DestroyDefenses()
     {
-        if (this.gameObject != null && gameObject.Equals(null)) gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.GetComponentInParent<FlyingEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider);
+        if (collider.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
+        {
+            if (collider.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collider.gameObject.GetComponentInParent<GroundEnemy>().damage);
+        }
     }
 
     private void OnTriggerExit(Collider collider)

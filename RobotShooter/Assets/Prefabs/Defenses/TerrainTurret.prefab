@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!65 &4440527882080990574
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3751618355995664554}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.95435226, y: 0.45533434, z: 2.3518949}
-  m_Center: {x: -0.000000029802322, y: 0.000000014901161, z: 0.39363894}
 --- !u!65 &6864205696278322752
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -36,6 +23,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5130022267700774351}
   - component: {fileID: 5130022267700774320}
+  - component: {fileID: 2059919966}
+  - component: {fileID: 2059919965}
   - component: {fileID: 5130022267700774321}
   m_Layer: 28
   m_Name: TerrainTurret
@@ -72,12 +61,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3383a33f54a8d4c9b43b8537cba6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 50
   damagePerSecond: 4
   range: 25
   pointShoot: {fileID: 5130022269500433850}
   head: {fileID: 3751618355995664554}
   impactZone: {fileID: 5130022267700774321}
   placed: 0
+--- !u!65 &2059919966
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5130022267700774322}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.267642, y: 0.45533442, z: 0.9461198}
+  m_Center: {x: -0.39117718, y: 1.73, z: -0.015123367}
+--- !u!65 &2059919965
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5130022267700774322}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0929031, y: 1.590826, z: 1.163668}
+  m_Center: {x: -0.037105083, y: 0.7497213, z: -0.027568758}
 --- !u!135 &5130022267700774321
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -183,6 +199,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 77b2859452f7e9f46a6f340c95a9ac04,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 54885c934946266498adceb9c3655bde, type: 2}
     - target: {fileID: -927199367670048503, guid: 77b2859452f7e9f46a6f340c95a9ac04,
         type: 3}
       propertyPath: m_Name
@@ -269,6 +290,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -1504981713932161579, guid: 1ea78bf11ea53034cb6b6543c8924fc0,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 54885c934946266498adceb9c3655bde, type: 2}
     - target: {fileID: -927199367670048503, guid: 1ea78bf11ea53034cb6b6543c8924fc0,
         type: 3}
       propertyPath: m_Name

@@ -5865,8 +5865,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shop: {fileID: 0}
   shopAnimationSpeed: 2
-  shopMinimumHeight: 0.16
-  shopMaximumHeight: 1.14
+  shopMinimumHeight: -3.49
+  shopMaximumHeight: 0
   habilities:
   - name: Jetpack
     icon: {fileID: 2800000, guid: 202a4595720454644b1131a497c9a212, type: 3}

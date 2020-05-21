@@ -126,6 +126,7 @@ public class ShopController : AController
                 shop.transform.Translate(-Vector3.up * shopAnimationSpeed * Time.deltaTime);
                 yield return 0;
             }
+            shop.transform.position = new Vector3(shop.transform.position.x, shopMinimumHeight, shop.transform.position.z);
             shop.transform.GetChild(0).gameObject.GetComponent<CapsuleCollider>().enabled = false;
             if (gc.player.atShop)
             {
@@ -141,6 +142,7 @@ public class ShopController : AController
                 shop.transform.Translate(Vector3.up * shopAnimationSpeed * Time.deltaTime);
                 yield return 0;
             }
+            shop.transform.position = new Vector3(shop.transform.position.x, shopMaximumHeight, shop.transform.position.z);
             shop.transform.GetChild(0).gameObject.GetComponent<CapsuleCollider>().enabled = true;
         }
     }
