@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TankBullet : MonoBehaviour
 {
+    [HideInInspector] public float damage;
     public float explosionRadius;
-    public float damage;
     public float timeToDestroyWithoutImpact;
 
     // Start is called before the first frame update

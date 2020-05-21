@@ -49,15 +49,12 @@ public class RoundController : AController
     public int currentPeak;
     public int currentRound;
     public int currentMap;
-
-    
-
     public int roundTotalEnemies;
     public int currentEnemies; //Total enemies on screen
     public int enemiesSpawnedOnCurrentRound; //This number keep track of the number of enemies that are spawned on each peak;
     public int[] extraEnemies; //Number of enemies that could not be spawned due to totalEnemies > maxEnemies
 
-    private float elapsedTime;
+    [HideInInspector] public float elapsedTime;
 
     //// Start is called before the first frame update
     //void Start()

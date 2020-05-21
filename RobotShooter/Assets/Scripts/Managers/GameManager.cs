@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
                 Destroy(enemy.gameObject);
                 roundController.DecreaseEnemyCount();
             }
-            foreach (Enemy3 enemy in GameObject.FindObjectsOfType<Enemy3>())
+            foreach (TankEnemy enemy in GameObject.FindObjectsOfType<TankEnemy>())
             {
                 Destroy(enemy.gameObject);
                 roundController.DecreaseEnemyCount();

@@ -43,7 +43,7 @@ public class PSLaser : PlayerState
                 if (fEnemy != null) fEnemy.TakeDamage(pc.playerModel.laserDamage);
                 else
                 {
-                    Enemy3 tEnemy = hit.collider.GetComponent<Enemy3>();
+                    TankEnemy tEnemy = hit.collider.GetComponent<TankEnemy>();
                     if (tEnemy != null) tEnemy.TakeDamage(pc.playerModel.laserDamage);
                 }
             }

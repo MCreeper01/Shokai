@@ -21,6 +21,7 @@ public class UIController : AController
     public Text interactiveText;
     public Text cashText;
     public Text roundCounter;
+    public Text preparationTimeText;
 
     [Header("Shop")]
     public Text jetpackCost;
@@ -32,7 +33,6 @@ public class UIController : AController
     public Text mineCost;
     public Text terrainTurretCost;
     public Text airTurretCost;
-    public Text timerText;
 
     [Header("Pause")]
     public bool paused;
@@ -69,6 +69,8 @@ public class UIController : AController
         airTurretCost.text = gc.shopController.ReturnCost("AirTurret").ToString();
 
         shopTimer = gc.roundController.preparationTime;
+        GameEvents.instance.onRoundStart += OnRoundStart;
+        GameEvents.instance.onPreparationFinish += OnPreparationFinish;
     }
 
     // Update is called once per frame
@@ -86,6 +88,7 @@ public class UIController : AController
                 gc.player.Shop(false);
             }                      
         }*/
+        if (preparationTimeText.gameObject.activeSelf) preparationTimeText.text = ((int)gc.roundController.preparationTime - (int)gc.roundController.elapsedTime).ToString();
     }
 
     public void Pause()
@@ -154,6 +157,15 @@ public class UIController : AController
         interactiveText.gameObject.SetActive(false);
     }
 
+    void OnRoundStart()
+    {
+        preparationTimeText.gameObject.SetActive(true);
+    }
+
+    void OnPreparationFinish()
+    {
+        preparationTimeText.gameObject.SetActive(false);
+    }
 
     public void GameOver(bool show)
     {

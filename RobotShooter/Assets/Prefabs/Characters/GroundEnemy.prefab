@@ -158,6 +158,11 @@ MonoBehaviour:
   hitIncome: 10
   criticalIncome: 20
   killIncome: 40
+  healthInc: 10
+  damageInc: 5
+  maxDamage: 50
+  speedInc: 3
+  maxSpeed: 30
 --- !u!195 &4896865318677097887
 NavMeshAgent:
   m_ObjectHideFlags: 0

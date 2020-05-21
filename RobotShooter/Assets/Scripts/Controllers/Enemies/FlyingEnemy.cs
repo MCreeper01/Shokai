@@ -8,16 +8,18 @@ public class FlyingEnemy : MonoBehaviour
     public enum State { INITIAL, CHASE, ATTACK, GO_BACK, HIT, STUNNED, DEATH }
     public State currentState = State.INITIAL;
 
-    [HideInInspector] public PlayerController player;
-    //GameObject player;
-    [HideInInspector]
-    public Vector3 target;
+    [Header("General")]
     public GameObject bullet;
     public Transform cannon;
     public LayerMask mask;
+
+    [HideInInspector] public PlayerController player;
+    [HideInInspector] public Vector3 target;
     Rigidbody rb;
+
     [Header("Stats")]
     public float health;
+    public float damage;
     public float minDistAttack;
     public float maxDistAttack;
     public float goBackDist;
@@ -29,9 +31,14 @@ public class FlyingEnemy : MonoBehaviour
     public int killIncome;
     public float hitTime;
 
-    public GameObject[] rayPoints;
+    [Header("StatIncrements")]
+    public float healthInc;
+    public float damageInc;
+    public float maxDamage;
+    public float speedInc;
+    public float maxSpeed;
 
-    public Vector3 direction;
+    [HideInInspector] public Vector3 direction;
     float elapsedTime = 0;
 
     Ray[] rays;
@@ -46,6 +53,7 @@ public class FlyingEnemy : MonoBehaviour
     Path3D p;
     Pathfinder3D pathfinder;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +65,8 @@ public class FlyingEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         pathfinder = new Pathfinder3D();
         pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
+
+        IncrementStats();
     }
 
     // Update is called once per frame
@@ -197,6 +207,15 @@ public class FlyingEnemy : MonoBehaviour
         else ChangeState(State.HIT);        
     }
 
+    void IncrementStats()
+    {
+        health += healthInc * (GameManager.instance.roundController.currentRound - 1);
+        speed += speedInc * (GameManager.instance.roundController.currentRound - 1);
+        if (speed > maxSpeed) speed = maxSpeed;
+        damage += damageInc * (GameManager.instance.roundController.currentRound - 1);
+        if (damage > maxDamage) damage = maxDamage;
+    }
+
     void GoToTarget()
     {
         pathfinder.currentWayPointIndex = 0;
@@ -247,5 +266,6 @@ public class FlyingEnemy : MonoBehaviour
         GameObject b;
         b = Instantiate(bullet, cannon.position, Quaternion.identity);
         b.transform.forward = player.transform.position - transform.position;
+        b.GetComponent<EnemyBullet>().damage = damage;
     }
 }
