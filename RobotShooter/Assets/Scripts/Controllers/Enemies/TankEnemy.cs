@@ -94,9 +94,10 @@ public class TankEnemy : MonoBehaviour
                     break;
                 }
                 transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
-                Arms[0].forward = new Vector3(transform.forward.x, (player.transform.position.y - Arms[0].position.y) + 1f, transform.forward.z);
-                Arms[1].forward = new Vector3(transform.forward.x, (player.transform.position.y - Arms[1].position.y) + 1f, transform.forward.z);
-                Debug.DrawRay(Arms[0].position, Arms[0].forward, Color.red);
+                Arms[0].forward = target.transform.position - Arms[0].transform.position;
+                Arms[1].forward = target.transform.position - Arms[1].transform.position;
+                //Arms[1].forward = new Vector3(transform.forward.x, (player.transform.position.y - Arms[1].position.y) + 1f, transform.forward.z);
+                //Debug.DrawRay(Arms[0].position, Arms[0].forward, Color.red);
                 break;
             case State.HIT:
                 if (health <= 0) ChangeState(State.DEATH);
@@ -238,13 +239,14 @@ public class TankEnemy : MonoBehaviour
         if (rightCannon)
         {
             b = Instantiate(bullet, Cannons[0].position, Quaternion.identity);
+            b.GetComponent<Rigidbody>().AddForce(Arms[0].forward * bulletImpulse, ForceMode.Impulse);
         }
         else
         {
             b = Instantiate(bullet, Cannons[1].position, Quaternion.identity);
+            b.GetComponent<Rigidbody>().AddForce(Arms[1].forward * bulletImpulse, ForceMode.Impulse);
         }
         
-        b.GetComponent<Rigidbody>().AddForce(Arms[0].forward * bulletImpulse, ForceMode.Impulse);
         b.GetComponent<TankBullet>().damage = damage;
         rightCannon = !rightCannon;
     }

@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
-  damagePerSecond: 4
+  damagePerSecond: 20
   range: 25
   pointShoot: {fileID: 5130022269500433850}
   head: {fileID: 3751618355995664554}
