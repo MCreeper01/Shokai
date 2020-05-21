@@ -94,8 +94,9 @@ public class TankEnemy : MonoBehaviour
                     break;
                 }
                 transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
-                Arms[0].LookAt(new Vector3(0, player.transform.position.y - Arms[0].position.y, 0));
-                Arms[1].LookAt(new Vector3(0, player.transform.position.y - Arms[1].position.y, 0));
+                Arms[0].forward = new Vector3(transform.forward.x, (player.transform.position.y - Arms[0].position.y) + 1f, transform.forward.z);
+                Arms[1].forward = new Vector3(transform.forward.x, (player.transform.position.y - Arms[1].position.y) + 1f, transform.forward.z);
+                Debug.DrawRay(Arms[0].position, Arms[0].forward, Color.red);
                 break;
             case State.HIT:
                 if (health <= 0) ChangeState(State.DEATH);
