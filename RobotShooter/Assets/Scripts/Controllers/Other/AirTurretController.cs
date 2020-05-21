@@ -11,7 +11,7 @@ public class AirTurretController : MonoBehaviour
     public GameObject head;
     public SphereCollider impactZone;
 
-    [HideInInspector] public bool placed;
+    public bool placed;
 
     List<Collider> colliders = new List<Collider>();
 
@@ -34,18 +34,16 @@ public class AirTurretController : MonoBehaviour
             if (target == null) hasTarget = false;
             if (!hasTarget)
             {
-                if (colliders.Count > 0)
+                foreach (Collider nearbyObject in colliders)
                 {
-                    foreach (Collider nearbyObject in colliders)
-                    {
-                        target = nearbyObject.gameObject;
-                        hasTarget = true;
-                        return;
-                    }
-                }
-            }
+                    target = nearbyObject.gameObject;
+                    hasTarget = true;
+                    return;
+                }                
+            }            
             else
             {
+                Debug.Log(target);
                 head.transform.LookAt(target.transform, Vector3.up);
 
                 RaycastHit hit;
@@ -82,10 +80,11 @@ public class AirTurretController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.GetComponentInParent<FlyingEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider);
-        if (collider.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
+
+        if (collider.GetComponentInParent<FlyingEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider); 
+            if (collider.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
-            if (collider.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collider.gameObject.GetComponentInParent<GroundEnemy>().damage);
+            if (collider.gameObject.GetComponentInParent<FlyingEnemy>() != null) TakeDamage(collider.gameObject.GetComponentInParent<FlyingEnemy>().damage);
         }
     }
 

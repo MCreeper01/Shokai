@@ -56,7 +56,7 @@ MonoBehaviour:
       type: 3}
     dimension: 0
   - name: TankEnemy
-    enemyPrefab: {fileID: 7136506697506487974, guid: 938f9637319c9a448978d17d8f19fb43,
+    enemyPrefab: {fileID: 3345021022019120113, guid: 938f9637319c9a448978d17d8f19fb43,
       type: 3}
     dimension: 0
   - name: AirEnemy
@@ -118,3 +118,4 @@ MonoBehaviour:
   currentEnemies: 0
   enemiesSpawnedOnCurrentRound: 0
   extraEnemies: 
+  elapsedTime: 0

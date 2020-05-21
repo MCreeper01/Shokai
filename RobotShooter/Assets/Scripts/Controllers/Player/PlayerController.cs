@@ -531,14 +531,14 @@ public class PlayerController : AController
                 attachedDefense = Instantiate(terrainTurretPrefab, pointAttachDefense.position, pointAttachDefense.rotation);
                 attachedDefense.GetComponent<TerrainTurretController>().placed = false;
                 attachedDefense.GetComponent<TerrainTurretController>().impactZone.enabled = false;
-                foreach (Collider collider in attachedDefense.GetComponents<Collider>()) collider.enabled = false;
+                foreach (Collider collider in attachedDefense.GetComponentsInChildren<Collider>()) collider.enabled = false;
                 break;
             case "AirTurret":
                 attachedDefense = Instantiate(airTurretPrefab, pointAttachDefense.position, pointAttachDefense.rotation);
                 attachedDefense.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 attachedDefense.GetComponent<AirTurretController>().placed = false;
                 attachedDefense.GetComponent<AirTurretController>().impactZone.enabled = false;
-                foreach (Collider collider in attachedDefense.GetComponents<Collider>()) collider.enabled = false;
+                foreach (Collider collider in attachedDefense.GetComponentsInChildren<Collider>()) collider.enabled = false;
                 break;
         }
     }
