@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 471}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -46,7 +46,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 998
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 471}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -112,10 +112,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 948
-  m_MinSize: {x: 911, y: 442}
-  m_MaxSize: {x: 22006, y: 10021}
+  m_MinSize: {x: 909, y: 421}
+  m_MaxSize: {x: 22004, y: 10021}
   vertical: 0
-  controlID: 87
+  controlID: 39
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -164,10 +164,10 @@ MonoBehaviour:
     y: 0
     width: 1637
     height: 948
-  m_MinSize: {x: 680, y: 442}
-  m_MaxSize: {x: 12005, y: 8042}
+  m_MinSize: {x: 678, y: 421}
+  m_MaxSize: {x: 12003, y: 8021}
   vertical: 0
-  controlID: 88
+  controlID: 40
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -187,8 +187,8 @@ MonoBehaviour:
     y: 0
     width: 288
     height: 948
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -215,10 +215,10 @@ MonoBehaviour:
     y: 0
     width: 867
     height: 948
-  m_MinSize: {x: 202, y: 442}
-  m_MaxSize: {x: 4002, y: 8042}
+  m_MinSize: {x: 202, y: 421}
+  m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 146
+  controlID: 46
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -267,8 +267,8 @@ MonoBehaviour:
     y: 509
     width: 867
     height: 439
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -428,7 +428,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs/Characters
+    - Assets/Models
   m_ViewMode: 0
   m_StartGridSize: 47
   m_LastFolders:
@@ -441,7 +441,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 5e470000
     m_LastClickedID: 18270
-    m_ExpandedIDs: 000000005e47000060470000624700006447000066470000684700006a4700006c4700006e47000070470000724700007447000076470000784700007a47000000ca9a3b
+    m_ExpandedIDs: 000000000e46000010460000124600001446000016460000184600001a4600001c4600001e46000020460000224600002446000026460000284600002a460000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -469,7 +469,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff000000005e47000060470000624700006447000066470000684700006a4700006c4700006e47000070470000724700007447000076470000784700007a470000
+    m_ExpandedIDs: ffffffff000000000e46000010460000124600001446000016460000184600001a4600001c4600001e46000020460000224600002446000026460000284600002a460000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -554,9 +554,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 36400000
+      m_SelectedIDs: 483f0000
       m_LastClickedID: 0
-      m_ExpandedIDs: e4f1ffff4e3d0000
+      m_ExpandedIDs: 72fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -616,9 +616,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -0.5226964, y: -0.06307602, z: 1.7552891}
+    m_Target: {x: 4.35849, y: 8.53568, z: -8.939404}
     speed: 2
-    m_Value: {x: -0.5226964, y: -0.06307602, z: 1.7552891}
+    m_Value: {x: 4.35849, y: 8.53568, z: -8.939404}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -664,9 +664,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.021595271, y: 0.80112815, z: -0.5974889, w: 0.029165447}
+    m_Target: {x: 0.043730292, y: 0.94731313, z: -0.28096542, w: 0.14785609}
     speed: 2
-    m_Value: {x: 0.021595271, y: 0.80112815, z: -0.5974889, w: 0.029165447}
+    m_Value: {x: 0.044170972, y: 0.9464104, z: -0.28378946, w: 0.1477156}
   m_Size:
     m_Target: 20.80341
     speed: 2
