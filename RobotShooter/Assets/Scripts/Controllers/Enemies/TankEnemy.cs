@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class TankEnemy : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class TankEnemy : MonoBehaviour
     public int criticalIncome;
     public int killIncome;
     public float bulletImpulse;
+    public float targetRadiusDetection;
 
     [Header("StatIncrements")]
     public float healthInc;
@@ -53,7 +55,6 @@ public class TankEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
-        target = player.gameObject;
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
 
@@ -68,7 +69,12 @@ public class TankEnemy : MonoBehaviour
             case State.INITIAL:
                 ChangeState(State.CHASE);
                 break;
-            case State.CHASE:                
+            case State.CHASE:
+                if (target == null)
+                {
+                    ChangeState(State.CHASE);
+                    break;
+                }
                 if (DistanceToTargetSquared(gameObject, target) <= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
@@ -78,7 +84,6 @@ public class TankEnemy : MonoBehaviour
             case State.ATTACK:
                 if (target == null)
                 {
-                    target = player.gameObject;
                     ChangeState(State.CHASE);
                     break;
                 }
@@ -130,7 +135,7 @@ public class TankEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                agent.enabled = true;
+                agent.enabled = true;                
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
@@ -210,6 +215,7 @@ public class TankEnemy : MonoBehaviour
 
     void GoToTarget()
     {
+        target = FindInstanceWithinRadius(gameObject, "Player", "AirTurret", "GroundTurret", targetRadiusDetection);
         agent.destination = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
     }
 
@@ -239,5 +245,29 @@ public class TankEnemy : MonoBehaviour
         b.GetComponent<Rigidbody>().AddForce(Arms[0].forward * bulletImpulse, ForceMode.Impulse);
         b.GetComponent<TankBullet>().damage = damage;
         rightCannon = !rightCannon;
+    }
+
+    public static GameObject FindInstanceWithinRadius(GameObject me, string tag, string tag2, string tag3, float radius)
+    {
+        GameObject[] targets = GameObject.FindGameObjectsWithTag(tag).Concat(GameObject.FindGameObjectsWithTag(tag2)).Concat(GameObject.FindGameObjectsWithTag(tag3)).ToArray();
+
+        if (targets.Length == 0) return null;
+
+        float dist = 0;
+        GameObject closest = targets[0];
+        float minDistance = (closest.transform.position - me.transform.position).magnitude;
+
+        for (int i = 1; i < targets.Length; i++)
+        {
+            dist = (targets[i].transform.position - me.transform.position).magnitude;
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                closest = targets[i];
+            }
+        }
+
+        if (minDistance < radius) return closest;
+        else return null;
     }
 }

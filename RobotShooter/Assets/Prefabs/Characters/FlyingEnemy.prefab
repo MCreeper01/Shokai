@@ -283,7 +283,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   player: {fileID: 0}
-  target: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
   health: 15
   damage: 5
   minDistAttack: 10
@@ -296,6 +296,7 @@ MonoBehaviour:
   criticalIncome: 10
   killIncome: 20
   hitTime: 0
+  targetRadiusDetection: 1000
   healthInc: 10
   damageInc: 5
   maxDamage: 50

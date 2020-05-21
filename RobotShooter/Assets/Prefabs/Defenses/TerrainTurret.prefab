@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 5130022267700774321}
   m_Layer: 28
   m_Name: TerrainTurret
-  m_TagString: Untagged
+  m_TagString: GroundTurret
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

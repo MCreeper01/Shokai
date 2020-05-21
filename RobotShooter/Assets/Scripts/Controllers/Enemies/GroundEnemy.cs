@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class GroundEnemy : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class GroundEnemy : MonoBehaviour
     public int hitIncome;
     public int criticalIncome;
     public int killIncome;
+    public float targetRadiusDetection;
 
     [Header("StatIncrements")]
     public float healthInc;
@@ -55,15 +57,18 @@ public class GroundEnemy : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
-
+    {       
         switch (currentState)
         {
             case State.INITIAL:
                 ChangeState(State.CHASE);
                 break;
             case State.CHASE:
+                if (target == null)
+                {
+                    ChangeState(State.CHASE);
+                    break;
+                }
                 if (DistanceToTargetSquared(gameObject, target) <= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
@@ -73,7 +78,6 @@ public class GroundEnemy : MonoBehaviour
             case State.ATTACK:
                 if (target == null)
                 {
-                    target = player.gameObject;
                     ChangeState(State.CHASE);
                     break;
                 }
@@ -82,6 +86,7 @@ public class GroundEnemy : MonoBehaviour
                     ChangeState(State.CHASE);
                     break;
                 }
+                transform.forward = new Vector3(player.transform.position.x - transform.position.x, 0, player.transform.position.z - transform.position.z);
                 break;
             case State.HIT:
                 if (health <= 0) ChangeState(State.DEATH);
@@ -204,6 +209,7 @@ public class GroundEnemy : MonoBehaviour
 
     void GoToTarget()
     {
+        target = FindInstanceWithinRadius(gameObject, "Player", "AirTurret", "GroundTurret", targetRadiusDetection);
         agent.destination = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
     }
 
@@ -221,5 +227,29 @@ public class GroundEnemy : MonoBehaviour
             collPoint.GetComponent<BoxCollider>().enabled = false;
             yield return new WaitForSeconds(fightRate);
         }        
+    }
+
+    public static GameObject FindInstanceWithinRadius(GameObject me, string tag, string tag2, string tag3, float radius)
+    {
+        GameObject[] targets = GameObject.FindGameObjectsWithTag(tag).Concat(GameObject.FindGameObjectsWithTag(tag2)).Concat(GameObject.FindGameObjectsWithTag(tag3)).ToArray();
+
+        if (targets.Length == 0) return null;
+
+        float dist = 0;
+        GameObject closest = targets[0];
+        float minDistance = (closest.transform.position - me.transform.position).magnitude;
+
+        for (int i = 1; i < targets.Length; i++)
+        {
+            dist = (targets[i].transform.position - me.transform.position).magnitude;
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                closest = targets[i];
+            }
+        }
+
+        if (minDistance < radius) return closest;
+        else return null;
     }
 }

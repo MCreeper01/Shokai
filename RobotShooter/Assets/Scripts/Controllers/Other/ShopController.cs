@@ -126,7 +126,7 @@ public class ShopController : AController
                 shop.transform.Translate(-Vector3.up * shopAnimationSpeed * Time.deltaTime);
                 yield return 0;
             }
-            shop.transform.GetChild(0).gameObject.GetComponent<BoxCollider>().enabled = false;
+            shop.transform.GetChild(0).gameObject.GetComponent<CapsuleCollider>().enabled = false;
             if (gc.player.atShop)
             {
                 gc.player.atShop = false;
@@ -141,7 +141,7 @@ public class ShopController : AController
                 shop.transform.Translate(Vector3.up * shopAnimationSpeed * Time.deltaTime);
                 yield return 0;
             }
-            shop.transform.GetChild(0).gameObject.GetComponent<BoxCollider>().enabled = true;
+            shop.transform.GetChild(0).gameObject.GetComponent<CapsuleCollider>().enabled = true;
         }
     }
 
