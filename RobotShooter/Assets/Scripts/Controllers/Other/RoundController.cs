@@ -7,7 +7,7 @@ using Random = System.Random;
 
 public class RoundController : AController
 {
-    public enum State { INITIAL, PREPARATION, SPAWN, FIGHT, CLEAR, TRANSITION};
+    public enum State { INITIAL, PREPARATION, SPAWN, FIGHT, CLEAR, TRANSITION };
     public State currentState = State.INITIAL;
 
     [Header("EnemySpawns")]
@@ -112,7 +112,7 @@ public class RoundController : AController
                 {
                     transitionTrigger.SetActive(true);
                     GameEvents.instance.RoundFinish();
-                } 
+                }
                 break;
             case State.TRANSITION:
                 break;
@@ -139,7 +139,7 @@ public class RoundController : AController
             case State.CLEAR:
                 transitionTrigger.SetActive(false);
                 break;
-            case State.TRANSITION:                
+            case State.TRANSITION:
                 break;
         }
 
@@ -246,11 +246,11 @@ public class RoundController : AController
 
         currentMap.map.layer = LayerMask.NameToLayer("Default");
 
-        while (currentMap.map.transform.position.y > minMapAnimationHeight)
+        while (currentMap.map.transform.position.y >= minMapAnimationHeight)
         {
             currentMap.map.transform.Translate(-Vector3.forward * mapAnimationSpeed * Time.deltaTime);
             yield return 0;
-        }        
+        }
 
         //Map switch
         currentMap.map.SetActive(false);
@@ -269,13 +269,15 @@ public class RoundController : AController
         currentMap.map.layer = LayerMask.NameToLayer("Default");
 
         //Up Animation
-        while (currentMap.map.transform.position.y < currentMap.animationHeight)
+        while (currentMap.map.transform.position.y <= currentMap.animationHeight)
         {
             currentMap.map.transform.Translate(Vector3.forward * mapAnimationSpeed * Time.deltaTime);
             yield return 0;
         }
 
+        currentMap.map.transform.position = new Vector3(0, currentMap.animationHeight, 0);
         currentMap.map.layer = LayerMask.NameToLayer("Geometry");
+
         ChangeState(State.PREPARATION);
 
     }
