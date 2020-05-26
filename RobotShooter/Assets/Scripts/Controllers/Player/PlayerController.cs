@@ -38,6 +38,8 @@ public class PlayerController : AController
     private float currentShieldDelay;
     private bool shieldDelay;
 
+    public LayerMask electricZoneDetectionMask;
+
     public LayerMask placeDefenseMask;
 
     private float nextTimeToFireAR = 0f;
@@ -216,6 +218,28 @@ public class PlayerController : AController
                 currentCooldownWaitToStart = playerModel.cooldownWaitToStart;
             }
         }
+
+        CheckForElectricZone();
+    }
+
+    void CheckForElectricZone()
+    {
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, -Vector3.up, playerModel.electricZoneDetectionRange, electricZoneDetectionMask);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            LayerMask layer = hits[i].collider.gameObject.layer;
+            if (layer == LayerMask.NameToLayer("ElectricZone"))
+            {
+                TakeDamage(playerModel.electrocuteDamage * Time.deltaTime, 0);
+                break;
+            }
+        }  
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + (-Vector3.up * playerModel.electricZoneDetectionRange));
     }
 
     public void TakeDamage(float damage, int whoAttacked)
@@ -846,11 +870,7 @@ public class PlayerController : AController
     //COLLISIONS
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Lava")
-        {
 
-            Debug.Log("Hola");
-        }
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -872,10 +892,6 @@ public class PlayerController : AController
 
     private void OnTriggerStay(Collider collision)
     {
-        if (collision.tag == "Lava")
-        {
-            TakeDamage (playerModel.lavaDamage * Time.deltaTime, 0);
-        }
         if (collision.tag == "DeathZone")
         {
             TakeDamage (currentHealth, 0);
