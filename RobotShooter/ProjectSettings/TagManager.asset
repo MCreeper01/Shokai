@@ -42,7 +42,7 @@ TagManager:
   - 
   - Turret
   - Quad
-  - 
+  - ElectricZone
   - 
   m_SortingLayers:
   - name: Default

@@ -96,7 +96,8 @@ public class PlayerModel : ScriptableObject
 
     [Header("OTHER")]
     public KeyCode pauseKey;
-    public float lavaDamage;
+    public float electrocuteDamage;
+    public float electricZoneDetectionRange;
 
     [Header("TESTING")]
     public KeyCode godMode;

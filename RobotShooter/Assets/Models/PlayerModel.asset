@@ -80,7 +80,8 @@ MonoBehaviour:
   empRadius: 5
   empDuration: 2
   defenseKey: 113
-  distancePlaceDefense: 3
+  distancePlaceDefense: 10
   pauseKey: 112
-  lavaDamage: 20
+  electrocuteDamage: 25
+  electricZoneDetectionRange: 1.5
   godMode: 282
