@@ -24,6 +24,7 @@ public class RoundController : AController
     [Tooltip("Only use this field if Use Min Enemies Percentage box is unchecked")]
     public int minEnemies; //If enemies are below this number, next peak will start
     [Tooltip("Note: The losses on enemy spawn calculation will be added on the last enemy on this list, this means that the enemy which spawns more often should go last.")]
+
     public Enemy[] enemies;
     public Transform[] groundedEnemySpawners;
     public Transform[] airEnemySpawners;
@@ -217,7 +218,11 @@ public class RoundController : AController
         Transform spawnPoint;
         if (enemies[id].dimension == Enemy.Dimension.GROUND) spawnPoint = groundedEnemySpawners[UnityEngine.Random.Range(0, groundedEnemySpawners.Length)];
         else spawnPoint = airEnemySpawners[UnityEngine.Random.Range(0, airEnemySpawners.Length)];
-        Instantiate(enemies[id].enemyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        //Instantiate(enemies[id].enemyPrefab, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        //GameObject instance = gc.objectPoolerManager.groundEnemyOP.GetPooledObject();
+        GameObject instance = gc.objectPoolerManager.enemiesOP[id].GetPooledObject();
+        instance.transform.position = spawnPoint.transform.position;
+        instance.SetActive(true);
         currentEnemies++;
     }
 

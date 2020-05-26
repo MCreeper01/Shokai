@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public PlayerController player;
     [HideInInspector] public ShopController shopController;
     [HideInInspector] public RoundController roundController;
+    [HideInInspector] public ObjectPoolerManager objectPoolerManager;
     //[HideInInspector] public CheckpointController checkpointController;
     [HideInInspector] public AudioManager audioManager;
     List<GameObject> activeDefenses = new List<GameObject>();
@@ -42,6 +43,7 @@ public class GameManager : MonoBehaviour
         if (audioManager != null) audioManager.StartGame();
         if (shopController != null) shopController.StartGame();
         if (roundController != null) roundController.StartGame();
+        if (objectPoolerManager != null) objectPoolerManager.StartGame();
     }
 
     public void AddController(AController c)
@@ -56,8 +58,10 @@ public class GameManager : MonoBehaviour
             uiController = (UIController)c;
         else if (c is RoundController)
             roundController = (RoundController)c;
+        else if (c is ObjectPoolerManager)
+            objectPoolerManager = (ObjectPoolerManager)c;
         //else if (c is CheckpointController)
-            //checkpointController = (CheckpointController)c;
+        //checkpointController = (CheckpointController)c;
     }
 
     // Update is called once per frame
