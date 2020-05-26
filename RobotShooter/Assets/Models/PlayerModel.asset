@@ -48,6 +48,7 @@ MonoBehaviour:
   fastSpeedMultiplier: 1.2
   jumpSpeed: 7
   verticalGlideSpeed: -2
+  stepOffset: 0.1
   changeWeaponKey: 102
   alternativeChangeWeapon: 1
   mouseShootButton: 0

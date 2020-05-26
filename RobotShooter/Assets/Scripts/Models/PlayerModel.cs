@@ -48,6 +48,7 @@ public class PlayerModel : ScriptableObject
     public float fastSpeedMultiplier;
     public float jumpSpeed;
     public float verticalGlideSpeed;
+    public float stepOffset;
 
     [Header("SHOOT")]
     public KeyCode changeWeaponKey;
