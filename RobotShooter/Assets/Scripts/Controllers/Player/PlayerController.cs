@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+ 
 public class PlayerController : AController
 {
     private enum Weapon
@@ -13,6 +13,7 @@ public class PlayerController : AController
 
     public PlayerModel playerModel;
     public GameObject gun;
+    public Transform laserPoint;
     private Vector3 initPos;
     [HideInInspector] public bool godMode;
 
@@ -72,6 +73,7 @@ public class PlayerController : AController
     public GameObject impactEffect;*/
     public GameObject impactHole;
     public LineRenderer lineRenderer;
+    //public GameObject laserBeam;
 
     [Header("DEFENSES")]
     public Transform pointAttachDefense;
@@ -80,6 +82,10 @@ public class PlayerController : AController
     public GameObject airTurretPrefab;
 
     private float gravityMultiplier = 1;
+
+    [HideInInspector] public int actualMineDefenses;
+    [HideInInspector] public int actualTTurretDefenses;
+    [HideInInspector] public int actualFTurretDefenses;
 
     [HideInInspector] public bool onGround;
     [HideInInspector] public float verticalSpeed;
@@ -155,7 +161,7 @@ public class PlayerController : AController
     // Update is called once per frame
     void Update()
     {       
-        if (gc.uiController != null && (gc.uiController.paused)) return;
+        if (gc != null && gc.uiController != null && (gc.uiController.paused)) return;
         currentState.Update(this);
         AnyStateUpdate();
         //Debug.Log(currentState);
@@ -374,7 +380,8 @@ public class PlayerController : AController
         if (verticalSpeed <= 0 && Input.GetKey(playerModel.jumpKeyCode) != onGround && gliding) l_Movement.y = playerModel.verticalGlideSpeed * Time.deltaTime;
         else l_Movement.y = verticalSpeed * Time.deltaTime;
 
-
+        if (onGround && l_Movement.y <= 0)
+            l_Movement.y = -playerModel.stepOffset;
 
         //JUMP
         CollisionFlags l_CollisionFlags = characterController.Move(l_Movement);
@@ -618,7 +625,10 @@ public class PlayerController : AController
     public void OnTransitionStart()
     {
         currentHealth = playerModel.MAX_HEALTH;
-        currentShield = playerModel.MAX_SHIELD;
+        currentShield = playerModel.MAX_SHIELD;        
+        actualMineDefenses = 0;
+        actualTTurretDefenses = 0;
+        actualFTurretDefenses = 0;
         gc.uiController.ChangeHealth(currentHealth);
         gc.uiController.ChangeShield(currentShield);
         gc.shopController.ResetHabilitiesAndDefenses();

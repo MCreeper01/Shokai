@@ -76,7 +76,7 @@ public class UIController : AController
     // Update is called once per frame
     void Update()
     {
-        if (gc != null && Input.GetKeyDown(gc.player.playerModel.pauseKey)) Pause();
+        if (gc != null && gc.player != null && Input.GetKeyDown(gc.player.playerModel.pauseKey)) Pause();
         //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) Pause();
         /*if (gc.roundController.currentState == RoundController.State.PREPARATION)
         {

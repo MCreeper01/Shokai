@@ -20,17 +20,28 @@ public class ShopController : AController
     [Header("DefenseSlots")]
     public RawImage[] defenseSlots;
 
+    private int maxMinesPerRound;
+    private int maxTTurretsPerRound;
+    private int maxFTurretsPerRound;
+
     // Start is called before the first frame update
     public void StartGame()
     {
         GameEvents.instance.onPreparationFinish += OnPreparationFinish;
-        GameEvents.instance.onRoundFinish += OnRoundFinish;        
+        GameEvents.instance.onRoundFinish += OnRoundFinish;
+
+        Hability mine = Array.Find(defenses, defense => defense.name == "Mine");
+        maxMinesPerRound = mine.maxCharges;
+        Hability tTurret = Array.Find(defenses, defense => defense.name == "TerrainTurret");
+        maxTTurretsPerRound = tTurret.maxCharges;
+        Hability aTurret = Array.Find(defenses, defense => defense.name == "AirTurret");
+        maxFTurretsPerRound = aTurret.maxCharges;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetIconToHabilitySlot(string name)
@@ -87,6 +98,18 @@ public class ShopController : AController
             return;
         }
         if (d.cost > gc.player.cash) return;
+        switch (name)
+        {
+            case "Mine":
+                if (gc.player.actualMineDefenses >= maxMinesPerRound) return;
+                break;
+            case "TerrainTurret":
+                if (gc.player.actualTTurretDefenses >= maxTTurretsPerRound) return;
+                break;
+            case "AirTurret":
+                if (gc.player.actualFTurretDefenses >= maxFTurretsPerRound) return;
+                break;
+        }
         foreach (RawImage slot in defenseSlots)
         {
             if (!slot.gameObject.activeSelf || slot.gameObject.GetComponent<SlotInfo>().content == d.name)
@@ -99,6 +122,18 @@ public class ShopController : AController
                 {
                     if (sInfo.charges + d.charges <= d.maxCharges) sInfo.ChangeCharges(d.charges);
                     else sInfo.ChangeCharges(d.maxCharges - d.charges);
+                    switch(name)
+                    {
+                        case "Mine":
+                            gc.player.actualMineDefenses += d.charges;
+                            break;
+                        case "TerrainTurret":
+                            gc.player.actualTTurretDefenses += d.charges;
+                            break;
+                        case "AirTurret":
+                            gc.player.actualFTurretDefenses += d.charges;
+                            break;
+                    }
                     gc.player.cash -= d.cost;
                     gc.uiController.ChangeCash(gc.player.cash);
                 }                
