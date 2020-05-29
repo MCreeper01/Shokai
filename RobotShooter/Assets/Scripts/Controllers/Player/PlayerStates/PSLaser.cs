@@ -9,14 +9,16 @@ public class PSLaser : PlayerState
     public PSLaser(PlayerController pc)
     {
         pc.lineRenderer.gameObject.SetActive(true);
+        //pc.laserBeam.SetActive(true);
         time = pc.playerModel.laserTime;
     }
 
     public override void CheckTransition(PlayerController pc)
     {
         if (time <= 0)
-        {
+        {         
             pc.lineRenderer.gameObject.SetActive(false);
+            //pc.laserBeam.SetActive(false);
             pc.ChangeState(pc.previousState);
         }
         
@@ -47,7 +49,9 @@ public class PSLaser : PlayerState
                     if (tEnemy != null) tEnemy.TakeDamage(pc.playerModel.laserDamage);
                 }
             }
+            //pc.laserBeam.transform.position = hit.point;
         }
+        pc.lineRenderer.SetPosition(0, pc.laserPoint.localPosition);
         pc.lineRenderer.SetPosition(1, endRaycastPos);
         time -= Time.deltaTime;
         pc.Move();
