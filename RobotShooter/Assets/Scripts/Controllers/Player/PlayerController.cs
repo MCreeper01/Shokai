@@ -13,6 +13,7 @@ public class PlayerController : AController
 
     public PlayerModel playerModel;
     public GameObject gun;
+    public Transform laserPoint;
     private Vector3 initPos;
     [HideInInspector] public bool godMode;
 
@@ -70,6 +71,7 @@ public class PlayerController : AController
     public GameObject impactEffect;*/
     public GameObject impactHole;
     public LineRenderer lineRenderer;
+    //public GameObject laserBeam;
 
     [Header("DEFENSES")]
     public Transform pointAttachDefense;
