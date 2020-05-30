@@ -681,13 +681,18 @@ public class PlayerController : AController
                 {
                     Vector3 dir = hitAR.point - bulletSpawner.transform.position;
                     dir.Normalize();
-                    bulletAR = Instantiate(bulletARPrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
-                    bulletAR.transform.forward = dir;
-                    //bulletAR.GetComponent<Rigidbody>().AddForce(dir * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
+                    GameObject bullet = gc.objectPoolerManager.ARBulletOP.GetPooledObject();
+                    bullet.transform.position = bulletSpawner.transform.position;
+                    bullet.transform.rotation = bulletSpawner.transform.rotation;
+                    bullet.transform.forward = dir;
+                    bullet.SetActive(true);                    
                 }
                 else
                 {
-                    bulletAR = Instantiate(bulletARPrefab, bulletSpawner.transform.position, Camera.main.transform.rotation);
+                    GameObject bullet = gc.objectPoolerManager.ARBulletOP.GetPooledObject();
+                    bullet.transform.position = bulletSpawner.transform.position;
+                    bullet.transform.rotation = Camera.main.transform.rotation;
+                    bullet.SetActive(true);
                     //bulletAR.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
                 }               
 
@@ -818,7 +823,7 @@ public class PlayerController : AController
                 }
             }
 
-            if (Time.time > 0.1f) gc.uiController.ChangeAROverheat(actualOverheat);
+            if (gc.uiController != null && Time.time > 0.1f) gc.uiController.ChangeAROverheat(actualOverheat);
         }        
     }
 

@@ -60,6 +60,7 @@ public class OptionsMenuController : MonoBehaviour
     public void ShowFPS(bool showFPS)
     {
         PlayerPrefs.SetInt("showFPS", Convert.ToInt32(showFPS));
+        if (GameManager.instance.uiController != null) GameManager.instance.uiController.fpsText.gameObject.SetActive(showFPS);
     }
 
     public void ChangeBrightness(float value)

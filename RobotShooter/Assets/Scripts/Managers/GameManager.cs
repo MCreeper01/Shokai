@@ -17,6 +17,12 @@ public class GameManager : MonoBehaviour
     List<GameObject> activeDefenses = new List<GameObject>();
 
 
+    void OnEnable()
+    {
+        //Tell our 'OnLevelFinishedLoading' function to start listening for a scene change as soon as this script is enabled.
+        SceneManager.sceneLoaded += OnLevelFinishedLoading;
+    }        
+
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -28,6 +34,19 @@ public class GameManager : MonoBehaviour
 
         DontDestroyOnLoad(this);
         Invoke("StartGame", .1f);
+    }
+
+    void OnDisable()
+    {
+        //Tell our 'OnLevelFinishedLoading' function to stop listening for a scene change as soon as this script is disabled. Remember to always have an unsubscription for every delegate you subscribe to!
+        SceneManager.sceneLoaded -= OnLevelFinishedLoading;
+    }
+
+    void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
+    {
+        //Debug.Log("Level Loaded");
+        //Debug.Log(scene.name);
+        //Debug.Log(mode);        
     }
 
     void Start()
@@ -43,7 +62,7 @@ public class GameManager : MonoBehaviour
         if (audioManager != null) audioManager.StartGame();
         if (shopController != null) shopController.StartGame();
         if (roundController != null) roundController.StartGame();
-        if (objectPoolerManager != null) objectPoolerManager.StartGame();
+        if (objectPoolerManager != null) objectPoolerManager.StartGame();        
     }
 
     public void AddController(AController c)
@@ -60,6 +79,8 @@ public class GameManager : MonoBehaviour
             roundController = (RoundController)c;
         else if (c is ObjectPoolerManager)
             objectPoolerManager = (ObjectPoolerManager)c;
+
+        Invoke("StartGame", .1f);
         //else if (c is CheckpointController)
         //checkpointController = (CheckpointController)c;
     }
@@ -69,11 +90,6 @@ public class GameManager : MonoBehaviour
     {
         Debuging();
     }    
-
-    void OnLevelWasLoaded (int level)
-    {
-        Invoke("StartGame", .1f);
-    }
 
     public void ChangeScene(string scene)
     {        

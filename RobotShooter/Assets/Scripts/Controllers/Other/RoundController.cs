@@ -87,7 +87,7 @@ public class RoundController : AController
         enemiesSpawnedOnCurrentRound = 0;
         extraEnemies = new int[enemies.Length];
 
-        ChangeState(State.PREPARATION);
+        //ChangeState(State.INITIAL);
     }
 
     // Update is called once per frame
@@ -96,6 +96,7 @@ public class RoundController : AController
         switch (currentState)
         {
             case State.INITIAL:
+                ChangeState(State.PREPARATION);
                 break;
             case State.PREPARATION:
                 if (elapsedTime >= preparationTime) ChangeState(State.SPAWN);
