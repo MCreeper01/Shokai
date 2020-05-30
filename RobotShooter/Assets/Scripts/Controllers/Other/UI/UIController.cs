@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class UIController : AController
     public Text cashText;
     public Text roundCounter;
     public Text preparationTimeText;
+    public Text fpsText;
 
     [Header("Shop")]
     public Text jetpackCost;
@@ -42,6 +44,7 @@ public class UIController : AController
     public Text newRecordText;
 
     private float shopTimer;
+    private float deltaTime;
 
     void Awake()
     {
@@ -68,6 +71,8 @@ public class UIController : AController
         terrainTurretCost.text = gc.shopController.ReturnCost("TerrainTurret").ToString();
         airTurretCost.text = gc.shopController.ReturnCost("AirTurret").ToString();
 
+        fpsText.gameObject.SetActive(Convert.ToBoolean(PlayerPrefs.GetInt("showFPS")));
+
         shopTimer = gc.roundController.preparationTime;
         GameEvents.instance.onRoundStart += OnRoundStart;
         GameEvents.instance.onPreparationFinish += OnPreparationFinish;
@@ -77,7 +82,6 @@ public class UIController : AController
     void Update()
     {
         if (gc != null && gc.player != null && Input.GetKeyDown(gc.player.playerModel.pauseKey)) Pause();
-        //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) Pause();
         /*if (gc.roundController.currentState == RoundController.State.PREPARATION)
         {
             shopTimer -= Time.deltaTime;
@@ -89,6 +93,9 @@ public class UIController : AController
             }                      
         }*/
         if (gc != null && preparationTimeText.gameObject.activeSelf) preparationTimeText.text = ((int)gc.roundController.preparationTime - (int)gc.roundController.elapsedTime).ToString();
+        deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
+        float fps = 1.0f / deltaTime;
+        fpsText.text = "FPS: " + Mathf.Ceil(fps).ToString();
     }
 
     public void Pause()
@@ -177,8 +184,12 @@ public class UIController : AController
             HUD.SetActive(false);
             scoreText.text = gc.player.cash.ToString();           
             Cursor.lockState = CursorLockMode.None;
-            // if cash > highscore  newRecordText.SetActive(true);
-            // else newRecordText.SetActive(false);
+            if (gc.player.cash > PlayerPrefs.GetInt("highScore"))
+            {
+                newRecordText.gameObject.SetActive(true);
+                PlayerPrefs.SetInt("highScore", gc.player.cash);
+            } 
+             else newRecordText.gameObject.SetActive(false);
         }
         else if (!show && gameOver.activeSelf)
         {

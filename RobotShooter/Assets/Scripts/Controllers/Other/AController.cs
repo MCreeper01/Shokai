@@ -12,7 +12,7 @@ public abstract class AController : MonoBehaviour
         GetGameController();
     }
 
-    void OnLevelWasLoaded (int level)
+    void OnLevelWasLoaded(int level)
     {
         GetGameController();
     }

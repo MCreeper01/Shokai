@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class ARBulletController : MonoBehaviour
 {
+    public float maxDuration;
     public float speed;
-    public float damage;
-    public float duration;
+    public float damage;    
     public float punish;
 
     public LayerMask mask;
 
+    private float duration;
     private Vector3 previousPosition;
 
-    void Start()
+    void OnEnable()
     {
         previousPosition = transform.position;
+        duration = maxDuration;
     }
 
     // Update is called once per frame
@@ -23,7 +25,12 @@ public class ARBulletController : MonoBehaviour
     {
         float multiplier = 1;
         duration -= Time.deltaTime;
-        if (duration <= 0) Destroy(gameObject);
+        if (duration <= 0)
+        {
+            Debug.Log("hmm");
+            gameObject.SetActive(false);
+        }
+        
 
         previousPosition = transform.position;
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
@@ -62,12 +69,12 @@ public class ARBulletController : MonoBehaviour
                         }
                     }
                 }
-                Destroy(gameObject);
+                gameObject.SetActive(false);
                 break;
             }
             if (layer == LayerMask.NameToLayer("Geometry"))
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }       
     }
