@@ -49,6 +49,7 @@ public class PlayerController : AController
     public GameObject grenadePrefab;
     public GameObject stickyGrenadePrefab;
     public GameObject bulletSpawner;
+    public GameObject EMP;
     [HideInInspector] public float actualOverheat = 0;
     [HideInInspector] public bool saturatedAR = false;
     [HideInInspector] public float actualARShootCooldown = 0;
@@ -60,8 +61,8 @@ public class PlayerController : AController
     private int grenadesSlotNum;
     private int defenseSlotNum;
     [HideInInspector] public int grenadeAmmo;
-    private bool empActive;
-    private float currentEmpDuration;
+    //private bool empActive;
+    //private float currentEmpDuration;
     private float currentCooldownWaitToStart;
     private bool hasNormalGrenade;
 
@@ -74,6 +75,8 @@ public class PlayerController : AController
     public GameObject impactHole;
     public LineRenderer lineRenderer;
     //public GameObject laserBeam;
+
+
 
     [Header("DEFENSES")]
     public Transform pointAttachDefense;
@@ -204,16 +207,6 @@ public class PlayerController : AController
             canRecover = true;
             shieldDelay = false;
         } 
-
-        if (empActive)
-        {
-            currentEmpDuration -= Time.deltaTime;
-            if (currentEmpDuration <= 0)
-            {
-                empActive = false;
-                currentEmpDuration = playerModel.empDuration;
-            }
-        }  
         
         if (waitCooldown)
         {
@@ -492,28 +485,8 @@ public class PlayerController : AController
                 }
                 break;
             case "EMP":
-                empActive = true;
-                if (!withDefense && !lineRenderer.gameObject.activeSelf && empActive)
-                {
-                    Collider[] colliders = Physics.OverlapSphere(transform.position, playerModel.empRadius);
-
-                    foreach (Collider nearbyObject in colliders)
-                    {
-                        GroundEnemy gEnemy = nearbyObject.GetComponentInParent<GroundEnemy>();
-                        if (gEnemy != null) gEnemy.ActivateStun(playerModel.empDuration);
-                        else
-                        {
-                            FlyingEnemy fEnemy = nearbyObject.GetComponentInParent<FlyingEnemy>();
-                            if (fEnemy != null) fEnemy.ActivateStun(playerModel.empDuration);
-                            else
-                            {
-                                TankEnemy tEnemy = nearbyObject.GetComponentInParent<TankEnemy>();
-                                if (tEnemy != null) tEnemy.ActivateStun(playerModel.empDuration);
-                            }
-                        }
-                    }
-                    sInfo.Consume();
-                }
+                Instantiate(EMP, transform.position, Quaternion.identity);
+                sInfo.Consume();
                 break;
         }
     }
