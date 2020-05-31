@@ -268,6 +268,7 @@ MonoBehaviour:
   stickyGrenadePrefab: {fileID: 2541946761492140400, guid: a932d876dbaf20d4ca70924681dbee4f,
     type: 3}
   bulletSpawner: {fileID: 5755931945526096670}
+  EMP: {fileID: 4632898359071347584, guid: d906e349970ad32429b4e0794cc68ac1, type: 3}
   actualOverheat: 0
   saturatedAR: 0
   actualARShootCooldown: 0
@@ -279,7 +280,6 @@ MonoBehaviour:
   impactHole: {fileID: 1678891417222217503, guid: 1b3448114e4b3e840be564cc51cd36fc,
     type: 3}
   lineRenderer: {fileID: 5755931945208983780}
-  laserBeam: {fileID: 0}
   pointAttachDefense: {fileID: 5755931946208162607}
   minePrefab: {fileID: 7127792791827856933, guid: effcef4c29af1f24b8c34e627376d652,
     type: 3}
@@ -379,7 +379,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5755931945208983781}
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.422, y: -0.241, z: 1.553}
+  m_LocalPosition: {x: 0.356, y: -0.241, z: 1.674}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5755931944892506273}
@@ -429,7 +429,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -456,9 +456,9 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0.9999995, b: 1, a: 1}
-      key1: {r: 0.9304826, g: 1, b: 0, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 1, g: 0.1477151, b: 0, a: 1}
+      key1: {r: 1, g: 0.05227318, b: 0, a: 1}
+      key2: {r: 1, g: 0.05227318, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -466,7 +466,7 @@ LineRenderer:
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
       ctime1: 65535
-      ctime2: 0
+      ctime2: 65535
       ctime3: 0
       ctime4: 0
       ctime5: 0
