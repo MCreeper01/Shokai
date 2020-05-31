@@ -1,6 +1,8 @@
 ﻿using UnityEngine.Audio;
 using System;
 using UnityEngine;
+using FMODUnity;
+//using FMOD;
 
 public class AudioManager : AController {
 
@@ -22,19 +24,18 @@ public class AudioManager : AController {
 
         foreach (Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
+            s.source = gameObject.AddComponent<StudioEventEmitter>();
 
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
+            s.source.EventInstance.setVolume(s.volume);
+            s.source.EventInstance.setPitch(s.pitch);
 
-            s.source.loop = s.loop;
+            //s.source.EventInstance. = s.loop;
         }
     }
 
     public void StartGame()
     {
-
+        
     }
   
     public void Play(string name)
@@ -56,7 +57,7 @@ public class AudioManager : AController {
             Debug.LogWarning(name + " not found.");
             return;
         }
-        s.source.Pause();
+        //s.source.Event;
     }
 
     public void Stop(string name)
@@ -82,7 +83,15 @@ public class AudioManager : AController {
     {
         foreach (Sound s in sounds)
         {
-            s.source.Pause();
+            s.source.EventInstance.setPaused(true);
+        }
+    }
+
+    public void UnpauseAll()
+    {
+        foreach (Sound s in sounds)
+        {
+            s.source.EventInstance.setPaused(false);
         }
     }
 
@@ -102,10 +111,10 @@ public class AudioManager : AController {
             Debug.LogWarning(name + " not found.");
             return false;
         }
-        return s.source.isPlaying;
+        return s.source.IsPlaying();
     }
-
-    public void ChangeTime (string name, float time)
+    
+    /*public void ChangeTime (string name, float time)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         if (s == null)
@@ -114,5 +123,13 @@ public class AudioManager : AController {
             return;
         }
         s.source.time = time;
+    }*/
+
+    public void SetAllVolume(float volume)
+    {
+        foreach (Sound s in sounds)
+        {
+            s.source.EventInstance.setVolume(volume);
+        }
     }
 }

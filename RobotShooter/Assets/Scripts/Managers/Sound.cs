@@ -1,12 +1,11 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
+using FMODUnity;
 
 [System.Serializable]
 public class Sound {
 
     public string name;
-
-    public AudioClip clip;
 
     [Range(0f, 1f)]
     public float volume;
@@ -16,5 +15,5 @@ public class Sound {
     public bool loop;
 
     [HideInInspector]
-    public AudioSource source;
+    public StudioEventEmitter source;
 }

@@ -7,23 +7,46 @@ public class TankBullet : MonoBehaviour
     [HideInInspector] public float damage;
     public float explosionRadius;
     public float timeToDestroyWithoutImpact;
+    float t;
+    public float speed;
 
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, timeToDestroyWithoutImpact);
+        //Destroy(gameObject, timeToDestroyWithoutImpact);
+    }
+
+    private void OnEnable()
+    {
+        t = timeToDestroyWithoutImpact;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        t -= Time.deltaTime;
+        if (t <= 0) gameObject.SetActive(false);
+
+        transform.position += transform.forward * speed * Time.deltaTime;
     }
 
-    void OnCollisionEnter(Collision collision)
-    {        
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag == "Player")
+        {
+            collider.GetComponent<PlayerController>().TakeDamage(damage, 0);
+        }
+        if (collider.tag == "AirTurret")
+        {
+            collider.GetComponent<AirTurretController>().TakeDamage(damage);
+        }
+        if (collider.tag == "GroundTurret")
+        {
+            collider.GetComponent<TerrainTurretController>().TakeDamage(damage);
+        }
 
+        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+        Debug.Log("Yesss");
         for (int i = 0; i < colliders.Length; i++)
         {
             PlayerController pc = colliders[i].GetComponent<PlayerController>();
@@ -40,6 +63,6 @@ public class TankBullet : MonoBehaviour
                 }
             }
         }
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
