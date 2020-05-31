@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Node
+[CreateAssetMenu(fileName = "Node", menuName = "ScriptableObjects/Node", order = 1)]
+public class Node : ScriptableObject
 {
     public Vector3 position;
     public Node predecessor;
-    public bool isValid;
     public int costFromStart;
     public int estimatedCostToGoal;
     public List<Connection> Connections = new List<Connection>();

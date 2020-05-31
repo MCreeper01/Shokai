@@ -32,12 +32,12 @@ public class Pathfinder3D
         endNode = ProvisionalManager.Instance.currentGraph.Graph[0];
         foreach (Node n in ProvisionalManager.Instance.currentGraph.Graph)
         {
-            if (DistanceToTarget(n.position, agent.transform.position) < DistanceToTarget(startNode.position, agent.transform.position) /*&& n.isValid*/)
+            if (DistanceToTarget(n.position, agent.transform.position) < DistanceToTarget(startNode.position, agent.transform.position))
             {
                 startNode = n;
             }
 
-            if (DistanceToTarget(n.position, goal) < DistanceToTarget(endNode.position, goal) /*&& n.isValid*/)
+            if (DistanceToTarget(n.position, goal) < DistanceToTarget(endNode.position, goal))
             {
                 endNode = n;
             }
