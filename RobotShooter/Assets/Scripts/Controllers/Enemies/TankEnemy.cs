@@ -123,19 +123,19 @@ public class TankEnemy : MonoBehaviour
                 Vector3 tPos1 = (new Vector3(target.transform.position.x, target.transform.position.y - 1, target.transform.position.z) - Arms[1].position).normalized;
                 //Arms[0].forward = (tPos - Arms[0].transform.position).normalized;
                 Debug.Log(tPos0);
-                if (tPos0.x <= 0 && tPos0.z <= 0)
+                if (tPos0.x <= 0 && tPos0.z < 0)
                 {
                     Arms[0].localRotation = Quaternion.Euler(Mathf.Atan2(-tPos0.y, -tPos0.x) * Mathf.Rad2Deg, 0, 0);
                 }
-                else if (tPos0.x >= 0 && tPos0.z <= 0)
+                else if (tPos0.x >= 0 && tPos0.z < 0)
                 {
                     Arms[0].localRotation = Quaternion.Euler(Mathf.Atan2(-tPos0.y, -tPos0.z) * Mathf.Rad2Deg, 0, 0);
                 }
-                else if (tPos0.x <= 0 && tPos0.z >= 0)
+                else if (tPos0.x <= 0 && tPos0.z > 0)
                 {
                     Arms[0].localRotation = Quaternion.Euler(Mathf.Atan2(-tPos0.y, tPos0.z) * Mathf.Rad2Deg, 0, 0);
                 }
-                else if (tPos0.x >= 0 && tPos0.z >= 0)
+                else if (tPos0.x >= 0 && tPos0.z > 0)
                 {
                     Arms[0].localRotation = Quaternion.Euler(Mathf.Atan2(-tPos0.y, tPos0.x) * Mathf.Rad2Deg, 0, 0);
                 }
@@ -312,6 +312,7 @@ public class TankEnemy : MonoBehaviour
             //b.transform.position = Cannons[0].position;
             b.transform.forward = Arms[0].forward;
             //b.SetActive(true);
+            //AudioManager.instance.PlayOneShotSound("", b.transform);
         }
         else
         {
@@ -320,6 +321,7 @@ public class TankEnemy : MonoBehaviour
             //b.transform.position = Cannons[1].position;
             b.transform.forward = Arms[1].forward;
             //b.SetActive(true);
+            //AudioManager.instance.PlayOneShotSound("", b.transform);
         }
 
         b.GetComponent<TankBullet>().damage = damage;
