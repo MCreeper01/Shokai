@@ -121,28 +121,34 @@ public class TankEnemy : MonoBehaviour
 
                 Vector3 tPos0 = (new Vector3(target.transform.position.x, target.transform.position.y - 1, target.transform.position.z) - Arms[0].position).normalized;
                 Vector3 tPos1 = (new Vector3(target.transform.position.x, target.transform.position.y - 1, target.transform.position.z) - Arms[1].position).normalized;
-                //Arms[0].forward = (tPos - Arms[0].transform.position).normalized;
-                Debug.Log(tPos0);
-                if (tPos0.x <= 0 && tPos0.z < 0)
+                if (tPos0.y >= 0)
                 {
-                    Arms[0].localRotation = Quaternion.Euler(Mathf.Atan2(-tPos0.y, -tPos0.x) * Mathf.Rad2Deg, 0, 0);
+                    Arms[0].localRotation = Quaternion.Euler(-Vector3.Angle(transform.forward, tPos0), 0, 0);
+                    Arms[1].localRotation = Quaternion.Euler(-Vector3.Angle(transform.forward, tPos1), 0, 0);
                 }
-                else if (tPos0.x >= 0 && tPos0.z < 0)
+                else
                 {
-                    Arms[0].localRotation = Quaternion.Euler(Mathf.Atan2(-tPos0.y, -tPos0.z) * Mathf.Rad2Deg, 0, 0);
+                    Arms[0].localRotation = Quaternion.Euler(Vector3.Angle(transform.forward, tPos0), 0, 0);
+                    Arms[1].localRotation = Quaternion.Euler(Vector3.Angle(transform.forward, tPos1), 0, 0);
                 }
-                else if (tPos0.x <= 0 && tPos0.z > 0)
-                {
-                    Arms[0].localRotation = Quaternion.Euler(Mathf.Atan2(-tPos0.y, tPos0.z) * Mathf.Rad2Deg, 0, 0);
-                }
-                else if (tPos0.x >= 0 && tPos0.z > 0)
-                {
-                    Arms[0].localRotation = Quaternion.Euler(Mathf.Atan2(-tPos0.y, tPos0.x) * Mathf.Rad2Deg, 0, 0);
-                }
-                
-                Arms[1].localRotation = Quaternion.Euler(Mathf.Atan2(-tPos1.y, -tPos1.z) * Mathf.Rad2Deg, 0, 0);
 
-                Debug.DrawRay(Arms[0].position, Arms[0].forward * 10, Color.red);                
+                /*if (tPos0.x < 0 && tPos0.z < 0)
+                {
+                    float a = Mathf.Atan2(-tPos0.y, -tPos0.x);
+                    Arms[0].localRotation = Quaternion.Euler(a * Mathf.Rad2Deg, 0, 0);Quaternion.Euler(Mathf.Acos(tPos0.z / tPos0.magnitude) * Mathf.Rad2Deg, 0, 0);
+                }*/
+                /*
+                if (tPos0.y >= 0)
+                {
+                    Arms[0].localRotation = Quaternion.Euler(-Mathf.Acos(tPos0.z / tPos0.magnitude) * Mathf.Rad2Deg, 0, 0);
+                    Arms[0].rotation = Quaternion.Euler(Arms[0].localRotation.x, Mathf.Asin(tPos0.x)Mathf.Atan2(tPos0.y, tPos1.x Mathf.Rad2Deg0, Arms[0].localRotation.z);
+                }
+                else
+                {
+                    Arms[0].localRotation = Quaternion.Euler(Mathf.Acos(tPos0.z / tPos0.magnitude) * Mathf.Rad2Deg, 0, 0);
+                    Arms[0].rotation = Quaternion.Euler(Arms[0].localRotation.x, Mathf.Asin(tPos0.x)Mathf.Atan2(tPos0.y, tPos1.x) Mathf.Rad2Deg0, Arms[0].localRotation.z);
+                }*/
+                //Debug.DrawRay(Arms[0].position, Arms[0].forward * 10, Color.red);                
                 break;
             case State.HIT:
                 if (health <= 0) ChangeState(State.DEATH);
