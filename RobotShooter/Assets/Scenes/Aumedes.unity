@@ -1726,42 +1726,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTank
       objectReference: {fileID: 0}
-    - target: {fileID: 8849333340288965942, guid: 938f9637319c9a448978d17d8f19fb43,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 938f9637319c9a448978d17d8f19fb43, type: 3}
---- !u!1 &7136506696604023934 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3345021022019120113, guid: 938f9637319c9a448978d17d8f19fb43,
-    type: 3}
-  m_PrefabInstance: {fileID: 7136506696604023933}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7136506696604023935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7136506696604023934}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  Event: 
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
 --- !u!1001 &8642222243276303883
 PrefabInstance:
   m_ObjectHideFlags: 0
