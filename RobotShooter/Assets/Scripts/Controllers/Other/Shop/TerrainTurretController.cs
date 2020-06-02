@@ -5,6 +5,7 @@ using UnityEngine;
 public class TerrainTurretController : MonoBehaviour
 {
     public float health;
+    public float speed;
     public float damagePerSecond;
     public float range;
     public Transform pointShoot;
@@ -17,6 +18,10 @@ public class TerrainTurretController : MonoBehaviour
 
     private bool hasTarget;
     private GameObject target;
+    private Vector3 relativePosition;
+    private float rotationTime;
+    private Quaternion targetRotation;
+    private bool rotating = false;
 
     // Start is called before the first frame update
     void Start()
@@ -39,43 +44,55 @@ public class TerrainTurretController : MonoBehaviour
                     foreach (Collider nearbyObject in colliders)
                     {
                         target = nearbyObject.gameObject;
-                        hasTarget = true;
+                        hasTarget = true;                        
+                        rotating = true;
+                        rotationTime = 0;
                         return;
                     }
                 }                
             }
             else
             {
-                head.transform.LookAt(target.transform, Vector3.up);
-
-                RaycastHit hit;
-                if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
+                if (rotating)
                 {
-                    GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
-                    if (gEnemy != null)
+                    relativePosition = target.transform.position - head.transform.position;
+                    targetRotation = Quaternion.LookRotation(relativePosition);
+                    rotationTime += Time.deltaTime * speed;
+                    head.transform.rotation = Quaternion.Lerp(head.transform.rotation, targetRotation, rotationTime);
+                    if (head.transform.rotation == targetRotation) rotating = false;
+                }
+                else
+                {
+                    head.transform.LookAt(target.transform, Vector3.up);
+                    RaycastHit hit;
+                    if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
                     {
-                        gEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
-                        if (gEnemy.health <= 0)
+                        GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
+                        if (gEnemy != null)
                         {
-                            hasTarget = false;
-                            colliders.Remove(target.GetComponent<Collider>());
-                        }
-                    }
-                    else
-                    {
-                        TankEnemy tEnemy = hit.collider.GetComponentInParent<TankEnemy>();
-                        if (tEnemy != null)
-                        {
-                            tEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
-                            if (tEnemy.health <= 0)
+                            gEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
+                            if (gEnemy.health <= 0)
                             {
                                 hasTarget = false;
                                 colliders.Remove(target.GetComponent<Collider>());
                             }
                         }
-                        else hasTarget = false;
+                        else
+                        {
+                            TankEnemy tEnemy = hit.collider.GetComponentInParent<TankEnemy>();
+                            if (tEnemy != null)
+                            {
+                                tEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
+                                if (tEnemy.health <= 0)
+                                {
+                                    hasTarget = false;
+                                    colliders.Remove(target.GetComponent<Collider>());
+                                }
+                            }
+                            else hasTarget = false;
+                        }
                     }
-                }
+                }                 
                 if (Vector3.Distance(pointShoot.position, target.transform.position) > range) hasTarget = false;
             }            
         }        
@@ -94,7 +111,7 @@ public class TerrainTurretController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.GetComponentInParent<GroundEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider);
+        if (collider.GetComponentInParent<GroundEnemy>() != null && collider.tag != "CriticalBox" && collider.gameObject.layer != LayerMask.NameToLayer("EnemyAttack")) colliders.Add(collider);
         if (collider.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
             if (collider.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collider.gameObject.GetComponentInParent<GroundEnemy>().damage);
@@ -103,6 +120,6 @@ public class TerrainTurretController : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.GetComponentInParent<GroundEnemy>() != null) colliders.Remove(collider);
+        if (collider.GetComponentInParent<GroundEnemy>() != null && collider.tag != "CriticalBox" && collider.gameObject.layer != LayerMask.NameToLayer("EnemyAttack")) colliders.Remove(collider);
     }
 }

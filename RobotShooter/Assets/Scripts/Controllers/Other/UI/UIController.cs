@@ -182,12 +182,12 @@ public class UIController : AController
             gameOver.SetActive(true);
             //gc.audioManager.Play("GameOver");
             HUD.SetActive(false);
-            scoreText.text = gc.player.cash.ToString();           
+            scoreText.text = gc.player.score.ToString();           
             Cursor.lockState = CursorLockMode.None;
-            if (gc.player.cash > PlayerPrefs.GetInt("highScore"))
+            if (gc.player.score > PlayerPrefs.GetInt("highScore"))
             {
                 newRecordText.gameObject.SetActive(true);
-                PlayerPrefs.SetInt("highScore", gc.player.cash);
+                PlayerPrefs.SetInt("highScore", gc.player.score);
             } 
              else newRecordText.gameObject.SetActive(false);
         }
