@@ -71,7 +71,6 @@ public class GroundEnemy : MonoBehaviour
         agent.stoppingDistance = minDistAttack;
 
         IncrementStats();
-        Debug.Log(GameManager.instance.roundController.currentRound);
     }
 
     // Update is called once per frame
@@ -273,8 +272,8 @@ public class GroundEnemy : MonoBehaviour
         else return null;
     }
 
-    void OnCollisionEnter (Collision col)
-    {
-        Debug.Log(col.gameObject.name);
-    }
+    //void OnCollisionEnter (Collision col)
+    //{
+    //    Debug.Log(col.gameObject.name);
+    //}
 }
