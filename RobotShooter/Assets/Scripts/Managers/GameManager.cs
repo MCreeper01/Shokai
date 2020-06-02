@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
         if (audioManager != null) audioManager.StartGame();
         if (shopController != null) shopController.StartGame();
         if (roundController != null) roundController.StartGame();
-        if (objectPoolerManager != null) objectPoolerManager.StartGame();        
+        if (objectPoolerManager != null) objectPoolerManager.StartGame();
     }
 
     public void AddController(AController c)
@@ -135,17 +135,20 @@ public class GameManager : MonoBehaviour
         {
             foreach (GroundEnemy enemy in GameObject.FindObjectsOfType<GroundEnemy>())
             {
-                Destroy(enemy.gameObject);
+                //Destroy(enemy.gameObject);
+                enemy.gameObject.SetActive(false);
                 roundController.DecreaseEnemyCount();
             }
             foreach (FlyingEnemy enemy in GameObject.FindObjectsOfType<FlyingEnemy>())
             {
-                Destroy(enemy.gameObject);
+                //Destroy(enemy.gameObject);
+                enemy.gameObject.SetActive(false);
                 roundController.DecreaseEnemyCount();
             }
             foreach (TankEnemy enemy in GameObject.FindObjectsOfType<TankEnemy>())
             {
-                Destroy(enemy.gameObject);
+                //Destroy(enemy.gameObject);
+                enemy.gameObject.SetActive(false);
                 roundController.DecreaseEnemyCount();
             }
         }

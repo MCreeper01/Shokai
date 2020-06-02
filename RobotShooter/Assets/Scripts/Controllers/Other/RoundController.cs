@@ -87,7 +87,7 @@ public class RoundController : AController
         enemiesSpawnedOnCurrentRound = 0;
         extraEnemies = new int[enemies.Length];
 
-        //ChangeState(State.INITIAL);
+        ChangeState(State.INITIAL);
     }
 
     // Update is called once per frame
@@ -150,9 +150,10 @@ public class RoundController : AController
         {
             case State.INITIAL:
                 break;
-            case State.PREPARATION:
+            case State.PREPARATION:                
                 currentPeak = 0;
                 currentRound++;
+                //Debug.Log(currentRound);
                 if (gc.uiController != null) gc.uiController.IncreaseRound();
                 roundTotalEnemies += totalEnemiesIncrementPerRound;
                 enemiesSpawnedOnCurrentRound = 0;
@@ -216,6 +217,7 @@ public class RoundController : AController
 
     void InstantiateEnemy(int id)
     {
+        Debug.Log("Instance");
         Transform spawnPoint;
         if (enemies[id].dimension == Enemy.Dimension.GROUND) spawnPoint = groundedEnemySpawners[UnityEngine.Random.Range(0, groundedEnemySpawners.Length)];
         else spawnPoint = airEnemySpawners[UnityEngine.Random.Range(0, airEnemySpawners.Length)];

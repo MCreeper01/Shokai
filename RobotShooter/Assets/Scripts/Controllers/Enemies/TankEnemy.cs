@@ -12,8 +12,8 @@ public class TankEnemy : MonoBehaviour
     NavMeshObstacle obstacle;
     Rigidbody rb;
     Animator anim;
-    //PlayerController player;
-    GameObject player;
+    PlayerController player;
+    //GameObject player;
     public GameObject bullet;
     public Transform[] Cannons;
     public Transform[] Arms;
@@ -21,7 +21,6 @@ public class TankEnemy : MonoBehaviour
     bool rightCannon = true;
     float elapsedTime = 0;
     float empTimeStun;
-    public Transform armInitForward;
     [HideInInspector]
     public GameObject target;
 
@@ -68,17 +67,16 @@ public class TankEnemy : MonoBehaviour
 
     private void OnEnable()
     {
-        //player = GameManager.instance.player;
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.instance.player;
+        //player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
-        armInitForward = Arms[0];
 
-        //IncrementStats();
+        IncrementStats();
     }
 
     // Update is called once per frame
@@ -168,7 +166,7 @@ public class TankEnemy : MonoBehaviour
             case State.CHASE:                
                 CancelInvoke("GoToTarget");
                 agent.enabled = false;
-                anim.SetBool("Moving", false);
+                //anim.SetBool("Moving", false);
                 break;
             case State.ATTACK:
                 rb.constraints = RigidbodyConstraints.None;
@@ -180,7 +178,7 @@ public class TankEnemy : MonoBehaviour
                 obstacle.enabled = false;
                 break;
             case State.STUNNED:
-                anim.SetBool("Stunned", false);
+                //anim.SetBool("Stunned", false);
                 rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
@@ -194,7 +192,7 @@ public class TankEnemy : MonoBehaviour
             case State.CHASE:
                 Arms[0].localRotation = Quaternion.Euler(90, 0, 0);
                 Arms[1].localRotation = Quaternion.Euler(90, 0, 0);
-                anim.SetBool("Moving", true);
+                //anim.SetBool("Moving", true);
                 agent.enabled = true;
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
@@ -211,7 +209,7 @@ public class TankEnemy : MonoBehaviour
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
-                anim.SetBool("Stunned", true);
+                //anim.SetBool("Stunned", true);
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
