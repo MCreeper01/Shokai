@@ -11,6 +11,7 @@ public class GroundEnemy : MonoBehaviour
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
     Rigidbody rb;
+    Animator anim;
     [HideInInspector]
     public GameObject target;
     float empTimeStun;
@@ -27,10 +28,12 @@ public class GroundEnemy : MonoBehaviour
     public float repathTime;
     public float fightRate;
     public float hitTime;
+    public float deathTime;
     public int hitIncome;
     public int criticalIncome;
     public int killIncome;
     public float targetRadiusDetection;
+    public float rotSpeed;
 
     [Header("StatIncrements")]
     public float healthInc;
@@ -42,12 +45,27 @@ public class GroundEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        /*
         player = GameManager.instance.player;
         //player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
         rb = GetComponent<Rigidbody>();
+        target = player.gameObject;
+        agent.speed = speed;
+        agent.stoppingDistance = minDistAttack;
+
+        IncrementStats();*/
+    }
+
+    private void OnEnable()
+    {
+        player = GameManager.instance.player;
+        //player = GameObject.FindGameObjectWithTag("Player");
+        agent = GetComponent<NavMeshAgent>();
+        obstacle = GetComponent<NavMeshObstacle>();
+        rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
         target = player.gameObject;
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
@@ -74,7 +92,9 @@ public class GroundEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                     break;
                 }
-                transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
+                //transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
+                Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeed * Time.deltaTime, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDirectionChase);
                 break;
             case State.ATTACK:
                 if (target == null)
@@ -87,7 +107,9 @@ public class GroundEnemy : MonoBehaviour
                     ChangeState(State.CHASE);
                     break;
                 }
-                transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
+                //transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
+                Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeed * Time.deltaTime, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDirectionAttack);
                 break;
             case State.HIT:
                 if (health <= 0) ChangeState(State.DEATH);
@@ -106,8 +128,10 @@ public class GroundEnemy : MonoBehaviour
             case State.CHASE:
                 CancelInvoke("GoToTarget");
                 agent.enabled = false;
+                anim.SetBool("Moving", false);
                 break;
             case State.ATTACK:
+                anim.SetBool("Attacking", false);
                 rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 StopCoroutine("ActivateCollider");
@@ -117,20 +141,23 @@ public class GroundEnemy : MonoBehaviour
                 obstacle.enabled = false;
                 break;
             case State.STUNNED:
+                anim.SetBool("Stunned", false);
                 rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
-            case State.DEATH:
+            case State.DEATH:                
                 break;
         }
 
         switch (newState)
         {
             case State.CHASE:
+                anim.SetBool("Moving", true);
                 agent.enabled = true;                
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
+                anim.SetBool("Attacking", true);
                 rb.constraints = RigidbodyConstraints.FreezePosition;
                 rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 obstacle.enabled = true;
@@ -143,6 +170,7 @@ public class GroundEnemy : MonoBehaviour
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
+                anim.SetBool("Stunned", true);
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
@@ -150,11 +178,16 @@ public class GroundEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
-                Destroy(gameObject);
+                Invoke("DisableEnemy", deathTime);
                 break;
         }
 
         currentState = newState;
+    }
+
+    void DisableEnemy()
+    {
+        gameObject.SetActive(false);
     }
 
     public void TakeDamage(float damage/*, GameObject attacker*/)
@@ -163,24 +196,8 @@ public class GroundEnemy : MonoBehaviour
         health -= damage;
         if (health <= 0) ChangeState(State.DEATH);
         else ChangeState(State.HIT);
-        /*target = attacker;
-        Collider[] colliders = Physics.OverlapSphere(transform.position, 5);
-        if (colliders.Length > 0)
-        {
-            for (int i = 0; i < colliders.Length; i++)
-            {                
-                if (colliders[i].GetType() == typeof(GroundEnemy))
-                {
-                    GroundEnemy ge = colliders[i].gameObject.GetComponent<GroundEnemy>();
-                    ge.target = attacker;
-                }
-                else if (colliders[i].GetType() == typeof(Enemy3))
-                {
-                    Enemy3 te = colliders[i].gameObject.GetComponent<Enemy3>();
-                    te.target = attacker;
-                }
-            }
-        } */       
+        //target = attacker;
+               
     }
 
     void IncrementStats()

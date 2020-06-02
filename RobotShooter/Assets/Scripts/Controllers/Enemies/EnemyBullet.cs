@@ -7,16 +7,25 @@ public class EnemyBullet : MonoBehaviour
     [HideInInspector] public float damage;
     public float speed;
     public float timeToDestroy;
+    float t;
 
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, timeToDestroy);
+        //Destroy(gameObject, timeToDestroy);
+    }
+
+    private void OnEnable()
+    {
+        t = timeToDestroy;
     }
 
     // Update is called once per frame
     void Update()
     {
+        t -= Time.deltaTime;
+        if (t <= 0) gameObject.SetActive(false);
+
         transform.position += transform.forward * speed * Time.deltaTime;
     }
 
@@ -26,18 +35,16 @@ public class EnemyBullet : MonoBehaviour
         {
             PlayerController player = collider.GetComponent<PlayerController>();
             player.TakeDamage(damage, 0);
-            Destroy(gameObject);
         }
         if (collider.tag == "AirTurret")
         {
             collider.GetComponent<AirTurretController>().TakeDamage(damage);
-            Destroy(gameObject);
         }
         if (collider.tag == "GroundTurret")
         {
             collider.GetComponent<TerrainTurretController>().TakeDamage(damage);
-            Destroy(gameObject);
         }
-        
+
+        gameObject.SetActive(false);
     }
 }

@@ -14,9 +14,11 @@ public class FlyingEnemy : MonoBehaviour
     public Transform cannon;
     public LayerMask mask;
 
+    //GameObject player;
     [HideInInspector] public PlayerController player;
     [HideInInspector] public GameObject target;
     Rigidbody rb;
+    Animator anim;
 
     [Header("Stats")]
     public float health;
@@ -31,6 +33,7 @@ public class FlyingEnemy : MonoBehaviour
     public int criticalIncome;
     public int killIncome;
     public float hitTime;
+    public float deathTime;
     public float targetRadiusDetection;
 
     [Header("StatIncrements")]
@@ -58,6 +61,20 @@ public class FlyingEnemy : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
+    {/*
+        player = GameManager.instance.player;
+        //player = GameObject.FindGameObjectWithTag("Player");
+
+        rays = new Ray[3];
+
+        rb = GetComponent<Rigidbody>();
+        pathfinder = new Pathfinder3D();
+        pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
+
+        //IncrementStats();*/
+    }
+
+    private void OnEnable()
     {
         player = GameManager.instance.player;
         //player = GameObject.FindGameObjectWithTag("Player");
@@ -65,6 +82,7 @@ public class FlyingEnemy : MonoBehaviour
         rays = new Ray[3];
 
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
         pathfinder = new Pathfinder3D();
         pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
 
@@ -158,6 +176,7 @@ public class FlyingEnemy : MonoBehaviour
         {
             case State.CHASE:
                 CancelInvoke("GoToTarget");
+                anim.SetBool("Moving", false);
                 break;
             case State.ATTACK:
                 CancelInvoke("InstanceBullet");
@@ -168,15 +187,18 @@ public class FlyingEnemy : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.None;
                 break;
             case State.STUNNED:
+                anim.SetBool("Stunned", false);
                 rb.constraints = RigidbodyConstraints.None;
                 break;
             case State.DEATH:
+                gameObject.SetActive(false);
                 break;
         }
 
         switch (newState)
         {
             case State.CHASE:
+                anim.SetBool("Moving", true);
                 if (ProvisionalManager.Instance.currentGraph.Graph.Count > 0)
                 {
                     InvokeRepeating("GoToTarget", 0, repathTime);
@@ -194,17 +216,23 @@ public class FlyingEnemy : MonoBehaviour
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
+                anim.SetBool("Stunned", true);
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 Invoke("ChangeToChase", empTimeStun);
                 break;
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
-                Destroy(gameObject);
+                Invoke("DisableEnemy", deathTime);
                 break;
         }
 
         currentState = newState;
+    }
+
+    void DisableEnemy()
+    {
+        gameObject.SetActive(false);
     }
 
     public void TakeDamage(float damage)
@@ -274,6 +302,8 @@ public class FlyingEnemy : MonoBehaviour
     {
         GameObject b;
         b = Instantiate(bullet, cannon.position, Quaternion.identity);
+        //b = gc.objectPoolerManager.airEnemyBulletOP.GetPooledObject
+        //b.transform.position = cannon.position;
         b.transform.forward = player.transform.position - transform.position;
         b.GetComponent<EnemyBullet>().damage = damage;
     }
