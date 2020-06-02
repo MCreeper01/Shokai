@@ -254,7 +254,7 @@ public class RoundController : AController
 
         while (currentMap.map.transform.position.y >= minMapAnimationHeight)
         {
-            currentMap.map.transform.Translate(-Vector3.forward * mapAnimationSpeed * Time.deltaTime);
+            currentMap.map.transform.Translate(-Vector3.up * mapAnimationSpeed * Time.deltaTime);
             yield return 0;
         }
 
@@ -277,7 +277,7 @@ public class RoundController : AController
         //Up Animation
         while (currentMap.map.transform.position.y <= currentMap.animationHeight)
         {
-            currentMap.map.transform.Translate(Vector3.forward * mapAnimationSpeed * Time.deltaTime);
+            currentMap.map.transform.Translate(Vector3.up * mapAnimationSpeed * Time.deltaTime);
             yield return 0;
         }
 
