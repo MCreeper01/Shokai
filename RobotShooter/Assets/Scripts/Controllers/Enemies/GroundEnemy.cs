@@ -270,4 +270,9 @@ public class GroundEnemy : MonoBehaviour
         if (minDistance < radius) return closest;
         else return null;
     }
+
+    void OnCollisionEnter (Collision col)
+    {
+        Debug.Log(col.gameObject.name);
+    }
 }
