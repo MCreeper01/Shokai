@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4639665160026506190}
   - component: {fileID: 341078652354378029}
   - component: {fileID: 5836378890253052891}
-  m_Layer: 30
+  m_Layer: 26
   m_Name: ElectricZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1550451459130930964
 Transform:
   m_ObjectHideFlags: 0
@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 5836378891130178845}
   - component: {fileID: 5836378891130178847}
   - component: {fileID: 5836378891130178846}
-  m_Layer: 30
+  m_Layer: 26
   m_Name: ElectricTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
