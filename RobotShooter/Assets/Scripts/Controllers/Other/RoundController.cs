@@ -87,7 +87,7 @@ public class RoundController : AController
         enemiesSpawnedOnCurrentRound = 0;
         extraEnemies = new int[enemies.Length];
 
-        //ChangeState(State.INITIAL);
+        ChangeState(State.INITIAL);
     }
 
     // Update is called once per frame
