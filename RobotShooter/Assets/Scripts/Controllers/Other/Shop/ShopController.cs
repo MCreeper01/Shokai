@@ -158,7 +158,7 @@ public class ShopController : AController
         {
             while (shop.transform.position.y > shopMinimumHeight)
             {
-                shop.transform.Translate(-Vector3.up * shopAnimationSpeed * Time.deltaTime);
+                shop.transform.Translate(-Vector3.forward * shopAnimationSpeed * Time.deltaTime);
                 yield return 0;
             }
             shop.transform.position = new Vector3(shop.transform.position.x, shopMinimumHeight, shop.transform.position.z);
@@ -174,7 +174,7 @@ public class ShopController : AController
         {
             while (shop.transform.position.y < shopMaximumHeight)
             {
-                shop.transform.Translate(Vector3.up * shopAnimationSpeed * Time.deltaTime);
+                shop.transform.Translate(Vector3.forward * shopAnimationSpeed * Time.deltaTime);
                 yield return 0;
             }
             shop.transform.position = new Vector3(shop.transform.position.x, shopMaximumHeight, shop.transform.position.z);
