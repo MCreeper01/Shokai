@@ -19,6 +19,7 @@ public class ObjectPooler
             pool.Add(item);
             //item.transform.localScale = scale;
             item.SetActive(false);
+            Debug.Log("Heyy");
         }
     }
 

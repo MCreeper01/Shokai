@@ -58,15 +58,19 @@ public class GraphMaker : MonoBehaviour
                         for (int i = 0; i < objectsWithLayer.Length; i++)
                         {
                             c = objectsWithLayer[i].GetComponent<Collider>();
-                            if (c.bounds.Contains(pos))
+                            if (c != null)
                             {
-                                isColliding = true;
-                                break;
-                            }     
+                                if (c.bounds.Contains(pos))
+                                {
+                                    isColliding = true;
+                                    break;
+                                }
+                            }                                
                         }    
                         
                         if (!isColliding)
                         {
+                            Debug.Log("Heyyyy");
                             Node n = ScriptableObject.CreateInstance<Node>();
                             n.position = pos;
                             go.Graph.Add(n);

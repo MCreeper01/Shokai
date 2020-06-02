@@ -16,7 +16,7 @@ public class ProvisionalManager : MonoBehaviour
         {
             for (int i = 0; i < Graphs.Length; i++)
             {
-                if (Graphs[i].ID == 1/*GameManager.instance.roundController.currentMap*/)
+                if (Graphs[i].ID == GameManager.instance.roundController.currentMap)
                 {
                     return Graphs[i];
                 }
@@ -41,9 +41,9 @@ public class ProvisionalManager : MonoBehaviour
     void Awake()
     {
         Graphs[0] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph1.asset", typeof(GraphObject));
-        //Graphs[1] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph2.asset", typeof(GraphObject));
-        //Graphs[2] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph3.asset", typeof(GraphObject));
-        //Graphs[3] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph4.asset", typeof(GraphObject));
+        Graphs[1] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph2.asset", typeof(GraphObject));
+        Graphs[2] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph3.asset", typeof(GraphObject));
+        Graphs[3] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph4.asset", typeof(GraphObject));
         //Graphs = Resources.LoadAll<GraphObject>("Assets/GraphAssets");
         //Graphs = (GraphObject)AssetDatabase.LoadAllAssetsAtPath("Assets/GraphAssets/Graph" + i + 1 + );
         /*for (int i = 0; i < 4; i++)

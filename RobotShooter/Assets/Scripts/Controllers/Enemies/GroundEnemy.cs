@@ -71,6 +71,7 @@ public class GroundEnemy : MonoBehaviour
         agent.stoppingDistance = minDistAttack;
 
         IncrementStats();
+        Debug.Log(GameManager.instance.roundController.currentRound);
     }
 
     // Update is called once per frame
@@ -128,10 +129,10 @@ public class GroundEnemy : MonoBehaviour
             case State.CHASE:
                 CancelInvoke("GoToTarget");
                 agent.enabled = false;
-                anim.SetBool("Moving", false);
+                //anim.SetBool("Moving", false);
                 break;
             case State.ATTACK:
-                anim.SetBool("Attacking", false);
+                //anim.SetBool("Attacking", false);
                 rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 StopCoroutine("ActivateCollider");
@@ -141,7 +142,7 @@ public class GroundEnemy : MonoBehaviour
                 obstacle.enabled = false;
                 break;
             case State.STUNNED:
-                anim.SetBool("Stunned", false);
+                //anim.SetBool("Stunned", false);
                 rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
@@ -152,12 +153,12 @@ public class GroundEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                anim.SetBool("Moving", true);
+                //anim.SetBool("Moving", true);
                 agent.enabled = true;                
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
-                anim.SetBool("Attacking", true);
+                //anim.SetBool("Attacking", true);
                 rb.constraints = RigidbodyConstraints.FreezePosition;
                 rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 obstacle.enabled = true;
@@ -170,7 +171,7 @@ public class GroundEnemy : MonoBehaviour
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
-                anim.SetBool("Stunned", true);
+                //anim.SetBool("Stunned", true);
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
@@ -202,10 +203,11 @@ public class GroundEnemy : MonoBehaviour
 
     void IncrementStats()
     {
-        health += healthInc * (GameManager.instance.roundController.currentRound - 1);
-        speed += speedInc * (GameManager.instance.roundController.currentRound - 1);
+        
+        health += healthInc * (GameManager.instance.roundController.currentRound);
+        speed += speedInc * (GameManager.instance.roundController.currentRound);
         if (speed > maxSpeed) speed = maxSpeed;
-        damage += damageInc * (GameManager.instance.roundController.currentRound - 1);
+        damage += damageInc * (GameManager.instance.roundController.currentRound);
         if (damage > maxDamage) damage = maxDamage;
     }
 

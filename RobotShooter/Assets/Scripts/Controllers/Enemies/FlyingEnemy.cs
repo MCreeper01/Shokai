@@ -176,7 +176,7 @@ public class FlyingEnemy : MonoBehaviour
         {
             case State.CHASE:
                 CancelInvoke("GoToTarget");
-                anim.SetBool("Moving", false);
+                //anim.SetBool("Moving", false);
                 break;
             case State.ATTACK:
                 CancelInvoke("InstanceBullet");
@@ -187,7 +187,7 @@ public class FlyingEnemy : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.None;
                 break;
             case State.STUNNED:
-                anim.SetBool("Stunned", false);
+                //anim.SetBool("Stunned", false);
                 rb.constraints = RigidbodyConstraints.None;
                 break;
             case State.DEATH:
@@ -198,7 +198,7 @@ public class FlyingEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                anim.SetBool("Moving", true);
+                //anim.SetBool("Moving", true);
                 if (ProvisionalManager.Instance.currentGraph.Graph.Count > 0)
                 {
                     InvokeRepeating("GoToTarget", 0, repathTime);
@@ -216,7 +216,7 @@ public class FlyingEnemy : MonoBehaviour
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
-                anim.SetBool("Stunned", true);
+                //anim.SetBool("Stunned", true);
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 Invoke("ChangeToChase", empTimeStun);
                 break;
