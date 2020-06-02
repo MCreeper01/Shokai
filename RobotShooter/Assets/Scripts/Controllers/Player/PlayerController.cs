@@ -28,6 +28,7 @@ public class PlayerController : AController
     [HideInInspector] public bool crouching;
     [HideInInspector] public bool dashing;
     [HideInInspector] public int cash;
+    [HideInInspector] public int score;
     [HideInInspector] public bool canRecover;
     private Vector3 previousMovement;
     private float actualDashTime;
@@ -144,6 +145,7 @@ public class PlayerController : AController
         pitch = 0;
 
         cash = playerModel.INITIAL_CASH;
+        score = cash;
 
         actualWeapon = Weapon.rifle;
 
@@ -617,6 +619,7 @@ public class PlayerController : AController
     public void IncreaseCash(int cash)
     {
         this.cash += cash;
+        score += cash;
         gc.uiController.ChangeCash(this.cash);
     }
 

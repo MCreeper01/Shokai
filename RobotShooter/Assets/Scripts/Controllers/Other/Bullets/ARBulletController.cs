@@ -25,12 +25,7 @@ public class ARBulletController : MonoBehaviour
     {
         float multiplier = 1;
         duration -= Time.deltaTime;
-        if (duration <= 0)
-        {
-            Debug.Log("hmm");
-            gameObject.SetActive(false);
-        }
-        
+        if (duration <= 0) gameObject.SetActive(false);        
 
         previousPosition = transform.position;
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
