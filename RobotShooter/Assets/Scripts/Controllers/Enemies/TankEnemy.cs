@@ -11,14 +11,17 @@ public class TankEnemy : MonoBehaviour
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
     Rigidbody rb;
-    PlayerController player;
-    //GameObject player;
+    Animator anim;
+    //PlayerController player;
+    GameObject player;
     public GameObject bullet;
     public Transform[] Cannons;
     public Transform[] Arms;
+    public LayerMask mask;
     bool rightCannon = true;
     float elapsedTime = 0;
     float empTimeStun;
+    public Transform armInitForward;
     [HideInInspector]
     public GameObject target;
 
@@ -33,12 +36,13 @@ public class TankEnemy : MonoBehaviour
     public float fireRate;
     public float repathTime;
     public float hitTime;
+    public float deathTime;
     public int hitIncome;
     public int punishHitIncome;
     public int criticalIncome;
     public int killIncome;
-    public float bulletImpulse;
     public float targetRadiusDetection;
+    public float rotSpeed;
 
     [Header("StatIncrements")]
     public float healthInc;
@@ -49,16 +53,32 @@ public class TankEnemy : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        player = GameManager.instance.player;
-        //player = GameObject.FindGameObjectWithTag("Player");
+    {/*
+        //player = GameManager.instance.player;
+        player = GameObject.FindGameObjectWithTag("Player");
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
+        armInitForward = Arms[0].forward;
 
-        IncrementStats();
+        IncrementStats();*/
+    }
+
+    private void OnEnable()
+    {
+        //player = GameManager.instance.player;
+        player = GameObject.FindGameObjectWithTag("Player");
+        rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+        obstacle = GetComponent<NavMeshObstacle>();
+        agent.speed = speed;
+        agent.stoppingDistance = minDistAttack;
+        armInitForward = Arms[0];
+
+        //IncrementStats();
     }
 
     // Update is called once per frame
@@ -75,12 +95,14 @@ public class TankEnemy : MonoBehaviour
                     ChangeState(State.CHASE);
                     break;
                 }
-                if (DistanceToTargetSquared(gameObject, target) <= minDistAttack * minDistAttack)
+                if (DistanceToTargetSquared(gameObject, target) <= minDistAttack * minDistAttack && !PlayerHitLeft() && !PlayerHitRight())
                 {
                     ChangeState(State.ATTACK);
                     break;
                 }
-                transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
+                //transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
+                Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeed * Time.deltaTime, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDirectionChase);
                 break;
             case State.ATTACK:
                 if (target == null)
@@ -88,16 +110,45 @@ public class TankEnemy : MonoBehaviour
                     ChangeState(State.CHASE);
                     break;
                 }
-                if (DistanceToTargetSquared(gameObject, target) >= maxDistAttack * maxDistAttack)
+                if (DistanceToTargetSquared(gameObject, target) >= maxDistAttack * maxDistAttack || PlayerHitLeft() || PlayerHitRight())
                 {
                     ChangeState(State.CHASE);
                     break;
                 }
-                transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
-                Arms[0].forward = target.transform.position - Arms[0].transform.position;
-                Arms[1].forward = target.transform.position - Arms[1].transform.position;
-                //Arms[1].forward = new Vector3(transform.forward.x, (player.transform.position.y - Arms[1].position.y) + 1f, transform.forward.z);
-                //Debug.DrawRay(Arms[0].position, Arms[0].forward, Color.red);
+                //transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);                
+                Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeed * Time.deltaTime, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDirectionAttack);
+
+                Vector3 tPos0 = (new Vector3(target.transform.position.x, target.transform.position.y - 1, target.transform.position.z) - Arms[0].position).normalized;
+                Vector3 tPos1 = (new Vector3(target.transform.position.x, target.transform.position.y - 1, target.transform.position.z) - Arms[1].position).normalized;
+                if (tPos0.y >= 0)
+                {
+                    Arms[0].localRotation = Quaternion.Euler(-Vector3.Angle(transform.forward, tPos0), 0, 0);
+                    Arms[1].localRotation = Quaternion.Euler(-Vector3.Angle(transform.forward, tPos1), 0, 0);
+                }
+                else
+                {
+                    Arms[0].localRotation = Quaternion.Euler(Vector3.Angle(transform.forward, tPos0), 0, 0);
+                    Arms[1].localRotation = Quaternion.Euler(Vector3.Angle(transform.forward, tPos1), 0, 0);
+                }
+
+                /*if (tPos0.x < 0 && tPos0.z < 0)
+                {
+                    float a = Mathf.Atan2(-tPos0.y, -tPos0.x);
+                    Arms[0].localRotation = Quaternion.Euler(a * Mathf.Rad2Deg, 0, 0);Quaternion.Euler(Mathf.Acos(tPos0.z / tPos0.magnitude) * Mathf.Rad2Deg, 0, 0);
+                }*/
+                /*
+                if (tPos0.y >= 0)
+                {
+                    Arms[0].localRotation = Quaternion.Euler(-Mathf.Acos(tPos0.z / tPos0.magnitude) * Mathf.Rad2Deg, 0, 0);
+                    Arms[0].rotation = Quaternion.Euler(Arms[0].localRotation.x, Mathf.Asin(tPos0.x)Mathf.Atan2(tPos0.y, tPos1.x Mathf.Rad2Deg0, Arms[0].localRotation.z);
+                }
+                else
+                {
+                    Arms[0].localRotation = Quaternion.Euler(Mathf.Acos(tPos0.z / tPos0.magnitude) * Mathf.Rad2Deg, 0, 0);
+                    Arms[0].rotation = Quaternion.Euler(Arms[0].localRotation.x, Mathf.Asin(tPos0.x)Mathf.Atan2(tPos0.y, tPos1.x) Mathf.Rad2Deg0, Arms[0].localRotation.z);
+                }*/
+                //Debug.DrawRay(Arms[0].position, Arms[0].forward * 10, Color.red);                
                 break;
             case State.HIT:
                 if (health <= 0) ChangeState(State.DEATH);
@@ -117,6 +168,7 @@ public class TankEnemy : MonoBehaviour
             case State.CHASE:                
                 CancelInvoke("GoToTarget");
                 agent.enabled = false;
+                anim.SetBool("Moving", false);
                 break;
             case State.ATTACK:
                 rb.constraints = RigidbodyConstraints.None;
@@ -128,23 +180,28 @@ public class TankEnemy : MonoBehaviour
                 obstacle.enabled = false;
                 break;
             case State.STUNNED:
+                anim.SetBool("Stunned", false);
                 rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
             case State.DEATH:
+                gameObject.SetActive(false);
                 break;
         }
 
         switch (newState)
         {
             case State.CHASE:
-                agent.enabled = true;                
+                Arms[0].localRotation = Quaternion.Euler(90, 0, 0);
+                Arms[1].localRotation = Quaternion.Euler(90, 0, 0);
+                anim.SetBool("Moving", true);
+                agent.enabled = true;
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
-            case State.ATTACK:
+            case State.ATTACK:                
                 rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePosition;
                 obstacle.enabled = true;
-                InvokeRepeating("InstanceBullet", 0, fireRate);
+                InvokeRepeating("InstanceBullet", 0.3f, fireRate);
                 break;
             case State.HIT:
                 rb.constraints = RigidbodyConstraints.FreezeAll;
@@ -154,6 +211,7 @@ public class TankEnemy : MonoBehaviour
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
+                anim.SetBool("Stunned", true);
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
@@ -161,11 +219,16 @@ public class TankEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
-                Destroy(gameObject);
+                Invoke("DisableEnemy", deathTime);
                 break;
         }
 
         currentState = newState;
+    }
+
+    void DisableEnemy()
+    {
+        gameObject.SetActive(false);
     }
 
     public void TakeDamage(float damage/*, GameObject attacker*/)
@@ -178,23 +241,7 @@ public class TankEnemy : MonoBehaviour
         {
             target = attacker;
         }   */
-        /*Collider[] colliders = Physics.OverlapSphere(transform.position, 5);
-        if (colliders.Length > 0)
-        {
-            for (int i = 0; i < colliders.Length; i++)
-            {
-                if (colliders[i].GetType() == typeof(GroundEnemy))
-                {
-                    GroundEnemy ge = colliders[i].gameObject.GetComponent<GroundEnemy>();
-                    ge.target = attacker;
-                }
-                else if (colliders[i].GetType() == typeof(Enemy3))
-                {
-                    Enemy3 te = colliders[i].gameObject.GetComponent<Enemy3>();
-                    te.target = attacker;
-                }
-            }
-        }*/
+        
     }
 
     void IncrementStats()
@@ -233,20 +280,56 @@ public class TankEnemy : MonoBehaviour
         ChangeState(State.STUNNED);
     }
 
+    bool PlayerHitLeft()
+    {
+        RaycastHit rayHit;
+        Ray playerRay = new Ray();
+        playerRay.origin = Cannons[1].position;
+        playerRay.direction = player.transform.position - Cannons[1].position;
+        if (Physics.Raycast(playerRay, out rayHit, maxDistAttack + 10, mask.value))
+        {
+            return true;
+        }
+        //Debug.DrawRay(playerRay.origin, playerRay.direction * 50, Color.blue);
+        return false;
+    }
+
+    bool PlayerHitRight()
+    {
+        RaycastHit rayHit;
+        Ray playerRay = new Ray();
+        playerRay.origin = Cannons[0].position;
+        playerRay.direction = player.transform.position - Cannons[0].position;
+        if (Physics.Raycast(playerRay, out rayHit, maxDistAttack + 10, mask.value))
+        {
+            return true;
+        }
+        //Debug.DrawRay(playerRay.origin, playerRay.direction * 50, Color.blue);
+        return false;
+    }
+
     void InstanceBullet()
     {
         GameObject b;
         if (rightCannon)
         {
             b = Instantiate(bullet, Cannons[0].position, Quaternion.identity);
-            b.GetComponent<Rigidbody>().AddForce(Arms[0].forward * bulletImpulse, ForceMode.Impulse);
+            //b = gc.objectPoolerManager.tankEnemyBulletOP.GetPooledObject
+            //b.transform.position = Cannons[0].position;
+            b.transform.forward = Arms[0].forward;
+            //b.SetActive(true);
+            //AudioManager.instance.PlayOneShotSound("", b.transform);
         }
         else
         {
             b = Instantiate(bullet, Cannons[1].position, Quaternion.identity);
-            b.GetComponent<Rigidbody>().AddForce(Arms[1].forward * bulletImpulse, ForceMode.Impulse);
+            //b = gc.objectPoolerManager.tankEnemyBulletOP.GetPooledObject
+            //b.transform.position = Cannons[1].position;
+            b.transform.forward = Arms[1].forward;
+            //b.SetActive(true);
+            //AudioManager.instance.PlayOneShotSound("", b.transform);
         }
-        
+
         b.GetComponent<TankBullet>().damage = damage;
         rightCannon = !rightCannon;
     }
