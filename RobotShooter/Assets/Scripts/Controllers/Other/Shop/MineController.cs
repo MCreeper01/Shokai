@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MineController : MonoBehaviour
 {
-    public float damage;
-    public float damageToPlayer;
+    public float maxDamage;
+    public float maxDamageToPlayer;
     public float explosionRadius;
 
     // Start is called before the first frame update
@@ -38,21 +38,23 @@ public class MineController : MonoBehaviour
                 {
                     rgb.AddExplosionForce(force, transform.position, explosionRadius);
                 }*/
+                float dist = Vector3.Distance(transform.position, nearbyObject.transform.position);
+                float ratio = Mathf.Clamp01(1 - dist / explosionRadius);
 
                 GroundEnemy gEnemy = nearbyObject.GetComponentInParent<GroundEnemy>();
-                if (gEnemy != null) gEnemy.TakeDamage(damage);
+                if (gEnemy != null) gEnemy.TakeDamage(maxDamage * ratio);
                 else
                 {
                     FlyingEnemy fEnemy = nearbyObject.GetComponentInParent<FlyingEnemy>();
-                    if (fEnemy != null) fEnemy.TakeDamage(damage);
+                    if (fEnemy != null) fEnemy.TakeDamage(maxDamage * ratio);
                     else
                     {
-                        PlayerController player = nearbyObject.GetComponent<PlayerController>();
-                        if (player != null) player.TakeDamage(damageToPlayer, 0);
+                        TankEnemy tEnemy = nearbyObject.GetComponentInParent<TankEnemy>();
+                        if (tEnemy != null) tEnemy.TakeDamage(maxDamage * ratio);                        
                         else
                         {
-                            TankEnemy tEnemy = nearbyObject.GetComponentInParent<TankEnemy>();
-                            if (tEnemy != null) tEnemy.TakeDamage(damage);
+                            PlayerController player = nearbyObject.GetComponent<PlayerController>();
+                            if (player != null) player.TakeDamage(maxDamageToPlayer * ratio, 0);
                         }
                     }
                 }
