@@ -158,7 +158,7 @@ GameObject:
   - component: {fileID: 2999033667226293061}
   - component: {fileID: 3023880952382668810}
   - component: {fileID: 8391237215416915995}
-  m_Layer: 30
+  m_Layer: 26
   m_Name: ElectricZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 8391237214724067031}
   - component: {fileID: 8391237214724067029}
   - component: {fileID: 8391237214724067028}
-  m_Layer: 30
+  m_Layer: 26
   m_Name: ElectricTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}

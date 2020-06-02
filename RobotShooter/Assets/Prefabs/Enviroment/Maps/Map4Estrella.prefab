@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 5707376506637477808}
   - component: {fileID: 5546958803830898320}
   - component: {fileID: 8406981112614208773}
-  m_Layer: 30
-  m_Name: Object006
+  m_Layer: 26
+  m_Name: ElectricZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,7 +209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3053048504758679950
 Transform:
   m_ObjectHideFlags: 0
@@ -217,7 +217,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2019234037301463965}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -8.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 692590824240811636}
   - component: {fileID: 8868592416193958547}
   - component: {fileID: 9050593444276336928}
-  m_Layer: 30
+  m_Layer: 26
   m_Name: ElectricTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17549,11 +17549,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Map1Plataformas
       objectReference: {fileID: 0}
-    - target: {fileID: 2584809706793649415, guid: 280ce3c2c00d1074186f62b49a5fe698,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 280ce3c2c00d1074186f62b49a5fe698, type: 3}
 --- !u!1001 &7024956950744676558
@@ -17632,25 +17627,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 616814104}
     m_Modifications:
-    - target: {fileID: 656126082495886901, guid: 86a06abe1baab1f45a014b78676fda69,
-        type: 3}
-      propertyPath: m_Name
-      value: ElectricZone
-      objectReference: {fileID: 0}
-    - target: {fileID: 656126082495886901, guid: 86a06abe1baab1f45a014b78676fda69,
-        type: 3}
-      propertyPath: m_Layer
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 2019234037301463965, guid: 86a06abe1baab1f45a014b78676fda69,
         type: 3}
       propertyPath: m_Name
       value: Map4Estrella
-      objectReference: {fileID: 0}
-    - target: {fileID: 2019234037301463965, guid: 86a06abe1baab1f45a014b78676fda69,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3053048504758679950, guid: 86a06abe1baab1f45a014b78676fda69,
         type: 3}
@@ -17706,11 +17686,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4045577278189030131, guid: 86a06abe1baab1f45a014b78676fda69,
-        type: 3}
-      propertyPath: m_Layer
-      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86a06abe1baab1f45a014b78676fda69, type: 3}
