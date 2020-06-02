@@ -217,7 +217,6 @@ public class RoundController : AController
 
     void InstantiateEnemy(int id)
     {
-        Debug.Log("Instance");
         Transform spawnPoint;
         if (enemies[id].dimension == Enemy.Dimension.GROUND) spawnPoint = groundedEnemySpawners[UnityEngine.Random.Range(0, groundedEnemySpawners.Length)];
         else spawnPoint = airEnemySpawners[UnityEngine.Random.Range(0, airEnemySpawners.Length)];
