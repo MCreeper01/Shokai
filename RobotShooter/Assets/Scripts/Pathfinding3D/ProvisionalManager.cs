@@ -8,8 +8,12 @@ public class ProvisionalManager : MonoBehaviour
 {
     public static ProvisionalManager _instance;
 
-    GraphObject[] Graphs = new GraphObject[4];
+    //GraphObject[] Graphs = new GraphObject[4];
 
+    public GraphMaker gm;
+    //[HideInInspector]
+    //public GraphObject currentGraph { get; set; }
+    /*
     public GraphObject currentGraph
     {
         get
@@ -23,7 +27,7 @@ public class ProvisionalManager : MonoBehaviour
             }
             return null;
         }
-    }
+    }*/
 
     public static ProvisionalManager Instance
     {
@@ -40,10 +44,10 @@ public class ProvisionalManager : MonoBehaviour
 
     void Awake()
     {
-        Graphs[0] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph1.asset", typeof(GraphObject));
-        Graphs[1] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph2.asset", typeof(GraphObject));
-        Graphs[2] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph3.asset", typeof(GraphObject));
-        Graphs[3] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph4.asset", typeof(GraphObject));
+        //currentGraph = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph1.asset", typeof(GraphObject));
+        //Graphs[1] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph2.asset", typeof(GraphObject));
+        //Graphs[2] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph3.asset", typeof(GraphObject));
+        //Graphs[3] = (GraphObject)AssetDatabase.LoadAssetAtPath("Assets/GraphAssets/Graph4.asset", typeof(GraphObject));
         //Graphs = Resources.LoadAll<GraphObject>("Assets/GraphAssets");
         //Graphs = (GraphObject)AssetDatabase.LoadAllAssetsAtPath("Assets/GraphAssets/Graph" + i + 1 + );
         /*for (int i = 0; i < 4; i++)
@@ -54,15 +58,17 @@ public class ProvisionalManager : MonoBehaviour
 
     void Start()
     {
-        //Debug.Log(Graphs[0].Graph.Count);
-        /*
-        Debug.Log(Graphs.Length);
-        for (int i = 0; i < Graphs.Length; i++)
-        {
-            foreach (Node n in Graphs[i].Graph)
-            {
-                Debug.Log(n.position);
-            }            
-        }*/
+        gm.CrearNodes();
+        gm.CrearConnexions();
+        //Debug.Log(currentGraph.Graph.Count);
+        
+        //Debug.Log(Graphs.Length);
+        //for (int i = 0; i < Graphs.Length; i++)
+        //{
+            //foreach (Node n in currentGraph.Graph)
+            //{
+                //Debug.Log(n.position);
+            //}            
+        //}
     }
 }

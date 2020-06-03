@@ -10753,11 +10753,10 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 512
-  distanceBtwNodes: 5
+  distanceBtwNodes: 10
   geometryLayer: 9
-  gridWorldSize: {x: 150, y: 50, z: 150}
+  gridWorldSize: {x: 210, y: 60, z: 210}
   floorElevation: 1
-  go: {fileID: 0}
 --- !u!1 &1059723325
 GameObject:
   m_ObjectHideFlags: 0
@@ -17687,6 +17686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2b143b9ec16804ebc8fc3044b308cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 1037638259}
 --- !u!4 &1879466301
 Transform:
   m_ObjectHideFlags: 0

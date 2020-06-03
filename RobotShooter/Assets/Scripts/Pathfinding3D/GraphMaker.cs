@@ -18,17 +18,20 @@ public class GraphMaker : MonoBehaviour
     public float floorElevation = 1;
     //public float maxRadius;
 
-    [HideInInspector]
-    public GraphObject go;
+    //[HideInInspector]
+    //public GraphObject go;
+    public List<Node> Graph;
 
     public void CrearNodes()
     {
-        AssetDatabase.DeleteAsset("Assets/GraphAssets/Graph" + ID + ".asset");
-        go = ScriptableObject.CreateInstance<GraphObject>();
-        go.ID = ID;
-        AssetDatabase.CreateAsset(go, "Assets/GraphAssets/Graph" + ID + ".asset");
-        GameObject[] objectsWithLayer = FindActiveGameObjectsWithLayer(geometryLayer);
-        Collider c;
+        //AssetDatabase.DeleteAsset("Assets/GraphAssets/Graph" + ID + ".asset");
+        //go = ScriptableObject.CreateInstance<GraphObject>();
+        //go.ID = ID;
+        //AssetDatabase.CreateAsset(go, "Assets/GraphAssets/Graph" + ID + ".asset");
+        //GameObject[] objectsWithLayer = FindActiveGameObjectsWithLayer(geometryLayer);
+        //Collider c;        
+        Graph = new List<Node>();
+        Graph.Clear();
         int num;
         gridX = Mathf.RoundToInt(gridWorldSize.x / distanceBtwNodes);
         gridY = Mathf.RoundToInt(gridWorldSize.y / distanceBtwNodes);
@@ -39,22 +42,23 @@ public class GraphMaker : MonoBehaviour
             {
                 for (int z = 0; z < gridZ; z++)
                 {
-                    if (y > gridY * 0.2f)
+                    if (y > gridY * 0.4f)
                     {
                         num = Random.Range(1, 20);
                         if (num == 1)
                         {
-                            Node n = ScriptableObject.CreateInstance<Node>();
+                            //Node n = ScriptableObject.CreateInstance<Node>();
+                            Node n = new Node();
                             n.position = new Vector3(x * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.x / 2, y * distanceBtwNodes + floorElevation, z * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.z / 2);
-                            go.Graph.Add(n);
-                            AssetDatabase.AddObjectToAsset(n, go);
+                            Graph.Add(n);
+                            //AssetDatabase.AddObjectToAsset(n, go);
                         }
                     }
                     else
                     {
                         Vector3 pos = new Vector3(x * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.x / 2, y * distanceBtwNodes + floorElevation, z * distanceBtwNodes + distanceBtwNodes / 2 - gridWorldSize.z / 2);
-                        bool isColliding = false;
-                        
+                        //bool isColliding = false;
+                        /*
                         for (int i = 0; i < objectsWithLayer.Length; i++)
                         {
                             c = objectsWithLayer[i].GetComponent<Collider>();
@@ -66,20 +70,22 @@ public class GraphMaker : MonoBehaviour
                                     break;
                                 }
                             }                                
-                        }    
-                        
-                        if (!isColliding)
-                        {
-                            Debug.Log("Heyyyy");
-                            Node n = ScriptableObject.CreateInstance<Node>();
-                            n.position = pos;
-                            go.Graph.Add(n);
-                            AssetDatabase.AddObjectToAsset(n, go);
-                        }
+                        }    */
+
+                        //if (!isColliding)
+                        //{
+                        //Node n = ScriptableObject.CreateInstance<Node>();
+                        Node n = new Node();
+                        n.position = pos;
+                            Graph.Add(n);
+                            //AssetDatabase.AddObjectToAsset(n, go);
+                        //}
                     }                    
                 }
             }
         }
+
+        Debug.Log(Graph.Count);
     }
 
     void CrearCircleGrid()
@@ -158,9 +164,9 @@ public class GraphMaker : MonoBehaviour
 
     public void CrearConnexions()
     {
-        foreach (Node n in go.Graph)
+        foreach (Node n in Graph)
         {
-            foreach (Node successor in go.Graph)
+            foreach (Node successor in Graph)
             {/*
                 if (pn.Connections.Count >= 25)
                 {
@@ -180,11 +186,12 @@ public class GraphMaker : MonoBehaviour
                 RaycastHit hit;
                 if (!Physics.Raycast(r.origin, r.direction, out hit, (successor.position - n.position).magnitude, wallMask.value))
                 {
-                    Connection c = ScriptableObject.CreateInstance<Connection>();
+                    //Connection c = ScriptableObject.CreateInstance<Connection>();
+                    Connection c = new Connection();
                     c.cost = 1;
                     c.successor = successor;
                     n.Connections.Add(c);
-                    AssetDatabase.AddObjectToAsset(c, go);
+                    //AssetDatabase.AddObjectToAsset(c, go);
                 }
             }
         }
@@ -197,9 +204,9 @@ public class GraphMaker : MonoBehaviour
 
     public void OnDrawGizmosSelected()
     {
-        if (go.Graph.Count > 0)
+        if (Graph.Count > 0)
         {
-            foreach (Node n in go.Graph)
+            foreach (Node n in Graph)
             {
                 Gizmos.color = Color.blue;
                 Gizmos.DrawWireSphere(n.position, 0.2f);
