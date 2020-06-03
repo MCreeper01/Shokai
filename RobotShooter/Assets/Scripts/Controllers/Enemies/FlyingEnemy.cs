@@ -17,16 +17,20 @@ public class FlyingEnemy : MonoBehaviour
     //GameObject player;
     [HideInInspector] public PlayerController player;
     [HideInInspector] public GameObject target;
+    [HideInInspector] public float health;
+    [HideInInspector] public float damage;
+    [HideInInspector] public float speed;
+
     Rigidbody rb;
     Animator anim;
 
     [Header("Stats")]
-    public float health;
-    public float damage;
+    public float initHealth;
+    public float initSpeed;
+    public float initDamage;
     public float minDistAttack;
     public float maxDistAttack;
     public float goBackDist;
-    public float speed;
     public float fireRate;
     public float repathTime;
     public int hitIncome;
@@ -87,6 +91,8 @@ public class FlyingEnemy : MonoBehaviour
         pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
 
         IncrementStats();
+
+        ChangeState(State.INITIAL);
     }
 
     // Update is called once per frame
@@ -245,10 +251,10 @@ public class FlyingEnemy : MonoBehaviour
 
     void IncrementStats()
     {
-        health += healthInc * (GameManager.instance.roundController.currentRound - 1);
-        speed += speedInc * (GameManager.instance.roundController.currentRound - 1);
+        if (GameManager.instance.roundController.currentRound > 0) health = initHealth + healthInc * (GameManager.instance.roundController.currentRound - 1);
+        if (GameManager.instance.roundController.currentRound > 0) speed = initSpeed + speedInc * (GameManager.instance.roundController.currentRound - 1);
         if (speed > maxSpeed) speed = maxSpeed;
-        damage += damageInc * (GameManager.instance.roundController.currentRound - 1);
+        if (GameManager.instance.roundController.currentRound > 0) damage = initDamage + damageInc * (GameManager.instance.roundController.currentRound - 1);
         if (damage > maxDamage) damage = maxDamage;
     }
 
@@ -301,11 +307,12 @@ public class FlyingEnemy : MonoBehaviour
     void InstanceBullet()
     {
         GameObject b;
-        b = Instantiate(bullet, cannon.position, Quaternion.identity);
-        //b = gc.objectPoolerManager.airEnemyBulletOP.GetPooledObject
-        //b.transform.position = cannon.position;
+        //b = Instantiate(bullet, cannon.position, Quaternion.identity);
+        b = GameManager.instance.objectPoolerManager.airEnemyBulletOP.GetPooledObject();
+        b.transform.position = cannon.position;
         b.transform.forward = player.transform.position - transform.position;
         b.GetComponent<EnemyBullet>().damage = damage;
+        b.SetActive(true);
     }
 
     public static GameObject FindInstanceWithinRadius(GameObject me, string tag, string tag2, string tag3, float radius)

@@ -58,6 +58,7 @@ public class PlayerModel : ScriptableObject
     public float cooldownWaitToStart;
 
     [Header("ASSAULT RIFLE")]
+    public float damageAR;
     public float shootARCooldown;
     public float rangeAR; 
     public float shootForceAR;
