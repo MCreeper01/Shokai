@@ -28,9 +28,9 @@ public class Pathfinder3D
         closedList.Clear();
         pathFound = false;
 
-        startNode = ProvisionalManager.Instance.currentGraph.Graph[0];
-        endNode = ProvisionalManager.Instance.currentGraph.Graph[0];
-        foreach (Node n in ProvisionalManager.Instance.currentGraph.Graph)
+        startNode = ProvisionalManager.Instance.gm.Graph[0];
+        endNode = ProvisionalManager.Instance.gm.Graph[0];
+        foreach (Node n in ProvisionalManager.Instance.gm.Graph)
         {
             if (DistanceToTarget(n.position, agent.transform.position) < DistanceToTarget(startNode.position, agent.transform.position))
             {

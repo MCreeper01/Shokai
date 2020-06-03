@@ -205,7 +205,7 @@ public class FlyingEnemy : MonoBehaviour
         {
             case State.CHASE:
                 //anim.SetBool("Moving", true);
-                if (ProvisionalManager.Instance.currentGraph.Graph.Count > 0)
+                if (ProvisionalManager.Instance.gm.Graph.Count > 0)
                 {
                     InvokeRepeating("GoToTarget", 0, repathTime);
                 }
