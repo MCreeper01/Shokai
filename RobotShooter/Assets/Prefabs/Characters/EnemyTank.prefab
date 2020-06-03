@@ -142,15 +142,17 @@ MonoBehaviour:
   - {fileID: 8608254343052860182}
   mask:
     serializedVersion: 2
-    m_Bits: 512
-  armInitForward: {fileID: 0}
+    m_Bits: 4608
   target: {fileID: 0}
+  health: 1000
   hittedByAR: 0
-  health: 500
+  initHealth: 1000
+  initSpeed: 6
+  initDamage: 20
   damage: 20
   minDistAttack: 10
   maxDistAttack: 20
-  speed: 3
+  speed: 6
   fireRate: 3
   repathTime: 1
   hitTime: 0

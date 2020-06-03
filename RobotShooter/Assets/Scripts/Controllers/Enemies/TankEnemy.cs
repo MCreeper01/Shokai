@@ -23,15 +23,22 @@ public class TankEnemy : MonoBehaviour
     float empTimeStun;
     [HideInInspector]
     public GameObject target;
+    private bool rotating;
+    private Vector3 relativePosition;
+    private float rotationTime;
+    private Quaternion targetRotation;
 
+    [HideInInspector] public float health;
+    [HideInInspector] public float damage;
+    [HideInInspector] public float speed;
     [HideInInspector] public bool hittedByAR;
 
     [Header("Stats")]
-    public float health;
-    public float damage;
+    public float initHealth;
+    public float initSpeed;
+    public float initDamage;
     public float minDistAttack;
     public float maxDistAttack;
-    public float speed;
     public float fireRate;
     public float repathTime;
     public float hitTime;
@@ -77,6 +84,8 @@ public class TankEnemy : MonoBehaviour
         agent.stoppingDistance = minDistAttack;
 
         IncrementStats();
+
+        ChangeState(State.INITIAL);
     }
 
     // Update is called once per frame
@@ -108,12 +117,12 @@ public class TankEnemy : MonoBehaviour
                     ChangeState(State.CHASE);
                     break;
                 }
-                if (DistanceToTargetSquared(gameObject, target) >= maxDistAttack * maxDistAttack || PlayerHitLeft() || PlayerHitRight())
+                if (DistanceToTargetSquared(gameObject, target) >= maxDistAttack * maxDistAttack)// || (PlayerHitLeft() && PlayerHitRight()))
                 {
                     ChangeState(State.CHASE);
                     break;
                 }
-                //transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);                
+                //transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
                 Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeed * Time.deltaTime, 0.0f);
                 transform.rotation = Quaternion.LookRotation(newDirectionAttack);
 
@@ -128,7 +137,7 @@ public class TankEnemy : MonoBehaviour
                 {
                     Arms[0].localRotation = Quaternion.Euler(Vector3.Angle(transform.forward, tPos0), 0, 0);
                     Arms[1].localRotation = Quaternion.Euler(Vector3.Angle(transform.forward, tPos1), 0, 0);
-                }
+                }                
 
                 /*if (tPos0.x < 0 && tPos0.z < 0)
                 {
@@ -169,7 +178,10 @@ public class TankEnemy : MonoBehaviour
                 //anim.SetBool("Moving", false);
                 break;
             case State.ATTACK:
-                rb.constraints = RigidbodyConstraints.None;
+                //rb.useGravity = false;
+                rb = gameObject.AddComponent<Rigidbody>();
+                rb.mass = 10;
+                rb.useGravity = false;
                 obstacle.enabled = false;
                 CancelInvoke("InstanceBullet");
                 break;
@@ -196,8 +208,11 @@ public class TankEnemy : MonoBehaviour
                 agent.enabled = true;
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
-            case State.ATTACK:                
-                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePosition;
+            case State.ATTACK:
+                //rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePosition;
+                //rb.useGravity = true;
+                Destroy(rb);
+                rb.constraints = RigidbodyConstraints.FreezePosition;
                 obstacle.enabled = true;
                 InvokeRepeating("InstanceBullet", 0.3f, fireRate);
                 break;
@@ -244,10 +259,10 @@ public class TankEnemy : MonoBehaviour
 
     void IncrementStats()
     {
-        health += healthInc * (GameManager.instance.roundController.currentRound - 1);
-        speed += speedInc * (GameManager.instance.roundController.currentRound - 1);
+        if (GameManager.instance.roundController.currentRound > 0) health = initHealth + healthInc * (GameManager.instance.roundController.currentRound - 1);
+        if (GameManager.instance.roundController.currentRound > 0) speed = initSpeed + speedInc * (GameManager.instance.roundController.currentRound - 1);
         if (speed > maxSpeed) speed = maxSpeed;
-        damage += damageInc * (GameManager.instance.roundController.currentRound - 1);
+        if (GameManager.instance.roundController.currentRound > 0) damage = initDamage + damageInc * (GameManager.instance.roundController.currentRound - 1);
         if (damage > maxDamage) damage = maxDamage;
     }
 
@@ -284,11 +299,13 @@ public class TankEnemy : MonoBehaviour
         Ray playerRay = new Ray();
         playerRay.origin = Cannons[1].position;
         playerRay.direction = player.transform.position - Cannons[1].position;
+        Debug.DrawRay(playerRay.origin, playerRay.direction * 50, Color.blue);
         if (Physics.Raycast(playerRay, out rayHit, maxDistAttack + 10, mask.value))
         {
-            return true;
+            if (rayHit.collider.gameObject == player.gameObject) return false;
+            else return true;
         }
-        //Debug.DrawRay(playerRay.origin, playerRay.direction * 50, Color.blue);
+        
         return false;
     }
 
@@ -298,33 +315,39 @@ public class TankEnemy : MonoBehaviour
         Ray playerRay = new Ray();
         playerRay.origin = Cannons[0].position;
         playerRay.direction = player.transform.position - Cannons[0].position;
+        Debug.DrawRay(playerRay.origin, playerRay.direction * 50, Color.blue);
         if (Physics.Raycast(playerRay, out rayHit, maxDistAttack + 10, mask.value))
         {
-            return true;
-        }
-        //Debug.DrawRay(playerRay.origin, playerRay.direction * 50, Color.blue);
+            if (rayHit.collider.gameObject == player.gameObject) return false;
+            else return true;
+        }        
         return false;
     }
 
     void InstanceBullet()
     {
+        if (PlayerHitLeft() && PlayerHitRight())
+        {
+            ChangeState(State.CHASE);
+            return;
+        } 
         GameObject b;
         if (rightCannon)
         {
-            b = Instantiate(bullet, Cannons[0].position, Quaternion.identity);
-            //b = gc.objectPoolerManager.tankEnemyBulletOP.GetPooledObject
-            //b.transform.position = Cannons[0].position;
+            //b = Instantiate(bullet, Cannons[0].position, Quaternion.identity);
+            b = GameManager.instance.objectPoolerManager.tankEnemyBulletOP.GetPooledObject();
+            b.transform.position = Cannons[0].position;
             b.transform.forward = Arms[0].forward;
-            //b.SetActive(true);
+            b.SetActive(true);
             //AudioManager.instance.PlayOneShotSound("", b.transform);
         }
         else
         {
-            b = Instantiate(bullet, Cannons[1].position, Quaternion.identity);
-            //b = gc.objectPoolerManager.tankEnemyBulletOP.GetPooledObject
-            //b.transform.position = Cannons[1].position;
+            //b = Instantiate(bullet, Cannons[1].position, Quaternion.identity);
+            b = GameManager.instance.objectPoolerManager.tankEnemyBulletOP.GetPooledObject();
+            b.transform.position = Cannons[1].position;
             b.transform.forward = Arms[1].forward;
-            //b.SetActive(true);
+            b.SetActive(true);
             //AudioManager.instance.PlayOneShotSound("", b.transform);
         }
 

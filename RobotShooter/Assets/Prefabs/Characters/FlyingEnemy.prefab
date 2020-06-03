@@ -286,6 +286,9 @@ MonoBehaviour:
   player: {fileID: 0}
   target: {fileID: 0}
   health: 100
+  initHealth: 30
+  initSpeed: 10
+  initDamage: 5
   damage: 5
   minDistAttack: 15
   maxDistAttack: 20

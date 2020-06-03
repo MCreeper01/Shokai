@@ -384,8 +384,7 @@ public class PlayerController : AController
         if ((l_CollisionFlags & CollisionFlags.Below) != 0)
         {
             gliding = false;
-            onGround = true;
-            verticalSpeed = 0.0f;
+            onGround = true;            
         }
         else
             onGround = false;
@@ -651,7 +650,6 @@ public class PlayerController : AController
         {
             case Weapon.rifle:
                 actualARShootCooldown = playerModel.shootARCooldown;
-                GameObject bulletAR;
                 RaycastHit hitAR;
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitAR, Mathf.Infinity, shootLayerMask))
                 {
@@ -661,6 +659,7 @@ public class PlayerController : AController
                     bullet.transform.position = bulletSpawner.transform.position;
                     bullet.transform.rotation = bulletSpawner.transform.rotation;
                     bullet.transform.forward = dir;
+                    bullet.GetComponent<ARBulletController>().damage = playerModel.damageAR;
                     bullet.SetActive(true);                    
                 }
                 else
@@ -668,6 +667,7 @@ public class PlayerController : AController
                     GameObject bullet = gc.objectPoolerManager.ARBulletOP.GetPooledObject();
                     bullet.transform.position = bulletSpawner.transform.position;
                     bullet.transform.rotation = Camera.main.transform.rotation;
+                    bullet.GetComponent<ARBulletController>().damage = playerModel.damageAR;
                     bullet.SetActive(true);
                     //bulletAR.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
                 }               
@@ -886,7 +886,7 @@ public class PlayerController : AController
         if (collision.tag == "DeathZone")
         {
             TakeDamage (currentHealth, 0);
-        }
+        }        
     }
 
     private void OnTriggerExit(Collider collision)
@@ -896,6 +896,14 @@ public class PlayerController : AController
             gc.uiController.HideInteractiveText();
             atShop = false;
         } 
+    }
+
+    private void OnCollisionStay (Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Geometry"))
+        {
+            verticalSpeed = 0.0f;
+        }
     }
 
     void Debuging()

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ARBulletController : MonoBehaviour
 {
+    [HideInInspector] public float damage;
+
     public float maxDuration;
-    public float speed;
-    public float damage;    
+    public float speed;    
     public float punish;
 
     public LayerMask mask;

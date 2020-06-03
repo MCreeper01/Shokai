@@ -46,7 +46,6 @@ public class TankBullet : MonoBehaviour
         }
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
-        Debug.Log("Yesss");
         for (int i = 0; i < colliders.Length; i++)
         {
             PlayerController pc = colliders[i].GetComponent<PlayerController>();

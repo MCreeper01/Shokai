@@ -17,14 +17,18 @@ public class GroundEnemy : MonoBehaviour
     float empTimeStun;
 
     public GameObject collPoint;
+    [HideInInspector] public float health;
+    [HideInInspector] public float damage;
+    [HideInInspector] public float speed;
     [HideInInspector] public PlayerController player;
+
     //GameObject player;
     [Header("Stats")]
-    public float health;
+    public float initHealth;
+    public float initSpeed;
+    public float initDamage;
     public float minDistAttack;
-    public float maxDistAttack;
-    public float damage;
-    public float speed;
+    public float maxDistAttack;    
     public float repathTime;
     public float fightRate;
     public float hitTime;
@@ -71,6 +75,8 @@ public class GroundEnemy : MonoBehaviour
         agent.stoppingDistance = minDistAttack;
 
         IncrementStats();
+
+        ChangeState(State.INITIAL);
     }
 
     // Update is called once per frame
@@ -202,11 +208,10 @@ public class GroundEnemy : MonoBehaviour
 
     void IncrementStats()
     {
-        
-        health += healthInc * (GameManager.instance.roundController.currentRound);
-        speed += speedInc * (GameManager.instance.roundController.currentRound);
+        if (GameManager.instance.roundController.currentRound > 0) health = initHealth + healthInc * (GameManager.instance.roundController.currentRound - 1);
+        if (GameManager.instance.roundController.currentRound > 0) speed = initSpeed + speedInc * (GameManager.instance.roundController.currentRound - 1);
         if (speed > maxSpeed) speed = maxSpeed;
-        damage += damageInc * (GameManager.instance.roundController.currentRound);
+        if (GameManager.instance.roundController.currentRound > 0) damage = initDamage + damageInc * (GameManager.instance.roundController.currentRound - 1);
         if (damage > maxDamage) damage = maxDamage;
     }
 
