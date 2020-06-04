@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  explosionRadius: 3
+  explosionRadius: 5
   timeToDestroyWithoutImpact: 5
   speed: 10
 --- !u!1001 &2152701820916946667

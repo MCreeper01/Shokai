@@ -303,7 +303,11 @@ public class TankEnemy : MonoBehaviour
     void GoToTarget()
     {
         target = FindInstanceWithinRadius(gameObject, "Player", "AirTurret", "GroundTurret", targetRadiusDetection);
-        agent.destination = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        if (agent.isActiveAndEnabled && agent.isOnNavMesh)
+        {
+            agent.destination = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        }
+        
     }
 
     void ChangeToChase()
