@@ -15,6 +15,7 @@ public class TankEnemy : MonoBehaviour
     PlayerController player;
     //GameObject player;
     public GameObject bullet;
+    public GameObject explosionParticles;
     public Transform[] Cannons;
     public Transform[] Arms;
     public LayerMask mask;
@@ -232,6 +233,7 @@ public class TankEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);
                 break;
         }

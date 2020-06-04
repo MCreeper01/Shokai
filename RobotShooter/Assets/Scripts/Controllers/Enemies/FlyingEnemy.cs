@@ -11,6 +11,7 @@ public class FlyingEnemy : MonoBehaviour
 
     [Header("General")]
     public GameObject bullet;
+    public GameObject explosionParticles;
     public Transform cannon;
     public LayerMask mask;
 
@@ -197,8 +198,14 @@ public class FlyingEnemy : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.None;
                 break;
             case State.DEATH:
-                gameObject.SetActive(false);
+                Instantiate(explosionParticles, transform.position, transform.rotation);
+                Invoke("DisableEnemy", deathTime);
                 break;
+        }
+
+        void DisableEnemy()
+        {
+            gameObject.SetActive(false);
         }
 
         switch (newState)
@@ -238,6 +245,7 @@ public class FlyingEnemy : MonoBehaviour
 
     void DisableEnemy()
     {
+        Instantiate(explosionParticles, transform.position, transform.rotation);
         gameObject.SetActive(false);
     }
 

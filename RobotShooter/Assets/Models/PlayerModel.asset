@@ -78,7 +78,8 @@ MonoBehaviour:
   laserDistance: 250
   laserTime: 3
   laserDamage: 1000000
-  instantHealthCure: 40
+  instantHealthAmount: 80
+  healingParticlesTime: 2
   empRadius: 40
   empDuration: 2
   defenseKey: 113
