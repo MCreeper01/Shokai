@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Graph", menuName = "ScriptableObjects/Graphs", order = 1)]
-public class GraphObject : ScriptableObject
+//[CreateAssetMenu(fileName = "Graph", menuName = "ScriptableObjects/Graphs", order = 1)]
+public class GraphObject /*: ScriptableObject*/
 {
     [HideInInspector]
     public int ID;
