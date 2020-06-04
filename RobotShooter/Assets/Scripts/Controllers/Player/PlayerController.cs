@@ -771,6 +771,7 @@ public class PlayerController : AController
         {
             case Weapon.rifle:
                 muzzleFlashAR.Play();
+                AudioManager.instance.PlayOneShotSound("AssaultRifleShot", bulletSpawner.transform);
                 nextTimeToFireAR = Time.time + 1 / playerModel.fireRateAR;
                 //StartCoroutine(EndMuzzle());
                 actualARShootCooldown = playerModel.shootARCooldown;
@@ -808,6 +809,7 @@ public class PlayerController : AController
             case Weapon.shotgun:
                 float damage;
                 nextTimeToFireShotgun = Time.time + 1 / playerModel.fireRateShotgun;
+                AudioManager.instance.PlayOneShotSound("ShotgunShot", bulletSpawner.transform);
                 //StartCoroutine(EndMuzzle());
                 for (int i = 0; i < pellets.Count; i++)
                 {

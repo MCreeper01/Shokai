@@ -67,6 +67,7 @@ public class GrenadeController : MonoBehaviour
                 }
             }
         }
+        AudioManager.instance.PlayOneShotSound("GranadeExplosion", transform.position);
         Instantiate(explosionParticles, transform.position, transform.rotation);
         Destroy(gameObject);        
     }

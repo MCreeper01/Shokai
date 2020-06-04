@@ -208,10 +208,11 @@ public class FlyingEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
+                //AudioManager.instance.PlayEvent("PropellerSound", transform);
                 if (ProvisionalManager.Instance.gm.Graph.Count > 0)
                 {
                     InvokeRepeating("GoToTarget", 0, repathTime);
-                }
+                }                
                 break;
             case State.ATTACK:
                 InvokeRepeating("InstanceBullet", 0, fireRate);
@@ -220,6 +221,7 @@ public class FlyingEnemy : MonoBehaviour
                 direction = -transform.forward * 2;
                 break;
             case State.HIT:
+                AudioManager.instance.PlayOneShotSound("NormalHit", transform);
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 GameManager.instance.player.IncreaseCash(hitIncome);
                 Invoke("ChangeToChase", hitTime);
@@ -232,6 +234,7 @@ public class FlyingEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                AudioManager.instance.PlayOneShotSound("DeadExplosion", transform);
                 Invoke("DisableEnemy", deathTime);
                 break;
         }
@@ -317,6 +320,7 @@ public class FlyingEnemy : MonoBehaviour
         b.transform.forward = player.transform.position - transform.position;
         b.GetComponent<EnemyBullet>().damage = damage;
         b.SetActive(true);
+        AudioManager.instance.PlayOneShotSound("ShootEnergyBall", b.transform.position);
     }
 
     public static GameObject FindInstanceWithinRadius(GameObject me, string tag, string tag2, string tag3, float radius)
