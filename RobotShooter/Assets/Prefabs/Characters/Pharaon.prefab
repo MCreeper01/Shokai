@@ -206,6 +206,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 512
+  minHeightFly: 11
   player: {fileID: 0}
   target: {fileID: 0}
   health: 100
@@ -218,7 +219,7 @@ MonoBehaviour:
   maxDistAttack: 20
   goBackDist: 6
   fireRate: 1
-  repathTime: 3
+  repathTime: 1
   hitIncome: 5
   criticalIncome: 10
   killIncome: 20

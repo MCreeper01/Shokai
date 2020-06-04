@@ -51,7 +51,7 @@ public class PSLaser : PlayerState
             }
             //pc.laserBeam.transform.position = hit.point;
         }
-        pc.lineRenderer.SetPosition(0, pc.laserPoint.localPosition);
+        pc.lineRenderer.SetPosition(0, pc.lineRenderer.transform.InverseTransformPoint(pc.laserPoint.position));
         pc.lineRenderer.SetPosition(1, endRaycastPos);
         time -= Time.deltaTime;
         pc.Move();

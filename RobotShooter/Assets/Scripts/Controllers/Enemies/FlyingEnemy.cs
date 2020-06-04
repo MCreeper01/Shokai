@@ -14,6 +14,7 @@ public class FlyingEnemy : MonoBehaviour
     public GameObject explosionParticles;
     public Transform cannon;
     public LayerMask mask;
+    public float minHeightFly;
 
     //GameObject player;
     [HideInInspector] public PlayerController player;
@@ -116,6 +117,8 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                     break;
                 }
+                if (transform.position.y > minHeightFly) transform.position += direction * speed * Time.deltaTime;
+                else transform.position += new Vector3(direction.x, transform.position.y, direction.z) * speed * Time.deltaTime;
                 //if (pathfinder.pathFound)
                 //{
                 //    for (int i = 0; i < p.Path.Count - 1; i++)
@@ -136,7 +139,7 @@ public class FlyingEnemy : MonoBehaviour
                 //        }
                 //    }
                 //}
-                transform.position += direction * speed * Time.deltaTime;
+
                 transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.ATTACK:
@@ -163,7 +166,8 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                 }
                 transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
-                transform.position += direction * speed * Time.deltaTime;
+                if (transform.position.y > minHeightFly) transform.position += direction * speed * Time.deltaTime;
+                else transform.position += new Vector3(direction.x, transform.position.y, direction.z) * speed * Time.deltaTime;
                 break;
             case State.HIT:
                 transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
