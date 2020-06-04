@@ -789,8 +789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   target: {fileID: 0}
-  collPoint: {fileID: 3247009217353815680, guid: cf0dbc8545edfb141a85b5c929a9191d,
-    type: 3}
+  collPoint: {fileID: 4714247324471844010}
   explosionParticles: {fileID: 100006, guid: 8b940ede2c20ec44ba870a2cdd277051, type: 3}
   health: 30
   damage: 10
@@ -943,7 +942,7 @@ GameObject:
   m_Component:
   - component: {fileID: 295512414147116821}
   - component: {fileID: 3804583954739334476}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: AttackBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -53,6 +53,7 @@ public class PlayerController : AController
     public Vector3 hitNormal;
 
     public LayerMask electricZoneDetectionMask;
+    public LayerMask geometryDetectionMask;
     public LayerMask slopeMask;
     public LayerMask placeDefenseMask;
 
@@ -238,6 +239,7 @@ public class PlayerController : AController
         }
 
         CheckForElectricZone();
+        CheckForGeometry();
     }
 
     void CheckForElectricZone()
@@ -254,6 +256,21 @@ public class PlayerController : AController
             }
         }  
         if (hits.Length <= 0) electricParticles.SetActive(false);
+    }
+
+    void CheckForGeometry()
+    {
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, -Vector3.up, playerModel.electricZoneDetectionRange, geometryDetectionMask);
+        for (int i = 0; i < hits.Length; i++)
+        {
+            LayerMask layer = hits[i].collider.gameObject.layer;
+            if (layer == LayerMask.NameToLayer("Geometry"))
+            {
+                transform.SetParent(hits[i].collider.transform);
+                break;
+            }
+        }
+        if (hits.Length <= 0) transform.SetParent(null);
     }
 
     private void OnDrawGizmosSelected()

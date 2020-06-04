@@ -124,9 +124,9 @@ public class RoundController : AController
 
     void ChangeState(State newState)
     {
-        // exit logic
-        if (newState == currentState) return;
+        //if (newState == currentState) return;
 
+        // exit logic
         switch (currentState)
         {
             case State.INITIAL:
@@ -153,7 +153,6 @@ public class RoundController : AController
             case State.PREPARATION:                
                 currentPeak = 0;
                 currentRound++;
-                //Debug.Log(currentRound);
                 if (gc.uiController != null) gc.uiController.IncreaseRound();
                 roundTotalEnemies += totalEnemiesIncrementPerRound;
                 enemiesSpawnedOnCurrentRound = 0;

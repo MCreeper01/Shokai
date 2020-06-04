@@ -246,13 +246,11 @@ public class GroundEnemy : MonoBehaviour
 
     IEnumerator ActivateCollider()
     {
-        while (true)
-        {            
-            collPoint.GetComponent<BoxCollider>().enabled = true;
-            yield return new WaitForSeconds(0.1f);
-            collPoint.GetComponent<BoxCollider>().enabled = false;
-            yield return new WaitForSeconds(fightRate);
-        }        
+        collPoint.GetComponent<BoxCollider>().enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        collPoint.GetComponent<BoxCollider>().enabled = false;
+        yield return new WaitForSeconds(fightRate);
+        StartCoroutine("ActivateCollider");
     }
 
     public static GameObject FindInstanceWithinRadius(GameObject me, string tag, string tag2, string tag3, float radius)
