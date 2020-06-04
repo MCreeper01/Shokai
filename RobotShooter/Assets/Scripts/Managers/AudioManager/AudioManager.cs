@@ -32,7 +32,7 @@ public class AudioManager : AController {
         positionEvents = new List<SoundManagerMovingSound>();
     }
 
-    public void UpdateGame() //Actualitzar posició sons 3D
+    public void Update() //Actualitzar posició sons 3D
     {
         if (positionEvents != null && positionEvents.Count > 0)
         {
@@ -52,7 +52,7 @@ public class AudioManager : AController {
             }
         }
     }
-
+    
     public EventInstance PlayEvent(string name, Vector3 pos)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -91,6 +91,18 @@ public class AudioManager : AController {
             soundEvent.start();
             SoundManagerMovingSound movingSound = new SoundManagerMovingSound(t, soundEvent);
             positionEvents.Add(movingSound);
+            soundEvent.release();
+        }
+    }
+
+    public void PlayOneShotSound(string name, Vector3 pos) //Utilitzem per objectes que no actualitzen la posició
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        EventInstance soundEvent = RuntimeManager.CreateInstance(s.path);
+        if (!soundEvent.Equals(null))
+        {
+            soundEvent.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            soundEvent.start();
             soundEvent.release();
         }
     }
@@ -235,7 +247,7 @@ class SoundManagerMovingSound
 {
     Transform transform;
     EventInstance eventIns;
-
+    
     public SoundManagerMovingSound(Transform transform, EventInstance eventIns)
     {
         this.transform = transform;
