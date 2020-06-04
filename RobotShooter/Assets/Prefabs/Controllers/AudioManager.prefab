@@ -47,10 +47,82 @@ MonoBehaviour:
   - name: AssaultRifleShot
     path: event:/FX/Player/AR_shoot
   - name: ShotgunShot
-    path: event:/FX/Player/SG_shoot1
+    path: event:/FX/Player/SG_shoot
   - name: ShotgunReload
     path: event:/FX/Player/SG_reload
   - name: GrenadeLauncherShot
-    path: event:/FX/Player/GL_Shoot
-  - name: 
-    path: 
+    path: event:/FX/Player/GL_shoot
+  - name: JetpackBoost
+    path: event:/FX/Player/Jetpack_boost
+  - name: JetpackGlide
+    path: event:/FX/Player/Jetpack_glide
+  - name: PlacedDefense
+    path: event:/FX/Turret/Placed_defense
+  - name: CountdownGrenades
+    path: event:/FX/Object/Countdown_beep
+  - name: TurretShot
+    path: event:/FX/Turret/Turret_shot
+  - name: MechaDash
+    path: event:/FX/Player/Player_dash
+  - name: MechaRun
+    path: event:/FX/Player/Player_run
+  - name: ReceiveDamage
+    path: event:/FX/Player/Player_hit
+  - name: PlayerDead
+    path: event:/FX/Player/Player_dead
+  - name: OverheatAR
+    path: event:/FX/Player/Overheat_AR
+  - name: WarningLowHealth
+    path: event:/FX/Player/Warning_health
+  - name: ImpactWithGround
+    path: event:/FX/Player/Impact_with_ground
+  - name: BeingElectrocuted
+    path: event:/FX/Player/Player_electrocuted
+  - name: EMP
+    path: event:/FX/Player/EMP
+  - name: PowerUp
+    path: event:/FX/Player/Repair_skill
+  - name: BrokenEnergyShield
+    path: event:/FX/Player/Broken_shield
+  - name: ShootEnergyBall
+    path: event:/FX/Enemy/Enemy1_shot
+  - name: PlasmaSwordSwing
+    path: event:/FX/Enemy/Enemy2_swing
+  - name: NormalHit
+    path: event:/FX/Enemy/Enemy_hit
+  - name: CriticalHit
+    path: event:/FX/Enemy/Enemy_critical_hit
+  - name: BlockedHit
+    path: event:/FX/Enemy/Enemy_blocked_hit
+  - name: DeadExplosion
+    path: event:/FX/Enemy/Enemy_explosion
+  - name: LevitationSound
+    path: event:/FX/Enemy/Levitation
+  - name: PropellerSound
+    path: event:/FX/Enemy/Propeller
+  - name: HeavyLevitationSound
+    path: event:/FX/Enemy/Heavy_levitation
+  - name: PlasmaBallShot
+    path: event:/FX/Enemy/Rocket_shot
+  - name: PlasmaBlast
+    path: event:/FX/Object/Rocket_explosion
+  - name: PlatformMovement
+    path: event:/FX/Environment/Platform_movement
+  - name: StartRound
+    path: event:/FX/Environment/Start_round
+  - name: FinishRound
+    path: event:/FX/Environment/Finish_round
+  - name: EuphoricCrowd
+    path: event:/FX/Environment/Crowd
+  - name: Button
+    path: event:/FX/UI/Button
+  - name: Buy
+    path: event:/FX/UI/Buy
+  - name: Laser
+    path: event:/FX/Player/Laser
+  - name: GranadeExplosion
+    path: event:/FX/Player/ExpGranade
+  - name: TurretExplosion
+    path: event:/FX/Turret/ExpTurret
+  - name: Mine
+    path: event:/FX/Mine/PlaceMine

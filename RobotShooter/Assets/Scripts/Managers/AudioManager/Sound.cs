@@ -1,7 +1,5 @@
 ﻿using UnityEngine.Audio;
 using UnityEngine;
-using FMODUnity;
-using FMOD.Studio;
 
 [System.Serializable]
 public class Sound {

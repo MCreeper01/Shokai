@@ -60,6 +60,7 @@ public class MineController : MonoBehaviour
                     }
                 }
             }
+            AudioManager.instance.PlayOneShotSound("Mine", transform.position);
             Instantiate(explosionParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }

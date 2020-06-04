@@ -35,6 +35,7 @@ public class TankBullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
+        AudioManager.instance.PlayEvent("PlasmaBlast", transform.position);
         if (collider.tag == "Player")
         {
             collider.GetComponent<PlayerController>().TakeDamage(damage, 0);
