@@ -22,7 +22,6 @@ public class FlyingEnemy : MonoBehaviour
     [HideInInspector] public float damage;
     [HideInInspector] public float speed;
 
-    Rigidbody rb;
     Animator anim;
 
     [Header("Stats")]
@@ -84,7 +83,6 @@ public class FlyingEnemy : MonoBehaviour
         player = GameManager.instance.player;
         //player = GameObject.FindGameObjectWithTag("Player");
 
-        rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         //pathfinder = new Pathfinder3D();
         //pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
@@ -189,11 +187,9 @@ public class FlyingEnemy : MonoBehaviour
             case State.GO_BACK:
                 break;
             case State.HIT:
-                rb.constraints = RigidbodyConstraints.None;
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", false);
-                rb.constraints = RigidbodyConstraints.None;
                 break;
             case State.DEATH:
                 Instantiate(explosionParticles, transform.position, transform.rotation);
@@ -217,13 +213,11 @@ public class FlyingEnemy : MonoBehaviour
                 direction = -transform.forward * 2;
                 break;
             case State.HIT:
-                rb.constraints = RigidbodyConstraints.FreezeAll;
                 GameManager.instance.player.IncreaseCash(hitIncome);
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", true);
-                rb.constraints = RigidbodyConstraints.FreezeAll;
                 Invoke("ChangeToChase", empTimeStun);
                 break;
             case State.DEATH:

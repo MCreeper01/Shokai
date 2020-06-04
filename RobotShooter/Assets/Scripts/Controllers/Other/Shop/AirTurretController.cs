@@ -13,8 +13,9 @@ public class AirTurretController : MonoBehaviour
     public SphereCollider impactZone;
     public GameObject shootParticles;
     public GameObject explosionParticles;
+    public float angleThreshold;
 
-    public bool placed;
+    [HideInInspector] public bool placed;
 
     List<Collider> colliders = new List<Collider>();
 
@@ -60,7 +61,8 @@ public class AirTurretController : MonoBehaviour
                     targetRotation = Quaternion.LookRotation(relativePosition);
                     rotationTime += Time.deltaTime * speed;
                     head.transform.rotation = Quaternion.Lerp(head.transform.rotation, targetRotation, rotationTime);
-                    if (head.transform.rotation == targetRotation) rotating = false;
+                    if (Quaternion.Angle(head.transform.rotation, targetRotation) < angleThreshold ||
+                        Quaternion.Angle(head.transform.rotation, targetRotation) > -angleThreshold) rotating = false;
                 }
                 else
                 {

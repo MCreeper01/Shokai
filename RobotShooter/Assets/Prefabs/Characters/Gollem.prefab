@@ -157,7 +157,7 @@ MonoBehaviour:
   damage: 20
   speed: 6
   hittedByAR: 0
-  initHealth: 1000
+  initHealth: 500
   initSpeed: 6
   initDamage: 20
   minDistAttack: 10

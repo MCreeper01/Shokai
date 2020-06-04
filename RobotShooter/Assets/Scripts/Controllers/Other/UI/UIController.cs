@@ -18,12 +18,13 @@ public class UIController : AController
     [Header("HUD")]
     public Image healthbar;
     public Image shieldbar;
-    public Image overheatAR;
+    public List<Image> overheatAR;
     public Text interactiveText;
     public Text cashText;
     public Text roundCounter;
     public Text preparationTimeText;
     public Text fpsText;
+    public KeyCode skipPreparationKey = KeyCode.O;
 
     [Header("Shop")]
     public Text jetpackCost;
@@ -92,7 +93,11 @@ public class UIController : AController
                 gc.player.Shop(false);
             }                      
         }*/
-        if (gc != null && preparationTimeText.gameObject.activeSelf) preparationTimeText.text = ((int)gc.roundController.preparationTime - (int)gc.roundController.elapsedTime).ToString();
+        if (gc != null && preparationTimeText.gameObject.activeSelf)
+        {
+            preparationTimeText.text = "Preparation time remining: " + ((int)gc.roundController.preparationTime - (int)gc.roundController.elapsedTime).ToString() + "\nPress [" + skipPreparationKey + "] to skip";
+            if (Input.GetKeyDown(skipPreparationKey)) gc.roundController.ChangeState(RoundController.State.SPAWN);
+        } 
         deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
         float fps = 1.0f / deltaTime;
         fpsText.text = "FPS: " + Mathf.Ceil(fps).ToString();
@@ -123,14 +128,13 @@ public class UIController : AController
 
     public void ChangeShieldPos()
     {
-        shieldbar.transform.localPosition = new Vector3((healthbar.transform.localPosition.x - healthbar.rectTransform.rect.width / 2) + 
-            healthbar.rectTransform.rect.width * healthbar.fillAmount + shieldbar.rectTransform.rect.width / 2, 
-            shieldbar.transform.localPosition.y, shieldbar.transform.localPosition.z);
+        shieldbar.transform.localPosition = new Vector3(shieldbar.transform.localPosition.x, healthbar.transform.localPosition.y + healthbar.rectTransform.rect.height * healthbar.transform.localScale.y
+            * healthbar.fillAmount, shieldbar.transform.localPosition.z);
     }
 
     public void IncreaseRound()
     {
-        roundCounter.text = gc.roundController.currentRound.ToString();
+        roundCounter.text = "Round " + gc.roundController.currentRound.ToString(); 
     }
 
     public void ChangeCash(int value)
@@ -145,7 +149,7 @@ public class UIController : AController
 
     public void ChangeAROverheat(float value)
     {
-        overheatAR.fillAmount = value / 100;
+        foreach (Image overheat in overheatAR) overheat.fillAmount = value / 100;
     }
 
     public void ChangeEnergy(float value)

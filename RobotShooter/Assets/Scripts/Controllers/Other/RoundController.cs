@@ -122,7 +122,7 @@ public class RoundController : AController
         Debuging();
     }
 
-    void ChangeState(State newState)
+    public void ChangeState(State newState)
     {
         //if (newState == currentState) return;
 

@@ -43,7 +43,7 @@ TagManager:
   - Turret
   - Quad
   - Column
-  - 
+  - InvisibleWalls
   m_SortingLayers:
   - name: Default
     uniqueID: 0

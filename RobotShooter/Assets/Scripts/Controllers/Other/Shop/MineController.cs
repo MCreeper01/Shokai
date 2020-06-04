@@ -51,7 +51,7 @@ public class MineController : MonoBehaviour
                     else
                     {
                         TankEnemy tEnemy = nearbyObject.GetComponentInParent<TankEnemy>();
-                        if (tEnemy != null) tEnemy.TakeDamage(maxDamage * ratio);                        
+                        if (tEnemy != null) tEnemy.TakeDamage(maxDamage * ratio);
                         else
                         {
                             PlayerController player = nearbyObject.GetComponent<PlayerController>();
@@ -63,5 +63,7 @@ public class MineController : MonoBehaviour
             Instantiate(explosionParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }
+
+        Debug.Log(col.name);
     }
 }
