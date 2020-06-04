@@ -223,7 +223,7 @@ MonoBehaviour:
   criticalIncome: 10
   killIncome: 20
   hitTime: 0
-  deathTime: 0.5
+  deathTime: 0
   targetRadiusDetection: 1000
   healthInc: 10
   damageInc: 5
