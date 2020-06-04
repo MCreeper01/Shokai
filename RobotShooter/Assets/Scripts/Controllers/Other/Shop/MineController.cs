@@ -7,6 +7,7 @@ public class MineController : MonoBehaviour
     public float maxDamage;
     public float maxDamageToPlayer;
     public float explosionRadius;
+    public GameObject explosionParticles;
 
     // Start is called before the first frame update
     void Start()
@@ -58,8 +59,8 @@ public class MineController : MonoBehaviour
                         }
                     }
                 }
-                //Destroy(gameObject);
             }
+            Instantiate(explosionParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

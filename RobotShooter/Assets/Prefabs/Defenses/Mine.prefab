@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4152bf4bf7d2d4e865a4c8037d7bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 200
-  damageToPlayer: 25
+  maxDamage: 0
+  maxDamageToPlayer: 0
   explosionRadius: 10
+  explosionParticles: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}
 --- !u!135 &486684336018829150
 SphereCollider:
   m_ObjectHideFlags: 0

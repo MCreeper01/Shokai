@@ -9,6 +9,7 @@ public class StickyGrenadeController : MonoBehaviour
     public float force;
     public float maxDamage;
     public float maxDamageToPlayer;
+    public GameObject explosionParticles;
 
     private float countdownDelay;
     private bool canExplode = false;
@@ -65,6 +66,7 @@ public class StickyGrenadeController : MonoBehaviour
                 }
             }
         }
+        Instantiate(explosionParticles, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 

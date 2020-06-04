@@ -92,7 +92,8 @@ public class PlayerModel : ScriptableObject
     public float laserDistance;
     public float laserTime;
     public float laserDamage;
-    public float instantHealthCure;
+    public float instantHealthAmount;
+    public float healingParticlesTime;
     public float empRadius;
     public float empDuration;
 

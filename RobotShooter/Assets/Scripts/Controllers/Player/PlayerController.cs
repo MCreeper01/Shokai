@@ -63,6 +63,8 @@ public class PlayerController : AController
     public GameObject stickyGrenadePrefab;
     public GameObject bulletSpawner;
     public GameObject EMP;
+    public GameObject electricParticles;
+    public GameObject healingParticles;
     [HideInInspector] public float actualOverheat = 0;
     [HideInInspector] public bool saturatedAR = false;
     [HideInInspector] public float actualARShootCooldown = 0;
@@ -154,6 +156,8 @@ public class PlayerController : AController
         GameEvents.instance.onTransitionStart += OnTransitionStart;
 
         transform.position = initPos;
+        electricParticles.SetActive(false);
+        healingParticles.SetActive(false);
 
         pitch = 0;
 
@@ -244,10 +248,12 @@ public class PlayerController : AController
             LayerMask layer = hits[i].collider.gameObject.layer;
             if (layer == LayerMask.NameToLayer("ElectricZone"))
             {
+                electricParticles.SetActive(true);
                 TakeDamage(playerModel.electrocuteDamage * Time.deltaTime, 0);
                 break;
             }
         }  
+        if (hits.Length <= 0) electricParticles.SetActive(false);
     }
 
     private void OnDrawGizmosSelected()
@@ -491,9 +497,11 @@ public class PlayerController : AController
             case "Health":
                 if (!withDefense && !lineRenderer.gameObject.activeSelf && currentHealth < playerModel.MAX_HEALTH)
                 {
-                    currentHealth += playerModel.instantHealthCure;
+                    currentHealth += playerModel.instantHealthAmount;
                     if (currentHealth > playerModel.MAX_HEALTH) currentHealth = playerModel.MAX_HEALTH;
                     gc.uiController.ChangeHealth(currentHealth);
+                    healingParticles.SetActive(true);
+                    Invoke("StopHealingParticles", playerModel.healingParticlesTime);
                     sInfo.Consume();
                 }
                 break;
@@ -517,6 +525,11 @@ public class PlayerController : AController
                 sInfo.Consume();
                 break;
         }
+    }
+
+    void StopHealingParticles()
+    {
+        healingParticles.SetActive(false);
     }
 
     public void DefenseEffect(SlotInfo sInfo, int num)
