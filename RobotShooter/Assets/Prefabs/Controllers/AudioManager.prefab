@@ -43,4 +43,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d01f10442eb13554db623107c309429c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - name: AssaultRifleShot
+    path: event:/FX/Player/AR_shoot
+  - name: ShotgunShot
+    path: event:/FX/Player/SG_shoot1
+  - name: ShotgunReload
+    path: event:/FX/Player/SG_reload
+  - name: GrenadeLauncherShot
+    path: event:/FX/Player/GL_Shoot
+  - name: 
+    path: 
