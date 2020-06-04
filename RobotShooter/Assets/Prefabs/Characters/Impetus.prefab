@@ -791,6 +791,7 @@ MonoBehaviour:
   target: {fileID: 0}
   collPoint: {fileID: 3247009217353815680, guid: cf0dbc8545edfb141a85b5c929a9191d,
     type: 3}
+  explosionParticles: {fileID: 100006, guid: 8b940ede2c20ec44ba870a2cdd277051, type: 3}
   health: 30
   damage: 10
   speed: 8

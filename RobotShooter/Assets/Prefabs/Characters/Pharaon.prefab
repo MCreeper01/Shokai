@@ -147,7 +147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2358037097534869648
 Transform:
   m_ObjectHideFlags: 0
@@ -202,6 +202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   bullet: {fileID: 909655672932287967, guid: 360402765aaed7d44aa167fc0d401fb8, type: 3}
+  explosionParticles: {fileID: 100006, guid: 8b940ede2c20ec44ba870a2cdd277051, type: 3}
   cannon: {fileID: 466294539720180607}
   mask:
     serializedVersion: 2
