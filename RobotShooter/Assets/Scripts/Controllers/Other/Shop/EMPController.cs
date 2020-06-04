@@ -18,7 +18,6 @@ public class EMPController : MonoBehaviour
         {
             Vector3 s = transform.localScale;
             transform.localScale = new Vector3(s.x + scaleSpeed, s.y + scaleSpeed, s.z + scaleSpeed);
-            Debug.Log("Hey!");
         } else
         {
             Destroy(gameObject);

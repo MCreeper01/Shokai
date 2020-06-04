@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public AudioManager audioManager;
     List<GameObject> activeDefenses = new List<GameObject>();
 
+    private bool isGameRunning;
 
     void OnEnable()
     {
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(this);
-        Invoke("StartGame", .1f);
+        //Invoke("StartGame", .1f);
     }
 
     void OnDisable()
@@ -46,7 +47,8 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("Level Loaded");
         //Debug.Log(scene.name);
-        //Debug.Log(mode);        
+        //Debug.Log(mode);    
+        isGameRunning = false;
     }
 
     void Start()
@@ -67,6 +69,7 @@ public class GameManager : MonoBehaviour
 
     public void AddController(AController c)
     {
+
         if (c is PlayerController)
             player = (PlayerController)c;
         else if (c is AudioManager)
@@ -81,6 +84,7 @@ public class GameManager : MonoBehaviour
             objectPoolerManager = (ObjectPoolerManager)c;
 
         Invoke("StartGame", .1f);
+
         //else if (c is CheckpointController)
         //checkpointController = (CheckpointController)c;
     }

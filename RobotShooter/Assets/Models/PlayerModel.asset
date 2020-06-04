@@ -49,12 +49,15 @@ MonoBehaviour:
   jumpSpeed: 7
   verticalGlideSpeed: -2
   stepOffset: 0.1
+  slopeRayDist: 5
+  slopeForce: 50
   changeWeaponKey: 102
   alternativeChangeWeapon: 1
   mouseShootButton: 0
   criticalMultiplier: 2
   cooldownWaitToStart: 1
   damageAR: 20
+  fireRateAR: 10
   shootARCooldown: 0.1
   rangeAR: 200
   shootForceAR: 100
@@ -62,6 +65,7 @@ MonoBehaviour:
   bulletOverheat: 2
   overHeatNormalReload: 35
   overHeatSlowReload: 25
+  fireRateShotgun: 1
   shootShotgunCooldown: 1
   rangeShotgun: 30
   shotgunDamage: 18

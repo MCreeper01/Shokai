@@ -17,7 +17,14 @@ public class PlayerController : AController
     private Vector3 initPos;
     [HideInInspector] public bool godMode;
 
+    public Animator anim;
+
     public Transform m_PitchControllerTransform;
+
+    public Transform slopePos1;
+    public Transform slopePos2;
+    public Transform slopePos3;
+    public Transform slopePos4;
 
     [HideInInspector] public float yaw;
     [HideInInspector] public float pitch;
@@ -37,14 +44,19 @@ public class PlayerController : AController
     [HideInInspector] public bool atShop = false;
     private bool uncontrolable = false;
 
+    [HideInInspector] public float nextTimeToFireAR = 0f;
+    [HideInInspector] public float nextTimeToFireShotgun = 0f;
+
     private float currentShieldDelay;
     private bool shieldDelay;
 
-    public LayerMask electricZoneDetectionMask;
+    public Vector3 hitNormal;
 
+    public LayerMask electricZoneDetectionMask;
+    public LayerMask slopeMask;
     public LayerMask placeDefenseMask;
 
-    private float nextTimeToFireAR = 0f;
+    
     public LayerMask shootLayerMask;
     public GameObject bulletARPrefab;
     public GameObject grenadePrefab;
@@ -70,9 +82,10 @@ public class PlayerController : AController
     [HideInInspector] public bool waitCooldown;
     [HideInInspector] public int currentARChargerAmmoCount;
 
-    /*public LayerMask m_ShootLayerMask;
-    public ParticleSystem muzzleFlash;
-    public GameObject impactEffect;*/
+    //public LayerMask m_ShootLayerMask;
+    public ParticleSystem muzzleFlashAR;
+    public ParticleSystem muzzleFlashShotgun;
+    //public GameObject impactEffect;
     public GameObject impactHole;
     public LineRenderer lineRenderer;
     //public GameObject laserBeam;
@@ -373,10 +386,23 @@ public class PlayerController : AController
         //Debug.Log(verticalSpeed);
 
         if (verticalSpeed <= 0 && Input.GetKey(playerModel.jumpKeyCode) != onGround && gliding) l_Movement.y = playerModel.verticalGlideSpeed * Time.deltaTime;
-        else l_Movement.y = verticalSpeed * Time.deltaTime;
+        else l_Movement.y = verticalSpeed * Time.deltaTime;        
 
-        if (onGround && l_Movement.y <= 0)
-            l_Movement.y = -playerModel.stepOffset;
+        hitNormal = Normal();
+
+        if (Slope())
+        {
+            l_Movement.y = -characterController.height * playerModel.slopeForce * Time.deltaTime;
+        }
+
+        if (Slide())
+        {
+            l_Movement.x += hitNormal.x * 0.5f;
+            l_Movement.z += hitNormal.z * 0.5f;
+            l_Movement.y -= hitNormal.y * 0.5f;
+        }
+
+        if (onGround && l_Movement.y <= 0) l_Movement.y = -playerModel.stepOffset;
 
         //JUMP
         CollisionFlags l_CollisionFlags = characterController.Move(l_Movement);
@@ -384,7 +410,8 @@ public class PlayerController : AController
         if ((l_CollisionFlags & CollisionFlags.Below) != 0)
         {
             gliding = false;
-            onGround = true;            
+            onGround = true;
+            verticalSpeed = 0;
         }
         else
             onGround = false;
@@ -557,8 +584,7 @@ public class PlayerController : AController
         {
             ChangeState(previousState);
             gun.SetActive(true);
-        }
-        
+        }        
     }
 
     public void PlaceDeffense()
@@ -643,12 +669,97 @@ public class PlayerController : AController
         canRecover = true;
     }
 
+    public bool Slope()
+    {
+        if (onGround == false || Input.GetKeyDown(playerModel.jumpKeyCode))
+        {
+            return false;
+        }
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, characterController.height, slopeMask.value))
+        {
+            if (hit.normal != Vector3.up) return true;
+        }
+        if (Physics.Raycast(slopePos1.position, Vector3.down, out hit, characterController.height, slopeMask.value))
+        {
+            if (hit.normal != Vector3.up) return true;
+        }
+        if (Physics.Raycast(slopePos2.position, Vector3.down, out hit, characterController.height, slopeMask.value))
+        {
+            if (hit.normal != Vector3.up) return true;
+        }
+        if (Physics.Raycast(slopePos3.position, Vector3.down, out hit, characterController.height, slopeMask.value))
+        {
+            if (hit.normal != Vector3.up) return true;
+        }
+        if (Physics.Raycast(slopePos4.position, Vector3.down, out hit, characterController.height, slopeMask.value))
+        {
+            if (hit.normal != Vector3.up) return true;
+        }
+        return false;
+    }
+    public bool Slide()
+    {
+        RaycastHit hit;
+        if ((Vector3.Angle(Vector3.up, hitNormal) >= characterController.slopeLimit)) return true;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, playerModel.slopeRayDist, slopeMask))
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Column") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy")) return true;
+        }
+        if (Physics.Raycast(slopePos1.position, Vector3.down, out hit, playerModel.slopeRayDist, slopeMask))
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Column") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy")) return true;
+        }
+        if (Physics.Raycast(slopePos2.position, Vector3.down, out hit, playerModel.slopeRayDist, slopeMask))
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Column") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy")) return true;
+        }
+        if (Physics.Raycast(slopePos3.position, Vector3.down, out hit, playerModel.slopeRayDist, slopeMask))
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Column") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy")) return true;
+        }
+        if (Physics.Raycast(slopePos4.position, Vector3.down, out hit, playerModel.slopeRayDist, slopeMask))
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Column") || hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemy")) return true;
+        }
+        return false;
+    }
+    public Vector3 Normal()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, playerModel.slopeRayDist, slopeMask))
+        {
+            return hit.normal;
+        }
+        if (Physics.Raycast(slopePos1.position, Vector3.down, out hit, playerModel.slopeRayDist, slopeMask))
+        {
+            return hit.normal;
+        }
+        if (Physics.Raycast(slopePos2.position, Vector3.down, out hit, playerModel.slopeRayDist, slopeMask))
+        {
+            return hit.normal;
+        }
+        if (Physics.Raycast(slopePos3.position, Vector3.down, out hit, playerModel.slopeRayDist, slopeMask))
+        {
+            return hit.normal;
+        }
+        if (Physics.Raycast(slopePos4.position, Vector3.down, out hit, playerModel.slopeRayDist, slopeMask))
+        {
+            return hit.normal;
+        }
+        return hit.normal;
+    }
+
     public void Shoot()
     {
         float multiplier = 1;
         switch (actualWeapon)
         {
             case Weapon.rifle:
+                muzzleFlashAR.Play();
+                nextTimeToFireAR = Time.time + 1 / playerModel.fireRateAR;
+                //StartCoroutine(EndMuzzle());
                 actualARShootCooldown = playerModel.shootARCooldown;
                 RaycastHit hitAR;
                 if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hitAR, Mathf.Infinity, shootLayerMask))
@@ -682,11 +793,12 @@ public class PlayerController : AController
                 }
                 break;
             case Weapon.shotgun:
-                /*muzzleFlash.Play();
-                muzzleFlash.GetComponentInChildren<WFX_LightFlicker>().StartCoroutine("Flicker");*/
-
+                float damage;
+                nextTimeToFireShotgun = Time.time + 1 / playerModel.fireRateShotgun;
+                //StartCoroutine(EndMuzzle());
                 for (int i = 0; i < pellets.Count; i++)
                 {
+                    multiplier = 1;
                     pellets[i] = Random.rotation;
                     Quaternion rot = Quaternion.RotateTowards(bulletSpawner.transform.rotation, pellets[i], playerModel.shotgunSpreadAngle);
                     RaycastHit hit; 
@@ -694,7 +806,7 @@ public class PlayerController : AController
                     {
 
                         if (hit.collider.tag == "CriticalBox") multiplier = playerModel.criticalMultiplier;
-                        playerModel.shotgunDamage = playerModel.shotgunDamage * multiplier;
+                        damage = playerModel.shotgunDamage * multiplier;
                         //GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                         GameObject impactHoleGO = Instantiate(impactHole, new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z), Quaternion.LookRotation(hit.normal));
 
@@ -703,7 +815,7 @@ public class PlayerController : AController
                         GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
                         if (gEnemy != null)
                         {
-                            gEnemy.TakeDamage(playerModel.shotgunDamage);
+                            gEnemy.TakeDamage(damage);
                             if (multiplier == playerModel.criticalMultiplier) IncreaseCash(gEnemy.criticalIncome);
                         } 
                         else
@@ -711,7 +823,7 @@ public class PlayerController : AController
                             FlyingEnemy fEnemy = hit.collider.GetComponentInParent<FlyingEnemy>();
                             if (fEnemy != null)
                             {
-                                fEnemy.TakeDamage(playerModel.shotgunDamage);
+                                fEnemy.TakeDamage(damage);
                                 if (multiplier == playerModel.criticalMultiplier) IncreaseCash(fEnemy.criticalIncome);
                             } 
                             else
@@ -719,7 +831,7 @@ public class PlayerController : AController
                                 TankEnemy tEnemy = hit.collider.GetComponentInParent<TankEnemy>();
                                 if (tEnemy != null)
                                 {
-                                    tEnemy.TakeDamage(playerModel.shotgunDamage);
+                                    tEnemy.TakeDamage(damage);
                                     if (multiplier == playerModel.criticalMultiplier) IncreaseCash(tEnemy.criticalIncome);
                                 } 
                             }
@@ -758,6 +870,13 @@ public class PlayerController : AController
         }       
     }
 
+    public IEnumerator EndMuzzle()
+    {
+        yield return new WaitForSeconds(.03f);
+        //muzzleFlashAR.SetActive(false);
+        //muzzleFlashShotgun.SetActive(false);
+    }
+
     public void ChangeGrenadeAmmo()
     {
         SlotInfo sInfo = gc.shopController.habilitySlots[grenadesSlotNum].GetComponent<SlotInfo>();
@@ -773,7 +892,7 @@ public class PlayerController : AController
                  if(CanShootAR()) ChangeState(new PSShoot(this));
                 break;
             case Weapon.shotgun:
-                if (actualShotgunShootCooldown == 0) ChangeState(new PSShotgun(this));
+                if (Time.time >= nextTimeToFireShotgun) ChangeState(new PSShotgun(this));
                 break;
             case Weapon.launcher:
                 break;
@@ -805,7 +924,13 @@ public class PlayerController : AController
 
     public bool CanShootAR()
     {
-        if (saturatedAR) return false;
+        if (!saturatedAR) return true;
+        else return true;
+    }
+
+    public bool CanShootShotgun()
+    {
+        if (Time.time >= nextTimeToFireShotgun) return true;
         else return true;
     }
 
@@ -859,10 +984,6 @@ public class PlayerController : AController
     }
 
     //COLLISIONS
-    private void OnCollisionEnter(Collision collision)
-    {
-
-    }
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -898,19 +1019,11 @@ public class PlayerController : AController
         } 
     }
 
-    private void OnCollisionStay (Collision collision)
-    {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("Geometry"))
-        {
-            verticalSpeed = 0.0f;
-        }
-    }
-
     void Debuging()
     {
 #if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.Y)) gc.shopController.MoveShop(true);
-        if (Input.GetKeyDown(KeyCode.U)) gc.shopController.MoveShop(false);
+        //if (Input.GetKeyDown(KeyCode.Y)) gc.shopController.MoveShop(true);
+        //if (Input.GetKeyDown(KeyCode.U)) gc.shopController.MoveShop(false);
 #endif
     }
 }

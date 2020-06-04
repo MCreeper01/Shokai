@@ -42,7 +42,7 @@ TagManager:
   - NoTraspass
   - Turret
   - Quad
-  - 
+  - Column
   - 
   m_SortingLayers:
   - name: Default

@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9690c5d642f86d243bec848074785e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ARBullet: {fileID: 1678891417222217503, guid: 1b3448114e4b3e840be564cc51cd36fc,
+  ARBullet: {fileID: 4828903556030779724, guid: abc76874a1d104d46ac4435b216f03eb,
     type: 3}
   ARBulletParent: {fileID: 0}
   ARBulletAmount: 15
@@ -51,7 +51,7 @@ MonoBehaviour:
     type: 3}
   airEnemyBulletParent: {fileID: 0}
   airEnemyBulletAmount: 15
-  tankEnemyBullet: {fileID: 4894394961908713746, guid: 33af94cc4f0d61245bbdb62b11fc2fad,
+  tankEnemyBullet: {fileID: 6216035798279445387, guid: f1736fe6e12c73a4e9c81e7ba42ea287,
     type: 3}
   tankEnemyBulletParent: {fileID: 0}
   tankEnemyBulletAmount: 5

@@ -36,8 +36,6 @@ public class ShopController : AController
         maxTTurretsPerRound = tTurret.maxCharges;
         Hability aTurret = Array.Find(defenses, defense => defense.name == "AirTurret");
         maxFTurretsPerRound = aTurret.maxCharges;
-
-        StartCoroutine(MoveShop(false));
     }
 
     // Update is called once per frame
@@ -158,6 +156,7 @@ public class ShopController : AController
     {
         if (hide)
         {
+            shop.transform.GetChild(0).gameObject.GetComponent<CapsuleCollider>().enabled = false;
             if (gc.player.atShop)
             {
                 gc.player.atShop = false;
@@ -169,8 +168,7 @@ public class ShopController : AController
                 shop.transform.Translate(-Vector3.forward * shopAnimationSpeed * Time.deltaTime);
                 yield return 0;
             }
-            shop.transform.position = new Vector3(shop.transform.position.x, shopMinimumHeight, shop.transform.position.z);
-            shop.transform.GetChild(0).gameObject.GetComponent<CapsuleCollider>().enabled = false;            
+            shop.transform.position = new Vector3(shop.transform.position.x, shopMinimumHeight, shop.transform.position.z);                       
         }
         else
         {
