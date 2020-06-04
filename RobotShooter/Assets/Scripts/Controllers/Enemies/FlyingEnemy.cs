@@ -223,6 +223,7 @@ public class FlyingEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                AudioManager.instance.PlayOneShotSound("DeadExplosion", transform);
                 Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);
                 break;
@@ -255,12 +256,12 @@ public class FlyingEnemy : MonoBehaviour
 
     void GoToTarget()
     {
-        //target = FindInstanceWithinRadius(gameObject, "Player", "AirTurret", "GroundTurret", targetRadiusDetection);
-        target = player.gameObject;
+        target = FindInstanceWithinRadius(gameObject, "Player", "AirTurret", "GroundTurret", targetRadiusDetection);
+        //target = player.gameObject;
         //pathfinder.currentWayPointIndex = 0;
         //pathfinder.goal = new Vector3(target.transform.position.x, target.transform.position.y + Random.Range(1, 10), target.transform.position.z); ;
         //p = pathfinder.AStar(gameObject);
-        direction = (target.transform.position - transform.position).normalized;
+        direction = (target.transform.position + new Vector3(0, Random.Range(1, 10), 0) - transform.position).normalized;
     }
 
     float DistanceToTarget(GameObject me, GameObject target)
@@ -310,7 +311,7 @@ public class FlyingEnemy : MonoBehaviour
         b.transform.forward = player.transform.position - transform.position;
         b.GetComponent<EnemyBullet>().damage = damage;
         b.SetActive(true);
-        Debug.Log("Heeey");
+        AudioManager.instance.PlayOneShotSound("ShootEnergyBall", transform.position);
     }
 
     public static GameObject FindInstanceWithinRadius(GameObject me, string tag, string tag2, string tag3, float radius)

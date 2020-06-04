@@ -806,6 +806,7 @@ public class PlayerController : AController
             case Weapon.rifle:
                 anim.SetBool("shooting", true);
                 muzzleFlashAR.Play();
+                AudioManager.instance.PlayOneShotSound("AssaultRifleShot", transform);
                 anim.speed = playerModel.fireRateAR;
                 nextTimeToFireAR = Time.time + 1 / playerModel.fireRateAR;
                 //StartCoroutine(EndMuzzle());
@@ -845,6 +846,7 @@ public class PlayerController : AController
                 anim.SetBool("shooting", true);
                 float damage;
                 nextTimeToFireShotgun = Time.time + 1 / playerModel.fireRateShotgun;
+                AudioManager.instance.PlayOneShotSound("ShotgunShot", transform);
                 //StartCoroutine(EndMuzzle());
                 for (int i = 0; i < pellets.Count; i++)
                 {

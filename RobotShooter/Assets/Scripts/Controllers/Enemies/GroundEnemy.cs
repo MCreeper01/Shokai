@@ -239,7 +239,10 @@ public class GroundEnemy : MonoBehaviour
     void GoToTarget()
     {
         target = FindInstanceWithinRadius(gameObject, "Player", "AirTurret", "GroundTurret", targetRadiusDetection);
-        agent.destination = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        if (agent.isActiveAndEnabled && agent.isOnNavMesh)
+        {
+            agent.destination = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        }
     }
 
     void ChangeToChase()
@@ -250,6 +253,7 @@ public class GroundEnemy : MonoBehaviour
     IEnumerator ActivateCollider()
     {
         collPoint.GetComponent<BoxCollider>().enabled = true;
+        AudioManager.instance.PlayOneShotSound("PlasmaSwordSwing", transform);
         yield return new WaitForSeconds(0.1f);
         collPoint.GetComponent<BoxCollider>().enabled = false;
         yield return new WaitForSeconds(fightRate);

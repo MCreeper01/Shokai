@@ -218,12 +218,12 @@ MonoBehaviour:
   maxDistAttack: 20
   goBackDist: 6
   fireRate: 1
-  repathTime: 5
+  repathTime: 3
   hitIncome: 5
   criticalIncome: 10
   killIncome: 20
   hitTime: 0
-  deathTime: 0
+  deathTime: 0.5
   targetRadiusDetection: 1000
   healthInc: 10
   damageInc: 5
