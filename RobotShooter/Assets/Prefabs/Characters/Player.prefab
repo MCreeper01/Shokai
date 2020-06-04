@@ -5132,6 +5132,9 @@ MonoBehaviour:
   electricZoneDetectionMask:
     serializedVersion: 2
     m_Bits: 67108864
+  geometryDetectionMask:
+    serializedVersion: 2
+    m_Bits: 512
   slopeMask:
     serializedVersion: 2
     m_Bits: 1610615296

@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
         else if (c is ObjectPoolerManager)
             objectPoolerManager = (ObjectPoolerManager)c;
 
+        CancelInvoke("StartGame");
         Invoke("StartGame", .1f);
 
         //else if (c is CheckpointController)

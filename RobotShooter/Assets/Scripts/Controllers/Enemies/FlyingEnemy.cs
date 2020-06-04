@@ -86,8 +86,8 @@ public class FlyingEnemy : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
-        pathfinder = new Pathfinder3D();
-        pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
+        //pathfinder = new Pathfinder3D();
+        //pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
 
         IncrementStats();
 
@@ -96,7 +96,7 @@ public class FlyingEnemy : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {                
+    {
         switch (currentState)
         {
             case State.INITIAL:
@@ -118,26 +118,27 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                     break;
                 }
-                if (pathfinder.pathFound)
-                {
-                    for (int i = 0; i < p.Path.Count - 1; i++)
-                    {
-                        Debug.DrawLine(p.Path[i].position, p.Path[i + 1].position);
-                    }
+                //if (pathfinder.pathFound)
+                //{
+                //    for (int i = 0; i < p.Path.Count - 1; i++)
+                //    {
+                //        Debug.DrawLine(p.Path[i].position, p.Path[i + 1].position);
+                //    }
 
-                    if (pathfinder.currentWayPointIndex < p.Path.Count)
-                    {
-                        direction = (p.Path[pathfinder.currentWayPointIndex].position - transform.position).normalized;
-                        transform.position += direction * speed * Time.deltaTime;
-                        //transform.Translate((p.Path[pathfinder.currentWayPointIndex].position - transform.position) * Time.deltaTime);
-                        //transform.position = Vector3.MoveTowards(transform.position, p.Path[pathfinder.currentWayPointIndex].position, 0.1f);
+                //    if (pathfinder.currentWayPointIndex < p.Path.Count)
+                //    {
+                //        direction = (p.Path[pathfinder.currentWayPointIndex].position - transform.position).normalized;
+                //        transform.position += direction * speed * Time.deltaTime;
+                //        //transform.Translate((p.Path[pathfinder.currentWayPointIndex].position - transform.position) * Time.deltaTime);
+                //        //transform.position = Vector3.MoveTowards(transform.position, p.Path[pathfinder.currentWayPointIndex].position, 0.1f);
 
-                        if (DistanceToTargetSquaredPlus(transform.position, p.Path[pathfinder.currentWayPointIndex].position) <= pathfinder.wayPointReachedRadius * pathfinder.wayPointReachedRadius)
-                        {
-                            pathfinder.currentWayPointIndex++;
-                        }
-                    }
-                }
+                //        if (DistanceToTargetSquaredPlus(transform.position, p.Path[pathfinder.currentWayPointIndex].position) <= pathfinder.wayPointReachedRadius * pathfinder.wayPointReachedRadius)
+                //        {
+                //            pathfinder.currentWayPointIndex++;
+                //        }
+                //    }
+                //}
+                transform.position += direction * speed * Time.deltaTime;
                 transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.ATTACK:
@@ -203,10 +204,11 @@ public class FlyingEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                if (ProvisionalManager.Instance.gm.Graph.Count > 0)
-                {
-                    InvokeRepeating("GoToTarget", 0, repathTime);
-                }
+                //if (ProvisionalManager.Instance.gm.Graph.Count > 0)
+                //{
+                //    InvokeRepeating("GoToTarget", 0, repathTime);
+                //}
+                InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
                 InvokeRepeating("InstanceBullet", 0, fireRate);
@@ -259,10 +261,12 @@ public class FlyingEnemy : MonoBehaviour
 
     void GoToTarget()
     {
-        target = FindInstanceWithinRadius(gameObject, "Player", "AirTurret", "GroundTurret", targetRadiusDetection);
-        pathfinder.currentWayPointIndex = 0;
-        pathfinder.goal = new Vector3(target.transform.position.x, target.transform.position.y + Random.Range(1, 10), target.transform.position.z); ;
-        p = pathfinder.AStar(gameObject);
+        //target = FindInstanceWithinRadius(gameObject, "Player", "AirTurret", "GroundTurret", targetRadiusDetection);
+        target = player.gameObject;
+        //pathfinder.currentWayPointIndex = 0;
+        //pathfinder.goal = new Vector3(target.transform.position.x, target.transform.position.y + Random.Range(1, 10), target.transform.position.z); ;
+        //p = pathfinder.AStar(gameObject);
+        direction = (target.transform.position - transform.position).normalized;
     }
 
     float DistanceToTarget(GameObject me, GameObject target)
@@ -312,6 +316,7 @@ public class FlyingEnemy : MonoBehaviour
         b.transform.forward = player.transform.position - transform.position;
         b.GetComponent<EnemyBullet>().damage = damage;
         b.SetActive(true);
+        Debug.Log("Heeey");
     }
 
     public static GameObject FindInstanceWithinRadius(GameObject me, string tag, string tag2, string tag3, float radius)
