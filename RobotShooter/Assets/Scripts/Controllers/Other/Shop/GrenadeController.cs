@@ -11,6 +11,7 @@ public class GrenadeController : MonoBehaviour
     public float force;
     public float maxDamage;
     public float maxDamageToPlayer;
+    public GameObject explosionParticles;
 
     private float countdownDelay;
     private bool hasExploded = false;
@@ -66,6 +67,7 @@ public class GrenadeController : MonoBehaviour
                 }
             }
         }
+        Instantiate(explosionParticles, transform.position, transform.rotation);
         Destroy(gameObject);        
     }
 }

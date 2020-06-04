@@ -11,6 +11,8 @@ public class TerrainTurretController : MonoBehaviour
     public Transform pointShoot;
     public GameObject head;
     public SphereCollider impactZone;
+    public GameObject shootParticles;
+    public GameObject explosionParticles;
 
     [HideInInspector] public bool placed;
 
@@ -27,6 +29,7 @@ public class TerrainTurretController : MonoBehaviour
     void Start()
     {
         impactZone.radius = range;
+        shootParticles.SetActive(false);
         GameManager.instance.AddActiveDefense(gameObject);
     }
 
@@ -39,6 +42,7 @@ public class TerrainTurretController : MonoBehaviour
             if (target == null) hasTarget = false;
             if (!hasTarget)
             {
+                shootParticles.SetActive(false);
                 if (colliders.Count > 0)
                 {
                     foreach (Collider nearbyObject in colliders)
@@ -63,6 +67,7 @@ public class TerrainTurretController : MonoBehaviour
                 }
                 else
                 {
+                    shootParticles.SetActive(true);
                     head.transform.LookAt(target.transform, Vector3.up);
                     RaycastHit hit;
                     if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
@@ -106,12 +111,14 @@ public class TerrainTurretController : MonoBehaviour
 
     public void DestroyDefenses()
     {
+        Instantiate(explosionParticles, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.GetComponentInParent<GroundEnemy>() != null && collider.tag != "CriticalBox" && collider.gameObject.layer != LayerMask.NameToLayer("EnemyAttack")) colliders.Add(collider);
+        if (collider.GetComponentInParent<TankEnemy>() != null && collider.tag != "CriticalBox" && collider.gameObject.layer != LayerMask.NameToLayer("EnemyAttack")) colliders.Add(collider);
         if (collider.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
             if (collider.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collider.gameObject.GetComponentInParent<GroundEnemy>().damage);
@@ -121,5 +128,6 @@ public class TerrainTurretController : MonoBehaviour
     private void OnTriggerExit(Collider collider)
     {
         if (collider.GetComponentInParent<GroundEnemy>() != null && collider.tag != "CriticalBox" && collider.gameObject.layer != LayerMask.NameToLayer("EnemyAttack")) colliders.Remove(collider);
+        if (collider.GetComponentInParent<TankEnemy>() != null && collider.tag != "CriticalBox" && collider.gameObject.layer != LayerMask.NameToLayer("EnemyAttack")) colliders.Remove(collider);
     }
 }

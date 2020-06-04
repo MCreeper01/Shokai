@@ -127,5 +127,6 @@ MonoBehaviour:
   delay: 3
   explosionRadius: 15
   force: 500
-  maxDamage: 100
-  maxDamageToPlayer: 50
+  maxDamage: 0
+  maxDamageToPlayer: 0
+  explosionParticles: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}

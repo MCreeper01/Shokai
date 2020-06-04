@@ -11,6 +11,8 @@ public class AirTurretController : MonoBehaviour
     public Transform pointShoot;
     public GameObject head;
     public SphereCollider impactZone;
+    public GameObject shootParticles;
+    public GameObject explosionParticles;
 
     public bool placed;
 
@@ -27,6 +29,7 @@ public class AirTurretController : MonoBehaviour
     void Start()
     {
         impactZone.radius = range;
+        shootParticles.SetActive(false);
         GameManager.instance.AddActiveDefense(gameObject);
     }
 
@@ -39,6 +42,7 @@ public class AirTurretController : MonoBehaviour
             if (target == null) hasTarget = false;
             if (!hasTarget)
             {
+                shootParticles.SetActive(false);
                 foreach (Collider nearbyObject in colliders)
                 {
                     target = nearbyObject.gameObject;
@@ -60,6 +64,7 @@ public class AirTurretController : MonoBehaviour
                 }
                 else
                 {
+                    shootParticles.SetActive(true);
                     head.transform.LookAt(target.transform, Vector3.up);
 
                     RaycastHit hit;
@@ -92,6 +97,7 @@ public class AirTurretController : MonoBehaviour
 
     public void DestroyDefenses()
     {
+        Instantiate(explosionParticles, transform.position, transform.rotation);
         Destroy(gameObject);
     }
 

@@ -147,19 +147,20 @@ MonoBehaviour:
   currentState: 0
   target: {fileID: 0}
   collPoint: {fileID: 3247009217353815680}
+  explosionParticles: {fileID: 100006, guid: 8b940ede2c20ec44ba870a2cdd277051, type: 3}
   health: 30
+  damage: 10
+  speed: 8
   player: {fileID: 0}
   initHealth: 50
   initSpeed: 8
   initDamage: 10
   minDistAttack: 2
   maxDistAttack: 3
-  damage: 10
-  speed: 8
   repathTime: 1
   fightRate: 1
   hitTime: 0
-  deathTime: 0
+  deathTime: 1
   hitIncome: 10
   criticalIncome: 20
   killIncome: 40
