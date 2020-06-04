@@ -9,13 +9,17 @@ public class PSShotgun : PlayerState
         pc.shooting = true;
         pc.muzzleFlashAR.Simulate(1);      
         pc.muzzleFlashShotgun.Play();
+        pc.anim.SetBool("shooting", true);
+        pc.anim.speed = 1;
     }
 
     public override void CheckTransition(PlayerController pc)
     {
         if (pc.shotgunShotted)
-        {
+        {           
             pc.shooting = false;
+            pc.anim.SetBool("shooting", false);
+            pc.anim.speed = 1;
             pc.ChangeState(new PSMovement(pc));
         } 
     }

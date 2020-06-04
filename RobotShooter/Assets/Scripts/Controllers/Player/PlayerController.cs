@@ -6,7 +6,7 @@ public class PlayerController : AController
 {
     private enum Weapon
     {
-        rifle,
+        rifle = 1,
         shotgun,
         launcher
     }
@@ -177,6 +177,9 @@ public class PlayerController : AController
         currentCooldownWaitToStart = playerModel.cooldownWaitToStart;
 
         StartCoroutine(RecoverShield());
+
+        actualWeapon = Weapon.rifle;
+        anim.SetInteger("weaponToChange", (int)actualWeapon);
 
         ChangeState(new PSMovement(this));
     }
@@ -493,7 +496,14 @@ public class PlayerController : AController
                 {
                     grenadesSlotNum = num;
                     grenadeAmmo = sInfo.charges;
-                    if (actualWeapon != Weapon.launcher) actualWeapon = Weapon.launcher;
+                    if (actualWeapon != Weapon.launcher)
+                    {
+                        pastWeapon = actualWeapon;
+                        actualWeapon = Weapon.launcher;
+                        anim.SetInteger("weaponToChange", (int)actualWeapon);
+                        anim.SetInteger("previousWeapon", (int)pastWeapon);
+                        anim.SetTrigger("changeWeapon");
+                    }
                     if (withDefense)
                     {
                         DestroyDefense();
@@ -527,7 +537,14 @@ public class PlayerController : AController
                 {
                     grenadesSlotNum = num;
                     grenadeAmmo = sInfo.charges;
-                    if (actualWeapon != Weapon.launcher) actualWeapon = Weapon.launcher;
+                    if (actualWeapon != Weapon.launcher)
+                    {
+                        pastWeapon = actualWeapon;
+                        actualWeapon = Weapon.launcher;
+                        anim.SetInteger("weaponToChange", (int)actualWeapon);
+                        anim.SetInteger("previousWeapon", (int)pastWeapon);
+                        anim.SetTrigger("changeWeapon");
+                    } 
                     if (withDefense)
                     {
                         DestroyDefense();
@@ -783,11 +800,13 @@ public class PlayerController : AController
 
     public void Shoot()
     {
-        float multiplier = 1;
+        float multiplier = 1;        
         switch (actualWeapon)
         {
             case Weapon.rifle:
+                anim.SetBool("shooting", true);
                 muzzleFlashAR.Play();
+                anim.speed = playerModel.fireRateAR;
                 nextTimeToFireAR = Time.time + 1 / playerModel.fireRateAR;
                 //StartCoroutine(EndMuzzle());
                 actualARShootCooldown = playerModel.shootARCooldown;
@@ -823,6 +842,7 @@ public class PlayerController : AController
                 }
                 break;
             case Weapon.shotgun:
+                anim.SetBool("shooting", true);
                 float damage;
                 nextTimeToFireShotgun = Time.time + 1 / playerModel.fireRateShotgun;
                 //StartCoroutine(EndMuzzle());
@@ -885,6 +905,7 @@ public class PlayerController : AController
                 }                
                 break;
             case Weapon.launcher:
+                anim.SetTrigger("shootGL");
                 if (hasNormalGrenade)
                 {
                     GameObject grenade = Instantiate(grenadePrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
@@ -895,16 +916,9 @@ public class PlayerController : AController
                     GameObject stickyGrenade = Instantiate(stickyGrenadePrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
                     stickyGrenade.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceLauncher * stickyGrenade.GetComponent<Rigidbody>().mass, ForceMode.VelocityChange);
                 }
-                ChangeGrenadeAmmo();
+                ChangeGrenadeAmmo();                
                 break;
         }       
-    }
-
-    public IEnumerator EndMuzzle()
-    {
-        yield return new WaitForSeconds(.03f);
-        //muzzleFlashAR.SetActive(false);
-        //muzzleFlashShotgun.SetActive(false);
     }
 
     public void ChangeGrenadeAmmo()
@@ -916,10 +930,11 @@ public class PlayerController : AController
 
     public void CheckWeaponToShoot()
     {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("ChangeRight") || anim.GetCurrentAnimatorStateInfo(0).IsName("ChangeLeft")) return;
         switch (actualWeapon)
-        {
+        {            
             case Weapon.rifle:
-                 if(CanShootAR()) ChangeState(new PSShoot(this));
+                 if(!saturatedAR) ChangeState(new PSShoot(this));
                 break;
             case Weapon.shotgun:
                 if (Time.time >= nextTimeToFireShotgun) ChangeState(new PSShotgun(this));
@@ -950,12 +965,6 @@ public class PlayerController : AController
 
             if (gc != null && gc.uiController != null && Time.time > 0.1f) gc.uiController.ChangeAROverheat(actualOverheat);
         }        
-    }
-
-    public bool CanShootAR()
-    {
-        if (!saturatedAR) return true;
-        else return true;
     }
 
     public bool CanShootShotgun()
@@ -991,21 +1000,25 @@ public class PlayerController : AController
         switch (actualWeapon)
         {
             case Weapon.rifle:
-                pastWeapon = Weapon.rifle;
+                pastWeapon = actualWeapon;
                 actualWeapon = Weapon.shotgun;
                 //animation
                 break;
             case Weapon.shotgun:
-                pastWeapon = Weapon.shotgun;
+                pastWeapon = actualWeapon;
                 actualWeapon = Weapon.rifle;
                 //animation
                 break;
             case Weapon.launcher:
                 actualWeapon = pastWeapon;
+                pastWeapon = Weapon.launcher;
                 ChangeState(new PSMovement(this));
                 //animation
                 break;
         }
+        anim.SetInteger("weaponToChange", (int)actualWeapon);
+        anim.SetInteger("previousWeapon", (int)pastWeapon);
+        anim.SetTrigger("changeWeapon");
     }
 
     public void Die()

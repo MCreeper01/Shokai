@@ -13,6 +13,7 @@ public class TerrainTurretController : MonoBehaviour
     public SphereCollider impactZone;
     public GameObject shootParticles;
     public GameObject explosionParticles;
+    public float angleThreshold;
 
     [HideInInspector] public bool placed;
 
@@ -63,7 +64,8 @@ public class TerrainTurretController : MonoBehaviour
                     targetRotation = Quaternion.LookRotation(relativePosition);
                     rotationTime += Time.deltaTime * speed;
                     head.transform.rotation = Quaternion.Lerp(head.transform.rotation, targetRotation, rotationTime);
-                    if (head.transform.rotation == targetRotation) rotating = false;
+                    if (Quaternion.Angle(head.transform.rotation, targetRotation) < angleThreshold ||
+                        Quaternion.Angle(head.transform.rotation, targetRotation) > -angleThreshold) rotating = false;
                 }
                 else
                 {
@@ -75,6 +77,7 @@ public class TerrainTurretController : MonoBehaviour
                         GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
                         if (gEnemy != null)
                         {
+                            Debug.Log("aaa");
                             gEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
                             if (gEnemy.health <= 0)
                             {

@@ -8,7 +8,9 @@ public class PSMovement : PlayerState {
     {
         //pc.rb2D.isKinematic = false;
         //pc.ator.SetInteger("State", 1);
-        //pc.counter = 0;      
+        //pc.counter = 0;     
+        pc.anim.SetBool("shooting", false);
+
     }
 
     public override void CheckTransition(PlayerController pc)

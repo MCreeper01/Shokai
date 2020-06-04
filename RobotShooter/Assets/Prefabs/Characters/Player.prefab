@@ -5148,7 +5148,7 @@ MonoBehaviour:
     type: 3}
   grenadePrefab: {fileID: 5609607751278844699, guid: ed394c242f8082141a99c7be4362be7f,
     type: 3}
-  stickyGrenadePrefab: {fileID: 2541946761492140400, guid: a932d876dbaf20d4ca70924681dbee4f,
+  stickyGrenadePrefab: {fileID: 5991972100912420048, guid: a932d876dbaf20d4ca70924681dbee4f,
     type: 3}
   bulletSpawner: {fileID: 2352069270082064662}
   EMP: {fileID: 4632898359071347584, guid: d906e349970ad32429b4e0794cc68ac1, type: 3}

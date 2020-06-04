@@ -11,7 +11,11 @@ public class PSGrenadeLauncher : PlayerState
 
     public override void CheckTransition(PlayerController pc)
     {
-        if (pc.grenadeAmmo <= 0 || Input.GetKeyDown(pc.playerModel.changeWeaponKey) || Input.GetMouseButtonDown(pc.playerModel.alternativeChangeWeapon)) pc.ChangeWeapon();
+        if (pc.grenadeAmmo <= 0 || Input.GetKeyDown(pc.playerModel.changeWeaponKey) || Input.GetMouseButtonDown(pc.playerModel.alternativeChangeWeapon))
+        {
+            pc.anim.speed = 1;
+            pc.ChangeWeapon();
+        } 
     }
 
     public override void FixedUpdate(PlayerController pc)

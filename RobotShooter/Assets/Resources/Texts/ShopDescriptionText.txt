@@ -1,10 +1,10 @@
 
-jetpack
-granade
-laser
-sticky grenade
-instant health
-emp
-mine
-terrain turret
-aerial turret
+Jetpack: Strong vertical impulse that positions you above your enemies.
+Grenade: Simple grenade that explodes after a few seconds.
+Deathly Laser: Strong laser that destroys everything on its path.
+Sticky Grenade: Sticky grenade that sticks to any surface or enemy, it explodes after a few seconds.
+Instant Health: Instant healing burst (no affect on shield).
+EMP: Area stun to all nearby enemies.
+Explosive Mine: Explosive trap that activates when an enemy is very close.
+Terrestrial Turret: Tactical turret that shoot at any nearby enemy on the ground.
+Anti Aerial Turret: Tactical turret that shoot at any nearby enemy on the air.

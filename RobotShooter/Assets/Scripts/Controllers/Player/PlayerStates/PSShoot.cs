@@ -14,6 +14,8 @@ public class PSShoot : PlayerState
         if (Input.GetMouseButtonUp(pc.playerModel.mouseShootButton) || pc.actualOverheat >= pc.playerModel.maxOverheatAR)
         {
             pc.shooting = false;
+            pc.anim.SetBool("shooting", false);      
+            pc.anim.speed = 1;
             pc.ChangeState(new PSMovement(pc));
             pc.waitCooldown = true;
         } 
@@ -30,7 +32,7 @@ public class PSShoot : PlayerState
         pc.Aim();
         pc.actualARShootCooldown -= Time.deltaTime;
         pc.CheckHabilities();
-        if (Time.time >= pc.nextTimeToFireAR) pc.Shoot(); 
+        if (Time.time >= pc.nextTimeToFireAR && !pc.saturatedAR) pc.Shoot(); 
         
     }
 }
