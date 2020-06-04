@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   bullet: {fileID: 4894394961908713746, guid: 33af94cc4f0d61245bbdb62b11fc2fad, type: 3}
+  explosionParticles: {fileID: 100006, guid: 8b940ede2c20ec44ba870a2cdd277051, type: 3}
   Cannons:
   - {fileID: 16704196612021215}
   - {fileID: 2649581500777947027}
