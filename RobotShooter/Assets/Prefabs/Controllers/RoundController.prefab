@@ -55,19 +55,19 @@ MonoBehaviour:
     enemyPrefab: {fileID: 4184781122242838256, guid: bd47eeb6fa33c63498686dfd30a197c4,
       type: 3}
     enemyParent: {fileID: 0}
-    enemyMaxAmount: 100
+    enemyMaxAmount: 50
     dimension: 0
   - name: TankEnemy
     enemyPrefab: {fileID: 231444216441898315, guid: abca456ac3feae745818621be0c185cb,
       type: 3}
     enemyParent: {fileID: 0}
-    enemyMaxAmount: 100
+    enemyMaxAmount: 50
     dimension: 0
   - name: AirEnemy
     enemyPrefab: {fileID: 1648941882108322435, guid: ead79470606c4684ba9854d079d8cf69,
       type: 3}
     enemyParent: {fileID: 0}
-    enemyMaxAmount: 100
+    enemyMaxAmount: 50
     dimension: 1
   groundedEnemySpawners:
   - {fileID: 0}

@@ -198,12 +198,7 @@ public class FlyingEnemy : MonoBehaviour
                 Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);
                 break;
-        }
-
-        void DisableEnemy()
-        {
-            gameObject.SetActive(false);
-        }
+        }        
 
         switch (newState)
         {
@@ -232,6 +227,7 @@ public class FlyingEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);
                 break;
         }
@@ -240,8 +236,7 @@ public class FlyingEnemy : MonoBehaviour
     }
 
     void DisableEnemy()
-    {
-        Instantiate(explosionParticles, transform.position, transform.rotation);
+    {        
         gameObject.SetActive(false);
     }
 
