@@ -10,7 +10,7 @@ public class GroundEnemy : MonoBehaviour
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
-    Rigidbody rb;
+    //Rigidbody rb;
     Animator anim;
     [HideInInspector]
     public GameObject target;
@@ -68,7 +68,7 @@ public class GroundEnemy : MonoBehaviour
         //player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         target = player.gameObject;
         agent.speed = speed;
@@ -134,21 +134,21 @@ public class GroundEnemy : MonoBehaviour
             case State.CHASE:
                 CancelInvoke("GoToTarget");
                 agent.enabled = false;
-                //anim.SetBool("Moving", false);
+                anim.SetBool("Moving", false);
                 break;
             case State.ATTACK:
-                //anim.SetBool("Attacking", false);
-                rb.constraints = RigidbodyConstraints.None;
+                anim.SetBool("Attacking", false);
+                //rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 StopCoroutine("ActivateCollider");
                 break;
             case State.HIT:
-                rb.constraints = RigidbodyConstraints.None;
+                //rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
             case State.STUNNED:
-                //anim.SetBool("Stunned", false);
-                rb.constraints = RigidbodyConstraints.None;
+                anim.SetBool("Stunned", false);
+                //rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
             case State.DEATH:                
@@ -158,26 +158,26 @@ public class GroundEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                //anim.SetBool("Moving", true);
+                anim.SetBool("Moving", true);
                 agent.enabled = true;                
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
-                //anim.SetBool("Attacking", true);
-                rb.constraints = RigidbodyConstraints.FreezePosition;
-                rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+                anim.SetBool("Attacking", true);
+                //rb.constraints = RigidbodyConstraints.FreezePosition;
+                //rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 obstacle.enabled = true;
                 StartCoroutine("ActivateCollider");
                 break;
             case State.HIT:
-                rb.constraints = RigidbodyConstraints.FreezeAll;
+                //rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 GameManager.instance.player.IncreaseCash(hitIncome);
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
-                //anim.SetBool("Stunned", true);
-                rb.constraints = RigidbodyConstraints.FreezeAll;
+                anim.SetBool("Stunned", true);
+                //rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
                 break;

@@ -85,7 +85,7 @@ public class GraphMaker : MonoBehaviour
             }
         }
 
-        Debug.Log(Graph.Count);
+        //Debug.Log(Graph.Count);
     }
 
     void CrearCircleGrid()
@@ -204,19 +204,16 @@ public class GraphMaker : MonoBehaviour
 
     public void OnDrawGizmosSelected()
     {
-        if (Graph.Count > 0)
+        if (Graph != null)
         {
-            foreach (Node n in Graph)
+            if (Graph.Count > 0)
             {
-                Gizmos.color = Color.blue;
-                Gizmos.DrawWireSphere(n.position, 0.2f);
+                foreach (Node n in Graph)
+                {
+                    Gizmos.color = Color.blue;
+                    Gizmos.DrawWireSphere(n.position, 0.2f);
+                }
             }
-            /*foreach (Connection c in Graph[0].Connections)
-            {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawLine(Graph[0].position, c.successor.position);
-                Debug.Log(c.cost);
-            }*/
-        }
+        }        
     }
 }

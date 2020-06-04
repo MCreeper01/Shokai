@@ -326,7 +326,6 @@ MonoBehaviour:
   geometryLayer: 9
   gridWorldSize: {x: 20, y: 40, z: 20}
   floorElevation: 1
-  go: {fileID: 11400000, guid: 64b3d34c512fd7d4f9cf8e0805b3c3d5, type: 2}
 --- !u!4 &678431636
 Transform:
   m_ObjectHideFlags: 0
@@ -802,6 +801,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af2b143b9ec16804ebc8fc3044b308cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 0}
 --- !u!4 &1459017010
 Transform:
   m_ObjectHideFlags: 0
@@ -1212,7 +1212,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ba324426239e65d4fb29b181fe7c7231, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1600,7 +1600,7 @@ PrefabInstance:
     - target: {fileID: 4896865318677097886, guid: cf0dbc8545edfb141a85b5c929a9191d,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4896865318677097956, guid: cf0dbc8545edfb141a85b5c929a9191d,
         type: 3}
@@ -1725,6 +1725,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: EnemyTank
+      objectReference: {fileID: 0}
+    - target: {fileID: 3345021022019120118, guid: 938f9637319c9a448978d17d8f19fb43,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 938f9637319c9a448978d17d8f19fb43, type: 3}
