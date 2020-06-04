@@ -17,6 +17,7 @@ public class GroundEnemy : MonoBehaviour
     float empTimeStun;
 
     public GameObject collPoint;
+    public GameObject explosionParticles;
     [HideInInspector] public float health;
     [HideInInspector] public float damage;
     [HideInInspector] public float speed;
@@ -184,6 +185,7 @@ public class GroundEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);
                 break;
         }

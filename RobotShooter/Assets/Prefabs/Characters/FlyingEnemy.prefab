@@ -279,6 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   bullet: {fileID: 909655672932287967, guid: 360402765aaed7d44aa167fc0d401fb8, type: 3}
+  explosionParticles: {fileID: 100006, guid: 8b940ede2c20ec44ba870a2cdd277051, type: 3}
   cannon: {fileID: 8822242107592774100}
   mask:
     serializedVersion: 2
@@ -286,21 +287,21 @@ MonoBehaviour:
   player: {fileID: 0}
   target: {fileID: 0}
   health: 100
+  damage: 5
+  speed: 10
   initHealth: 30
   initSpeed: 10
   initDamage: 5
-  damage: 5
   minDistAttack: 15
   maxDistAttack: 20
   goBackDist: 6
-  speed: 10
   fireRate: 1
   repathTime: 5
   hitIncome: 5
   criticalIncome: 10
   killIncome: 20
   hitTime: 0
-  deathTime: 0
+  deathTime: 1
   targetRadiusDetection: 1000
   healthInc: 10
   damageInc: 5
