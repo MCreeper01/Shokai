@@ -49,6 +49,8 @@ public class PlayerModel : ScriptableObject
     public float jumpSpeed;
     public float verticalGlideSpeed;
     public float stepOffset;
+    public int slopeRayDist;
+    public int slopeForce;
 
     [Header("SHOOT")]
     public KeyCode changeWeaponKey;
@@ -59,6 +61,7 @@ public class PlayerModel : ScriptableObject
 
     [Header("ASSAULT RIFLE")]
     public float damageAR;
+    public float fireRateAR;
     public float shootARCooldown;
     public float rangeAR; 
     public float shootForceAR;
@@ -68,6 +71,7 @@ public class PlayerModel : ScriptableObject
     public float overHeatSlowReload;
 
     [Header("SHOTGUN")]
+    public float fireRateShotgun;
     public float shootShotgunCooldown;
     public float rangeShotgun;
     public float shotgunDamage;

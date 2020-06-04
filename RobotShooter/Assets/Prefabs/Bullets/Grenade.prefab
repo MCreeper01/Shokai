@@ -127,4 +127,5 @@ MonoBehaviour:
   delay: 3
   explosionRadius: 15
   force: 500
-  damage: 50
+  maxDamage: 100
+  maxDamageToPlayer: 50

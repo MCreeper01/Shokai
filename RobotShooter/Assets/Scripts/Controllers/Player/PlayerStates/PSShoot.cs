@@ -30,10 +30,7 @@ public class PSShoot : PlayerState
         pc.Aim();
         pc.actualARShootCooldown -= Time.deltaTime;
         pc.CheckHabilities();
-        if (pc.actualARShootCooldown <= 0)
-        {
-            pc.Shoot();
-        } 
+        if (Time.time >= pc.nextTimeToFireAR) pc.Shoot(); 
         
     }
 }

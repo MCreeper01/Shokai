@@ -25,7 +25,10 @@ public class TankBullet : MonoBehaviour
     void Update()
     {
         t -= Time.deltaTime;
-        if (t <= 0) gameObject.SetActive(false);
+        if (t <= 0)
+        {
+            gameObject.SetActive(false);
+        } 
 
         transform.position += transform.forward * speed * Time.deltaTime;
     }
@@ -35,33 +38,91 @@ public class TankBullet : MonoBehaviour
         if (collider.tag == "Player")
         {
             collider.GetComponent<PlayerController>().TakeDamage(damage, 0);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                PlayerController pc = colliders[i].GetComponent<PlayerController>();
+
+                if (pc != null) pc.TakeDamage(damage, 0);
+                else
+                {
+                    TerrainTurretController tTurret = colliders[i].GetComponent<TerrainTurretController>();
+                    if (tTurret != null) tTurret.TakeDamage(damage);
+                    else
+                    {
+                        AirTurretController aTurret = colliders[i].GetComponent<AirTurretController>();
+                        if (aTurret != null) aTurret.TakeDamage(damage);
+                    }
+                }
+            }
+            gameObject.SetActive(false);
         }
         if (collider.tag == "AirTurret")
         {
             collider.GetComponent<AirTurretController>().TakeDamage(damage);
+            Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                PlayerController pc = colliders[i].GetComponent<PlayerController>();
+
+                if (pc != null) pc.TakeDamage(damage, 0);
+                else
+                {
+                    TerrainTurretController tTurret = colliders[i].GetComponent<TerrainTurretController>();
+                    if (tTurret != null) tTurret.TakeDamage(damage);
+                    else
+                    {
+                        AirTurretController aTurret = colliders[i].GetComponent<AirTurretController>();
+                        if (aTurret != null) aTurret.TakeDamage(damage);
+                    }
+                }
+            }
+            gameObject.SetActive(false);
         }
         if (collider.tag == "GroundTurret")
         {
             collider.GetComponent<TerrainTurretController>().TakeDamage(damage);
-        }
-
-        Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            PlayerController pc = colliders[i].GetComponent<PlayerController>();
-
-            if (pc != null) pc.TakeDamage(damage, 0);
-            else
+            Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+            for (int i = 0; i < colliders.Length; i++)
             {
-                TerrainTurretController tTurret = colliders[i].GetComponent<TerrainTurretController>();
-                if (tTurret != null) tTurret.TakeDamage(damage);
+                PlayerController pc = colliders[i].GetComponent<PlayerController>();
+
+                if (pc != null) pc.TakeDamage(damage, 0);
                 else
                 {
-                    AirTurretController aTurret = colliders[i].GetComponent<AirTurretController>();
-                    if (aTurret != null) aTurret.TakeDamage(damage);
+                    TerrainTurretController tTurret = colliders[i].GetComponent<TerrainTurretController>();
+                    if (tTurret != null) tTurret.TakeDamage(damage);
+                    else
+                    {
+                        AirTurretController aTurret = colliders[i].GetComponent<AirTurretController>();
+                        if (aTurret != null) aTurret.TakeDamage(damage);
+                    }
                 }
             }
+            gameObject.SetActive(false);
         }
-        gameObject.SetActive(false);
+        if (collider.gameObject.layer == LayerMask.NameToLayer("Geometry"))
+        {
+            Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
+            for (int i = 0; i < colliders.Length; i++)
+            {
+                PlayerController pc = colliders[i].GetComponent<PlayerController>();
+
+                if (pc != null) pc.TakeDamage(damage, 0);
+                else
+                {
+                    TerrainTurretController tTurret = colliders[i].GetComponent<TerrainTurretController>();
+                    if (tTurret != null) tTurret.TakeDamage(damage);
+                    else
+                    {
+                        AirTurretController aTurret = colliders[i].GetComponent<AirTurretController>();
+                        if (aTurret != null) aTurret.TakeDamage(damage);
+                    }
+                }
+            }
+            gameObject.SetActive(false);
+        } 
+
+               
     }
 }

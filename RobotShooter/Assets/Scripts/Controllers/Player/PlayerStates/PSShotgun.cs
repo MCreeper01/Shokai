@@ -7,6 +7,8 @@ public class PSShotgun : PlayerState
     public PSShotgun(PlayerController pc)
     {
         pc.shooting = true;
+        pc.muzzleFlashAR.Simulate(1);      
+        pc.muzzleFlashShotgun.Play();
     }
 
     public override void CheckTransition(PlayerController pc)
@@ -25,6 +27,7 @@ public class PSShotgun : PlayerState
 
     public override void Update(PlayerController pc)
     {
+        if (!pc.muzzleFlashShotgun.isPlaying) pc.muzzleFlashShotgun.Play();
         pc.Move();
         pc.Aim();
         pc.Shoot();
