@@ -192,8 +192,6 @@ public class FlyingEnemy : MonoBehaviour
                 anim.SetBool("Stunned", false);
                 break;
             case State.DEATH:
-                Instantiate(explosionParticles, transform.position, transform.rotation);
-                Invoke("DisableEnemy", deathTime);
                 break;
         }        
 
@@ -221,6 +219,7 @@ public class FlyingEnemy : MonoBehaviour
                 Invoke("ChangeToChase", empTimeStun);
                 break;
             case State.DEATH:
+                CancelInvoke("InstanceBullet");
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
                 AudioManager.instance.PlayOneShotSound("DeadExplosion", transform);
@@ -304,14 +303,17 @@ public class FlyingEnemy : MonoBehaviour
 
     void InstanceBullet()
     {
-        GameObject b;
-        //b = Instantiate(bullet, cannon.position, Quaternion.identity);
-        b = GameManager.instance.objectPoolerManager.airEnemyBulletOP.GetPooledObject();
-        b.transform.position = cannon.position;
-        b.transform.forward = player.transform.position - transform.position;
-        b.GetComponent<EnemyBullet>().damage = damage;
-        b.SetActive(true);
-        AudioManager.instance.PlayOneShotSound("ShootEnergyBall", transform.position);
+        if (gameObject.activeInHierarchy)
+        {
+            GameObject b;
+            //b = Instantiate(bullet, cannon.position, Quaternion.identity);
+            b = GameManager.instance.objectPoolerManager.airEnemyBulletOP.GetPooledObject();
+            b.transform.position = cannon.position;
+            b.transform.forward = player.transform.position - transform.position;
+            b.GetComponent<EnemyBullet>().damage = damage;
+            b.SetActive(true);
+            //AudioManager.instance.PlayOneShotSound("ShootEnergyBall", transform.position);
+        }
     }
 
     public static GameObject FindInstanceWithinRadius(GameObject me, string tag, string tag2, string tag3, float radius)
