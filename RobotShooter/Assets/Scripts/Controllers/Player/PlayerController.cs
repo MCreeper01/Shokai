@@ -931,7 +931,7 @@ public class PlayerController : AController
                 }
             }
 
-            if (gc.uiController != null && Time.time > 0.1f) gc.uiController.ChangeAROverheat(actualOverheat);
+            if (gc != null && gc.uiController != null && Time.time > 0.1f) gc.uiController.ChangeAROverheat(actualOverheat);
         }        
     }
 
