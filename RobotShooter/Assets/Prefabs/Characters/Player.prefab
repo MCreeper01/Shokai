@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3935160866441966661}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MuzzleFlashShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4983098684039794303}
   - component: {fileID: 8464135386282667620}
   - component: {fileID: 109062097026608516}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MuzzleFlashShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5516,7 +5516,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8017840075642534353}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MuzzleFlashAR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5549,7 +5549,7 @@ GameObject:
   - component: {fileID: 8017840075686481223}
   - component: {fileID: 8017840075686481241}
   - component: {fileID: 8017840075686481240}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MuzzleFlashAR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10620,6 +10620,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 11912e80efa14ea4fa9d32142202e9f5, type: 2}
+    - target: {fileID: -7937639134526729970, guid: 27c8e47ce03fe594a89c05b8eecf8332,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: -7904608223841607268, guid: 27c8e47ce03fe594a89c05b8eecf8332,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: -6529896895058690524, guid: 27c8e47ce03fe594a89c05b8eecf8332,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 27c8e47ce03fe594a89c05b8eecf8332,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10705,6 +10720,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Weapon
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 27c8e47ce03fe594a89c05b8eecf8332,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: 119816045129226227, guid: 27c8e47ce03fe594a89c05b8eecf8332,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -10720,11 +10740,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 2bbe7551fdc02b544ab5ba0a5b58f0b1, type: 2}
+    - target: {fileID: 3583927446293882072, guid: 27c8e47ce03fe594a89c05b8eecf8332,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994717555594529010, guid: 27c8e47ce03fe594a89c05b8eecf8332,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: 8412516483601674962, guid: 27c8e47ce03fe594a89c05b8eecf8332,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 8571529aec7245347afafac60c220ad3, type: 2}
+    - target: {fileID: 8523296277722435538, guid: 27c8e47ce03fe594a89c05b8eecf8332,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27c8e47ce03fe594a89c05b8eecf8332, type: 3}
 --- !u!1 &8124455018346287785 stripped
