@@ -159,6 +159,7 @@ public class GroundEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
+                //AudioManager.instance.PlayEvent("LevitationSound", transform);
                 anim.SetBool("Moving", true);
                 agent.enabled = true;                
                 InvokeRepeating("GoToTarget", 0, repathTime);
@@ -171,6 +172,7 @@ public class GroundEnemy : MonoBehaviour
                 StartCoroutine("ActivateCollider");
                 break;
             case State.HIT:
+                AudioManager.instance.PlayOneShotSound("NormalHit", transform);
                 //rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 GameManager.instance.player.IncreaseCash(hitIncome);
@@ -185,6 +187,7 @@ public class GroundEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                AudioManager.instance.PlayOneShotSound("DeadExplosion", transform);
                 Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);
                 break;

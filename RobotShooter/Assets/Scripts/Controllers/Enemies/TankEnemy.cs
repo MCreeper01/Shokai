@@ -137,17 +137,23 @@ public class TankEnemy : MonoBehaviour
                 Vector3 tPos1 = (new Vector3(target.transform.position.x, target.transform.position.y - 1, target.transform.position.z) - Arms[1].position).normalized;
                 if (tPos0.y >= 0)
                 {
-                    Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/-Vector3.Angle(transform.forward, tPos0)/*, 89, -89)*/, 0, 0), Time.deltaTime * rotSpeedArms);
-                    //Arms[0].localRotation = Quaternion.Euler(Mathf.Clamp(-Vector3.Angle(transform.forward, tPos0), 5, -89), 0, 0);
-                    Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/-Vector3.Angle(transform.forward, tPos1)/*, 5, -89)*/, 0, 0), Time.deltaTime * rotSpeedArms);
-                    //Arms[1].localRotation = Quaternion.Euler(Mathf.Clamp(-Vector3.Angle(transform.forward, tPos1), 5, -89), 0, 0);
+                    //if (Arms[0].localPosition > 0)
+                    //{
+                        Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/-Vector3.Angle(transform.forward, tPos0)/*, 89, -89)*/, 0, 0), Time.deltaTime * rotSpeedArms);
+                        //Arms[0].localRotation = Quaternion.Euler(Mathf.Clamp(-Vector3.Angle(transform.forward, tPos0), 5, -89), 0, 0);
+                        Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/-Vector3.Angle(transform.forward, tPos1)/*, 5, -89)*/, 0, 0), Time.deltaTime * rotSpeedArms);
+                        //Arms[1].localRotation = Quaternion.Euler(Mathf.Clamp(-Vector3.Angle(transform.forward, tPos1), 5, -89), 0, 0);
+                    //}
                 }
                 else
                 {
-                    Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/Vector3.Angle(transform.forward, tPos0)/*, -89f, 89f)*/, 0, 0), Time.deltaTime * rotSpeedArms);
-                    //Arms[0].localRotation = Quaternion.Euler(Mathf.Clamp(Vector3.Angle(transform.forward, tPos0), -5f, 89f), 0, 0);
-                    Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/Vector3.Angle(transform.forward, tPos1)/*, -5f, 89f)*/, 0, 0), Time.deltaTime * rotSpeedArms);
-                    //Arms[1].localRotation = Quaternion.Euler(Mathf.Clamp(Vector3.Angle(transform.forward, tPos1), -5f, 89f), 0, 0);
+                    //if (Arms[0].localRotation.x < 50)
+                    //{
+                        Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(Vector3.Angle(transform.forward, tPos0), 0, 0), Time.deltaTime * rotSpeedArms);
+                        //Arms[0].localRotation = Quaternion.Euler(Mathf.Clamp(Vector3.Angle(transform.forward, tPos0), -5f, 89f), 0, 0);
+                        Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/Vector3.Angle(transform.forward, tPos1)/*, -5f, 89f)*/, 0, 0), Time.deltaTime * rotSpeedArms);
+                        //Arms[1].localRotation = Quaternion.Euler(Mathf.Clamp(Vector3.Angle(transform.forward, tPos1), -5f, 89f), 0, 0);
+                    //}
                 }
 
                 /*if (tPos0.x < 0 && tPos0.z < 0)
@@ -212,8 +218,7 @@ public class TankEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                //Arms[0].localRotation = Quaternion.Euler(90, 0, 0);
-                //Arms[1].localRotation = Quaternion.Euler(90, 0, 0);
+                //AudioManager.instance.PlayEvent("HeavyLevitationSound", transform);
                 agent.enabled = true;
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
@@ -225,11 +230,19 @@ public class TankEnemy : MonoBehaviour
                 obstacle.enabled = true;
                 InvokeRepeating("InstanceBullet", 0.3f, fireRate);
                 break;
-            case State.HIT:
+            case State.HIT:                
                 //rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
-                if (hittedByAR) GameManager.instance.player.IncreaseCash(punishHitIncome);
-                else GameManager.instance.player.IncreaseCash(hitIncome);
+                if (hittedByAR)
+                {
+                    GameManager.instance.player.IncreaseCash(punishHitIncome);
+                    AudioManager.instance.PlayOneShotSound("BlockedHit", transform);
+                }
+                else
+                {
+                    GameManager.instance.player.IncreaseCash(hitIncome);
+                    AudioManager.instance.PlayOneShotSound("NormalHit", transform);
+                }
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
@@ -241,6 +254,7 @@ public class TankEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                AudioManager.instance.PlayOneShotSound("DeadExplosion", transform.position);
                 Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);
                 break;
@@ -349,7 +363,6 @@ public class TankEnemy : MonoBehaviour
             b.transform.position = Cannons[0].position;
             b.transform.forward = Arms[0].forward;
             b.SetActive(true);
-            //AudioManager.instance.PlayOneShotSound("", b.transform);
         }
         else
         {
@@ -358,9 +371,8 @@ public class TankEnemy : MonoBehaviour
             b.transform.position = Cannons[1].position;
             b.transform.forward = Arms[1].forward;
             b.SetActive(true);
-            //AudioManager.instance.PlayOneShotSound("", b.transform);
         }
-
+        AudioManager.instance.PlayOneShotSound("PlasmaBallShot", b.transform.position);
         b.GetComponent<TankBullet>().damage = damage;
         rightCannon = !rightCannon;
     }

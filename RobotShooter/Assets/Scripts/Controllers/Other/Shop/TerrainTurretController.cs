@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
 
 public class TerrainTurretController : MonoBehaviour
 {
@@ -25,6 +26,7 @@ public class TerrainTurretController : MonoBehaviour
     private float rotationTime;
     private Quaternion targetRotation;
     private bool rotating = false;
+    private EventInstance shotSound;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +46,7 @@ public class TerrainTurretController : MonoBehaviour
             if (!hasTarget)
             {
                 shootParticles.SetActive(false);
+                //AudioManager.instance.Stop(shotSound);
                 if (colliders.Count > 0)
                 {
                     foreach (Collider nearbyObject in colliders)
@@ -71,6 +74,8 @@ public class TerrainTurretController : MonoBehaviour
                 {
                     shootParticles.SetActive(true);
                     head.transform.LookAt(target.transform, Vector3.up);
+                    //shotSound = AudioManager.instance.PlayEvent("TurretShot", transform.position);
+
                     RaycastHit hit;
                     if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
                     {
