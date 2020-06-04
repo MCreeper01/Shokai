@@ -12,11 +12,11 @@ public class GraphEditor : Editor
         GraphMaker g = (GraphMaker)target;
         DrawDefaultInspector();
         if (GUILayout.Button("Bake"))
-        {
+        {/*
             g.CrearNodes();
             g.CrearConnexions();
             AssetDatabase.SaveAssets();
-            Debug.Log(AssetDatabase.GetAssetPath(g.go));
+            Debug.Log(AssetDatabase.GetAssetPath(g.go));*/
         }
     }
 }

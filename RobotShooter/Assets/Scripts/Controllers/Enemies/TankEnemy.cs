@@ -10,7 +10,7 @@ public class TankEnemy : MonoBehaviour
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
-    Rigidbody rb;
+    //Rigidbody rb;
     Animator anim;
     PlayerController player;
     //GameObject player;
@@ -49,7 +49,8 @@ public class TankEnemy : MonoBehaviour
     public int criticalIncome;
     public int killIncome;
     public float targetRadiusDetection;
-    public float rotSpeed;
+    public float rotSpeedCharacter;
+    public float rotSpeedArms;
 
     [Header("StatIncrements")]
     public float healthInc;
@@ -77,7 +78,7 @@ public class TankEnemy : MonoBehaviour
     {
         player = GameManager.instance.player;
         //player = GameObject.FindGameObjectWithTag("Player");
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
@@ -103,14 +104,19 @@ public class TankEnemy : MonoBehaviour
                     ChangeState(State.CHASE);
                     break;
                 }
-                if (DistanceToTargetSquared(gameObject, target) <= minDistAttack * minDistAttack && !PlayerHitLeft() && !PlayerHitRight())
+                if (DistanceToTargetSquared(gameObject, target) <= minDistAttack * minDistAttack)
                 {
-                    ChangeState(State.ATTACK);
-                    break;
+                    if (!PlayerHitLeft() && !PlayerHitRight())
+                    {
+                        ChangeState(State.ATTACK);
+                        break;
+                    }                    
                 }
-                //transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
-                Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeed * Time.deltaTime, 0.0f);
-                transform.rotation = Quaternion.LookRotation(newDirectionChase);
+                transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
+                //Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeedCharacter * Time.deltaTime, 0.0f);
+                //transform.rotation = Quaternion.LookRotation(newDirectionChase);
+                Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(90, 0, 0), Time.deltaTime * rotSpeedArms);
+                Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(90, 0, 0), Time.deltaTime * rotSpeedArms);
                 break;
             case State.ATTACK:
                 if (target == null)
@@ -124,21 +130,25 @@ public class TankEnemy : MonoBehaviour
                     break;
                 }
                 //transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
-                Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeed * Time.deltaTime, 0.0f);
+                Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeedCharacter * Time.deltaTime, 0.0f);
                 transform.rotation = Quaternion.LookRotation(newDirectionAttack);
 
                 Vector3 tPos0 = (new Vector3(target.transform.position.x, target.transform.position.y - 1, target.transform.position.z) - Arms[0].position).normalized;
                 Vector3 tPos1 = (new Vector3(target.transform.position.x, target.transform.position.y - 1, target.transform.position.z) - Arms[1].position).normalized;
                 if (tPos0.y >= 0)
                 {
-                    Arms[0].localRotation = Quaternion.Euler(-Vector3.Angle(transform.forward, tPos0), 0, 0);
-                    Arms[1].localRotation = Quaternion.Euler(-Vector3.Angle(transform.forward, tPos1), 0, 0);
+                    Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/-Vector3.Angle(transform.forward, tPos0)/*, 89, -89)*/, 0, 0), Time.deltaTime * rotSpeedArms);
+                    //Arms[0].localRotation = Quaternion.Euler(Mathf.Clamp(-Vector3.Angle(transform.forward, tPos0), 5, -89), 0, 0);
+                    Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/-Vector3.Angle(transform.forward, tPos1)/*, 5, -89)*/, 0, 0), Time.deltaTime * rotSpeedArms);
+                    //Arms[1].localRotation = Quaternion.Euler(Mathf.Clamp(-Vector3.Angle(transform.forward, tPos1), 5, -89), 0, 0);
                 }
                 else
                 {
-                    Arms[0].localRotation = Quaternion.Euler(Vector3.Angle(transform.forward, tPos0), 0, 0);
-                    Arms[1].localRotation = Quaternion.Euler(Vector3.Angle(transform.forward, tPos1), 0, 0);
-                }                
+                    Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/Vector3.Angle(transform.forward, tPos0)/*, -89f, 89f)*/, 0, 0), Time.deltaTime * rotSpeedArms);
+                    //Arms[0].localRotation = Quaternion.Euler(Mathf.Clamp(Vector3.Angle(transform.forward, tPos0), -5f, 89f), 0, 0);
+                    Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/Vector3.Angle(transform.forward, tPos1)/*, -5f, 89f)*/, 0, 0), Time.deltaTime * rotSpeedArms);
+                    //Arms[1].localRotation = Quaternion.Euler(Mathf.Clamp(Vector3.Angle(transform.forward, tPos1), -5f, 89f), 0, 0);
+                }
 
                 /*if (tPos0.x < 0 && tPos0.z < 0)
                 {
@@ -176,23 +186,22 @@ public class TankEnemy : MonoBehaviour
             case State.CHASE:                
                 CancelInvoke("GoToTarget");
                 agent.enabled = false;
-                //anim.SetBool("Moving", false);
                 break;
             case State.ATTACK:
                 //rb.useGravity = false;
-                rb = gameObject.AddComponent<Rigidbody>();
-                rb.mass = 10;
-                rb.useGravity = false;
+                //rb = gameObject.AddComponent<Rigidbody>();
+                //rb.mass = 10;
+                //rb.useGravity = false;
                 obstacle.enabled = false;
                 CancelInvoke("InstanceBullet");
                 break;
             case State.HIT:
-                rb.constraints = RigidbodyConstraints.None;
+                //rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
             case State.STUNNED:
-                //anim.SetBool("Stunned", false);
-                rb.constraints = RigidbodyConstraints.None;
+                anim.SetBool("Stunned", false);
+                //rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
             case State.DEATH:
@@ -203,30 +212,29 @@ public class TankEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                Arms[0].localRotation = Quaternion.Euler(90, 0, 0);
-                Arms[1].localRotation = Quaternion.Euler(90, 0, 0);
-                //anim.SetBool("Moving", true);
+                //Arms[0].localRotation = Quaternion.Euler(90, 0, 0);
+                //Arms[1].localRotation = Quaternion.Euler(90, 0, 0);
                 agent.enabled = true;
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
                 //rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePosition;
                 //rb.useGravity = true;
-                Destroy(rb);
-                rb.constraints = RigidbodyConstraints.FreezePosition;
+                //Destroy(rb);
+                //rb.constraints = RigidbodyConstraints.FreezePosition;
                 obstacle.enabled = true;
                 InvokeRepeating("InstanceBullet", 0.3f, fireRate);
                 break;
             case State.HIT:
-                rb.constraints = RigidbodyConstraints.FreezeAll;
+                //rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 if (hittedByAR) GameManager.instance.player.IncreaseCash(punishHitIncome);
                 else GameManager.instance.player.IncreaseCash(hitIncome);
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
-                //anim.SetBool("Stunned", true);
-                rb.constraints = RigidbodyConstraints.FreezeAll;
+                anim.SetBool("Stunned", true);
+                //rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
                 break;

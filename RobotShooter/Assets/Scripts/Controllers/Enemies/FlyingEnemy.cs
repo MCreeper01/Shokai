@@ -51,11 +51,11 @@ public class FlyingEnemy : MonoBehaviour
     [HideInInspector] public Vector3 direction;
     float elapsedTime = 0;
 
-    Ray[] rays;
-    Ray playerRay;
-    RaycastHit rayHit;
-    NavMeshHit hit;
-    float height;
+    //Ray[] rays;
+    //Ray playerRay;
+    //RaycastHit rayHit;
+    //NavMeshHit hit;
+    //float height;
     float empTimeStun;
 
 
@@ -83,8 +83,6 @@ public class FlyingEnemy : MonoBehaviour
     {
         player = GameManager.instance.player;
         //player = GameObject.FindGameObjectWithTag("Player");
-
-        rays = new Ray[3];
 
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
@@ -183,7 +181,6 @@ public class FlyingEnemy : MonoBehaviour
         {
             case State.CHASE:
                 CancelInvoke("GoToTarget");
-                //anim.SetBool("Moving", false);
                 break;
             case State.ATTACK:
                 CancelInvoke("InstanceBullet");
@@ -194,7 +191,7 @@ public class FlyingEnemy : MonoBehaviour
                 rb.constraints = RigidbodyConstraints.None;
                 break;
             case State.STUNNED:
-                //anim.SetBool("Stunned", false);
+                anim.SetBool("Stunned", false);
                 rb.constraints = RigidbodyConstraints.None;
                 break;
             case State.DEATH:
@@ -211,8 +208,7 @@ public class FlyingEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                //anim.SetBool("Moving", true);
-                if (ProvisionalManager.Instance.currentGraph.Graph.Count > 0)
+                if (ProvisionalManager.Instance.gm.Graph.Count > 0)
                 {
                     InvokeRepeating("GoToTarget", 0, repathTime);
                 }
@@ -229,7 +225,7 @@ public class FlyingEnemy : MonoBehaviour
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
-                //anim.SetBool("Stunned", true);
+                anim.SetBool("Stunned", true);
                 rb.constraints = RigidbodyConstraints.FreezeAll;
                 Invoke("ChangeToChase", empTimeStun);
                 break;
@@ -288,7 +284,7 @@ public class FlyingEnemy : MonoBehaviour
     {
         return (target - me).sqrMagnitude;
     }
-
+    /*
     bool PlayerHit()
     {
         playerRay.origin = transform.position;
@@ -299,7 +295,7 @@ public class FlyingEnemy : MonoBehaviour
         }
         Debug.DrawRay(playerRay.origin, playerRay.direction * 50, Color.blue);
         return false;
-    }
+    }*/
 
     void ChangeToChase()
     {
