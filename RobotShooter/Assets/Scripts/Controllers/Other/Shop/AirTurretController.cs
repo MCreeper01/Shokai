@@ -46,7 +46,7 @@ public class AirTurretController : MonoBehaviour
             if (!hasTarget)
             {
                 shootParticles.SetActive(false);
-                //AudioManager.instance.Stop(shotSound);
+                AudioManager.instance.Stop(shotSound);
                 foreach (Collider nearbyObject in colliders)
                 {
                     target = nearbyObject.gameObject;
@@ -54,8 +54,8 @@ public class AirTurretController : MonoBehaviour
                     rotating = true;
                     rotationTime = 0;
                     return;
-                }                
-            }            
+                }
+            }
             else
             {
                 if (rotating)
@@ -71,7 +71,7 @@ public class AirTurretController : MonoBehaviour
                 {
                     shootParticles.SetActive(true);
                     head.transform.LookAt(target.transform, Vector3.up);
-                    //shotSound = AudioManager.instance.PlayEvent("TurretShot", transform.position);
+                    shotSound = AudioManager.instance.PlayEvent("TurretShot", transform.position);
 
                     RaycastHit hit;
                     if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
@@ -86,9 +86,18 @@ public class AirTurretController : MonoBehaviour
                                 colliders.Remove(target.GetComponent<Collider>());
                             }
                         }
-                        else hasTarget = false;
+                        else
+                        {
+                            colliders.Remove(target.GetComponent<Collider>());
+                            hasTarget = false;
+                        } 
                     }
-                }                
+                    else
+                    {
+                        colliders.Remove(target.GetComponent<Collider>());
+                        hasTarget = false;
+                    }
+                }
 
                 if (Vector3.Distance(pointShoot.position, target.transform.position) > range) hasTarget = false;
             }
@@ -110,10 +119,19 @@ public class AirTurretController : MonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
 
-        if (collider.GetComponentInParent<FlyingEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider); 
-            if (collider.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
+        if (collider.GetComponentInParent<FlyingEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider);
+        if (collider.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
             if (collider.gameObject.GetComponentInParent<FlyingEnemy>() != null) TakeDamage(collider.gameObject.GetComponentInParent<FlyingEnemy>().damage);
+        }
+    }
+
+    private void OnTriggerStay(Collider collider)
+    {
+        if (collider.GetComponentInParent<FlyingEnemy>() != null && collider.tag != "CriticalBox")
+        {
+            foreach (Collider col in colliders) if (collider == col) return;
+            colliders.Add(collider);
         }
     }
 

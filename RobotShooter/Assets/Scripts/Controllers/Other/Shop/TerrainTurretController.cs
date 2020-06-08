@@ -45,8 +45,7 @@ public class TerrainTurretController : MonoBehaviour
             if (target == null) hasTarget = false;
             if (!hasTarget)
             {
-                shootParticles.SetActive(false);
-                //AudioManager.instance.Stop(shotSound);
+                shootParticles.SetActive(false);                
                 if (colliders.Count > 0)
                 {
                     foreach (Collider nearbyObject in colliders)
@@ -54,19 +53,19 @@ public class TerrainTurretController : MonoBehaviour
                         target = nearbyObject.gameObject;
                         hasTarget = true;                        
                         rotating = true;
-                        rotationTime = 0;
+                        rotationTime = 0;                        
                         return;
                     }
-                }                
+                }
             }
             else
             {
                 if (rotating)
                 {
+                    //AudioManager.instance.Stop(shotSound);
                     relativePosition = target.transform.position - head.transform.position;
                     targetRotation = Quaternion.LookRotation(relativePosition);
-                    rotationTime += Time.deltaTime * speed;
-                    head.transform.rotation = Quaternion.Lerp(head.transform.rotation, targetRotation, rotationTime);
+                    head.transform.rotation = Quaternion.Lerp(head.transform.rotation, targetRotation, speed * Time.deltaTime);
                     if (Quaternion.Angle(head.transform.rotation, targetRotation) < angleThreshold ||
                         Quaternion.Angle(head.transform.rotation, targetRotation) > -angleThreshold) rotating = false;
                 }
@@ -74,7 +73,7 @@ public class TerrainTurretController : MonoBehaviour
                 {
                     shootParticles.SetActive(true);
                     head.transform.LookAt(target.transform, Vector3.up);
-                    //shotSound = AudioManager.instance.PlayEvent("TurretShot", transform.position);
+                    //if (!AudioManager.instance.isPlaying(shotSound) || shotSound.Equals(null)) shotSound = AudioManager.instance.PlayOneShotSound("TurretShot", transform.position);
 
                     RaycastHit hit;
                     if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
@@ -82,7 +81,6 @@ public class TerrainTurretController : MonoBehaviour
                         GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
                         if (gEnemy != null)
                         {
-                            Debug.Log("aaa");
                             gEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
                             if (gEnemy.health <= 0)
                             {
@@ -102,9 +100,18 @@ public class TerrainTurretController : MonoBehaviour
                                     colliders.Remove(target.GetComponent<Collider>());
                                 }
                             }
-                            else hasTarget = false;
+                            else
+                            {
+                                colliders.Remove(target.GetComponent<Collider>());
+                                hasTarget = false;
+                            } 
                         }
                     }
+                    else
+                    {
+                        colliders.Remove(target.GetComponent<Collider>());
+                        hasTarget = false;                        
+                    } 
                 }                 
                 if (Vector3.Distance(pointShoot.position, target.transform.position) > range) hasTarget = false;
             }            
@@ -119,6 +126,8 @@ public class TerrainTurretController : MonoBehaviour
 
     public void DestroyDefenses()
     {
+        AudioManager.instance.Stop(shotSound);
+        shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         Instantiate(explosionParticles, transform.position, transform.rotation);
         Destroy(gameObject);
     }
@@ -130,6 +139,20 @@ public class TerrainTurretController : MonoBehaviour
         if (collider.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
             if (collider.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collider.gameObject.GetComponentInParent<GroundEnemy>().damage);
+        }
+    }
+
+    private void OnTriggerStay(Collider collider)
+    {
+        if (collider.GetComponentInParent<GroundEnemy>() != null && collider.tag != "CriticalBox" && collider.gameObject.layer != LayerMask.NameToLayer("EnemyAttack"))
+        {
+            foreach (Collider col in colliders) if (collider == col) return;
+            colliders.Add(collider);
+        }
+        if (collider.GetComponentInParent<TankEnemy>() != null && collider.tag != "CriticalBox" && collider.gameObject.layer != LayerMask.NameToLayer("EnemyAttack"))
+        {
+            foreach (Collider col in colliders) if (collider == col) return;
+            colliders.Add(collider);
         }
     }
 

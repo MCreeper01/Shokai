@@ -81,7 +81,7 @@ public class AudioManager : AController {
         return soundEvent;
     }
 
-    public void PlayOneShotSound(string name, Transform t) //Utilitzem per objectes en moviment que actualitzen la posició
+    public EventInstance PlayOneShotSound(string name, Transform t) //Utilitzem per objectes en moviment que actualitzen la posició
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         EventInstance soundEvent = RuntimeManager.CreateInstance(s.path);
@@ -93,9 +93,10 @@ public class AudioManager : AController {
             positionEvents.Add(movingSound);
             soundEvent.release();
         }
+        return soundEvent;
     }
 
-    public void PlayOneShotSound(string name, Vector3 pos) //Utilitzem per objectes que no actualitzen la posició
+    public EventInstance PlayOneShotSound(string name, Vector3 pos) //Utilitzem per objectes que no actualitzen la posició
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         EventInstance soundEvent = RuntimeManager.CreateInstance(s.path);
@@ -105,10 +106,11 @@ public class AudioManager : AController {
             soundEvent.start();
             soundEvent.release();
         }
+        return soundEvent;
     }
 
     // Usamos esta para objetos con parámetros
-    public void PlayOneShotSound(string name, Vector3 pos, List<SoundManagerParameter> parameters = null)
+    public EventInstance PlayOneShotSound(string name, Vector3 pos, List<SoundManagerParameter> parameters = null)
     {
         Sound s = Array.Find(sounds, sound => sound.name == name);
         EventInstance soundEvent = RuntimeManager.CreateInstance(s.path);
@@ -122,6 +124,7 @@ public class AudioManager : AController {
             soundEvent.start();
             soundEvent.release();
         }
+        return soundEvent;
     }
 
     public void UpdateEventParameter(EventInstance soundEvent, SoundManagerParameter parameter)
@@ -213,7 +216,7 @@ public class AudioManager : AController {
     public void SetChannelVolume(string channel, float volume)
     {
         VCA vca;
-        if (RuntimeManager.StudioSystem.getVCA("vca:" + channel, out vca) != FMOD.RESULT.OK)
+        if (RuntimeManager.StudioSystem.getVCA("vca:/" + channel, out vca) != FMOD.RESULT.OK)
         {
             return;
         }
