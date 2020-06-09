@@ -310,13 +310,12 @@ public class FlyingEnemy : MonoBehaviour
         if (gameObject.activeInHierarchy)
         {
             GameObject b;
-            //b = Instantiate(bullet, cannon.position, Quaternion.identity);
             b = GameManager.instance.objectPoolerManager.airEnemyBulletOP.GetPooledObject();
             b.transform.position = cannon.position;
             b.transform.forward = player.transform.position - transform.position;
             b.GetComponent<EnemyBullet>().damage = damage;
             b.SetActive(true);
-            //AudioManager.instance.PlayOneShotSound("ShootEnergyBall", transform.position);
+            AudioManager.instance.PlayOneShotSound("ShootEnergyBall", transform.position);
         }
     }
 

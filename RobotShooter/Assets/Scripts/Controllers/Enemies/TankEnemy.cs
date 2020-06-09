@@ -10,7 +10,6 @@ public class TankEnemy : MonoBehaviour
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
-    //Rigidbody rb;
     Animator anim;
     PlayerController player;
     //GameObject player;
@@ -78,7 +77,6 @@ public class TankEnemy : MonoBehaviour
     {
         player = GameManager.instance.player;
         //player = GameObject.FindGameObjectWithTag("Player");
-        //rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
@@ -135,44 +133,20 @@ public class TankEnemy : MonoBehaviour
 
                 Vector3 tPos0 = (new Vector3(target.transform.position.x, target.transform.position.y - 1, target.transform.position.z) - Arms[0].position).normalized;
                 Vector3 tPos1 = (new Vector3(target.transform.position.x, target.transform.position.y - 1, target.transform.position.z) - Arms[1].position).normalized;
-                if (tPos0.y >= 0)
-                {
-                    //if (Arms[0].localPosition > 0)
-                    //{
-                        Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/-Vector3.Angle(transform.forward, tPos0)/*, 89, -89)*/, 0, 0), Time.deltaTime * rotSpeedArms);
-                        //Arms[0].localRotation = Quaternion.Euler(Mathf.Clamp(-Vector3.Angle(transform.forward, tPos0), 5, -89), 0, 0);
-                        Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/-Vector3.Angle(transform.forward, tPos1)/*, 5, -89)*/, 0, 0), Time.deltaTime * rotSpeedArms);
-                        //Arms[1].localRotation = Quaternion.Euler(Mathf.Clamp(-Vector3.Angle(transform.forward, tPos1), 5, -89), 0, 0);
-                    //}
-                }
-                else
-                {
-                    //if (Arms[0].localRotation.x < 50)
-                    //{
-                        Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(Vector3.Angle(transform.forward, tPos0), 0, 0), Time.deltaTime * rotSpeedArms);
-                        //Arms[0].localRotation = Quaternion.Euler(Mathf.Clamp(Vector3.Angle(transform.forward, tPos0), -5f, 89f), 0, 0);
-                        Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(/*Mathf.Clamp(*/Vector3.Angle(transform.forward, tPos1)/*, -5f, 89f)*/, 0, 0), Time.deltaTime * rotSpeedArms);
-                        //Arms[1].localRotation = Quaternion.Euler(Mathf.Clamp(Vector3.Angle(transform.forward, tPos1), -5f, 89f), 0, 0);
-                    //}
-                }
 
-                /*if (tPos0.x < 0 && tPos0.z < 0)
+                if (Vector3.Dot(transform.forward, (target.transform.position - transform.position).normalized) > 0)
                 {
-                    float a = Mathf.Atan2(-tPos0.y, -tPos0.x);
-                    Arms[0].localRotation = Quaternion.Euler(a * Mathf.Rad2Deg, 0, 0);Quaternion.Euler(Mathf.Acos(tPos0.z / tPos0.magnitude) * Mathf.Rad2Deg, 0, 0);
-                }*/
-                /*
-                if (tPos0.y >= 0)
-                {
-                    Arms[0].localRotation = Quaternion.Euler(-Mathf.Acos(tPos0.z / tPos0.magnitude) * Mathf.Rad2Deg, 0, 0);
-                    Arms[0].rotation = Quaternion.Euler(Arms[0].localRotation.x, Mathf.Asin(tPos0.x)Mathf.Atan2(tPos0.y, tPos1.x Mathf.Rad2Deg0, Arms[0].localRotation.z);
-                }
-                else
-                {
-                    Arms[0].localRotation = Quaternion.Euler(Mathf.Acos(tPos0.z / tPos0.magnitude) * Mathf.Rad2Deg, 0, 0);
-                    Arms[0].rotation = Quaternion.Euler(Arms[0].localRotation.x, Mathf.Asin(tPos0.x)Mathf.Atan2(tPos0.y, tPos1.x) Mathf.Rad2Deg0, Arms[0].localRotation.z);
-                }*/
-                //Debug.DrawRay(Arms[0].position, Arms[0].forward * 10, Color.red);                
+                    if (tPos0.y >= 0)
+                    {
+                        Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(-Vector3.Angle(transform.forward, tPos0), 0, 0), Time.deltaTime * rotSpeedArms);
+                        Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(-Vector3.Angle(transform.forward, tPos1), 0, 0), Time.deltaTime * rotSpeedArms);
+                    }
+                    else
+                    {
+                        Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(Vector3.Angle(transform.forward, tPos0), 0, 0), Time.deltaTime * rotSpeedArms);
+                        Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(Vector3.Angle(transform.forward, tPos1), 0, 0), Time.deltaTime * rotSpeedArms);
+                    }
+                }            
                 break;
             case State.HIT:
                 if (health <= 0) ChangeState(State.DEATH);
@@ -194,20 +168,14 @@ public class TankEnemy : MonoBehaviour
                 agent.enabled = false;
                 break;
             case State.ATTACK:
-                //rb.useGravity = false;
-                //rb = gameObject.AddComponent<Rigidbody>();
-                //rb.mass = 10;
-                //rb.useGravity = false;
                 obstacle.enabled = false;
                 CancelInvoke("InstanceBullet");
                 break;
             case State.HIT:
-                //rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", false);
-                //rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
             case State.DEATH:
@@ -223,15 +191,10 @@ public class TankEnemy : MonoBehaviour
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
-                //rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezePosition;
-                //rb.useGravity = true;
-                //Destroy(rb);
-                //rb.constraints = RigidbodyConstraints.FreezePosition;
                 obstacle.enabled = true;
                 InvokeRepeating("InstanceBullet", 0.3f, fireRate);
                 break;
             case State.HIT:                
-                //rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 if (hittedByAR)
                 {
@@ -247,7 +210,6 @@ public class TankEnemy : MonoBehaviour
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", true);
-                //rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
                 break;
@@ -306,8 +268,7 @@ public class TankEnemy : MonoBehaviour
         if (agent.isActiveAndEnabled && agent.isOnNavMesh)
         {
             agent.destination = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
-        }
-        
+        }        
     }
 
     void ChangeToChase()
@@ -362,7 +323,6 @@ public class TankEnemy : MonoBehaviour
         GameObject b;
         if (rightCannon)
         {
-            //b = Instantiate(bullet, Cannons[0].position, Quaternion.identity);
             b = GameManager.instance.objectPoolerManager.tankEnemyBulletOP.GetPooledObject();
             b.transform.position = Cannons[0].position;
             b.transform.forward = Arms[0].forward;
@@ -370,7 +330,6 @@ public class TankEnemy : MonoBehaviour
         }
         else
         {
-            //b = Instantiate(bullet, Cannons[1].position, Quaternion.identity);
             b = GameManager.instance.objectPoolerManager.tankEnemyBulletOP.GetPooledObject();
             b.transform.position = Cannons[1].position;
             b.transform.forward = Arms[1].forward;

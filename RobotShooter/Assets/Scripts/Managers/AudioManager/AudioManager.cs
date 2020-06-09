@@ -13,6 +13,10 @@ public class AudioManager : AController {
 
     public static AudioManager instance;
 
+    [HideInInspector] public float musicVolume;
+    [HideInInspector] public float fXVolume;
+    [HideInInspector] public float masterVolume;
+
     void Awake()
     {
         if (instance == null)
@@ -39,6 +43,7 @@ public class AudioManager : AController {
             for (int i = 0; i < positionEvents.Count; i++)
             {
                 PLAYBACK_STATE state;
+                Sound s = positionEvents[i].GetSound();
                 EventInstance eventInst = positionEvents[i].GetEventInstance();
                 eventInst.getPlaybackState(out state);
                 if (state == PLAYBACK_STATE.STOPPED)
@@ -47,6 +52,7 @@ public class AudioManager : AController {
                 }
                 else
                 {
+                    eventInst.setVolume(s.volume * fXVolume * masterVolume);
                     eventInst.set3DAttributes(RuntimeUtils.To3DAttributes(positionEvents[i].GetTransform().position));
                 }
             }
@@ -60,6 +66,7 @@ public class AudioManager : AController {
         if (!soundEvent.Equals(null))
         {
             soundEvent.set3DAttributes(RuntimeUtils.To3DAttributes(pos));
+            soundEvent.setVolume(s.volume * fXVolume * masterVolume);
             soundEvent.start();
             eventList.Add(soundEvent);
         }
@@ -73,8 +80,9 @@ public class AudioManager : AController {
         if (!soundEvent.Equals(null))
         {
             soundEvent.set3DAttributes(RuntimeUtils.To3DAttributes(t.position));
+            soundEvent.setVolume(s.volume * fXVolume * masterVolume);
             soundEvent.start();
-            SoundManagerMovingSound movingSound = new SoundManagerMovingSound(t, soundEvent);
+            SoundManagerMovingSound movingSound = new SoundManagerMovingSound(t, soundEvent, s);
             positionEvents.Add(movingSound);
             eventList.Add(soundEvent);
         }
@@ -88,8 +96,9 @@ public class AudioManager : AController {
         if (!soundEvent.Equals(null))
         {
             soundEvent.set3DAttributes(RuntimeUtils.To3DAttributes(t.position));
+            soundEvent.setVolume(s.volume * fXVolume * masterVolume);
             soundEvent.start();
-            SoundManagerMovingSound movingSound = new SoundManagerMovingSound(t, soundEvent);
+            SoundManagerMovingSound movingSound = new SoundManagerMovingSound(t, soundEvent, s);
             positionEvents.Add(movingSound);
             soundEvent.release();
         }
@@ -103,6 +112,7 @@ public class AudioManager : AController {
         if (!soundEvent.Equals(null))
         {
             soundEvent.set3DAttributes(RuntimeUtils.To3DAttributes(transform.position));
+            soundEvent.setVolume(s.volume * fXVolume * masterVolume);
             soundEvent.start();
             soundEvent.release();
         }
@@ -121,6 +131,7 @@ public class AudioManager : AController {
                     soundEvent.setParameterByName(parameters[i].GetName(), parameters[i].GetValue());
 
             soundEvent.set3DAttributes(RuntimeUtils.To3DAttributes(pos));
+            soundEvent.setVolume(s.volume * fXVolume * masterVolume);
             soundEvent.start();
             soundEvent.release();
         }
@@ -250,11 +261,13 @@ class SoundManagerMovingSound
 {
     Transform transform;
     EventInstance eventIns;
+    Sound sound;
     
-    public SoundManagerMovingSound(Transform transform, EventInstance eventIns)
+    public SoundManagerMovingSound(Transform transform, EventInstance eventIns, Sound sound)
     {
         this.transform = transform;
         this.eventIns = eventIns;
+        this.sound = sound;
     }
 
     public Transform GetTransform()
@@ -265,5 +278,10 @@ class SoundManagerMovingSound
     public EventInstance GetEventInstance()
     {
         return eventIns;
+    }
+
+    public Sound GetSound()
+    {
+        return sound;
     }
 }
