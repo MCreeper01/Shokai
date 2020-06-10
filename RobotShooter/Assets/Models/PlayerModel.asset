@@ -91,4 +91,5 @@ MonoBehaviour:
   pauseKey: 112
   electrocuteDamage: 25
   electricZoneDetectionRange: 1.5
+  deathTime: 3
   godMode: 282
