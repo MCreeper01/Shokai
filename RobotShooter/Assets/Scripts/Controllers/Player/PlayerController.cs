@@ -166,6 +166,7 @@ public class PlayerController : AController
         score = cash;
 
         actualWeapon = Weapon.rifle;
+        gc.uiController.ChangePointer((int)actualWeapon);
 
         gc.uiController.ChangeCash(cash);
         gc.uiController.ChangeAROverheat(actualOverheat);
@@ -178,7 +179,6 @@ public class PlayerController : AController
 
         StartCoroutine(RecoverShield());
 
-        actualWeapon = Weapon.rifle;
         anim.SetInteger("weaponToChange", (int)actualWeapon);
 
         ChangeState(new PSMovement(this));
@@ -500,6 +500,7 @@ public class PlayerController : AController
                     {
                         pastWeapon = actualWeapon;
                         actualWeapon = Weapon.launcher;
+                        gc.uiController.ChangePointer((int)actualWeapon);
                         anim.SetInteger("weaponToChange", (int)actualWeapon);
                         anim.SetInteger("previousWeapon", (int)pastWeapon);
                         anim.SetTrigger("changeWeapon");
@@ -541,6 +542,7 @@ public class PlayerController : AController
                     {
                         pastWeapon = actualWeapon;
                         actualWeapon = Weapon.launcher;
+                        gc.uiController.ChangePointer((int)actualWeapon);
                         anim.SetInteger("weaponToChange", (int)actualWeapon);
                         anim.SetInteger("previousWeapon", (int)pastWeapon);
                         anim.SetTrigger("changeWeapon");
@@ -907,7 +909,7 @@ public class PlayerController : AController
                 }                
                 break;
             case Weapon.launcher:
-                anim.SetTrigger("shootGL");
+                if (grenadeAmmo > 0) anim.SetTrigger("shootGL");
                 if (hasNormalGrenade)
                 {
                     GameObject grenade = Instantiate(grenadePrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
@@ -1018,6 +1020,7 @@ public class PlayerController : AController
                 //animation
                 break;
         }
+        gc.uiController.ChangePointer((int)actualWeapon);
         anim.SetInteger("weaponToChange", (int)actualWeapon);
         anim.SetInteger("previousWeapon", (int)pastWeapon);
         anim.SetTrigger("changeWeapon");
