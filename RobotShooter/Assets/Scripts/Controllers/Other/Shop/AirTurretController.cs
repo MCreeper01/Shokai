@@ -20,6 +20,7 @@ public class AirTurretController : MonoBehaviour
 
     List<Collider> colliders = new List<Collider>();
 
+    private int colliderTarget;
     private bool hasTarget;
     private GameObject target;
     private Vector3 relativePosition;
@@ -47,14 +48,21 @@ public class AirTurretController : MonoBehaviour
             {
                 shootParticles.SetActive(false);
                 AudioManager.instance.Stop(shotSound);
-                foreach (Collider nearbyObject in colliders)
+                int num = 0;
+                float distance = Vector3.Distance(gameObject.transform.position, colliders[num].transform.position);
+                for (int i = 1; i < colliders.Count; i++)
                 {
-                    target = nearbyObject.gameObject;
-                    hasTarget = true;
-                    rotating = true;
-                    rotationTime = 0;
-                    return;
+                    if (Vector3.Distance(gameObject.transform.position, colliders[0].transform.position) < distance)
+                    {
+                        num = i;
+                        distance = Vector3.Distance(gameObject.transform.position, colliders[num].transform.position);
+                    }
                 }
+                colliderTarget = num;
+                target = colliders[num].gameObject;
+                hasTarget = true;
+                rotating = true;
+                rotationTime = 0;
             }
             else
             {
@@ -83,18 +91,18 @@ public class AirTurretController : MonoBehaviour
                             if (fEnemy.health <= 0)
                             {
                                 hasTarget = false;
-                                colliders.Remove(target.GetComponent<Collider>());
+                                colliders.RemoveAt(colliderTarget);
                             }
                         }
                         else
                         {
-                            colliders.Remove(target.GetComponent<Collider>());
+                            colliders.RemoveAt(colliderTarget);
                             hasTarget = false;
                         } 
                     }
                     else
                     {
-                        colliders.Remove(target.GetComponent<Collider>());
+                        colliders.RemoveAt(colliderTarget);
                         hasTarget = false;
                     }
                 }
