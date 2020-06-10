@@ -298,13 +298,28 @@ public class PlayerController : AController
 
             if (currentHealth <= 0 && !godMode)
             {
-                ChangeState(new PSDead(this));
+                if (!(currentState is PSDead)) ChangeState(new PSDead(this));
                 return;
             }
         }
         canRecover = false;
         shieldDelay = true;
         currentShieldDelay = playerModel.secondsToWaitShield;
+    }
+
+    public void StartDeath()
+    {
+        StartCoroutine(Death());
+    }
+
+    IEnumerator Death()
+    {
+        m_PitchControllerTransform.gameObject.GetComponent<Animation>().Play("PlayerDeath");
+        yield return new WaitForSeconds(1);
+        GameManager.instance.uiController.StartFadeIn();
+        yield return new WaitForSeconds(2);
+        Time.timeScale = 0;
+        GameManager.instance.uiController.GameOver(true);
     }
 
     private IEnumerator Inmunity(float time)

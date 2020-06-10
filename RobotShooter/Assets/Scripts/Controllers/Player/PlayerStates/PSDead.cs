@@ -6,8 +6,7 @@ public class PSDead : PlayerState
 {
     public PSDead(PlayerController pc)
     {
-        GameManager.instance.uiController.GameOver(true);
-        
+        pc.StartDeath();
     }
 
     public override void CheckTransition(PlayerController pc)

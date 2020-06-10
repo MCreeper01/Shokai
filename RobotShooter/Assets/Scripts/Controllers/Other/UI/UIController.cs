@@ -216,6 +216,5 @@ public class UIController : AController
             fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, fadePanel.color.a + 0.01f);
             StartCoroutine(FadeIn());
         }
-        else gc.ChangeScene("MainMenu");
     }
 }
