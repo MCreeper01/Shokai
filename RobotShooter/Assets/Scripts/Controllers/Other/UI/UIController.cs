@@ -188,12 +188,7 @@ public class UIController : AController
             HUD.SetActive(false);
             scoreText.text = gc.player.score.ToString();           
             Cursor.lockState = CursorLockMode.None;
-            if (gc.player.score > PlayerPrefs.GetInt("highScore"))
-            {
-                newRecordText.gameObject.SetActive(true);
-                PlayerPrefs.SetInt("highScore", gc.player.score);
-            } 
-             else newRecordText.gameObject.SetActive(false);
+            CalculateScore(gc.player.score);
         }
         else if (!show && gameOver.activeSelf)
         {
@@ -216,5 +211,21 @@ public class UIController : AController
             fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, fadePanel.color.a + 0.01f);
             StartCoroutine(FadeIn());
         }
+    }
+
+    void CalculateScore(int score)
+    {
+        if (score > PlayerPrefs.GetInt("BestScore"))
+        {
+            newRecordText.gameObject.SetActive(true);
+            PlayerPrefs.SetInt("BestScore", score);
+        }
+        else newRecordText.gameObject.SetActive(false);
+
+        for (int i = 10; i >= 2; i--)
+        {
+            PlayerPrefs.SetInt("Score" + i, PlayerPrefs.GetInt("Score" + (i-1)));
+        }
+        PlayerPrefs.SetInt("Score1", score);
     }
 }
