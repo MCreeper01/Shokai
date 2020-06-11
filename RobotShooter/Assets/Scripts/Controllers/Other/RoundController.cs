@@ -295,11 +295,11 @@ public class RoundController : AController
 
     void Debuging()
     {
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.Minus) || Input.GetKeyDown(KeyCode.KeypadMinus) || Input.GetKeyDown(KeyCode.Backspace)) DecreaseEnemyCount();
         if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus) || Input.GetKeyDown(KeyCode.Return)) currentEnemies++;
         if (Input.GetKeyDown(KeyCode.F12)) ChangeState(State.TRANSITION);
-//#endif
+#endif
     }
 
 }
