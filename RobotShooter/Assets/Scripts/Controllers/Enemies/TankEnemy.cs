@@ -90,6 +90,15 @@ public class TankEnemy : MonoBehaviour
         ChangeState(State.INITIAL);
     }
 
+    private void OnDisable()
+    {
+        if (GameManager.instance.roundController.currentState == RoundController.State.FIGHT ||
+            GameManager.instance.roundController.currentState == RoundController.State.SPAWN)
+            GameManager.instance.roundController.DecreaseEnemyCount();
+        Debug.Log("dieee");
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -211,7 +220,7 @@ public class TankEnemy : MonoBehaviour
                 obstacle.enabled = false;
                 break;
             case State.DEATH:
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
                 break;
         }
 
@@ -253,7 +262,7 @@ public class TankEnemy : MonoBehaviour
                 break;
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
-                GameManager.instance.roundController.DecreaseEnemyCount();
+                //GameManager.instance.roundController.DecreaseEnemyCount();
                 AudioManager.instance.PlayOneShotSound("DeadExplosion", transform.position);
                 Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);

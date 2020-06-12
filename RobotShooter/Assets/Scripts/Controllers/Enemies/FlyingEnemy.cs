@@ -93,6 +93,14 @@ public class FlyingEnemy : MonoBehaviour
         ChangeState(State.INITIAL);
     }
 
+    private void OnDisable()
+    {
+        if (GameManager.instance.roundController.currentState == RoundController.State.FIGHT ||
+            GameManager.instance.roundController.currentState == RoundController.State.SPAWN)
+            GameManager.instance.roundController.DecreaseEnemyCount();
+        Debug.Log("dieee");
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -139,7 +147,6 @@ public class FlyingEnemy : MonoBehaviour
                 //        }
                 //    }
                 //}
-
                 transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.ATTACK:
@@ -225,7 +232,7 @@ public class FlyingEnemy : MonoBehaviour
             case State.DEATH:
                 CancelInvoke("InstanceBullet");
                 GameManager.instance.player.IncreaseCash(killIncome);
-                GameManager.instance.roundController.DecreaseEnemyCount();
+                //GameManager.instance.roundController.DecreaseEnemyCount();
                 AudioManager.instance.PlayOneShotSound("DeadExplosion", transform);
                 Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);

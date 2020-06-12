@@ -230,6 +230,7 @@ public class RoundController : AController
     public void DecreaseEnemyCount()
     {
         currentEnemies--;
+        Debug.Log("buh");
         for (int i = 0; i < extraEnemies.Length; i++)
         {
             if (extraEnemies[i] > 0)
