@@ -705,8 +705,13 @@ public class PlayerController : AController
 
     public void IncreaseCash(int cash)
     {
+        int maxScore = 9999999;
+
         this.cash += cash;
+        if (this.cash > maxScore) this.cash = maxScore;
         score += cash;
+        if (score > maxScore) score = maxScore;
+
         gc.uiController.ChangeCash(this.cash);
     }
 

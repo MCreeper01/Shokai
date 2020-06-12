@@ -1,5 +1,101 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1441152483997547000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1633092154195325615}
+  - component: {fileID: 8996603580295015056}
+  - component: {fileID: 1533668185040889946}
+  m_Layer: 5
+  m_Name: ActionsText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1633092154195325615
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441152483997547000}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.019925082, y: 0.019925082, z: 0.019925082}
+  m_Children: []
+  m_Father: {fileID: 8745328238014022582}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 5.967819, y: -9.82123}
+  m_SizeDelta: {x: 4858.1, y: 4491.9}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8996603580295015056
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441152483997547000}
+  m_CullTransparentMesh: 0
+--- !u!114 &1533668185040889946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441152483997547000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 300
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 300
+    m_Alignment: 2
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Movement
+
+    Dash
+
+    Jump
+
+    Hover
+
+    Crouch
+
+    Interact
+
+    Shoot
+
+    Change
+    weapon
+
+    Use ability slot
+
+    Use defense slot'
 --- !u!1 &8745328237663178845
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,7 +132,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: -331}
+  m_AnchoredPosition: {x: -375, y: -331}
   m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8745328237663178841
@@ -170,14 +266,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 9.197737, y: 7.127418, z: 9.197737}
   m_Children:
+  - {fileID: 1633092154195325615}
   - {fileID: 8745328239270195050}
   m_Father: {fileID: 8745328238968033013}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -26, y: 83}
-  m_SizeDelta: {x: 5.4, y: -19.1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 83}
+  m_SizeDelta: {x: 121, y: 80.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8745328238014022580
 CanvasRenderer:
@@ -301,6 +398,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8745328238968033013}
+  - component: {fileID: 1325262899}
   m_Layer: 5
   m_Name: HowToPlayMenu
   m_TagString: Untagged
@@ -329,6 +427,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1325262899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8745328238968033014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b52c8fd4fa5e1448aee26a0dd9a3df2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startActive: 0
 --- !u!1 &8745328239270195051
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +452,7 @@ GameObject:
   - component: {fileID: 8745328239270195048}
   - component: {fileID: 8745328239270195049}
   m_Layer: 5
-  m_Name: Text
+  m_Name: KeysText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -356,14 +467,14 @@ RectTransform:
   m_GameObject: {fileID: 8745328239270195051}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.019925084, y: 0.019925082, z: 0.019925084}
+  m_LocalScale: {x: 0.019925082, y: 0.019925082, z: 0.019925082}
   m_Children: []
   m_Father: {fileID: 8745328238014022582}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.2937946, y: -9.821228}
+  m_AnchoredPosition: {x: -5.838395, y: -9.82123}
   m_SizeDelta: {x: 4858.1, y: 4491.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8745328239270195048
@@ -405,25 +516,26 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'WASD -> Movement
+  m_Text: '[WASD] ..................................
 
-    LShift -> Dash
+    [LShift] ............................................
 
-    Space -> Jump
+    [Space]
+    ..........................................
 
-    Space (Hold)
-    -> Hover
+    [Space] (Hold) ...............................
 
-    Cntrl / C -> Crouch
+    [Cntrl]
+    / [C] ...................................
 
-    E -> Interact
+    [E] ...............................................
 
-    Left Mouse -> Shoot
+    [Left
+    Mouse] ...................................
 
-    Right
-    Mouse / F -> Change weapon
+    [Right Mouse] / [F] .........
 
-    1,2,3,4 -> Use ability slot
+    [1],[2],[3],[4]
+    ......................
 
-    Q -> Use defense
-    slot'
+    [Q] ................................'

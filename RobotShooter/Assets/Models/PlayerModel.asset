@@ -15,7 +15,7 @@ MonoBehaviour:
   MAX_HEALTH: 100
   MAX_SHIELD: 100
   MAX_CHARGER_AMMO_AR: 30
-  INITIAL_CASH: 200000
+  INITIAL_CASH: 0
   yawRotationalSpeed: 180
   pitchRotationalSpeed: 90
   minPitch: -80
@@ -91,5 +91,4 @@ MonoBehaviour:
   pauseKey: 112
   electrocuteDamage: 25
   electricZoneDetectionRange: 1.5
-  deathTime: 3
   godMode: 282

@@ -15,11 +15,11 @@ public class ScoreboardController : MonoBehaviour
 
     private void OnEnable()
     {
-        bestScore.text = ConvertToFourDigit(PlayerPrefs.GetInt("BestScore"));
+        bestScore.text = ConvertToNDigits(PlayerPrefs.GetInt("BestScore"), 7);
 
         for (int i = 1; i <= lastScoreTexts.Length; i++)
         {
-            lastScoreTexts[i-1].text = i + ". " + ConvertToFourDigit(PlayerPrefs.GetInt("Score" + i));
+            lastScoreTexts[i-1].text = i + ". " + ConvertToNDigits(PlayerPrefs.GetInt("Score" + i), 7);
         }
     }
 
@@ -33,10 +33,10 @@ public class ScoreboardController : MonoBehaviour
         OnEnable();
     }
 
-    string ConvertToFourDigit(int value)
+    string ConvertToNDigits(int value, int n)
     {
         string result = "";
-        for (int i = 1; i <= 4; i++)
+        for (int i = 1; i <= n; i++)
         {
             result = value % 10 + result;
             value /= 10;
