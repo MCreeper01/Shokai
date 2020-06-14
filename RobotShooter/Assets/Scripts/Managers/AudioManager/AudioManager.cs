@@ -48,7 +48,7 @@ public class AudioManager : AController {
         {
             unitySources.Add(source);
             source.volume *= fXVolume * masterVolume;
-            //source.Play();
+            source.Play();
         }        
     }
     /*
