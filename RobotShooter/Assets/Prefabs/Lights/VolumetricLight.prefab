@@ -169,7 +169,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 163.68983
+  m_Range: 132.78583
   m_SpotAngle: 23.052374
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -277,7 +277,7 @@ MonoBehaviour:
   attenuationEquation: 2
   attenuationCustomBlending: 0.5
   fallOffStart: 0
-  fallOffEnd: 163.68983
+  fallOffEnd: 132.78583
   depthBlendDistance: 2
   cameraClippingDistance: 0.5
   glareFrontal: 0.5
