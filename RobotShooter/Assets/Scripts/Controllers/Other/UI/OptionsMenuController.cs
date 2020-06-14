@@ -108,5 +108,4 @@ public class OptionsMenuController : MonoBehaviour
 
         InitializePlayerPrefs();
     }
-
 }

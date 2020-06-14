@@ -45,7 +45,8 @@ public class TerrainTurretController : MonoBehaviour
             if (target == null) hasTarget = false;
             if (!hasTarget)
             {
-                shootParticles.SetActive(false);                
+                shootParticles.SetActive(false);
+                shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                 if (colliders.Count > 0)
                 {
                     foreach (Collider nearbyObject in colliders)
@@ -62,7 +63,7 @@ public class TerrainTurretController : MonoBehaviour
             {
                 if (rotating)
                 {
-                    //AudioManager.instance.Stop(shotSound);
+                    shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                     relativePosition = target.transform.position - head.transform.position;
                     targetRotation = Quaternion.LookRotation(relativePosition);
                     head.transform.rotation = Quaternion.Lerp(head.transform.rotation, targetRotation, speed * Time.deltaTime);
@@ -73,7 +74,10 @@ public class TerrainTurretController : MonoBehaviour
                 {
                     shootParticles.SetActive(true);
                     head.transform.LookAt(target.transform, Vector3.up);
-                    //if (!AudioManager.instance.isPlaying(shotSound) || shotSound.Equals(null)) shotSound = AudioManager.instance.PlayOneShotSound("TurretShot", transform.position);
+                    if (!AudioManager.instance.isPlaying(shotSound))
+                    {
+                        shotSound = AudioManager.instance.PlayOneShotSound("TurretShot", transform.position);
+                    }
 
                     RaycastHit hit;
                     if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
@@ -109,6 +113,7 @@ public class TerrainTurretController : MonoBehaviour
                     }
                     else
                     {
+                        shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                         colliders.Remove(target.GetComponent<Collider>());
                         hasTarget = false;                        
                     } 
@@ -126,8 +131,8 @@ public class TerrainTurretController : MonoBehaviour
 
     public void DestroyDefenses()
     {
-        AudioManager.instance.Stop(shotSound);
         shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        AudioManager.instance.PlayOneShotSound("TurretExplosion", transform.position);
         Instantiate(explosionParticles, transform.position, transform.rotation);
         Destroy(gameObject);
     }

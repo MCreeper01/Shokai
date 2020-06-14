@@ -44,7 +44,21 @@ public class ARBulletController : MonoBehaviour
                 if (gEnemy != null)
                 {
                     gEnemy.TakeDamage(damage);
-                    if (multiplier == GameManager.instance.player.playerModel.criticalMultiplier) GameManager.instance.player.IncreaseCash(gEnemy.criticalIncome);
+                    if (multiplier == GameManager.instance.player.playerModel.criticalMultiplier)
+                    {
+                        //gEnemy.WhatHitSound("NormalHit");
+                        GameManager.instance.player.IncreaseCash(gEnemy.criticalIncome);
+                        //gEnemy.WhatHitSound("CriticalHit");
+                        gEnemy.source.clip = AudioManager.instance.clips[4];
+                        gEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                        gEnemy.source.Play();
+                    }
+                    else
+                    {
+                        gEnemy.source.clip = AudioManager.instance.clips[3];
+                        gEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                        gEnemy.source.Play();
+                    }
                 }
                 else
                 {
@@ -52,7 +66,21 @@ public class ARBulletController : MonoBehaviour
                     if (fEnemy != null)
                     {
                         fEnemy.TakeDamage(damage);
-                        if (multiplier == GameManager.instance.player.playerModel.criticalMultiplier) GameManager.instance.player.IncreaseCash(fEnemy.criticalIncome);
+                        if (multiplier == GameManager.instance.player.playerModel.criticalMultiplier)
+                        {
+                            //fEnemy.WhatHitSound("NormalHit");
+                            GameManager.instance.player.IncreaseCash(fEnemy.criticalIncome);
+                            //fEnemy.WhatHitSound("CriticalHit");
+                            fEnemy.source.clip = AudioManager.instance.clips[4];
+                            fEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                            fEnemy.source.Play();
+                        }
+                        else
+                        {
+                            fEnemy.source.clip = AudioManager.instance.clips[3];
+                            fEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                            fEnemy.source.Play();
+                        }
                     }
                     else
                     {
@@ -61,7 +89,21 @@ public class ARBulletController : MonoBehaviour
                         {
                             tEnemy.hittedByAR = true;
                             tEnemy.TakeDamage(damage);
-                            if (multiplier == GameManager.instance.player.playerModel.criticalMultiplier) GameManager.instance.player.IncreaseCash(tEnemy.criticalIncome);                          
+                            if (multiplier == GameManager.instance.player.playerModel.criticalMultiplier)
+                            {
+                                //tEnemy.WhatHitSound("BlockedHit");
+                                GameManager.instance.player.IncreaseCash(tEnemy.criticalIncome);
+                                //tEnemy.WhatHitSound("CriticalHit");
+                                tEnemy.source.clip = AudioManager.instance.clips[4];
+                                tEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                                tEnemy.source.Play();
+                            }
+                            else
+                            {
+                                tEnemy.source.clip = AudioManager.instance.clips[2];
+                                tEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                                tEnemy.source.Play();
+                            }
                         }
                     }
                 }

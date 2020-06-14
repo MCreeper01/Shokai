@@ -46,7 +46,7 @@ public class AirTurretController : MonoBehaviour
             if (!hasTarget)
             {
                 shootParticles.SetActive(false);
-                AudioManager.instance.Stop(shotSound);
+                shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                 foreach (Collider nearbyObject in colliders)
                 {
                     target = nearbyObject.gameObject;
@@ -60,6 +60,7 @@ public class AirTurretController : MonoBehaviour
             {
                 if (rotating)
                 {
+                    shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                     relativePosition = target.transform.position - head.transform.position;
                     targetRotation = Quaternion.LookRotation(relativePosition);
                     rotationTime += Time.deltaTime * speed;
@@ -71,7 +72,10 @@ public class AirTurretController : MonoBehaviour
                 {
                     shootParticles.SetActive(true);
                     head.transform.LookAt(target.transform, Vector3.up);
-                    shotSound = AudioManager.instance.PlayEvent("TurretShot", transform.position);
+                    if (!AudioManager.instance.isPlaying(shotSound))
+                    {
+                        shotSound = AudioManager.instance.PlayOneShotSound("TurretShot", transform.position);
+                    } 
 
                     RaycastHit hit;
                     if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
@@ -94,6 +98,7 @@ public class AirTurretController : MonoBehaviour
                     }
                     else
                     {
+                        shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                         colliders.Remove(target.GetComponent<Collider>());
                         hasTarget = false;
                     }
@@ -112,6 +117,8 @@ public class AirTurretController : MonoBehaviour
 
     public void DestroyDefenses()
     {
+        shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        AudioManager.instance.PlayOneShotSound("TurretExplosion", transform.position);
         Instantiate(explosionParticles, transform.position, transform.rotation);
         Destroy(gameObject);
     }

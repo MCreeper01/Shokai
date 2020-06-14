@@ -34,6 +34,7 @@ public class EnemyBullet : MonoBehaviour
         if (collider.tag == "Player")
         {
             PlayerController player = collider.GetComponent<PlayerController>();
+            AudioManager.instance.PlayOneShotSound("ReceiveDamage", player.transform.position);
             player.TakeDamage(damage, 0);
             gameObject.SetActive(false);
         }

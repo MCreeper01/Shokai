@@ -46,83 +46,139 @@ MonoBehaviour:
   sounds:
   - name: AssaultRifleShot
     path: event:/FX/Player/AR_shoot
+    volume: 1
   - name: ShotgunShot
     path: event:/FX/Player/SG_shoot
+    volume: 1
   - name: ShotgunReload
     path: event:/FX/Player/SG_reload
+    volume: 1
   - name: GrenadeLauncherShot
     path: event:/FX/Player/GL_shoot
+    volume: 1
   - name: JetpackBoost
     path: event:/FX/Player/Jetpack_boost
+    volume: 1
   - name: JetpackGlide
     path: event:/FX/Player/Jetpack_glide
+    volume: 1
   - name: PlacedDefense
     path: event:/FX/Turret/Placed_defense
+    volume: 1
   - name: CountdownGrenades
-    path: event:/FX/Object/Countdown_beep
+    path: event:/FX/Object/Countdown_beep_single
+    volume: 1
   - name: TurretShot
     path: event:/FX/Turret/Turret_shot
+    volume: 1
   - name: MechaDash
     path: event:/FX/Player/Player_dash
+    volume: 1
   - name: MechaRun
     path: event:/FX/Player/Player_run
+    volume: 1
   - name: ReceiveDamage
     path: event:/FX/Player/Player_hit
+    volume: 1
   - name: PlayerDead
     path: event:/FX/Player/Player_dead
+    volume: 1
   - name: OverheatAR
     path: event:/FX/Player/Overheat_AR
+    volume: 1
   - name: WarningLowHealth
     path: event:/FX/Player/Warning_health
+    volume: 1
   - name: ImpactWithGround
     path: event:/FX/Player/Impact_with_ground
+    volume: 1
   - name: BeingElectrocuted
     path: event:/FX/Player/Player_electrocuted
+    volume: 1
   - name: EMP
     path: event:/FX/Player/EMP
+    volume: 1
   - name: PowerUp
     path: event:/FX/Player/Repair_skill
+    volume: 1
   - name: BrokenEnergyShield
     path: event:/FX/Player/Broken_shield
+    volume: 1
   - name: ShootEnergyBall
     path: event:/FX/Enemy/Enemy1_shot
+    volume: 1
   - name: PlasmaSwordSwing
     path: event:/FX/Enemy/Enemy2_swing
+    volume: 1
   - name: NormalHit
     path: event:/FX/Enemy/Enemy_hit
+    volume: 1
   - name: CriticalHit
     path: event:/FX/Enemy/Enemy_critical_hit
+    volume: 1
   - name: BlockedHit
     path: event:/FX/Enemy/Enemy_blocked_hit
+    volume: 1
   - name: DeadExplosion
     path: event:/FX/Enemy/Enemy_explosion
+    volume: 1
   - name: LevitationSound
     path: event:/FX/Enemy/Levitation
+    volume: 1
   - name: PropellerSound
     path: event:/FX/Enemy/Propeller
+    volume: 1
   - name: HeavyLevitationSound
     path: event:/FX/Enemy/Heavy_levitation
+    volume: 1
   - name: PlasmaBallShot
     path: event:/FX/Enemy/Rocket_shot
+    volume: 1
   - name: PlasmaBlast
     path: event:/FX/Object/Rocket_explosion
+    volume: 1
   - name: PlatformMovement
     path: event:/FX/Environment/Platform_movement
+    volume: 1
   - name: StartRound
     path: event:/FX/Environment/Start_round
+    volume: 1
   - name: FinishRound
     path: event:/FX/Environment/Finish_round
+    volume: 1
   - name: EuphoricCrowd
     path: event:/FX/Environment/Crowd
+    volume: 1
   - name: Button
     path: event:/FX/UI/Button
+    volume: 1
   - name: Buy
     path: event:/FX/UI/Buy
+    volume: 1
   - name: Laser
     path: event:/FX/Player/Laser
+    volume: 1
   - name: GranadeExplosion
     path: event:/FX/Player/ExpGranade
+    volume: 1
   - name: TurretExplosion
     path: event:/FX/Turret/ExpTurret
+    volume: 1
   - name: Mine
     path: event:/FX/Mine/PlaceMine
+    volume: 1
+  clips:
+  - {fileID: 8300000, guid: 302694935337bdc47b2862a5476af98e, type: 3}
+  - {fileID: 8300000, guid: 0b6f2f8cb5ef45e4481c85e4ffc58993, type: 3}
+  - {fileID: 8300000, guid: a9659c543cdf39f408e0dd8d73791960, type: 3}
+  - {fileID: 8300000, guid: e73d6122596b0ea4d8decb399690bd71, type: 3}
+  - {fileID: 8300000, guid: b071d0eb625079e4cb7a77d6914f8315, type: 3}
+  - {fileID: 8300000, guid: 16f3e2da662e054428b5c0951e8ec88d, type: 3}
+  musicVolume: 0
+  fXVolume: 0
+  masterVolume: 0
+  fxMixerGroup: {fileID: -7218085141568273844, guid: e5ce0135345d3634398259d8b08a6205,
+    type: 2}
+  MusicMixerGroup: {fileID: -3718674718297787765, guid: e5ce0135345d3634398259d8b08a6205,
+    type: 2}
+  MasterMixerGroup: {fileID: 24300002, guid: e5ce0135345d3634398259d8b08a6205, type: 2}

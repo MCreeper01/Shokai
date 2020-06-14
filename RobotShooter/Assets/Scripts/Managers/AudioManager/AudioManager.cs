@@ -4,18 +4,24 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : AController {
 
     public Sound[] sounds;
-    private List<EventInstance> eventList;
+    private List<SoundEvents> eventList;
     private List<SoundManagerMovingSound> positionEvents;
+
+    public AudioClip[] clips;
 
     public static AudioManager instance;
 
-    [HideInInspector] public float musicVolume;
-    [HideInInspector] public float fXVolume;
-    [HideInInspector] public float masterVolume;
+    [HideInInspector] public float musicVolume = 0.5f;
+    [HideInInspector] public float fXVolume = 0.5f;
+    [HideInInspector] public float masterVolume = 0.5f;
+
+    [HideInInspector] public List<AudioSource> unitySources;
+    public AudioSource source;
 
     void Awake()
     {
@@ -28,14 +34,24 @@ public class AudioManager : AController {
         }
 
         DontDestroyOnLoad(gameObject);
+        unitySources = new List<AudioSource>();
+        //source = GetComponent<AudioSource>();
+        
     }
 
     public void StartGame()
     {
-        eventList = new List<EventInstance>();
+        eventList = new List<SoundEvents>();
         positionEvents = new List<SoundManagerMovingSound>();
-    }
 
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            unitySources.Add(source);
+            source.volume *= fXVolume * masterVolume;
+            //source.Play();
+        }        
+    }
+    /*
     public void Update() //Actualitzar posició sons 3D
     {
         if (positionEvents != null && positionEvents.Count > 0)
@@ -52,12 +68,12 @@ public class AudioManager : AController {
                 }
                 else
                 {
-                    eventInst.setVolume(s.volume * fXVolume * masterVolume);
+                    //eventInst.setVolume(s.volume * fXVolume * masterVolume);
                     eventInst.set3DAttributes(RuntimeUtils.To3DAttributes(positionEvents[i].GetTransform().position));
                 }
             }
         }
-    }
+    }*/
     
     public EventInstance PlayEvent(string name, Vector3 pos)
     {
@@ -68,7 +84,10 @@ public class AudioManager : AController {
             soundEvent.set3DAttributes(RuntimeUtils.To3DAttributes(pos));
             soundEvent.setVolume(s.volume * fXVolume * masterVolume);
             soundEvent.start();
-            eventList.Add(soundEvent);
+            SoundEvents e = new SoundEvents();
+            e.eventInstance = soundEvent;
+            e.volume = s.volume;
+            eventList.Add(e);
         }
         return soundEvent;
     }
@@ -84,7 +103,10 @@ public class AudioManager : AController {
             soundEvent.start();
             SoundManagerMovingSound movingSound = new SoundManagerMovingSound(t, soundEvent, s);
             positionEvents.Add(movingSound);
-            eventList.Add(soundEvent);
+            SoundEvents e = new SoundEvents();
+            e.eventInstance = soundEvent;
+            e.volume = s.volume;
+            eventList.Add(e);
         }
         return soundEvent;
     }
@@ -115,6 +137,13 @@ public class AudioManager : AController {
             soundEvent.setVolume(s.volume * fXVolume * masterVolume);
             soundEvent.start();
             soundEvent.release();
+            if (s.name == "TurretShot")
+            {
+                SoundEvents e = new SoundEvents();
+                e.eventInstance = soundEvent;
+                e.volume = s.volume;
+                eventList.Add(e);
+            }            
         }
         return soundEvent;
     }
@@ -148,24 +177,24 @@ public class AudioManager : AController {
         for (int i = 0; i < parameters.Count; i++)
             soundEvent.setParameterByName(parameters[i].GetName(), parameters[i].GetValue());
     }
-
+    /*
     public void Pause(EventInstance soundEvent)
     {        
         if (eventList.Contains(soundEvent))
         {
             soundEvent.setPaused(true);
         }        
-    }
+    }*/
 
-
+    /*
     public void Resume(EventInstance soundEvent)
     {
         if (eventList.Contains(soundEvent))
         {
             soundEvent.setPaused(true);
         }
-    }
-
+    }*/
+    /*
     public void Stop(EventInstance soundEvent, bool fadeout = true)
     {
         soundEvent.clearHandle();
@@ -177,32 +206,54 @@ public class AudioManager : AController {
                 soundEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             }
         }
-    }
+    }*/
 
     public void PlayAll()
     {
-        foreach (EventInstance e in eventList)
+        foreach (SoundEvents e in eventList)
         {
-            e.start();
+            e.eventInstance.start();
         }
     }
 
     public void PauseAll()
     {
-        foreach (EventInstance e in eventList)
+        foreach (SoundEvents e in eventList)
         {
-            e.setPaused(true);
+            e.eventInstance.setPaused(true);
+        }
+
+        foreach (AudioSource a in unitySources)
+        {
+            a.Pause();
         }
     }
 
     public void ResumeAll()
-    {
-        foreach (EventInstance e in eventList)
+    {                
+        for (int i = eventList.Count - 1; i >= 0; i--)
         {
-            e.setPaused(false);
+            PLAYBACK_STATE state;
+            eventList[i].eventInstance.getPlaybackState(out state);
+            if (state == PLAYBACK_STATE.STOPPED)
+            {
+                eventList.Remove(eventList[i]);
+            }
+        }
+
+        foreach (SoundEvents e in eventList)
+        {
+            e.eventInstance.setVolume(e.volume * fXVolume * masterVolume);
+            e.eventInstance.setPaused(false);
+        }
+
+        foreach (AudioSource a in unitySources)
+        {
+            a.volume = a.volume * fXVolume * masterVolume;
+            a.UnPause();
         }
     }
-
+    /*
     public void StopAll(bool fadeout = true)
     {
         foreach (EventInstance e in eventList)
@@ -215,7 +266,7 @@ public class AudioManager : AController {
             }           
         }
         eventList.Clear();
-    }
+    }*/
 
     public bool isPlaying(EventInstance soundEvent)
     {
@@ -284,4 +335,10 @@ class SoundManagerMovingSound
     {
         return sound;
     }
+}
+
+class SoundEvents
+{
+    public EventInstance eventInstance;
+    public float volume;
 }

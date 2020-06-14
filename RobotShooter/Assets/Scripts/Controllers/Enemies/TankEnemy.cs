@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
+using FMOD.Studio;
 
 public class TankEnemy : MonoBehaviour
 {
@@ -27,11 +28,14 @@ public class TankEnemy : MonoBehaviour
     private Vector3 relativePosition;
     private float rotationTime;
     private Quaternion targetRotation;
+    EventInstance heavyLevitationSound;
 
     [HideInInspector] public float health;
     [HideInInspector] public float damage;
     [HideInInspector] public float speed;
     [HideInInspector] public bool hittedByAR;
+    public AudioSource source;
+    public AudioSource source2;
 
     [Header("Stats")]
     public float initHealth;
@@ -71,6 +75,7 @@ public class TankEnemy : MonoBehaviour
         armInitForward = Arms[0].forward;
 
         IncrementStats();*/
+        AudioManager.instance.unitySources.Add(source2);
     }
 
     private void OnEnable()
@@ -80,6 +85,7 @@ public class TankEnemy : MonoBehaviour
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
+        source = GetComponent<AudioSource>();
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
 
@@ -91,6 +97,10 @@ public class TankEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!source2.isPlaying && !GameManager.instance.uiController.paused)
+        {
+            source2.Play();
+        }
         switch (currentState)
         {
             case State.INITIAL:
@@ -110,9 +120,9 @@ public class TankEnemy : MonoBehaviour
                         break;
                     }                    
                 }
-                transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
-                //Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeedCharacter * Time.deltaTime, 0.0f);
-                //transform.rotation = Quaternion.LookRotation(newDirectionChase);
+                //transform.forward = new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z);
+                Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeedCharacter * Time.deltaTime, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDirectionChase);
                 Arms[0].localRotation = Quaternion.Lerp(Arms[0].localRotation, Quaternion.Euler(90, 0, 0), Time.deltaTime * rotSpeedArms);
                 Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(90, 0, 0), Time.deltaTime * rotSpeedArms);
                 break;
@@ -163,7 +173,8 @@ public class TankEnemy : MonoBehaviour
     {
         switch (currentState)
         {
-            case State.CHASE:                
+            case State.CHASE:
+                heavyLevitationSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 CancelInvoke("GoToTarget");
                 agent.enabled = false;
                 break;
@@ -186,7 +197,11 @@ public class TankEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                //AudioManager.instance.PlayEvent("HeavyLevitationSound", transform);
+                /*if (!AudioManager.instance.isPlaying(heavyLevitationSound))
+                {
+                    heavyLevitationSound = AudioManager.instance.PlayOneShotSound("HeavyLevitationSound", transform.position);
+                }*/
+                
                 agent.enabled = true;
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
@@ -199,12 +214,10 @@ public class TankEnemy : MonoBehaviour
                 if (hittedByAR)
                 {
                     GameManager.instance.player.IncreaseCash(punishHitIncome);
-                    AudioManager.instance.PlayOneShotSound("BlockedHit", transform);
                 }
                 else
                 {
                     GameManager.instance.player.IncreaseCash(hitIncome);
-                    AudioManager.instance.PlayOneShotSound("NormalHit", transform);
                 }
                 Invoke("ChangeToChase", hitTime);
                 break;
@@ -216,6 +229,7 @@ public class TankEnemy : MonoBehaviour
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 GameManager.instance.roundController.DecreaseEnemyCount();
+                heavyLevitationSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 AudioManager.instance.PlayOneShotSound("DeadExplosion", transform.position);
                 Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);
@@ -250,6 +264,11 @@ public class TankEnemy : MonoBehaviour
         if (speed > maxSpeed) speed = maxSpeed;
         if (GameManager.instance.roundController.currentRound > 0) damage = initDamage + damageInc * (GameManager.instance.roundController.currentRound - 1);
         if (damage > maxDamage) damage = maxDamage;
+    }
+
+    public void WhatHitSound(string soundName)
+    {
+        AudioManager.instance.PlayOneShotSound(soundName, transform.position);
     }
 
     float DistanceToTarget(GameObject me, GameObject target)
