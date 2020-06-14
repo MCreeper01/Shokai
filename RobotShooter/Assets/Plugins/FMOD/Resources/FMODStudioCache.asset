@@ -79,7 +79,7 @@ MonoBehaviour:
   Path: event:/FX/Environment/Crowd
   guid: 364413e59fae3a47a82958c05b0b208c
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -171,7 +171,7 @@ MonoBehaviour:
   Path: event:/FX/Enemy/Enemy_critical_hit
   guid: f91c304ef634484e89e842bc4e08535b
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -194,7 +194,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Overheat_AR
   guid: 0215c0eb5041664aa0f622ae710e4689
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -217,7 +217,7 @@ MonoBehaviour:
   Path: event:/FX/Enemy/Enemy1_shot
   guid: e3b4e2aa7d13e8449718f4841e81dd53
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -225,6 +225,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1200
+--- !u!114 &-6298385240931806482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/StreamingAssets/Master.bank
+  SubDir: 
+  lastModified: 637273598146678159
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-6035066925935487744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,7 +319,7 @@ MonoBehaviour:
   Path: event:/FX/Player/ExpGranade
   guid: 7834821179fb364f90d0cd0d83468921
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -324,7 +342,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Jetpack_boost
   guid: 6b6f10e9df020e4bb3312e94a49083ca
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -347,7 +365,7 @@ MonoBehaviour:
   Path: event:/FX/Enemy/Enemy_blocked_hit
   guid: af2ce0e28cd53f429231d482f41085c8
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -416,7 +434,7 @@ MonoBehaviour:
   Path: event:/FX/UI/Button
   guid: fc0b34b548b963498a3f194d0ca84268
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -439,7 +457,7 @@ MonoBehaviour:
   Path: event:/FX/Turret/ExpTurret
   guid: 2bd2d3cdd8ff6d4cbd686413c75b06d4
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -485,7 +503,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Player_dead
   guid: 57f14f8e8f77924591055577976f92fb
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -531,7 +549,7 @@ MonoBehaviour:
   Path: event:/FX/Player/AR_shoot
   guid: a14f42f25a4be549bd5732dcbc8ba366
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -554,7 +572,7 @@ MonoBehaviour:
   Path: event:/FX/MINE/PlaceMine
   guid: 00ef4ed404a3ee44b296b3dbe35b8e38
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -623,7 +641,7 @@ MonoBehaviour:
   Path: event:/FX/Turret/Placed_defense
   guid: b115b37c51b47a4792955d5291abc4e5
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -715,7 +733,7 @@ MonoBehaviour:
   Path: event:/FX/Enemy/Rocket_shot
   guid: 6dd236517946d842b0a46b5cc8b75203
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -761,7 +779,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Jetpack_glide
   guid: f359c1f3dfca1c459714e5da11c75a92
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -784,7 +802,7 @@ MonoBehaviour:
   Path: event:/FX/Environment/Platform_movement
   guid: 8feb7fb2f22134478b45a50b637712c2
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 1
   Is3D: 1
   IsOneShot: 0
@@ -807,7 +825,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Player_hit
   guid: 6219e115eb4e9448ad3a789179fd97eb
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -848,7 +866,7 @@ MonoBehaviour:
   Path: event:/FX/Object/Countdown_beep
   guid: c5a8d3370ec73945bb926d7125a340ce
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -894,7 +912,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Repair_skill
   guid: fe42fb153fb6714dbb7153e678bf9195
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -935,7 +953,7 @@ MonoBehaviour:
   Path: event:/FX/Enemy/Enemy2_swing
   guid: fbdef62f3cc7394fa2e0bf47df009c28
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1004,7 +1022,7 @@ MonoBehaviour:
   Path: event:/FX/Environment/Finish_round
   guid: 6986117e87da77469b2a3f0ea3125e2a
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1026,7 +1044,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 7136756969158923305}
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   EditorEvents:
   - {fileID: -3546200197890144223}
   - {fileID: -6854608862544762331}
@@ -1071,10 +1089,10 @@ MonoBehaviour:
   - {fileID: -401001585918305965}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   StringsBanks:
   - {fileID: 7136756969158923305}
-  stringsBankWriteTime: 637269035304139348
+  stringsBankWriteTime: 637273598146738012
   cacheVersion: 3
 --- !u!114 &396313744737354041
 MonoBehaviour:
@@ -1091,7 +1109,7 @@ MonoBehaviour:
   Path: event:/FX/UI/Buy
   guid: ab6b968dc6a8a64a8942ce35904c672a
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1114,7 +1132,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Impact_with_ground
   guid: ac44fe613071a848b08763510af28e5d
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1183,7 +1201,7 @@ MonoBehaviour:
   Path: event:/FX/Environment/Start_round
   guid: 41d4b93d17e5884b8ce27319ff5a8f1c
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 1
   Is3D: 1
   IsOneShot: 1
@@ -1206,7 +1224,7 @@ MonoBehaviour:
   Path: event:/FX/Turret/Turret_shot
   guid: b17de48588fa734e84a11d65cc2b2e34
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -1275,7 +1293,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Player_run
   guid: 750ce32d379a81438440db4fac71d3d0
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -1316,7 +1334,7 @@ MonoBehaviour:
   Path: event:/FX/Object/Countdown_beep_single
   guid: 8194e39b56193b43a62310458e8310be
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1408,7 +1426,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Laser
   guid: 1320f902168806408a78e2745139849b
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1536,7 +1554,7 @@ MonoBehaviour:
   Path: event:/FX/Player/SG_reload
   guid: f08e795b26ce364b816fc39859868526
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1582,7 +1600,7 @@ MonoBehaviour:
   Path: event:/FX/Enemy/Heavy_levitation
   guid: 27ecf4bda17db240856022811d7ad688
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -1605,7 +1623,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Player_electrocuted
   guid: d31727c02a7b14468262702f27bcc4a7
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1628,7 +1646,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Broken_shield
   guid: 9a8c441e36c9f1468303815a3f442992
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1720,7 +1738,7 @@ MonoBehaviour:
   Path: event:/FX/Object/Rocket_explosion
   guid: 74ac93d990e9db49920d106b873e01e5
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1743,7 +1761,7 @@ MonoBehaviour:
   Path: event:/FX/Player/SG_shoot
   guid: 87ac18e40474744ea5003d2378f59147
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1766,7 +1784,7 @@ MonoBehaviour:
   Path: event:/FX/Player/EMP
   guid: 306add58b920a941933af650fa51e2f1
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1789,7 +1807,7 @@ MonoBehaviour:
   Path: event:/FX/Player/GL_shoot
   guid: e9355d6eb452714d94ce0c8ad989f4d2
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1881,7 +1899,7 @@ MonoBehaviour:
   Path: event:/FX/Player/Warning_health
   guid: 0b073e3cf506844eac1a842e39aad250
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 0
   IsOneShot: 0
@@ -1949,7 +1967,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/StreamingAssets/Master.strings.bank
   SubDir: 
-  lastModified: 637269035304139348
+  lastModified: 637273598146738012
   LoadResult: 0
   FileSizes:
   - Name: 
@@ -1970,7 +1988,7 @@ MonoBehaviour:
   Path: event:/FX/Enemy/Enemy_explosion
   guid: 78485ce628a9dc479e79c78c22d588b0
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -1993,7 +2011,7 @@ MonoBehaviour:
   Path: event:/FX/Enemy/Levitation
   guid: f1cd89b38967a24eb2bcba072ec90e55
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -2062,7 +2080,7 @@ MonoBehaviour:
   Path: event:/FX/Enemy/Enemy_hit
   guid: 89b4e942ca37a342864b42fd7de5374e
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
@@ -2085,7 +2103,7 @@ MonoBehaviour:
   Path: event:/FX/Enemy/Propeller
   guid: 2ba5d5c086f38d4da13307e5d0620628
   Banks:
-  - {fileID: -8145220038435689117}
+  - {fileID: -6298385240931806482}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
