@@ -12,6 +12,8 @@ public class ARBulletController : MonoBehaviour
 
     public LayerMask mask;
 
+    public GameObject impactARHole;
+
     private float duration;
     private Vector3 previousPosition;
 
@@ -65,11 +67,15 @@ public class ARBulletController : MonoBehaviour
                         }
                     }
                 }
+                
                 gameObject.SetActive(false);
                 break;
             }
             if (layer == LayerMask.NameToLayer("Geometry"))
             {
+                GameObject impactHole = Instantiate(impactARHole, new Vector3(hits[i].point.x, hits[i].point.y, hits[i].point.z), Quaternion.LookRotation(hits[i].normal));
+                impactHole.transform.parent = hits[i].transform;
+
                 gameObject.SetActive(false);
             }
         }       

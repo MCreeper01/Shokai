@@ -92,7 +92,7 @@ public class PlayerController : AController
     public ParticleSystem muzzleFlashAR;
     public ParticleSystem muzzleFlashShotgun;
     //public GameObject impactEffect;
-    public GameObject impactHole;
+    public GameObject impactShotgunHole;
     public LineRenderer lineRenderer;
     //public GameObject laserBeam;
 
@@ -825,7 +825,7 @@ public class PlayerController : AController
                     bullet.transform.rotation = bulletSpawner.transform.rotation;
                     bullet.transform.forward = dir;
                     bullet.GetComponent<ARBulletController>().damage = playerModel.damageAR;
-                    bullet.SetActive(true);                    
+                    bullet.SetActive(true);                         
                 }
                 else
                 {
@@ -864,9 +864,14 @@ public class PlayerController : AController
                         if (hit.collider.tag == "CriticalBox") multiplier = playerModel.criticalMultiplier;
                         damage = playerModel.shotgunDamage * multiplier;
                         //GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                        GameObject impactHoleGO = Instantiate(impactHole, new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z), Quaternion.LookRotation(hit.normal));
 
-                        impactHoleGO.transform.parent = hit.transform;
+                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Geometry"))
+                        {
+
+                            GameObject impactHole = Instantiate(impactShotgunHole, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.LookRotation(hit.normal));
+
+                            impactHole.transform.parent = hit.transform;
+                        }                        
 
                         GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
                         if (gEnemy != null)
@@ -893,7 +898,7 @@ public class PlayerController : AController
                             }
                         }
 
-                        /*imitHoles.Add(impactHoleGO);
+                        /*limitHoles.Add(impactHoleGO);
 
                         if (limitHoles.Count == 25)
                         {
@@ -904,7 +909,6 @@ public class PlayerController : AController
                         GameController.instance.destroyObjects.Add(impactHoleGO);*/
 
                         //Destroy(impact, 2f);
-                        Destroy(impactHoleGO, 20f);
                     }
                     actualShotgunShootCooldown = playerModel.shootShotgunCooldown;
                     shotgunShotted = true;

@@ -69,6 +69,7 @@ public class PlayerModel : ScriptableObject
     public float bulletOverheat;
     public float overHeatNormalReload;
     public float overHeatSlowReload;
+    public int maxARDecals;
 
     [Header("SHOTGUN")]
     public float fireRateShotgun;
@@ -77,6 +78,7 @@ public class PlayerModel : ScriptableObject
     public float shotgunDamage;
     public int pelletCount;
     public float shotgunSpreadAngle;
+    public int maxShotgunDecals;
 
     [Header("LAUNCHER")]
     public float launcherCooldown;
