@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Shokai.Items;
  
 public class PlayerController : AController
 {
@@ -10,6 +11,8 @@ public class PlayerController : AController
         shotgun,
         launcher
     }
+
+    public InventoryController inventory;
 
     public PlayerModel playerModel;
     public GameObject gun;
@@ -462,9 +465,8 @@ public class PlayerController : AController
     }
 
     public void UseDirectHability(int num)
-    {
-        SlotInfo sInfo = gc.shopController.habilitySlots[num].gameObject.GetComponent<SlotInfo>();
-        if (sInfo.charges > 0) HabilityEffect(sInfo, num);
+    {      
+        if (inventory.ItemContainer.GetSlotQuantityByIndex(num) > 0) HabilityEffect(num);
     }
 
     public void UseDirectDeffense(int num)
@@ -482,20 +484,20 @@ public class PlayerController : AController
         else if (Input.GetKeyDown(playerModel.defenseKey)) UseDirectDeffense(0);
     }
 
-    public void HabilityEffect(SlotInfo sInfo, int num)
+    public void HabilityEffect(int num)
     {
-        switch (sInfo.content)
+        switch (inventory.ItemContainer.GetItemNameByIndex(num))
         {
             case "Jetpack":
                 verticalSpeed = playerModel.jetpackVerticalSpeed;
                 if (gliding) gliding = false;
-                sInfo.Consume();
+                inventory.ItemContainer.Consume(num);
                 break;
             case "Grenade": 
                 if (!lineRenderer.gameObject.activeSelf)
                 {
                     grenadesSlotNum = num;
-                    grenadeAmmo = sInfo.charges;
+                    grenadeAmmo = inventory.ItemContainer.GetSlotQuantityByIndex(num);
                     if (actualWeapon != Weapon.launcher)
                     {
                         pastWeapon = actualWeapon;
@@ -518,7 +520,7 @@ public class PlayerController : AController
                 if (!withDefense && !lineRenderer.gameObject.activeSelf)
                 {
                     previousState = currentState;
-                    sInfo.Consume();
+                    inventory.ItemContainer.Consume(num);
                     ChangeState(new PSLaser(this));
                 }                
                 break;
@@ -530,14 +532,14 @@ public class PlayerController : AController
                     gc.uiController.ChangeHealth(currentHealth);
                     healingParticles.SetActive(true);
                     Invoke("StopHealingParticles", playerModel.healingParticlesTime);
-                    sInfo.Consume();
+                    inventory.ItemContainer.Consume(num);
                 }
                 break;
             case "StickyGrenade":
                 if (!lineRenderer.gameObject.activeSelf)
                 {
                     grenadesSlotNum = num;
-                    grenadeAmmo = sInfo.charges;
+                    grenadeAmmo = inventory.ItemContainer.GetSlotQuantityByIndex(num);
                     if (actualWeapon != Weapon.launcher)
                     {
                         pastWeapon = actualWeapon;
@@ -558,7 +560,7 @@ public class PlayerController : AController
                 break;
             case "EMP":
                 Instantiate(EMP, transform.position, Quaternion.identity);
-                sInfo.Consume();
+                inventory.ItemContainer.Consume(num);
                 break;
         }
     }

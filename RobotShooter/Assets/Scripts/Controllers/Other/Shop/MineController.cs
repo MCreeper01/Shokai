@@ -64,7 +64,5 @@ public class MineController : MonoBehaviour
             Instantiate(explosionParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }
-
-        Debug.Log(col.name);
     }
 }

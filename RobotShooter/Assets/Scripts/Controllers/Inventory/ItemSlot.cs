@@ -1,7 +1,10 @@
-﻿namespace Shokai.Items
+﻿using System;
+
+namespace Shokai.Items
 {
+    [Serializable]
     public struct ItemSlot
-    {
+    {        
         public InventoryItem item;
         public int quantity;
 

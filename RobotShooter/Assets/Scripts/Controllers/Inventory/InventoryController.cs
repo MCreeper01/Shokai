@@ -2,150 +2,77 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Shokai.Events.CustomEvents;
 
 namespace Shokai.Items
 {
-    public class InventoryController : ScriptableObject, IItemContainer
+    [CreateAssetMenu(fileName = "Inventory", menuName = "Items/Inventory")]
+    public class InventoryController : ScriptableObject
     {
-        private ItemSlot[] itemSlots = new ItemSlot[4];
+        [SerializeField] private VoidEvent onInventoryItemsUpdated = null;
+        [SerializeField] private ItemSlot testItemSlot = new ItemSlot();
+        [Header("Items")]
+        [SerializeField] private ItemSlot jetpack = new ItemSlot();
+        [SerializeField] private ItemSlot grenade = new ItemSlot();
+        [SerializeField] private ItemSlot stickyGrenade = new ItemSlot();
+        [SerializeField] private ItemSlot emp = new ItemSlot();
+        [SerializeField] private ItemSlot laser = new ItemSlot();
+        [SerializeField] private ItemSlot health = new ItemSlot();
+        [SerializeField] private ItemSlot tTurret = new ItemSlot();
+        [SerializeField] private ItemSlot aTurret = new ItemSlot();
+        [SerializeField] private ItemSlot mine = new ItemSlot();
 
-        public Action OnItemsUpdated = delegate { };
+        public ItemContainer ItemContainer { get; } = new ItemContainer(3);
 
-        public ItemSlot GetSlotByIndex(int index) => itemSlots[index];
-
-        public ItemSlot AddItem(ItemSlot itemSlot)
+        public void OnEnable()
         {
-            for (int i = 0; i < itemSlots.Length; i++)
-            {
-                if (itemSlots[i] != null)
-                {
-                    if (itemSlots[i].item == itemSlot.item)
-                    {
-                        int slotRemainingSpace = itemSlots[i].item.MaxStack - itemSlots[i].quantity;
-
-                        if (itemSlot.quantity <= slotRemainingSpace)
-                        {
-                            itemSlots[i].quantity += itemSlot.quantity;
-
-                            itemSlot.quantity = 0;
-
-                            OnItemsUpdated.Invoke();
-
-                            return itemSlot;
-                        }
-                        else if (slotRemainingSpace > 0)
-                        {
-                            itemSlots[i].quantity += slotRemainingSpace;
-
-                            itemSlot.quantity -= slotRemainingSpace;
-                        }
-                    }
-                }
-            }
-
-            for (int i = 0; i < itemSlots.Length; i++)
-            {
-                if (itemSlots[i] == null)
-                {
-                    if (itemSlot.quantity <= itemSlot.item.MaxStack)
-                    {
-                        itemSlots[i] = itemSlot;
-
-                        itemSlot.quantity = 0;
-
-                        OnItemsUpdated.Invoke();
-
-                        return itemSlot;
-                    }
-                    // else que no faig perque crec que es usless
-                }
-            }
-
-            OnItemsUpdated.Invoke();
-
-            return itemSlot;
+            ItemContainer.OnItemsUpdated += onInventoryItemsUpdated.Raise;
         }
 
-        public int GetTotalQuantity(InventoryItem item)
+        public void OnDisable()
         {
-            int totalCount = 0;
+            ItemContainer.OnItemsUpdated -= onInventoryItemsUpdated.Raise;
+        }
 
-            foreach(ItemSlot itemSlot in itemSlots)
+        [ContextMenu("Test Add")]
+        public void TestAdd()
+        {
+            ItemContainer.AddItem(testItemSlot);
+        }
+
+        public void AddConsumItem(string name)
+        {
+            switch (name)
             {
-                if (itemSlot.item == null) { continue; }
-                if (itemSlot.item != item) { continue; }
+                case "Jetpack":
+                    ItemContainer.AddItem(jetpack);
+                    break;
+                case "Grenade":
+                    ItemContainer.AddItem(grenade);
+                    break;
+                case "Laser":
+                    ItemContainer.AddItem(laser);
+                    break;
+                case "Health":
+                    ItemContainer.AddItem(health);
+                    break;
+                case "StickyGrenade":
+                    ItemContainer.AddItem(stickyGrenade);
+                    break;
+                case "EMP":
+                    ItemContainer.AddItem(emp);
+                    break;
+                case "Mine":
+                    ItemContainer.AddItem(mine);
+                    break;
+                case "TerrainTurret":
+                    ItemContainer.AddItem(tTurret);
+                    break;
+                case "AirTurret":
+                    ItemContainer.AddItem(aTurret);
+                    break;
 
-                totalCount += itemSlot.quantity;
-            }
-
-            return totalCount;
-        }
-
-        public bool HasItem(InventoryItem item)
-        {
-            foreach (ItemSlot itemSlot in itemSlots)
-            {
-                if(itemSlot.item == null) { continue; }
-                if (itemSlot.item != item) { continue; }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public void RemoveAt(int slotIndex)
-        {
-            if(slotIndex < 0 || slotIndex > itemSlots.Length -1) { return; }
-
-            itemSlots[slotIndex] = new ItemSlot();
-
-            OnItemsUpdated.Invoke();
-        }
-
-        public void RemoveItem(ItemSlot itemSlot)
-        {
-            for (int i = 0; i < itemSlots.Length; i++)
-            {
-                if (itemSlots[i].item != null)
-                {
-                    if (itemSlots[i].item == itemSlot.item)
-                    {
-                        if (itemSlots[i].quantity < itemSlot.quantity)
-                        {
-                            itemSlot.quantity -= itemSlots[i].quantity;
-
-                            itemSlots[i] = new ItemSlot();
-                        }
-                        else
-                        {
-                            itemSlots[i].quantity -= itemSlot.quantity;
-
-                            if (itemSlots[i].quantity == 0)
-                            {
-                                itemSlots[i] = new ItemSlot();
-
-                                OnItemsUpdated.Invoke();
-
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        public void Swap(int indexOne, int indexTwo)
-        {
-            ItemSlot firstSlot = itemSlots[indexOne];
-            ItemSlot secondSlot = itemSlots[indexTwo];
-
-            if (firstSlot == secondSlot) { return; }
-
-            itemSlots[indexOne] = secondSlot;
-            itemSlots[indexTwo] = firstSlot;
-
-            OnItemsUpdated.Invoke();
+            }            
         }
     }
 }

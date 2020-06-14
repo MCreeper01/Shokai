@@ -4868,7 +4868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2352069269903921901}
   m_LocalRotation: {x: 0.72344285, y: 0.079192474, z: 0.0841723, w: 0.6806423}
-  m_LocalPosition: {x: 0, y: -0, z: -0.022}
+  m_LocalPosition: {x: -0.01, y: -1.059, z: -0.018}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8017840075634987548}
@@ -5107,6 +5107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbe20aac48b404a47900a5ff10cbdb25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: 0b752a8111dbcb44fb7142e109a3ee19, type: 2}
   playerModel: {fileID: 11400000, guid: 0039ddb581c5086499fcc532f6159498, type: 2}
   gun: {fileID: 8124455018346287785}
   laserPoint: {fileID: 8017840075634987548}
@@ -5504,7 +5505,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8017840075634987547}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.997, z: 0.026}
+  m_LocalPosition: {x: 0, y: -0.983, z: -0.078}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2352069269903921899}

@@ -95,7 +95,6 @@ public class TankEnemy : MonoBehaviour
         if (GameManager.instance.roundController.currentState == RoundController.State.FIGHT ||
             GameManager.instance.roundController.currentState == RoundController.State.SPAWN)
             GameManager.instance.roundController.DecreaseEnemyCount();
-        Debug.Log("dieee");
     }
 
 
