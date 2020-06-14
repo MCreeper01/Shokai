@@ -867,7 +867,6 @@ public class PlayerController : AController
 
                         if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Geometry"))
                         {
-
                             GameObject impactHole = Instantiate(impactShotgunHole, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.LookRotation(hit.normal));
 
                             impactHole.transform.parent = hit.transform;
@@ -933,8 +932,7 @@ public class PlayerController : AController
 
     public void ChangeGrenadeAmmo()
     {
-        SlotInfo sInfo = gc.shopController.habilitySlots[grenadesSlotNum].GetComponent<SlotInfo>();
-        sInfo.Consume();
+        inventory.ItemContainer.Consume(grenadesSlotNum);
         grenadeAmmo--;       
     }
 

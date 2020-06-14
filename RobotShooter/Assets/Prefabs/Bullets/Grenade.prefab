@@ -129,3 +129,8 @@ MonoBehaviour:
   maxDamage: 200
   maxDamageToPlayer: 50
   explosionParticles: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}
+  explosionDecal: {fileID: 2456202342853807079, guid: 02b824e65499c4b48ac82790fa689a8c,
+    type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512

@@ -48,7 +48,6 @@ namespace Shokai.Items
 
             for (int i = 0; i < itemSlots.Length; i++)
             {
-                Debug.Log(itemSlots[i]);
                 if (itemSlots[i].item == null)
                 {
                     for (int y = 0; y < itemSlots.Length; y++)

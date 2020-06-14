@@ -50,6 +50,11 @@ MonoBehaviour:
   maxDamageToPlayer: 25
   explosionRadius: 10
   explosionParticles: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}
+  explosionDecal: {fileID: 3497548341213826963, guid: 96ba490ad7bec4a409c7918493984702,
+    type: 3}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!135 &486684336018829150
 SphereCollider:
   m_ObjectHideFlags: 0
