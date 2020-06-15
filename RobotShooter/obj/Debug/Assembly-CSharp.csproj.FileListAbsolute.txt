@@ -266,3 +266,6 @@ C:\Users\adria\Desktop\Projectes Unity\GitHub\robotshooter\RobotShooter\obj\Debu
 C:\Users\adria\Desktop\Projectes Unity\GitHub\robotshooter\RobotShooter\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\adria\Desktop\Projectes Unity\GitHub\robotshooter\RobotShooter\obj\Debug\Assembly-CSharp.dll
 C:\Users\adria\Desktop\Projectes Unity\GitHub\robotshooter\RobotShooter\obj\Debug\Assembly-CSharp.pdb
+C:\Users\Sergi\Desktop\Tecnocampus\Nueva carpeta\Shokai\robotshooter\RobotShooter\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\Sergi\Desktop\Tecnocampus\Nueva carpeta\Shokai\robotshooter\RobotShooter\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache
+C:\Users\Sergi\Desktop\Tecnocampus\Nueva carpeta\Shokai\robotshooter\RobotShooter\obj\Debug\Assembly-CSharp.dll

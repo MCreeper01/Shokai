@@ -25,8 +25,8 @@ Material:
   m_ShaderKeywords: _EMISSION _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: 3050
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses:
@@ -66,7 +66,7 @@ Material:
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
-    - _Cull: 2
+    - _Cull: 0
     - _Cutoff: 0.5
     - _DstBlend: 10
     - _EnvironmentReflections: 1
@@ -87,5 +87,5 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0, g: 0.67959046, b: 1, a: 0.24705882}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    - _EmissionColor: {r: 0, g: 0.41788515, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0.5803922, b: 1.3411765, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}

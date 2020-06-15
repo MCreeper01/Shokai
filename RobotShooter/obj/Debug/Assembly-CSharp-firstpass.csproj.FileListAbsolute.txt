@@ -1,0 +1,2 @@
+C:\Users\Sergi\Desktop\Tecnocampus\Nueva carpeta\Shokai\robotshooter\RobotShooter\obj\Debug\Assembly-CSharp-firstpass.csprojResolveAssemblyReference.cache
+C:\Users\Sergi\Desktop\Tecnocampus\Nueva carpeta\Shokai\robotshooter\RobotShooter\obj\Debug\Assembly-CSharp-firstpass.csproj.CoreCompileInputs.cache

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: c6f66d0048e5a0d43a6223c12d864cab
+=======
+guid: 59476799685d2c24f876d75d6218f8d3
+>>>>>>> Final-Fog-and-Light
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

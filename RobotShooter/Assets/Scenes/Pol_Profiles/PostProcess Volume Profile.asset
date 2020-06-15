@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
   m_Name: PostProcess Volume Profile
   m_EditorClassIdentifier: 
-  settings:
-  - {fileID: -696704639750675883}
+  settings: []
