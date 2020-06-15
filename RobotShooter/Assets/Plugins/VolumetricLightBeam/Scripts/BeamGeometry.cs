@@ -207,7 +207,7 @@ namespace VLB
 #if UNITY_EDITOR
             // Apply the same static flags to the BeamGeometry than the VLB GAO
             var flags = UnityEditor.GameObjectUtility.GetStaticEditorFlags(master.gameObject);
-            flags &= ~(UnityEditor.StaticEditorFlags.LightmapStatic); // remove the Lightmap static flag since it will generate error messages when selecting the BeamGeometry GAO in the editor
+            flags &= ~(UnityEditor.StaticEditorFlags.ContributeGI); // remove the Lightmap static flag since it will generate error messages when selecting the BeamGeometry GAO in the editor
             UnityEditor.GameObjectUtility.SetStaticEditorFlags(gameObject, flags);
 #endif
 
