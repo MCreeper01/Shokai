@@ -25,8 +25,10 @@ public class UIController : AController
     public Text preparationTimeText;
     public Text fpsText;
     public KeyCode skipPreparationKey = KeyCode.O;
+    public List<GameObject> pointers;
 
     [Header("Shop")]
+    public Text cashShopText;
     public Text jetpackCost;
     public Text grenadeCost;
     public Text laserCost;
@@ -132,6 +134,12 @@ public class UIController : AController
             * healthbar.fillAmount, shieldbar.transform.localPosition.z);
     }
 
+    public void ChangePointer(int num)
+    {
+        foreach (GameObject pointer in pointers) pointer.SetActive(false);
+        pointers[num - 1].SetActive(true);
+    }
+
     public void IncreaseRound()
     {
         roundCounter.text = "Round " + gc.roundController.currentRound.ToString(); 
@@ -140,6 +148,7 @@ public class UIController : AController
     public void ChangeCash(int value)
     {
         cashText.text = "Cash: " + value;
+        cashShopText.text = value.ToString();
     }
 
     public void Shop()

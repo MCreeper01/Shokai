@@ -65,12 +65,14 @@ MonoBehaviour:
   bulletOverheat: 2
   overHeatNormalReload: 35
   overHeatSlowReload: 25
+  maxARDecals: 20
   fireRateShotgun: 1
   shootShotgunCooldown: 1
   rangeShotgun: 30
   shotgunDamage: 18
   pelletCount: 12
   shotgunSpreadAngle: 8
+  maxShotgunDecals: 36
   launcherCooldown: 0.7
   shootForceLauncher: 25
   hability1Key: 49

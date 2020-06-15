@@ -80,6 +80,14 @@ public class GroundEnemy : MonoBehaviour
         ChangeState(State.INITIAL);
     }
 
+    private void OnDisable()
+    {
+        if (GameManager.instance.roundController.currentState == RoundController.State.FIGHT ||
+            GameManager.instance.roundController.currentState == RoundController.State.SPAWN)
+            GameManager.instance.roundController.DecreaseEnemyCount();
+    }
+
+
     // Update is called once per frame
     void Update()
     {       
@@ -186,7 +194,7 @@ public class GroundEnemy : MonoBehaviour
                 break;
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
-                GameManager.instance.roundController.DecreaseEnemyCount();
+                //GameManager.instance.roundController.DecreaseEnemyCount();
                 AudioManager.instance.PlayOneShotSound("DeadExplosion", transform);
                 Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);

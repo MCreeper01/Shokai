@@ -10,6 +10,8 @@ public class StickyGrenadeController : MonoBehaviour
     public float maxDamage;
     public float maxDamageToPlayer;
     public GameObject explosionParticles;
+    public GameObject explosionDecal;
+    public LayerMask groundLayer;
 
     private float countdownDelay;
     private bool canExplode = false;
@@ -67,6 +69,15 @@ public class StickyGrenadeController : MonoBehaviour
             }
         }
         Instantiate(explosionParticles, transform.position, transform.rotation);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, -Vector3.up, out hit, 0.5f, groundLayer))
+        {
+            GameObject explosionDecalGO = Instantiate(explosionDecal, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.LookRotation(hit.normal));
+
+            explosionDecalGO.transform.parent = hit.transform;
+        }
+
         Destroy(gameObject);
     }
 

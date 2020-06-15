@@ -8,6 +8,8 @@ public class MineController : MonoBehaviour
     public float maxDamageToPlayer;
     public float explosionRadius;
     public GameObject explosionParticles;
+    public GameObject explosionDecal;
+    public LayerMask groundLayer;
 
     // Start is called before the first frame update
     void Start()
@@ -60,11 +62,18 @@ public class MineController : MonoBehaviour
                     }
                 }
             }
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, -Vector3.up, out hit, 0.5f, groundLayer))
+            {
+                GameObject explosionDecalGO = Instantiate(explosionDecal, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.LookRotation(hit.normal));
+
+                explosionDecalGO.transform.parent = hit.transform;
+            }
+
             AudioManager.instance.PlayOneShotSound("Mine", transform.position);
             Instantiate(explosionParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }
-
-        Debug.Log(col.name);
     }
 }

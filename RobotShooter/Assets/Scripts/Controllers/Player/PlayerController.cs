@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Shokai.Items;
  
 public class PlayerController : AController
 {
@@ -10,6 +11,8 @@ public class PlayerController : AController
         shotgun,
         launcher
     }
+
+    public InventoryController inventory;
 
     public PlayerModel playerModel;
     public GameObject gun;
@@ -89,7 +92,7 @@ public class PlayerController : AController
     public ParticleSystem muzzleFlashAR;
     public ParticleSystem muzzleFlashShotgun;
     //public GameObject impactEffect;
-    public GameObject impactHole;
+    public GameObject impactShotgunHole;
     public LineRenderer lineRenderer;
     //public GameObject laserBeam;
 
@@ -166,6 +169,7 @@ public class PlayerController : AController
         score = cash;
 
         actualWeapon = Weapon.rifle;
+        gc.uiController.ChangePointer((int)actualWeapon);
 
         gc.uiController.ChangeCash(cash);
         gc.uiController.ChangeAROverheat(actualOverheat);
@@ -178,7 +182,6 @@ public class PlayerController : AController
 
         StartCoroutine(RecoverShield());
 
-        actualWeapon = Weapon.rifle;
         anim.SetInteger("weaponToChange", (int)actualWeapon);
 
         ChangeState(new PSMovement(this));
@@ -477,9 +480,8 @@ public class PlayerController : AController
     }
 
     public void UseDirectHability(int num)
-    {
-        SlotInfo sInfo = gc.shopController.habilitySlots[num].gameObject.GetComponent<SlotInfo>();
-        if (sInfo.charges > 0) HabilityEffect(sInfo, num);
+    {      
+        if (inventory.ItemContainer.GetSlotQuantityByIndex(num) > 0) HabilityEffect(num);
     }
 
     public void UseDirectDeffense(int num)
@@ -497,24 +499,25 @@ public class PlayerController : AController
         else if (Input.GetKeyDown(playerModel.defenseKey)) UseDirectDeffense(0);
     }
 
-    public void HabilityEffect(SlotInfo sInfo, int num)
+    public void HabilityEffect(int num)
     {
-        switch (sInfo.content)
+        switch (inventory.ItemContainer.GetItemNameByIndex(num))
         {
             case "Jetpack":
                 verticalSpeed = playerModel.jetpackVerticalSpeed;
                 if (gliding) gliding = false;
-                sInfo.Consume();
+                inventory.ItemContainer.Consume(num);
                 break;
             case "Grenade": 
                 if (!lineRenderer.gameObject.activeSelf)
                 {
                     grenadesSlotNum = num;
-                    grenadeAmmo = sInfo.charges;
+                    grenadeAmmo = inventory.ItemContainer.GetSlotQuantityByIndex(num);
                     if (actualWeapon != Weapon.launcher)
                     {
                         pastWeapon = actualWeapon;
                         actualWeapon = Weapon.launcher;
+                        gc.uiController.ChangePointer((int)actualWeapon);
                         anim.SetInteger("weaponToChange", (int)actualWeapon);
                         anim.SetInteger("previousWeapon", (int)pastWeapon);
                         anim.SetTrigger("changeWeapon");
@@ -532,7 +535,7 @@ public class PlayerController : AController
                 if (!withDefense && !lineRenderer.gameObject.activeSelf)
                 {
                     previousState = currentState;
-                    sInfo.Consume();
+                    inventory.ItemContainer.Consume(num);
                     ChangeState(new PSLaser(this));
                 }                
                 break;
@@ -544,18 +547,19 @@ public class PlayerController : AController
                     gc.uiController.ChangeHealth(currentHealth);
                     healingParticles.SetActive(true);
                     Invoke("StopHealingParticles", playerModel.healingParticlesTime);
-                    sInfo.Consume();
+                    inventory.ItemContainer.Consume(num);
                 }
                 break;
             case "StickyGrenade":
                 if (!lineRenderer.gameObject.activeSelf)
                 {
                     grenadesSlotNum = num;
-                    grenadeAmmo = sInfo.charges;
+                    grenadeAmmo = inventory.ItemContainer.GetSlotQuantityByIndex(num);
                     if (actualWeapon != Weapon.launcher)
                     {
                         pastWeapon = actualWeapon;
                         actualWeapon = Weapon.launcher;
+                        gc.uiController.ChangePointer((int)actualWeapon);
                         anim.SetInteger("weaponToChange", (int)actualWeapon);
                         anim.SetInteger("previousWeapon", (int)pastWeapon);
                         anim.SetTrigger("changeWeapon");
@@ -571,7 +575,7 @@ public class PlayerController : AController
                 break;
             case "EMP":
                 Instantiate(EMP, transform.position, Quaternion.identity);
-                sInfo.Consume();
+                inventory.ItemContainer.Consume(num);
                 break;
         }
     }
@@ -841,7 +845,7 @@ public class PlayerController : AController
                     bullet.transform.rotation = bulletSpawner.transform.rotation;
                     bullet.transform.forward = dir;
                     bullet.GetComponent<ARBulletController>().damage = playerModel.damageAR;
-                    bullet.SetActive(true);                    
+                    bullet.SetActive(true);                         
                 }
                 else
                 {
@@ -880,9 +884,13 @@ public class PlayerController : AController
                         if (hit.collider.tag == "CriticalBox") multiplier = playerModel.criticalMultiplier;
                         damage = playerModel.shotgunDamage * multiplier;
                         //GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                        GameObject impactHoleGO = Instantiate(impactHole, new Vector3(hit.point.x, hit.point.y + 0.1f, hit.point.z), Quaternion.LookRotation(hit.normal));
 
-                        impactHoleGO.transform.parent = hit.transform;
+                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Geometry"))
+                        {
+                            GameObject impactHole = Instantiate(impactShotgunHole, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.LookRotation(hit.normal));
+
+                            impactHole.transform.parent = hit.transform;
+                        }                        
 
                         GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
                         if (gEnemy != null)
@@ -909,7 +917,7 @@ public class PlayerController : AController
                             }
                         }
 
-                        /*imitHoles.Add(impactHoleGO);
+                        /*limitHoles.Add(impactHoleGO);
 
                         if (limitHoles.Count == 25)
                         {
@@ -920,14 +928,13 @@ public class PlayerController : AController
                         GameController.instance.destroyObjects.Add(impactHoleGO);*/
 
                         //Destroy(impact, 2f);
-                        Destroy(impactHoleGO, 20f);
                     }
                     actualShotgunShootCooldown = playerModel.shootShotgunCooldown;
                     shotgunShotted = true;
                 }                
                 break;
             case Weapon.launcher:
-                anim.SetTrigger("shootGL");
+                if (grenadeAmmo > 0) anim.SetTrigger("shootGL");
                 if (hasNormalGrenade)
                 {
                     GameObject grenade = Instantiate(grenadePrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
@@ -945,8 +952,7 @@ public class PlayerController : AController
 
     public void ChangeGrenadeAmmo()
     {
-        SlotInfo sInfo = gc.shopController.habilitySlots[grenadesSlotNum].GetComponent<SlotInfo>();
-        sInfo.Consume();
+        inventory.ItemContainer.Consume(grenadesSlotNum);
         grenadeAmmo--;       
     }
 
@@ -1038,6 +1044,7 @@ public class PlayerController : AController
                 //animation
                 break;
         }
+        gc.uiController.ChangePointer((int)actualWeapon);
         anim.SetInteger("weaponToChange", (int)actualWeapon);
         anim.SetInteger("previousWeapon", (int)pastWeapon);
         anim.SetTrigger("changeWeapon");
