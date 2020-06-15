@@ -51,6 +51,8 @@ public class AirTurretController : MonoBehaviour
                 int num = 0;
                 float distance = Vector3.Distance(gameObject.transform.position, colliders[num].transform.position);
                 for (int i = 1; i < colliders.Count; i++)
+                shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                foreach (Collider nearbyObject in colliders)
                 {
                     if (Vector3.Distance(gameObject.transform.position, colliders[0].transform.position) < distance)
                     {
@@ -68,6 +70,7 @@ public class AirTurretController : MonoBehaviour
             {
                 if (rotating)
                 {
+                    shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                     relativePosition = target.transform.position - head.transform.position;
                     targetRotation = Quaternion.LookRotation(relativePosition);
                     rotationTime += Time.deltaTime * speed;
@@ -79,7 +82,10 @@ public class AirTurretController : MonoBehaviour
                 {
                     shootParticles.SetActive(true);
                     head.transform.LookAt(target.transform, Vector3.up);
-                    shotSound = AudioManager.instance.PlayEvent("TurretShot", transform.position);
+                    if (!AudioManager.instance.isPlaying(shotSound))
+                    {
+                        shotSound = AudioManager.instance.PlayOneShotSound("TurretShot", transform.position);
+                    } 
 
                     RaycastHit hit;
                     if (Physics.Raycast(pointShoot.position, (target.transform.position - pointShoot.position).normalized, out hit, range, GameManager.instance.player.shootLayerMask))
@@ -103,6 +109,7 @@ public class AirTurretController : MonoBehaviour
                     else
                     {
                         colliders.RemoveAt(colliderTarget);
+                        shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                         hasTarget = false;
                     }
                 }
@@ -120,6 +127,8 @@ public class AirTurretController : MonoBehaviour
 
     public void DestroyDefenses()
     {
+        shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        AudioManager.instance.PlayOneShotSound("TurretExplosion", transform.position);
         Instantiate(explosionParticles, transform.position, transform.rotation);
         Destroy(gameObject);
     }

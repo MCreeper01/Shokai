@@ -16,11 +16,16 @@ public class StickyGrenadeController : MonoBehaviour
     private float countdownDelay;
     private bool canExplode = false;
     private bool hasExploded = false;
+    private float beepTime;
+    private float timesOfBeep;
 
     // Start is called before the first frame update
     void Start()
     {
         countdownDelay = delay;
+        beepTime = 1;
+        timesOfBeep = 1;
+        StartCoroutine(TimeBeep());
     }
 
     // Update is called once per frame
@@ -29,6 +34,7 @@ public class StickyGrenadeController : MonoBehaviour
         if (canExplode) countdownDelay -= Time.deltaTime;
         if (countdownDelay <= 0 && !hasExploded)
         {
+            StopCoroutine(TimeBeep());
             Explode();
         }
     }
@@ -68,6 +74,7 @@ public class StickyGrenadeController : MonoBehaviour
                 }
             }
         }
+        AudioManager.instance.PlayOneShotSound("GranadeExplosion", transform.position);
         Instantiate(explosionParticles, transform.position, transform.rotation);
 
         RaycastHit hit;
@@ -91,5 +98,18 @@ public class StickyGrenadeController : MonoBehaviour
             GetComponent<Rigidbody>().useGravity = false;
             GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         }        
+    }
+
+    IEnumerator TimeBeep()
+    {
+        while (!hasExploded)
+        {
+            for (int i = 0; i < timesOfBeep; i++)
+            {
+                AudioManager.instance.PlayOneShotSound("CountdownGrenades", transform.position);
+                yield return new WaitForSeconds(beepTime);                
+            }
+            beepTime /= 2;
+        }
     }
 }

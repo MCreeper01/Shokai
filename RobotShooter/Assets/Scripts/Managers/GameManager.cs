@@ -98,10 +98,15 @@ public class GameManager : MonoBehaviour
     }    
 
     public void ChangeScene(string scene)
-    {        
+    {
         SceneManager.LoadScene(scene);
         if (Time.timeScale == 0) Time.timeScale = 1;
         //isGameRunning = false;
+    }
+
+    public void ButtonSound()
+    {
+        AudioManager.instance.PlayOneShotSound("Button", transform.position);
     }
 
     public void DestroyDefenses()

@@ -62,7 +62,6 @@ public class MineController : MonoBehaviour
                     }
                 }
             }
-
             RaycastHit hit;
             if (Physics.Raycast(transform.position, -Vector3.up, out hit, 0.5f, groundLayer))
             {

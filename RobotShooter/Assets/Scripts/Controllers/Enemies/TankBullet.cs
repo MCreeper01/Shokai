@@ -35,10 +35,12 @@ public class TankBullet : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        AudioManager.instance.PlayEvent("PlasmaBlast", transform.position);
+        AudioManager.instance.PlayOneShotSound("PlasmaBlast", transform.position);
         if (collider.tag == "Player")
         {
-            collider.GetComponent<PlayerController>().TakeDamage(damage, 0);
+            PlayerController player = collider.GetComponent<PlayerController>();
+            player.TakeDamage(damage, 0);
+            AudioManager.instance.PlayOneShotSound("ReceiveDamage", player.transform.position);
             Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
             for (int i = 0; i < colliders.Length; i++)
             {

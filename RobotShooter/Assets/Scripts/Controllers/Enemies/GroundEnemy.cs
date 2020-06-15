@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
+using FMOD.Studio;
+using FMODUnity;
 
 public class GroundEnemy : MonoBehaviour
 {
@@ -10,7 +12,6 @@ public class GroundEnemy : MonoBehaviour
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
-    //Rigidbody rb;
     Animator anim;
     [HideInInspector]
     public GameObject target;
@@ -22,6 +23,8 @@ public class GroundEnemy : MonoBehaviour
     [HideInInspector] public float damage;
     [HideInInspector] public float speed;
     [HideInInspector] public PlayerController player;
+    public AudioSource source;
+    public AudioSource source2;
 
     //GameObject player;
     [Header("Stats")]
@@ -61,6 +64,7 @@ public class GroundEnemy : MonoBehaviour
         agent.stoppingDistance = minDistAttack;
 
         IncrementStats();*/
+        AudioManager.instance.unitySources.Add(source2);
     }
 
     private void OnEnable()
@@ -69,11 +73,11 @@ public class GroundEnemy : MonoBehaviour
         //player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
-        //rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        //source = GetComponent<AudioSource>();
         target = player.gameObject;
         agent.speed = speed;
-        agent.stoppingDistance = minDistAttack;
+        agent.stoppingDistance = minDistAttack;        
 
         IncrementStats();
 
@@ -90,10 +94,15 @@ public class GroundEnemy : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {       
+    {
+        if (!source2.isPlaying && !GameManager.instance.uiController.paused)
+        {
+            source2.Play();
+        }
         switch (currentState)
         {
             case State.INITIAL:
+                
                 ChangeState(State.CHASE);
                 break;
             case State.CHASE:
@@ -147,17 +156,14 @@ public class GroundEnemy : MonoBehaviour
                 break;
             case State.ATTACK:
                 anim.SetBool("Attacking", false);
-                //rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 StopCoroutine("ActivateCollider");
                 break;
             case State.HIT:
-                //rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", false);
-                //rb.constraints = RigidbodyConstraints.None;
                 obstacle.enabled = false;
                 break;
             case State.DEATH:                
@@ -167,35 +173,31 @@ public class GroundEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                //AudioManager.instance.PlayEvent("LevitationSound", transform);
+                                
                 anim.SetBool("Moving", true);
                 agent.enabled = true;                
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
                 anim.SetBool("Attacking", true);
-                //rb.constraints = RigidbodyConstraints.FreezePosition;
-                //rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
                 obstacle.enabled = true;
                 StartCoroutine("ActivateCollider");
                 break;
             case State.HIT:
-                AudioManager.instance.PlayOneShotSound("NormalHit", transform);
-                //rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 GameManager.instance.player.IncreaseCash(hitIncome);
                 Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", true);
-                //rb.constraints = RigidbodyConstraints.FreezeAll;
                 obstacle.enabled = true;
                 Invoke("ChangeToChase", empTimeStun);
                 break;
             case State.DEATH:
                 GameManager.instance.player.IncreaseCash(killIncome);
                 //GameManager.instance.roundController.DecreaseEnemyCount();
-                AudioManager.instance.PlayOneShotSound("DeadExplosion", transform);
+                source2.Stop();
+                AudioManager.instance.PlayOneShotSound("DeadExplosion", transform.position);
                 Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);
                 break;
@@ -234,6 +236,11 @@ public class GroundEnemy : MonoBehaviour
         ChangeState(State.STUNNED);
     }
 
+    public void WhatHitSound(string soundName)
+    {
+        AudioManager.instance.PlayOneShotSound(soundName, transform.position);
+    }
+
     float DistanceToTarget(GameObject me, GameObject target)
     {
         return (target.transform.position - me.transform.position).magnitude;
@@ -264,8 +271,6 @@ public class GroundEnemy : MonoBehaviour
         AudioManager.instance.PlayOneShotSound("PlasmaSwordSwing", transform);
         yield return new WaitForSeconds(0.1f);
         collPoint.GetComponent<BoxCollider>().enabled = false;
-        yield return new WaitForSeconds(fightRate);
-        StartCoroutine("ActivateCollider");
     }
 
     public static GameObject FindInstanceWithinRadius(GameObject me, string tag, string tag2, string tag3, float radius)
@@ -291,9 +296,4 @@ public class GroundEnemy : MonoBehaviour
         if (minDistance < radius) return closest;
         else return null;
     }
-
-    //void OnCollisionEnter (Collision col)
-    //{
-    //    Debug.Log(col.gameObject.name);
-    //}
 }

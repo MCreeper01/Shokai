@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System.Linq;
+using UnityEngine.Audio;
 
 public class FlyingEnemy : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class FlyingEnemy : MonoBehaviour
     public GameObject bullet;
     public GameObject explosionParticles;
     public Transform cannon;
-    public LayerMask mask;
+    public LayerMask nearObjectsMask;
     public float minHeightFly;
 
     //GameObject player;
@@ -24,6 +25,9 @@ public class FlyingEnemy : MonoBehaviour
     [HideInInspector] public float speed;
 
     Animator anim;
+    Collider[] nearObjects;
+    public AudioSource source;
+    public AudioSource source2;
 
     [Header("Stats")]
     public float initHealth;
@@ -40,6 +44,9 @@ public class FlyingEnemy : MonoBehaviour
     public float hitTime;
     public float deathTime;
     public float targetRadiusDetection;
+    public float nearObjectsTime;
+    public float nearObjectsRadius;
+    public float activateNearObjectsDetection;
 
     [Header("StatIncrements")]
     public float healthInc;
@@ -60,8 +67,8 @@ public class FlyingEnemy : MonoBehaviour
 
 
     //Pathfinding 3D
-    Path3D p;
-    Pathfinder3D pathfinder;
+    //Path3D p;
+    //Pathfinder3D pathfinder;
 
 
     // Start is called before the first frame update
@@ -77,6 +84,7 @@ public class FlyingEnemy : MonoBehaviour
         pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
 
         //IncrementStats();*/
+        AudioManager.instance.unitySources.Add(source2);
     }
 
     private void OnEnable()
@@ -85,6 +93,7 @@ public class FlyingEnemy : MonoBehaviour
         //player = GameObject.FindGameObjectWithTag("Player");
 
         anim = GetComponent<Animator>();
+        source = GetComponent<AudioSource>();
         //pathfinder = new Pathfinder3D();
         //pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
 
@@ -103,6 +112,10 @@ public class FlyingEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!source2.isPlaying && !GameManager.instance.uiController.paused)
+        {
+            source2.Play();
+        }
         switch (currentState)
         {
             case State.INITIAL:
@@ -208,10 +221,8 @@ public class FlyingEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                //if (ProvisionalManager.Instance.gm.Graph.Count > 0)
-                //{
-                //    InvokeRepeating("GoToTarget", 0, repathTime);
-                //}
+                //nearObjects = null;
+                elapsedTime = 0;
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
             case State.ATTACK:
@@ -232,7 +243,7 @@ public class FlyingEnemy : MonoBehaviour
                 CancelInvoke("InstanceBullet");
                 GameManager.instance.player.IncreaseCash(killIncome);
                 //GameManager.instance.roundController.DecreaseEnemyCount();
-                AudioManager.instance.PlayOneShotSound("DeadExplosion", transform);
+                AudioManager.instance.PlayOneShotSound("DeadExplosion", transform.position);
                 Instantiate(explosionParticles, transform.position, transform.rotation);
                 Invoke("DisableEnemy", deathTime);
                 break;
@@ -271,6 +282,11 @@ public class FlyingEnemy : MonoBehaviour
         //pathfinder.goal = new Vector3(target.transform.position.x, target.transform.position.y + Random.Range(1, 10), target.transform.position.z); ;
         //p = pathfinder.AStar(gameObject);
         direction = (target.transform.position + new Vector3(0, Random.Range(1, 10), 0) - transform.position).normalized;
+    }
+
+    public void WhatHitSound(string soundName)
+    {
+        AudioManager.instance.PlayOneShotSound(soundName, transform.position);
     }
 
     float DistanceToTarget(GameObject me, GameObject target)
@@ -316,13 +332,15 @@ public class FlyingEnemy : MonoBehaviour
         if (gameObject.activeInHierarchy)
         {
             GameObject b;
-            //b = Instantiate(bullet, cannon.position, Quaternion.identity);
             b = GameManager.instance.objectPoolerManager.airEnemyBulletOP.GetPooledObject();
             b.transform.position = cannon.position;
             b.transform.forward = player.transform.position - transform.position;
             b.GetComponent<EnemyBullet>().damage = damage;
             b.SetActive(true);
             //AudioManager.instance.PlayOneShotSound("ShootEnergyBall", transform.position);
+            source.clip = AudioManager.instance.clips[1];
+            source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+            source.Play();
         }
     }
 
@@ -348,5 +366,10 @@ public class FlyingEnemy : MonoBehaviour
 
         if (minDistance < radius) return closest;
         else return null;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, nearObjectsRadius);
     }
 }

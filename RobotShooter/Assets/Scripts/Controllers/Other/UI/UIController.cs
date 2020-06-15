@@ -112,10 +112,19 @@ public class UIController : AController
         pauseMenu.SetActive(paused);
         HUD.SetActive(!paused);
         optionsMenu.SetActive(false);
-        if (paused) Cursor.lockState = CursorLockMode.None;
-        else Cursor.lockState = CursorLockMode.Locked;
+        if (paused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            AudioManager.instance.PauseAll();
+        } 
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            AudioManager.instance.ResumeAll();
+        }
+        
         Time.timeScale = paused ? 0 : 1;
-    }
+    }    
 
     public void ChangeHealth(float value)
     {

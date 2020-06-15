@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Shokai.Items;
+using FMOD.Studio;
+using UnityEngine.Audio;
  
 public class PlayerController : AController
 {
@@ -84,6 +86,15 @@ public class PlayerController : AController
     //private float currentEmpDuration;
     private float currentCooldownWaitToStart;
     private bool hasNormalGrenade;
+    private EventInstance electricSound;
+    private EventInstance jetpackGlideSound;
+    private EventInstance warningHealthSound;
+    private bool brokenShieldDone = false;
+    private bool groundImpactDone = true;
+    private bool warningHealthDone = false;
+    private AudioSource source;
+    private float runTimeSound = 0.5f;
+    private bool canRunSound = true;
 
     [HideInInspector] public bool waitCooldown;
     [HideInInspector] public int currentARChargerAmmoCount;
@@ -95,7 +106,6 @@ public class PlayerController : AController
     public GameObject impactShotgunHole;
     public LineRenderer lineRenderer;
     //public GameObject laserBeam;
-
 
 
     [Header("DEFENSES")]
@@ -152,6 +162,10 @@ public class PlayerController : AController
         //MOUSE
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        //SOUND
+        source = GetComponent<AudioSource>();
+        AudioManager.instance.unitySources.Add(source);
     }
 
     // Use this for initialization
@@ -257,11 +271,20 @@ public class PlayerController : AController
             if (layer == LayerMask.NameToLayer("ElectricZone"))
             {
                 electricParticles.SetActive(true);
+                if (!AudioManager.instance.isPlaying(electricSound))
+                {
+                    electricSound = AudioManager.instance.PlayEvent("BeingElectrocuted", transform.position);
+                }                
                 TakeDamage(playerModel.electrocuteDamage * Time.deltaTime, 0);
                 break;
             }
-        }  
-        if (hits.Length <= 0) electricParticles.SetActive(false);
+        }
+        if (hits.Length <= 0)
+        {
+            electricSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            electricParticles.SetActive(false);
+        }
+        
     }
 
     void CheckForGeometry()
@@ -291,13 +314,28 @@ public class PlayerController : AController
 
         if (currentShield > 0)
         {
+            brokenShieldDone = false;
+            warningHealthDone = false;            
             currentShield -= damage;
             gc.uiController.ChangeShield(currentShield);
         }
         else
         {
+            if (!brokenShieldDone)
+            {
+                AudioManager.instance.PlayOneShotSound("BrokenEnergyShield", transform.position);
+                brokenShieldDone = true;
+            }
             currentHealth -= damage;
             gc.uiController.ChangeHealth(currentHealth);
+
+            if (currentHealth <= 30 && !warningHealthDone)
+            {
+                source.clip = AudioManager.instance.clips[0];
+                source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                source.Play();
+                warningHealthDone = true;
+            }
 
             if (currentHealth <= 0 && !godMode)
             {
@@ -400,6 +438,7 @@ public class PlayerController : AController
             }
             if (Input.GetKeyDown(playerModel.dashKey) && !dashing && !crouching && recoveringFromDash <= 0)
             {
+                AudioManager.instance.PlayOneShotSound("MechaDash", transform.position);
                 dashing = true;
                 actualDashTime = playerModel.dashTime;
             }
@@ -417,6 +456,17 @@ public class PlayerController : AController
         if (l_Movement == Vector3.zero) moving = false;
         else moving = true;
 
+        if (moving && onGround && runTimeSound <= 0)
+        {
+            AudioManager.instance.PlayOneShotSound("ImpactWithGround", transform.position);
+            //source.clip = AudioManager.instance.clips[5];
+            //source.volume = 0.5f;
+            //source.Play();
+            ///source.volume = 1;
+            runTimeSound = 0.5f;
+        }
+        runTimeSound -= Time.deltaTime;
+
         //GRAVITY
         //…
         if (Input.GetKeyDown(playerModel.jumpKeyCode) != onGround && !readyToGlind) readyToGlind = true;
@@ -424,6 +474,10 @@ public class PlayerController : AController
         {
             readyToGlind = false;
             gliding = true;
+            if (!AudioManager.instance.isPlaying(jetpackGlideSound))
+            {
+                jetpackGlideSound = AudioManager.instance.PlayEvent("JetpackGlide", transform.position);
+            }
         }        
         if (!gliding) verticalSpeed += Physics.gravity.y * 1.5f * Time.deltaTime;
 
@@ -456,9 +510,22 @@ public class PlayerController : AController
             gliding = false;
             onGround = true;
             verticalSpeed = 0;
+            jetpackGlideSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            if (!groundImpactDone)
+            {
+                //AudioManager.instance.PlayOneShotSound("ImpactWithGround", transform.position);
+                source.clip = AudioManager.instance.clips[5];
+                source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                source.Play();
+                groundImpactDone = true;
+            }
         }
         else
+        {
             onGround = false;
+            groundImpactDone = false;
+        }
+            
 
         if ((l_CollisionFlags & CollisionFlags.Above) != 0 && verticalSpeed > 0.0f)
             verticalSpeed = 0.0f;
@@ -476,6 +543,7 @@ public class PlayerController : AController
         {
             gliding = false;
             verticalSpeed = playerModel.resetFallVelocity;
+            jetpackGlideSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         } 
     }
 
@@ -504,6 +572,7 @@ public class PlayerController : AController
         switch (inventory.ItemContainer.GetItemNameByIndex(num))
         {
             case "Jetpack":
+                AudioManager.instance.PlayOneShotSound("JetpackBoost", transform.position);
                 verticalSpeed = playerModel.jetpackVerticalSpeed;
                 if (gliding) gliding = false;
                 inventory.ItemContainer.Consume(num);
@@ -542,6 +611,7 @@ public class PlayerController : AController
             case "Health":
                 if (!withDefense && !lineRenderer.gameObject.activeSelf && currentHealth < playerModel.MAX_HEALTH)
                 {
+                    AudioManager.instance.PlayOneShotSound("PowerUp", transform.position);
                     currentHealth += playerModel.instantHealthAmount;
                     if (currentHealth > playerModel.MAX_HEALTH) currentHealth = playerModel.MAX_HEALTH;
                     gc.uiController.ChangeHealth(currentHealth);
@@ -574,6 +644,7 @@ public class PlayerController : AController
                 }
                 break;
             case "EMP":
+                AudioManager.instance.PlayOneShotSound("EMP", transform.position);
                 Instantiate(EMP, transform.position, Quaternion.identity);
                 inventory.ItemContainer.Consume(num);
                 break;
@@ -663,16 +734,20 @@ public class PlayerController : AController
                 case "Mine":
                     GameObject mine = Instantiate(minePrefab, hit.point, attachedDefense.transform.rotation);
                     mine.GetComponent<SphereCollider>().enabled = true;
+                    AudioManager.instance.PlayOneShotSound("Mine", transform.position);
                     break;
                 case "TerrainTurret":
                     GameObject terrainTurret = Instantiate(terrainTurretPrefab, hit.point, attachedDefense.transform.rotation);
                     terrainTurret.GetComponent<TerrainTurretController>().placed = true;
+                    AudioManager.instance.PlayOneShotSound("PlacedDefense", transform.position);
                     break;
                 case "AirTurret":
                     GameObject airTurret = Instantiate(airTurretPrefab, hit.point, attachedDefense.transform.rotation);
                     airTurret.GetComponent<AirTurretController>().placed = true;
+                    AudioManager.instance.PlayOneShotSound("PlacedDefense", transform.position);
                     break;
             }
+            
             DestroyDefense();
             gun.SetActive(true);
             SlotInfo sInfo = gc.shopController.defenseSlots[defenseSlotNum].GetComponent<SlotInfo>();
@@ -830,7 +905,7 @@ public class PlayerController : AController
             case Weapon.rifle:
                 anim.SetBool("shooting", true);
                 muzzleFlashAR.Play();
-                AudioManager.instance.PlayOneShotSound("AssaultRifleShot", transform);
+                AudioManager.instance.PlayOneShotSound("AssaultRifleShot", transform.position);
                 anim.speed = playerModel.fireRateAR;
                 nextTimeToFireAR = Time.time + 1 / playerModel.fireRateAR;
                 //StartCoroutine(EndMuzzle());
@@ -862,6 +937,7 @@ public class PlayerController : AController
                 gc.uiController.ChangeAROverheat(actualOverheat);
                 if (actualOverheat >= playerModel.maxOverheatAR)
                 {
+                    AudioManager.instance.PlayOneShotSound("OverheatAR", transform.position);
                     actualOverheat = playerModel.maxOverheatAR;
                     saturatedAR = true;
                 }
@@ -870,7 +946,7 @@ public class PlayerController : AController
                 anim.SetBool("shooting", true);
                 float damage;
                 nextTimeToFireShotgun = Time.time + 1 / playerModel.fireRateShotgun;
-                AudioManager.instance.PlayOneShotSound("ShotgunShot", transform);
+                AudioManager.instance.PlayOneShotSound("ShotgunShot", transform.position);
                 //StartCoroutine(EndMuzzle());
                 for (int i = 0; i < pellets.Count; i++)
                 {
@@ -896,7 +972,20 @@ public class PlayerController : AController
                         if (gEnemy != null)
                         {
                             gEnemy.TakeDamage(damage);
-                            if (multiplier == playerModel.criticalMultiplier) IncreaseCash(gEnemy.criticalIncome);
+                            if (multiplier == playerModel.criticalMultiplier)
+                            {
+                                IncreaseCash(gEnemy.criticalIncome);
+                                //gEnemy.WhatHitSound("CriticalHit");
+                                gEnemy.source.clip = AudioManager.instance.clips[4];
+                                gEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                                gEnemy.source.Play();
+                            }
+                            else
+                            {
+                                gEnemy.source.clip = AudioManager.instance.clips[3];
+                                gEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                                gEnemy.source.Play();
+                            }
                         } 
                         else
                         {
@@ -904,7 +993,20 @@ public class PlayerController : AController
                             if (fEnemy != null)
                             {
                                 fEnemy.TakeDamage(damage);
-                                if (multiplier == playerModel.criticalMultiplier) IncreaseCash(fEnemy.criticalIncome);
+                                if (multiplier == playerModel.criticalMultiplier)
+                                {
+                                    IncreaseCash(fEnemy.criticalIncome);
+                                    //fEnemy.WhatHitSound("CriticalHit");
+                                    fEnemy.source.clip = AudioManager.instance.clips[4];
+                                    fEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                                    fEnemy.source.Play();
+                                }
+                                else
+                                {
+                                    fEnemy.source.clip = AudioManager.instance.clips[3];
+                                    fEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                                    fEnemy.source.Play();
+                                }
                             } 
                             else
                             {
@@ -912,7 +1014,20 @@ public class PlayerController : AController
                                 if (tEnemy != null)
                                 {
                                     tEnemy.TakeDamage(damage);
-                                    if (multiplier == playerModel.criticalMultiplier) IncreaseCash(tEnemy.criticalIncome);
+                                    if (multiplier == playerModel.criticalMultiplier)
+                                    {
+                                        IncreaseCash(tEnemy.criticalIncome);
+                                        //tEnemy.WhatHitSound("CriticalHit");
+                                        tEnemy.source.clip = AudioManager.instance.clips[4];
+                                        tEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                                        tEnemy.source.Play();
+                                    }
+                                    else
+                                    {
+                                        tEnemy.source.clip = AudioManager.instance.clips[2];
+                                        tEnemy.source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                                        tEnemy.source.Play();
+                                    }
                                 } 
                             }
                         }
@@ -931,10 +1046,12 @@ public class PlayerController : AController
                     }
                     actualShotgunShootCooldown = playerModel.shootShotgunCooldown;
                     shotgunShotted = true;
+                    Invoke("ReloadSound", 0.4f);
                 }                
                 break;
             case Weapon.launcher:
                 if (grenadeAmmo > 0) anim.SetTrigger("shootGL");
+                AudioManager.instance.PlayOneShotSound("GrenadeLauncherShot", transform.position);
                 if (hasNormalGrenade)
                 {
                     GameObject grenade = Instantiate(grenadePrefab, bulletSpawner.transform.position, bulletSpawner.transform.rotation);
@@ -948,6 +1065,11 @@ public class PlayerController : AController
                 ChangeGrenadeAmmo();                
                 break;
         }       
+    }
+
+    void ReloadSound()
+    {
+        AudioManager.instance.PlayOneShotSound("ShotgunReload", transform.position);
     }
 
     public void ChangeGrenadeAmmo()
@@ -984,7 +1106,7 @@ public class PlayerController : AController
                     if (actualOverheat < 0) actualOverheat = 0;
                 }
                 else
-                {
+                {                    
                     actualOverheat -= playerModel.overHeatSlowReload * Time.deltaTime;
                     if (actualOverheat < 0) actualOverheat = 0;
                     if (actualOverheat <= 0) saturatedAR = false;
@@ -1007,7 +1129,7 @@ public class PlayerController : AController
     }
 
     public void Shop(bool show)
-    {
+    {        
         gc.uiController.shopInterface.SetActive(!gc.uiController.shopInterface.activeSelf);
         Cursor.visible = show;
         if (show)
@@ -1066,8 +1188,13 @@ public class PlayerController : AController
         }
         if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
-            if (collision.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collision.gameObject.GetComponentInParent<GroundEnemy>().damage, 0);
+            if (collision.gameObject.GetComponentInParent<GroundEnemy>() != null)
+            {
+                TakeDamage(collision.gameObject.GetComponentInParent<GroundEnemy>().damage, 0);
+                AudioManager.instance.PlayOneShotSound("ReceiveDamage", transform.position);
+            }
         }
+            
         if (collision.tag == "CenterPlatform")
         {
             gc.roundController.OnTransitionTriggerEnter();

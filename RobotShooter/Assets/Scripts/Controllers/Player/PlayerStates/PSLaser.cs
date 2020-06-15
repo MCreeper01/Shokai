@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMOD.Studio;
 
 public class PSLaser : PlayerState
 {
     float time;
+    EventInstance laserSound;
 
     public PSLaser(PlayerController pc)
     {
+        laserSound = AudioManager.instance.PlayEvent("Laser", pc.transform.position);
         pc.lineRenderer.gameObject.SetActive(true);
         //pc.laserBeam.SetActive(true);
         time = pc.playerModel.laserTime;
@@ -16,7 +19,8 @@ public class PSLaser : PlayerState
     public override void CheckTransition(PlayerController pc)
     {
         if (time <= 0)
-        {         
+        {
+            laserSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             pc.lineRenderer.gameObject.SetActive(false);
             //pc.laserBeam.SetActive(false);
             pc.ChangeState(pc.previousState);

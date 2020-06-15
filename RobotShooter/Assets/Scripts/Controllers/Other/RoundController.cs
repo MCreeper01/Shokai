@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using FMOD.Studio;
 using Random = System.Random;
 
 public class RoundController : AController
@@ -243,6 +244,8 @@ public class RoundController : AController
 
     IEnumerator LoadCurrentMap()
     {
+        EventInstance platformSound;
+        platformSound = AudioManager.instance.PlayEvent("PlatformMovement", transform.position);
         //Down Animation
         Map currentMap = null;
         foreach (Map m in maps)
@@ -284,6 +287,7 @@ public class RoundController : AController
         currentMap.map.transform.position = new Vector3(0, currentMap.animationHeight, 0);
         currentMap.map.layer = LayerMask.NameToLayer("Geometry");
 
+        platformSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         ChangeState(State.PREPARATION);
 
     }
