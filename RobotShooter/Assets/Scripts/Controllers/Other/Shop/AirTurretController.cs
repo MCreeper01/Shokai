@@ -47,12 +47,10 @@ public class AirTurretController : MonoBehaviour
             if (!hasTarget)
             {
                 shootParticles.SetActive(false);
-                AudioManager.instance.Stop(shotSound);
-                int num = 0;
-                float distance = Vector3.Distance(gameObject.transform.position, colliders[num].transform.position);
-                for (int i = 1; i < colliders.Count; i++)
                 shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                foreach (Collider nearbyObject in colliders)
+                int num = 0;
+                float distance = Vector3.Distance(gameObject.transform.position, colliders[num].transform.position);                              
+                for (int i = 1; i < colliders.Count; i++)
                 {
                     if (Vector3.Distance(gameObject.transform.position, colliders[0].transform.position) < distance)
                     {

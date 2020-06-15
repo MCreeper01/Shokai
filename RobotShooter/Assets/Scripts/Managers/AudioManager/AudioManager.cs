@@ -47,8 +47,8 @@ public class AudioManager : AController {
         if (SceneManager.GetActiveScene().name == "SampleScene")
         {
             unitySources.Add(source);
-            source.volume *= fXVolume * masterVolume;
-            source.Play();
+            //source.volume *= fXVolume * masterVolume;
+            //source.Play();
         }        
     }
     /*
