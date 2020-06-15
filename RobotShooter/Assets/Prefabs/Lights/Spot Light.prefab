@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4952575307266050469
+--- !u!1 &8257419961703019030
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4952575307266050471}
-  - component: {fileID: 4952575307266050470}
+  - component: {fileID: 8257419961703019028}
+  - component: {fileID: 8257419961703019029}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -17,36 +17,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4952575307266050471
+--- !u!4 &8257419961703019028
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4952575307266050469}
+  m_GameObject: {fileID: 8257419961703019030}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 170.7, z: 0}
+  m_LocalPosition: {x: 0, y: 393.3, z: -0}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1.0000002}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!108 &4952575307266050470
+--- !u!108 &8257419961703019029
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4952575307266050469}
+  m_GameObject: {fileID: 8257419961703019030}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 32500
-  m_Range: 222.50955
-  m_SpotAngle: 61.39289
-  m_InnerSpotAngle: 47.30455
+  m_Intensity: 75000
+  m_Range: 1829.8724
+  m_SpotAngle: 28.046066
+  m_InnerSpotAngle: 23.074102
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
@@ -80,7 +80,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4227869239
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
