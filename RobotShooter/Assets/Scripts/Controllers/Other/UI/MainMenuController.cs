@@ -50,7 +50,7 @@ public class MainMenuController : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         if (fadePanel.color.a < 1)
         {
-            fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, fadePanel.color.a + 0.01f);
+            fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, fadePanel.color.a + 0.04f);
             StartCoroutine(FadeIn());
         }
     }

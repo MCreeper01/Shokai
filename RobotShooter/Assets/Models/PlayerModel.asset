@@ -90,7 +90,7 @@ MonoBehaviour:
   empDuration: 2
   defenseKey: 113
   distancePlaceDefense: 10
-  pauseKey: 112
+  pauseKey: 27
   electrocuteDamage: 25
   electricZoneDetectionRange: 1.5
   godMode: 282
