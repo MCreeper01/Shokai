@@ -4853,7 +4853,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2352069269903921899}
   - component: {fileID: 2352069269903921900}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4868,7 +4868,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2352069269903921901}
   m_LocalRotation: {x: 0.72344285, y: 0.079192474, z: 0.0841723, w: 0.6806423}
-  m_LocalPosition: {x: 0.028, y: -0.05, z: 0.028}
+  m_LocalPosition: {x: -0.01, y: -1.059, z: -0.018}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8017840075634987548}
@@ -5215,6 +5215,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2352069270455272105}
+  - component: {fileID: 1098563167}
   m_Layer: 12
   m_Name: PitchController
   m_TagString: Untagged
@@ -5241,6 +5242,22 @@ Transform:
   m_Father: {fileID: 2352069270335207169}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!111 &1098563167
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2352069270455272106}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 583b43120edeae049bbffdcee4928e41, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &2352069271626421850
 GameObject:
   m_ObjectHideFlags: 0
@@ -5306,7 +5323,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 469776949
+    m_Bits: 469772853
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -5344,7 +5361,7 @@ MonoBehaviour:
   m_CameraType: 0
   m_Cameras:
   - {fileID: 8017840077075199979}
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 805321271
@@ -5525,7 +5542,7 @@ Transform:
   m_GameObject: {fileID: 8017840075634987547}
   m_LocalRotation: {x: 0.00000017881389, y: -0.0000000072576842, z: 0.00000003466623,
     w: 1}
-  m_LocalPosition: {x: 0, y: -0.9830008, z: -0.07800031}
+  m_LocalPosition: {x: 0, y: -0.983, z: -0.078}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2352069269903921899}
@@ -10711,6 +10728,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 85499fd5b9fd86946aeb4612f8598e2f, type: 2}
+    - target: {fileID: -7937639134526729970, guid: 225c4609afa83934badeecb05dcb7419,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: -4352633094848771774, guid: 225c4609afa83934badeecb05dcb7419,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
@@ -10801,10 +10823,25 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: c1caf58689c2cd244bc86afd5a4f5aba, type: 2}
+    - target: {fileID: -1097565368138706512, guid: 225c4609afa83934badeecb05dcb7419,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 225c4609afa83934badeecb05dcb7419,
         type: 3}
       propertyPath: m_Name
       value: RotWeaponShokai
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 225c4609afa83934badeecb05dcb7419,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 197318120574939511, guid: 225c4609afa83934badeecb05dcb7419,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 2050026900240912305, guid: 225c4609afa83934badeecb05dcb7419,
         type: 3}
@@ -10820,6 +10857,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: "Can\xF3DeDalt"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2670152193568393770, guid: 225c4609afa83934badeecb05dcb7419,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 3583927446293882072, guid: 225c4609afa83934badeecb05dcb7419,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994717555594529010, guid: 225c4609afa83934badeecb05dcb7419,
+        type: 3}
+      propertyPath: m_Layer
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 8412516483601674962, guid: 225c4609afa83934badeecb05dcb7419,
         type: 3}

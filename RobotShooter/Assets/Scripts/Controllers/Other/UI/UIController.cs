@@ -64,7 +64,7 @@ public class UIController : AController
     {
         ChangeAROverheat(gc.player.playerModel.MAX_CHARGER_AMMO_AR);
 
-        jetpackCost.text = gc.shopController.ReturnCost("Jetpack").ToString();
+        /*jetpackCost.text = gc.shopController.ReturnCost("Jetpack").ToString();
         grenadeCost.text = gc.shopController.ReturnCost("Grenade").ToString();
         laserCost.text = gc.shopController.ReturnCost("Laser").ToString();
         healthCost.text = gc.shopController.ReturnCost("Health").ToString();
@@ -72,7 +72,7 @@ public class UIController : AController
         empCost.text = gc.shopController.ReturnCost("EMP").ToString();
         mineCost.text = gc.shopController.ReturnCost("Mine").ToString();
         terrainTurretCost.text = gc.shopController.ReturnCost("TerrainTurret").ToString();
-        airTurretCost.text = gc.shopController.ReturnCost("AirTurret").ToString();
+        airTurretCost.text = gc.shopController.ReturnCost("AirTurret").ToString();*/
 
         fpsText.gameObject.SetActive(Convert.ToBoolean(PlayerPrefs.GetInt("showFPS")));
 
@@ -217,7 +217,7 @@ public class UIController : AController
         yield return new WaitForSeconds(0.01f);
         if (fadePanel.color.a < 1)
         {
-            fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, fadePanel.color.a + 0.01f);
+            fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, fadePanel.color.a + 0.04f);
             StartCoroutine(FadeIn());
         }
     }
