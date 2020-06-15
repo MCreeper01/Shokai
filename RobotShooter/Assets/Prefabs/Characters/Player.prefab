@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3935160866441966661}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: MuzzleFlashShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 4983098684039794303}
   - component: {fileID: 8464135386282667620}
   - component: {fileID: 109062097026608516}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: MuzzleFlashShotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5366,7 +5366,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 805321271
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -5558,7 +5558,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8017840075642534353}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: MuzzleFlashAR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5591,7 +5591,7 @@ GameObject:
   - component: {fileID: 8017840075686481223}
   - component: {fileID: 8017840075686481241}
   - component: {fileID: 8017840075686481240}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: MuzzleFlashAR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10562,7 +10562,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
