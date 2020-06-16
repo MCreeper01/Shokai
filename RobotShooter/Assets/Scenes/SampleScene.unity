@@ -8,8 +8,9 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 3575d713d22234d4ca21cbd87cff1aa3
+  m_OcclusionCullingData: {fileID: 36300000, guid: 987bb4d69342c1e48973f4a9addc0b9a,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -1522,6 +1523,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6756803528019522325, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 32.19995
+      objectReference: {fileID: 0}
+    - target: {fileID: 6756803528019522325, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -15.199951
+      objectReference: {fileID: 0}
     - target: {fileID: 7604321126332952956, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1923,16 +1934,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7355435838579462856, guid: 650b58b16d8431046bd522961cbe769b,
-        type: 3}
-      propertyPath: m_Shadows.m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7355435838579462856, guid: 650b58b16d8431046bd522961cbe769b,
-        type: 3}
-      propertyPath: m_Intensity
-      value: 75000
-      objectReference: {fileID: 0}
     - target: {fileID: 7355435840005338360, guid: 650b58b16d8431046bd522961cbe769b,
         type: 3}
       propertyPath: m_LocalPosition.x

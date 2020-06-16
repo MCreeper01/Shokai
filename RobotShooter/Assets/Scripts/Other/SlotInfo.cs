@@ -36,6 +36,7 @@ public class SlotInfo : MonoBehaviour
             content = "None";
             GetComponent<RawImage>().texture = null;
             gameObject.SetActive(false);
+            chargesText.gameObject.SetActive(false);
         }         
     }
 
@@ -46,5 +47,6 @@ public class SlotInfo : MonoBehaviour
         chargesText.text = charges.ToString();
         GetComponent<RawImage>().texture = null;
         gameObject.SetActive(false);
+        chargesText.gameObject.SetActive(false);
     }
 }

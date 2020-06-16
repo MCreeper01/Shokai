@@ -81,7 +81,7 @@ public class ShopController : AController
                 if (sInfo.charges < h.maxCharges)
                 {
                     if (sInfo.charges + h.charges <= h.maxCharges) sInfo.ChangeCharges(h.charges);
-                    else sInfo.ChangeCharges(h.maxCharges - h.charges);
+                    else sInfo.ChangeCharges(h.maxCharges - h.charges);                    
                     AudioManager.instance.PlayOneShotSound("Buy", gc.player.transform.position);
                     gc.player.cash -= h.cost;
                     gc.uiController.ChangeCash(gc.player.cash);
@@ -136,6 +136,7 @@ public class ShopController : AController
                             gc.player.actualFTurretDefenses += d.charges;
                             break;
                     }
+                    sInfo.chargesText.gameObject.SetActive(true);
                     AudioManager.instance.PlayOneShotSound("Buy", gc.player.transform.position);
                     gc.player.cash -= d.cost;
                     gc.uiController.ChangeCash(gc.player.cash);

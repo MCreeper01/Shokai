@@ -81,8 +81,8 @@ public class StickyGrenadeController : MonoBehaviour
         if (Physics.Raycast(transform.position, -Vector3.up, out hit, 0.5f, groundLayer))
         {
             GameObject explosionDecalGO = Instantiate(explosionDecal, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.LookRotation(hit.normal));
-
             explosionDecalGO.transform.parent = hit.transform;
+            explosionDecal.GetComponentInChildren<MeshRenderer>().enabled = false;
         }
 
         Destroy(gameObject);

@@ -34,10 +34,12 @@ namespace Shokai.Items
 
                             OnItemsUpdated.Invoke();
 
+                            AudioManager.instance.PlayOneShotSound("Buy", GameManager.instance.player.transform.position);
+
                             return itemSlot;
                         }
                         else if (slotRemainingSpace > 0)
-                        {
+                        {                           
                             itemSlots[i].quantity += slotRemainingSpace;
 
                             itemSlot.quantity -= slotRemainingSpace;
@@ -62,6 +64,8 @@ namespace Shokai.Items
 
                         OnItemsUpdated.Invoke();
 
+                        AudioManager.instance.PlayOneShotSound("Buy", GameManager.instance.player.transform.position);
+
                         return itemSlot;
                     }
                     // else que no faig perque crec que es usless
@@ -82,6 +86,17 @@ namespace Shokai.Items
             OnItemsUpdated.Invoke();
         }
 
+        public void ResetAllSlots()
+        {
+            for (int i = 0; i < itemSlots.Length; i++)
+            {
+                itemSlots[i].item = null;
+                itemSlots[i].quantity = 0;
+            }
+
+            OnItemsUpdated.Invoke();
+        }
+
         public int GetSlotQuantityByIndex(int index)
         {
             return itemSlots[index].quantity;
@@ -89,7 +104,8 @@ namespace Shokai.Items
 
         public string GetItemNameByIndex(int index)
         {
-            return itemSlots[index].item.name;
+            if (itemSlots[index].item != null) return itemSlots[index].item.Name;
+            else return "";
         }
 
         public int GetTotalQuantity(InventoryItem item)

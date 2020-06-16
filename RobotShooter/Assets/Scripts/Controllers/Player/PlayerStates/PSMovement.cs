@@ -16,7 +16,7 @@ public class PSMovement : PlayerState {
     public override void CheckTransition(PlayerController pc)
     {
         if (Input.GetMouseButton(pc.playerModel.mouseShootButton) && pc.shooting) pc.CheckWeaponToShoot();
-        if (Input.GetMouseButtonDown(pc.playerModel.mouseShootButton) && !pc.shooting) pc.CheckWeaponToShoot();
+        if (Input.GetMouseButtonDown(pc.playerModel.mouseShootButton) && !pc.shooting && !GameManager.instance.uiController.paused) pc.CheckWeaponToShoot();
     }
 
     public override void FixedUpdate(PlayerController pc)

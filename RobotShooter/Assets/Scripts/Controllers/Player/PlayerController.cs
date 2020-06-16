@@ -773,6 +773,7 @@ public class PlayerController : AController
         gc.uiController.ChangeHealth(currentHealth);
         gc.uiController.ChangeShield(currentShield);
         gc.shopController.ResetHabilitiesAndDefenses();
+        inventory.ItemContainer.ResetAllSlots();
         if (actualWeapon == Weapon.launcher)
         {
             actualWeapon = pastWeapon;
