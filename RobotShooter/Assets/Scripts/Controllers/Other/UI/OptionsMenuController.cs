@@ -95,6 +95,7 @@ public class OptionsMenuController : MonoBehaviour
     {
         PlayerPrefs.SetFloat("musicVolume", value);
         AudioManager.instance.musicVolume = value;
+        AudioManager.instance.musicSource.volume = value;
     }
 
     public void RestoreDefaultSettings()

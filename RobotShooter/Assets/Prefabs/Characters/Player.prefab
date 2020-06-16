@@ -5139,7 +5139,7 @@ MonoBehaviour:
     m_Bits: 512
   slopeMask:
     serializedVersion: 2
-    m_Bits: 1610615296
+    m_Bits: 1610614784
   placeDefenseMask:
     serializedVersion: 2
     m_Bits: 512
@@ -5216,8 +5216,7 @@ AudioSource:
   m_GameObject: {fileID: 2352069270335207173}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: -7218085141568273844, guid: e5ce0135345d3634398259d8b08a6205,
-    type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.5

@@ -44,6 +44,7 @@ public class FlyingEnemy : MonoBehaviour
     public float hitTime;
     public float deathTime;
     public float targetRadiusDetection;
+    public float rotSpeedCharacter;
     public float nearObjectsTime;
     public float nearObjectsRadius;
     public float activateNearObjectsDetection;
@@ -159,7 +160,9 @@ public class FlyingEnemy : MonoBehaviour
                 //        }
                 //    }
                 //}
-                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
+                Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDirectionChase);
+                //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.ATTACK:
                 if (target == null)
@@ -177,19 +180,23 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.CHASE);
                     break;
                 }
-                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
+                Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDirectionAttack);
+                //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.GO_BACK:                
                 if (DistanceToTargetSquared(gameObject, target) >= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                 }
-                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
+                Vector3 newDirectionGoBack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
+                transform.rotation = Quaternion.LookRotation(newDirectionGoBack);
+                //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 if (transform.position.y > minHeightFly) transform.position += direction * speed * Time.deltaTime;
                 else transform.position += new Vector3(direction.x, transform.position.y, direction.z) * speed * Time.deltaTime;
                 break;
             case State.HIT:
-                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
+                //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 if (health <= 0) ChangeState(State.DEATH);
                 break;
             case State.DEATH:                

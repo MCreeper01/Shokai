@@ -54,9 +54,18 @@ public class AudioManager : AController {
         crowdSource.Play();
 
         unitySources.Add(musicSource);
+        
+    }
+
+    public void Start()
+    {
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             musicSource.clip = musicClips[0];
+            musicVolume = PlayerPrefs.GetFloat("musicVolume");
+            masterVolume = PlayerPrefs.GetFloat("generalVolume");
+            Debug.Log(musicVolume);
+            StartCoroutine(FadeIn(musicSource, 5, musicVolume, masterVolume));
         }
     }
     /*
@@ -277,21 +286,24 @@ public class AudioManager : AController {
         audioSource.volume = startVolume;
     }
 
-    public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime)
+    public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime, float music, float master)
     {
         float startVolume = 0.2f;
 
         audioSource.volume = 0;
         audioSource.Play();
 
-        while (audioSource.volume < 1.0f)
+        if (music != 0 || master != 0)
         {
-            audioSource.volume += startVolume * Time.deltaTime / FadeTime;
+            while (audioSource.volume < master * music)
+            {
+                audioSource.volume += startVolume * Time.deltaTime / FadeTime;
 
-            yield return null;
-        }
+                yield return null;
+            }
 
-        audioSource.volume = 1f;
+            audioSource.volume = 1f;
+        }        
     }
 
     public void PlayNextSong()
@@ -304,7 +316,7 @@ public class AudioManager : AController {
         }
         musicSource.clip = musicClips[musicClipIndex];
         musicSource.volume = 0;
-        StartCoroutine(FadeIn(musicSource, 5));
+        StartCoroutine(FadeIn(musicSource, 5, musicVolume, masterVolume));
     }
     public void StopCurrentSong()
     {

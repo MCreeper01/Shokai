@@ -1602,6 +1602,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 887458430383980865, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -201.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 887458430383980865, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 170.7
+      objectReference: {fileID: 0}
     - target: {fileID: 2613335966163779439, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1646,6 +1656,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3005157709339268417, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -236.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3005157709339268417, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 134.8
       objectReference: {fileID: 0}
     - target: {fileID: 3049941910072192261, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
@@ -2457,6 +2477,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8017840076009026251, guid: 15737579c1bc9e24295e4fbc461351c5,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -7218085141568273844, guid: e5ce0135345d3634398259d8b08a6205,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15737579c1bc9e24295e4fbc461351c5, type: 3}
 --- !u!1 &8137241354398140374 stripped
