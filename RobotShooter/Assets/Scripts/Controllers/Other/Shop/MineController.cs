@@ -70,7 +70,7 @@ public class MineController : MonoBehaviour
                 explosionDecalGO.transform.parent = hit.transform;
             }
 
-            AudioManager.instance.PlayOneShotSound("Mine", transform.position);
+            AudioManager.instance.PlayOneShotSound("TurretExplosion", transform.position);
             Instantiate(explosionParticles, transform.position, transform.rotation);
             Destroy(gameObject);
         }

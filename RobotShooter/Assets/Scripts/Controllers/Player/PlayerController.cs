@@ -1047,7 +1047,6 @@ public class PlayerController : AController
                     }
                     actualShotgunShootCooldown = playerModel.shootShotgunCooldown;
                     shotgunShotted = true;
-                    Invoke("ReloadSound", 0.4f);
                 }                
                 break;
             case Weapon.launcher:
@@ -1066,11 +1065,6 @@ public class PlayerController : AController
                 ChangeGrenadeAmmo();                
                 break;
         }       
-    }
-
-    void ReloadSound()
-    {
-        AudioManager.instance.PlayOneShotSound("ShotgunReload", transform.position);
     }
 
     public void ChangeGrenadeAmmo()

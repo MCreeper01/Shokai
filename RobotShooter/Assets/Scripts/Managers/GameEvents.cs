@@ -8,6 +8,7 @@ public class GameEvents : MonoBehaviour
 {
     public static GameEvents instance;
     EventInstance finishRoundSound;
+    private bool finishRoundSoundDone = false;
 
     private void Awake()
     {
@@ -26,9 +27,11 @@ public class GameEvents : MonoBehaviour
     public event Action onRoundFinish;
     public void RoundFinish()
     {
-        if (!AudioManager.instance.isPlaying(finishRoundSound))
+        if (!AudioManager.instance.isPlaying(finishRoundSound) && !finishRoundSoundDone)
         {
+            AudioManager.instance.StopCurrentSong();
             finishRoundSound = AudioManager.instance.PlayEvent("FinishRound", transform.position);
+            finishRoundSoundDone = true;
         }        
         //Debug.Log("RoundFinish");
         if (onRoundFinish != null) onRoundFinish();
@@ -54,7 +57,9 @@ public class GameEvents : MonoBehaviour
     public event Action onPreparationFinish;
     public void PreparationFinish()
     {
+        finishRoundSoundDone = false;
         AudioManager.instance.PlayEvent("StartRound", transform.position);
+        AudioManager.instance.PlayNextSong();
         //Debug.Log("PreparationFinish");
         if (onPreparationFinish != null) onPreparationFinish();
     }

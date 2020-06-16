@@ -5,6 +5,7 @@ using FMODUnity;
 using FMOD.Studio;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class AudioManager : AController {
 
@@ -21,7 +22,11 @@ public class AudioManager : AController {
     [HideInInspector] public float masterVolume = 0.5f;
 
     [HideInInspector] public List<AudioSource> unitySources;
-    public AudioSource source;
+    public AudioSource crowdSource;
+    public AudioSource musicSource;
+
+    public AudioClip[] musicClips;
+    [HideInInspector] public int musicClipIndex = 0;
 
     void Awake()
     {
@@ -44,12 +49,15 @@ public class AudioManager : AController {
         eventList = new List<SoundEvents>();
         positionEvents = new List<SoundManagerMovingSound>();
 
-        if (SceneManager.GetActiveScene().name == "SampleScene")
+        unitySources.Add(crowdSource);
+        crowdSource.volume *= fXVolume * masterVolume;
+        crowdSource.Play();
+
+        unitySources.Add(musicSource);
+        if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            unitySources.Add(source);
-            //source.volume *= fXVolume * masterVolume;
-            //source.Play();
-        }        
+            musicSource.clip = musicClips[0];
+        }
     }
     /*
     public void Update() //Actualitzar posició sons 3D
@@ -252,6 +260,55 @@ public class AudioManager : AController {
             a.volume = a.volume * fXVolume * masterVolume;
             a.UnPause();
         }
+    }
+
+    public IEnumerator FadeOut(AudioSource audioSource, float fadeTime)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
+
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
+    }
+
+    public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime)
+    {
+        float startVolume = 0.2f;
+
+        audioSource.volume = 0;
+        audioSource.Play();
+
+        while (audioSource.volume < 1.0f)
+        {
+            audioSource.volume += startVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
+        audioSource.volume = 1f;
+    }
+
+    public void PlayNextSong()
+    {
+        //musicSource.volume *= musicVolume * masterVolume;
+        musicClipIndex++;
+        if (musicClipIndex >= musicClips.Length - 1)
+        {
+            musicClipIndex = 1;
+        }
+        musicSource.clip = musicClips[musicClipIndex];
+        musicSource.volume = 0;
+        StartCoroutine(FadeIn(musicSource, 5));
+    }
+    public void StopCurrentSong()
+    {
+        StartCoroutine(FadeOut(musicSource, 5));
     }
     /*
     public void StopAll(bool fadeout = true)

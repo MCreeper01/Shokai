@@ -367,9 +367,4 @@ public class FlyingEnemy : MonoBehaviour
         if (minDistance < radius) return closest;
         else return null;
     }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(transform.position, nearObjectsRadius);
-    }
 }
