@@ -19,7 +19,7 @@ MonoBehaviour:
   yawRotationalSpeed: 180
   pitchRotationalSpeed: 90
   minPitch: -90
-  maxPitch: 70
+  maxPitch: 90
   invertedYaw: 0
   invertedPitch: 1
   normalSpeed: 16

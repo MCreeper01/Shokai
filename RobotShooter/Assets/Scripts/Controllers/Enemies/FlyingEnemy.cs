@@ -25,6 +25,7 @@ public class FlyingEnemy : MonoBehaviour
     [HideInInspector] public float speed;
 
     Animator anim;
+    Rigidbody rb;
     Collider[] nearObjects;
     public AudioSource source;
     public AudioSource source2;
@@ -45,9 +46,6 @@ public class FlyingEnemy : MonoBehaviour
     public float deathTime;
     public float targetRadiusDetection;
     public float rotSpeedCharacter;
-    public float nearObjectsTime;
-    public float nearObjectsRadius;
-    public float activateNearObjectsDetection;
 
     [Header("StatIncrements")]
     public float healthInc;
@@ -94,9 +92,8 @@ public class FlyingEnemy : MonoBehaviour
         //player = GameObject.FindGameObjectWithTag("Player");
 
         anim = GetComponent<Animator>();
-        source = GetComponent<AudioSource>();
-        //pathfinder = new Pathfinder3D();
-        //pathfinder.wayPointReachedRadius = Random.Range(0.2f, 1.0f);
+        //source = GetComponent<AudioSource>();
+        rb = GetComponent<Rigidbody>();
 
         IncrementStats();
 
@@ -138,31 +135,11 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                     break;
                 }
-                if (transform.position.y > minHeightFly) transform.position += direction * speed * Time.deltaTime;
-                else transform.position += new Vector3(direction.x, transform.position.y, direction.z) * speed * Time.deltaTime;
-                //if (pathfinder.pathFound)
-                //{
-                //    for (int i = 0; i < p.Path.Count - 1; i++)
-                //    {
-                //        Debug.DrawLine(p.Path[i].position, p.Path[i + 1].position);
-                //    }
+                transform.position += direction * speed * Time.deltaTime;
 
-                //    if (pathfinder.currentWayPointIndex < p.Path.Count)
-                //    {
-                //        direction = (p.Path[pathfinder.currentWayPointIndex].position - transform.position).normalized;
-                //        transform.position += direction * speed * Time.deltaTime;
-                //        //transform.Translate((p.Path[pathfinder.currentWayPointIndex].position - transform.position) * Time.deltaTime);
-                //        //transform.position = Vector3.MoveTowards(transform.position, p.Path[pathfinder.currentWayPointIndex].position, 0.1f);
-
-                //        if (DistanceToTargetSquaredPlus(transform.position, p.Path[pathfinder.currentWayPointIndex].position) <= pathfinder.wayPointReachedRadius * pathfinder.wayPointReachedRadius)
-                //        {
-                //            pathfinder.currentWayPointIndex++;
-                //        }
-                //    }
-                //}
-                Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
-                transform.rotation = Quaternion.LookRotation(newDirectionChase);
-                //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
+                //Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
+                //transform.rotation = Quaternion.LookRotation(newDirectionChase);
+                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.ATTACK:
                 if (target == null)
@@ -180,20 +157,19 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.CHASE);
                     break;
                 }
-                Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
-                transform.rotation = Quaternion.LookRotation(newDirectionAttack);
-                //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
+                //Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
+                //transform.rotation = Quaternion.LookRotation(newDirectionAttack);
+                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.GO_BACK:                
                 if (DistanceToTargetSquared(gameObject, target) >= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
                 }
-                Vector3 newDirectionGoBack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
-                transform.rotation = Quaternion.LookRotation(newDirectionGoBack);
-                //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
-                if (transform.position.y > minHeightFly) transform.position += direction * speed * Time.deltaTime;
-                else transform.position += new Vector3(direction.x, transform.position.y, direction.z) * speed * Time.deltaTime;
+                //Vector3 newDirectionGoBack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
+                //transform.rotation = Quaternion.LookRotation(newDirectionGoBack);
+                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
+                transform.position += direction * speed * Time.deltaTime;
                 break;
             case State.HIT:
                 //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
@@ -202,6 +178,8 @@ public class FlyingEnemy : MonoBehaviour
             case State.DEATH:                
                 break;
         }
+
+        rb.velocity = Vector3.zero;
     }
 
     void ChangeState(State newState)
@@ -228,7 +206,6 @@ public class FlyingEnemy : MonoBehaviour
         switch (newState)
         {
             case State.CHASE:
-                //nearObjects = null;
                 elapsedTime = 0;
                 InvokeRepeating("GoToTarget", 0, repathTime);
                 break;
@@ -284,11 +261,15 @@ public class FlyingEnemy : MonoBehaviour
     void GoToTarget()
     {
         target = FindInstanceWithinRadius(gameObject, "Player", "AirTurret", "GroundTurret", targetRadiusDetection);
-        //target = player.gameObject;
-        //pathfinder.currentWayPointIndex = 0;
-        //pathfinder.goal = new Vector3(target.transform.position.x, target.transform.position.y + Random.Range(1, 10), target.transform.position.z); ;
-        //p = pathfinder.AStar(gameObject);
-        direction = (target.transform.position + new Vector3(0, Random.Range(1, 10), 0) - transform.position).normalized;
+
+        if (target.transform.position.y <= minHeightFly)
+        {
+            direction = (new Vector3(target.transform.position.x, minHeightFly, target.transform.position.z) - transform.position).normalized;
+        }
+        else
+        {
+            direction = (target.transform.position - transform.position).normalized;
+        }
     }
 
     public void WhatHitSound(string soundName)
@@ -310,18 +291,6 @@ public class FlyingEnemy : MonoBehaviour
     {
         return (target - me).sqrMagnitude;
     }
-    /*
-    bool PlayerHit()
-    {
-        playerRay.origin = transform.position;
-        playerRay.direction = player.transform.position - transform.position;
-        if (Physics.Raycast(playerRay, out rayHit, 50, mask.value))
-        {
-            return true;
-        }
-        Debug.DrawRay(playerRay.origin, playerRay.direction * 50, Color.blue);
-        return false;
-    }*/
 
     void ChangeToChase()
     {

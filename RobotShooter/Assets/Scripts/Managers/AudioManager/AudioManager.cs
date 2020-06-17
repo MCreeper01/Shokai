@@ -14,6 +14,7 @@ public class AudioManager : AController {
     private List<SoundManagerMovingSound> positionEvents;
 
     public AudioClip[] clips;
+    public UnitySound[] unitySounds;
 
     public static AudioManager instance;
 
@@ -23,9 +24,8 @@ public class AudioManager : AController {
 
     [HideInInspector] public List<AudioSource> unitySources;
     public AudioSource crowdSource;
-    public AudioSource musicSource;
 
-    public AudioClip[] musicClips;
+    public UnitySound[] musics;
     [HideInInspector] public int musicClipIndex = 0;
 
     void Awake()
@@ -50,22 +50,18 @@ public class AudioManager : AController {
         positionEvents = new List<SoundManagerMovingSound>();
 
         unitySources.Add(crowdSource);
-        crowdSource.volume *= fXVolume * masterVolume;
-        crowdSource.Play();
-
-        unitySources.Add(musicSource);
-        
+        crowdSource.volume = PlayerPrefs.GetFloat("fxVolume") * PlayerPrefs.GetFloat("generalVolume") * unitySounds[0].volume;
+        crowdSource.Play();        
     }
 
     public void Start()
     {
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            musicSource.clip = musicClips[0];
             musicVolume = PlayerPrefs.GetFloat("musicVolume");
             masterVolume = PlayerPrefs.GetFloat("generalVolume");
-            Debug.Log(musicVolume);
-            StartCoroutine(FadeIn(musicSource, 5, musicVolume, masterVolume));
+            fXVolume = PlayerPrefs.GetFloat("fxVolume");
+            StartCoroutine(FadeIn(0, 5));
         }
     }
     /*
@@ -183,6 +179,20 @@ public class AudioManager : AController {
         }
         return soundEvent;
     }
+    /*
+    public void PlaySound(string sound, AudioSource source)
+    {
+        UnitySound s = Array.Find(unitySounds, item => item.name == sound);
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            return;
+        }
+        
+        source.volume = PlayerPrefs.GetFloat("generalVolume") * PlayerPrefs.GetFloat("fxVolume") * s.volume;
+
+        source.Play();
+    }*/
 
     public void UpdateEventParameter(EventInstance soundEvent, SoundManagerParameter parameter)
     {
@@ -244,6 +254,11 @@ public class AudioManager : AController {
         {
             a.Pause();
         }
+
+        for (int i = 0; i < musics.Length; i++)
+        {
+            musics[i].source.Pause();
+        }
     }
 
     public void ResumeAll()
@@ -269,58 +284,67 @@ public class AudioManager : AController {
             a.volume = a.volume * fXVolume * masterVolume;
             a.UnPause();
         }
+
+        for (int i = 0; i < musics.Length; i++)
+        {
+            musics[i].source.volume = musics[i].volume * musicVolume * masterVolume;
+            musics[i].source.UnPause();
+        }
     }
 
-    public IEnumerator FadeOut(AudioSource audioSource, float fadeTime)
+    public IEnumerator FadeOut(UnitySound sound, float fadeTime)
     {
-        float startVolume = audioSource.volume;
+        float startVolume = sound.source.volume;
 
-        while (audioSource.volume > 0)
+        while (sound.source.volume > 0)
         {
-            audioSource.volume -= startVolume * Time.deltaTime / fadeTime;
+            sound.source.volume -= startVolume * Time.deltaTime / fadeTime;
 
             yield return null;
         }
 
-        audioSource.Stop();
-        audioSource.volume = startVolume;
+        sound.source.Stop();
+        sound.source.volume = 0;
     }
 
-    public static IEnumerator FadeIn(AudioSource audioSource, float FadeTime, float music, float master)
+    public IEnumerator FadeIn(int sound, float FadeTime)
     {
+        UnitySound s = musics[sound];
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + " not found!");
+            yield return null;
+        }
+
         float startVolume = 0.2f;
 
-        audioSource.volume = 0;
-        audioSource.Play();
+        s.source.volume = 0;
+        s.source.clip = s.clip;
+        s.source.Play();
 
-        if (music != 0 || master != 0)
+        while (s.source.volume < PlayerPrefs.GetFloat("generalVolume") * PlayerPrefs.GetFloat("musicVolume") * s.volume)
         {
-            while (audioSource.volume < master * music)
-            {
-                audioSource.volume += startVolume * Time.deltaTime / FadeTime;
+            s.source.volume += startVolume * Time.deltaTime / FadeTime;
 
-                yield return null;
-            }
+            yield return null;
+        }
 
-            audioSource.volume = 1f;
-        }        
+        s.source.volume = PlayerPrefs.GetFloat("generalVolume") * PlayerPrefs.GetFloat("musicVolume") * s.volume;
+
     }
 
     public void PlayNextSong()
     {
-        //musicSource.volume *= musicVolume * masterVolume;
         musicClipIndex++;
-        if (musicClipIndex >= musicClips.Length - 1)
+        if (musicClipIndex >= musics.Length - 1)
         {
             musicClipIndex = 1;
         }
-        musicSource.clip = musicClips[musicClipIndex];
-        musicSource.volume = 0;
-        StartCoroutine(FadeIn(musicSource, 5, musicVolume, masterVolume));
+        StartCoroutine(FadeIn(musicClipIndex, 5));
     }
     public void StopCurrentSong()
     {
-        StartCoroutine(FadeOut(musicSource, 5));
+        StartCoroutine(FadeOut(musics[musicClipIndex], 5));
     }
     /*
     public void StopAll(bool fadeout = true)

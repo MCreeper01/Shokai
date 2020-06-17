@@ -83,19 +83,22 @@ public class OptionsMenuController : MonoBehaviour
     {
         PlayerPrefs.SetFloat("generalVolume", value);
         AudioManager.instance.masterVolume = value;
+        AudioManager.instance.musics[0].source.volume = value * AudioManager.instance.musicVolume;
+        AudioManager.instance.crowdSource.volume = value * AudioManager.instance.fXVolume;
     }
 
     public void ChangeFXVolume(float value)
     {
         PlayerPrefs.SetFloat("fxVolume", value);
         AudioManager.instance.fXVolume = value;
+        AudioManager.instance.crowdSource.volume = value * AudioManager.instance.masterVolume;
     }
 
     public void ChangeMusicVolume(float value)
     {
         PlayerPrefs.SetFloat("musicVolume", value);
         AudioManager.instance.musicVolume = value;
-        AudioManager.instance.musicSource.volume = value;
+        AudioManager.instance.musics[0].source.volume = value * AudioManager.instance.masterVolume;
     }
 
     public void RestoreDefaultSettings()

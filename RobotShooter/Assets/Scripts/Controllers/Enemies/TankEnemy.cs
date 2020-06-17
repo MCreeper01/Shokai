@@ -85,7 +85,7 @@ public class TankEnemy : MonoBehaviour
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
-        source = GetComponent<AudioSource>();
+        //source = GetComponent<AudioSource>();
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
 

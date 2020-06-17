@@ -175,18 +175,61 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e73d6122596b0ea4d8decb399690bd71, type: 3}
   - {fileID: 8300000, guid: b071d0eb625079e4cb7a77d6914f8315, type: 3}
   - {fileID: 8300000, guid: 16f3e2da662e054428b5c0951e8ec88d, type: 3}
+  unitySounds:
+  - name: Crowd
+    clip: {fileID: 8300000, guid: f67663447c593424a9aaf7f007b4c0ba, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  - name: WarningHealth
+    clip: {fileID: 8300000, guid: 302694935337bdc47b2862a5476af98e, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  - name: AirEnemyShot
+    clip: {fileID: 8300000, guid: 0b6f2f8cb5ef45e4481c85e4ffc58993, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  - name: EnemyBlockedHit
+    clip: {fileID: 8300000, guid: a9659c543cdf39f408e0dd8d73791960, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  - name: EnemyHit
+    clip: {fileID: 8300000, guid: e73d6122596b0ea4d8decb399690bd71, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  - name: CriticalHit
+    clip: {fileID: 8300000, guid: b071d0eb625079e4cb7a77d6914f8315, type: 3}
+    volume: 1
+    source: {fileID: 0}
+  - name: PlayerRun
+    clip: {fileID: 8300000, guid: 16f3e2da662e054428b5c0951e8ec88d, type: 3}
+    volume: 1
+    source: {fileID: 0}
   musicVolume: 0
   fXVolume: 0
   masterVolume: 0
   unitySources: []
   crowdSource: {fileID: 0}
-  musicSource: {fileID: 284089927}
-  musicClips:
-  - {fileID: 8300000, guid: 9fb6333276e65724fb2b5372310cc380, type: 3}
-  - {fileID: 8300000, guid: a435527c8e3131342b722f7ae68255c1, type: 3}
-  - {fileID: 8300000, guid: 75300394825a2984db4d6bbf6401ef1a, type: 3}
-  - {fileID: 8300000, guid: 9ff96aec2e8d73d4c892594bfd46556f, type: 3}
-  - {fileID: 8300000, guid: d458d252edc002a4f9c562e15b4f92a2, type: 3}
+  musics:
+  - name: Song1
+    clip: {fileID: 8300000, guid: 9fb6333276e65724fb2b5372310cc380, type: 3}
+    volume: 1
+    source: {fileID: 284089927}
+  - name: Song2
+    clip: {fileID: 8300000, guid: a435527c8e3131342b722f7ae68255c1, type: 3}
+    volume: 1
+    source: {fileID: 284089927}
+  - name: Song3
+    clip: {fileID: 8300000, guid: 75300394825a2984db4d6bbf6401ef1a, type: 3}
+    volume: 1
+    source: {fileID: 284089927}
+  - name: Song4
+    clip: {fileID: 8300000, guid: 9ff96aec2e8d73d4c892594bfd46556f, type: 3}
+    volume: 1
+    source: {fileID: 284089927}
+  - name: Song5
+    clip: {fileID: 8300000, guid: d458d252edc002a4f9c562e15b4f92a2, type: 3}
+    volume: 1
+    source: {fileID: 284089927}
   musicClipIndex: 0
 --- !u!82 &284089927
 AudioSource:
