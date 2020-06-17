@@ -94,7 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 20
   maxDuration: 3
-  speed: 120
+  speed: 150
   punish: 0.3
   mask:
     serializedVersion: 2

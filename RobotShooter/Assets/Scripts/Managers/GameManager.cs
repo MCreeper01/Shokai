@@ -94,7 +94,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         Debuging();
-        if (Input.GetKeyDown(KeyCode.E)) player.IncreaseCash(9999998);
     }    
 
     public void ChangeScene(string scene)

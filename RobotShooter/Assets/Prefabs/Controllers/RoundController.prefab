@@ -51,24 +51,24 @@ MonoBehaviour:
   minEnemiesPercentage: 80
   minEnemies: 0
   enemies:
-  - name: GroundEnemy
-    enemyPrefab: {fileID: 4184781122242838256, guid: bd47eeb6fa33c63498686dfd30a197c4,
-      type: 3}
-    enemyParent: {fileID: 0}
-    enemyMaxAmount: 50
-    dimension: 0
-  - name: TankEnemy
-    enemyPrefab: {fileID: 231444216441898315, guid: abca456ac3feae745818621be0c185cb,
-      type: 3}
-    enemyParent: {fileID: 0}
-    enemyMaxAmount: 50
-    dimension: 0
   - name: AirEnemy
     enemyPrefab: {fileID: 1648941882108322435, guid: ead79470606c4684ba9854d079d8cf69,
       type: 3}
     enemyParent: {fileID: 0}
     enemyMaxAmount: 50
     dimension: 1
+  - name: TankEnemy
+    enemyPrefab: {fileID: 231444216441898315, guid: abca456ac3feae745818621be0c185cb,
+      type: 3}
+    enemyParent: {fileID: 0}
+    enemyMaxAmount: 50
+    dimension: 0
+  - name: GroundEnemy
+    enemyPrefab: {fileID: 4184781122242838256, guid: bd47eeb6fa33c63498686dfd30a197c4,
+      type: 3}
+    enemyParent: {fileID: 0}
+    enemyMaxAmount: 50
+    dimension: 0
   groundedEnemySpawners:
   - {fileID: 0}
   - {fileID: 0}
@@ -88,33 +88,33 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   peakEnemySpawnPercentages: 23000000140000002d000000
-  preparationTime: 10
-  spawnTime: 5
-  fightTime: 30
-  minMapAnimationHeight: -40
+  preparationTime: 60
+  spawnTime: 10
+  fightTime: 40
+  minMapAnimationHeight: -65
   mapAnimationSpeed: 5
   maps:
   - name: "Intersecci\xF3n"
     id: 1
-    enemySpawnPercentage: 320000001e00000014000000
+    enemySpawnPercentage: 14000000140000003c000000
     animationHeight: -2.81
     map: {fileID: 0}
     bake: {fileID: 0}
   - name: Perimetro
     id: 2
-    enemySpawnPercentage: 1e0000001e00000028000000
+    enemySpawnPercentage: 0f0000001400000041000000
     animationHeight: -2.8
     map: {fileID: 0}
     bake: {fileID: 0}
   - name: El pantano
     id: 3
-    enemySpawnPercentage: 1e0000001e00000028000000
+    enemySpawnPercentage: 190000000f0000003c000000
     animationHeight: -2.8
     map: {fileID: 0}
     bake: {fileID: 0}
   - name: La traza
     id: 4
-    enemySpawnPercentage: 1e0000001e00000028000000
+    enemySpawnPercentage: 140000000a00000046000000
     animationHeight: -8.61
     map: {fileID: 0}
     bake: {fileID: 0}

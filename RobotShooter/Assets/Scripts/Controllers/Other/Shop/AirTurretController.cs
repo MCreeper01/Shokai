@@ -48,21 +48,24 @@ public class AirTurretController : MonoBehaviour
             {
                 shootParticles.SetActive(false);
                 shotSound.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-                int num = 0;
-                float distance = Vector3.Distance(gameObject.transform.position, colliders[num].transform.position);                              
-                for (int i = 1; i < colliders.Count; i++)
+                if(colliders.Count > 0)
                 {
-                    if (Vector3.Distance(gameObject.transform.position, colliders[0].transform.position) < distance)
+                    int num = 0;
+                    float distance = Vector3.Distance(gameObject.transform.position, colliders[num].transform.position);
+                    for (int i = 1; i < colliders.Count; i++)
                     {
-                        num = i;
-                        distance = Vector3.Distance(gameObject.transform.position, colliders[num].transform.position);
+                        if (Vector3.Distance(gameObject.transform.position, colliders[0].transform.position) < distance)
+                        {
+                            num = i;
+                            distance = Vector3.Distance(gameObject.transform.position, colliders[num].transform.position);
+                        }
                     }
+                    colliderTarget = num;
+                    target = colliders[num].gameObject;
+                    hasTarget = true;
+                    rotating = true;
+                    rotationTime = 0;
                 }
-                colliderTarget = num;
-                target = colliders[num].gameObject;
-                hasTarget = true;
-                rotating = true;
-                rotationTime = 0;
             }
             else
             {

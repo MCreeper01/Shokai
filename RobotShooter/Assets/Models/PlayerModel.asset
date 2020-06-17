@@ -18,7 +18,7 @@ MonoBehaviour:
   INITIAL_CASH: 0
   yawRotationalSpeed: 180
   pitchRotationalSpeed: 90
-  minPitch: -80
+  minPitch: -90
   maxPitch: 70
   invertedYaw: 0
   invertedPitch: 1
@@ -66,30 +66,30 @@ MonoBehaviour:
   overHeatNormalReload: 35
   overHeatSlowReload: 25
   maxARDecals: 20
-  fireRateShotgun: 1
-  shootShotgunCooldown: 1
-  rangeShotgun: 30
-  shotgunDamage: 18
+  fireRateShotgun: 1.2
+  shootShotgunCooldown: 0.8
+  rangeShotgun: 50
+  shotgunDamage: 20
   pelletCount: 12
-  shotgunSpreadAngle: 8
-  maxShotgunDecals: 36
+  shotgunSpreadAngle: 6
+  maxShotgunDecals: 48
   launcherCooldown: 0.7
   shootForceLauncher: 25
   hability1Key: 49
   hability2Key: 50
   hability3Key: 51
   hability4Key: 52
-  jetpackVerticalSpeed: 25
+  jetpackVerticalSpeed: 30
   resetFallVelocity: -1
   laserDistance: 250
   laserTime: 3
-  laserDamage: 1000000
-  instantHealthAmount: 80
+  laserDamage: 696969
+  instantHealthAmount: 50
   healingParticlesTime: 2
-  empRadius: 40
+  empRadius: 42
   empDuration: 2
   defenseKey: 113
-  distancePlaceDefense: 10
+  distancePlaceDefense: 12
   pauseKey: 27
   electrocuteDamage: 25
   electricZoneDetectionRange: 1.5

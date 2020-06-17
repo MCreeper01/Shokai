@@ -203,11 +203,6 @@ public class ShopController : AController
 
     public void ResetHabilitiesAndDefenses()
     {
-        foreach (RawImage hSlot in habilitySlots)
-        {
-            SlotInfo sInfo = hSlot.GetComponent<SlotInfo>();
-            sInfo.Reset();
-        }
         foreach (RawImage dSlot in defenseSlots)
         {
             SlotInfo sInfo = dSlot.GetComponent<SlotInfo>();

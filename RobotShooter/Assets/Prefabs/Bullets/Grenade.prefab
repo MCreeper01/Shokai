@@ -124,9 +124,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 3
-  explosionRadius: 15
+  explosionRadius: 16
   force: 500
-  maxDamage: 200
+  maxDamage: 180
   maxDamageToPlayer: 50
   explosionParticles: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}
   explosionDecal: {fileID: 1477857083622046603, guid: aa6a323c33248a14db9200668c92102a,
