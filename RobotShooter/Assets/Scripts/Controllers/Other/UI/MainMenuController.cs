@@ -24,7 +24,7 @@ public class MainMenuController : MonoBehaviour
         {
             if (onCinematic)
             {
-                StartCoroutine(StartGame());
+                StartCoroutine(FadeIn());
             }
             else
             {
@@ -50,8 +50,6 @@ public class MainMenuController : MonoBehaviour
     {
         yield return new WaitForSeconds(9);
         StartCoroutine(FadeIn());
-        yield return new WaitForSeconds(2);
-        GameManager.instance.ChangeScene("LoadingScene");
     }
 
     IEnumerator FadeIn()
@@ -62,5 +60,6 @@ public class MainMenuController : MonoBehaviour
             fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, fadePanel.color.a + 0.04f);
             StartCoroutine(FadeIn());
         }
+        else GameManager.instance.ChangeScene("LoadingScene");
     }
 }
