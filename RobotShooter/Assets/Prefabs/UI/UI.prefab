@@ -394,7 +394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6096405057761301710
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1852,7 +1852,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " AA sentry turret [3 max]\n 6.000 cr (1 units)"
+  m_Text: " AA sentry turret [3 max]\n 7.000 cr (1 units)"
 --- !u!1 &3092926887356917345
 GameObject:
   m_ObjectHideFlags: 0
@@ -4035,7 +4035,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Preparation time remining: 00 \n(Press [O] to skip)"
+  m_Text: "Preparation time remining: 00 \n(Press [G] to skip)"
 --- !u!1 &6739075768400493020
 GameObject:
   m_ObjectHideFlags: 0
@@ -4053,7 +4053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2311390440018911612
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5978,9 +5978,9 @@ MonoBehaviour:
   defenses:
   - name: Mine
     icon: {fileID: 2800000, guid: 3e35ea0ae648a2b42b0cfe7ea2a9db24, type: 3}
-    charges: 2
+    charges: 1
     maxCharges: 6
-    cost: 4000
+    cost: 2000
   - name: TerrainTurret
     icon: {fileID: 2800000, guid: 887cfac3b40ae5040b75fc78d6985743, type: 3}
     charges: 1
@@ -5990,7 +5990,7 @@ MonoBehaviour:
     icon: {fileID: 2800000, guid: 812e7fe9f2bde644ab70a5b5d51e2559, type: 3}
     charges: 1
     maxCharges: 3
-    cost: 6000
+    cost: 7000
   habilitySlots:
   - {fileID: 0}
   - {fileID: 0}
@@ -6133,7 +6133,7 @@ MonoBehaviour:
   roundCounter: {fileID: 1824283693}
   preparationTimeText: {fileID: 2896886307966210979}
   fpsText: {fileID: 425146956}
-  skipPreparationKey: 111
+  skipPreparationKey: 103
   pointers:
   - {fileID: 6765781243164800197}
   - {fileID: 7406951478549658982}
@@ -6232,7 +6232,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Mines [6 max]\n 4.000 cr (2 units)"
+  m_Text: " Mines [6 max]\n 2.000 cr (1 units)"
 --- !u!1 &7604321126621431919
 GameObject:
   m_ObjectHideFlags: 0

@@ -223,16 +223,16 @@ MonoBehaviour:
   source: {fileID: 1715051457052553438}
   source2: {fileID: -1858073269341649794}
   initHealth: 40
-  initSpeed: 14
+  initSpeed: 10
   initDamage: 15
   minDistAttack: 20
   maxDistAttack: 50
   goBackDist: 6
   fireRate: 1
   repathTime: 1
-  hitIncome: 8
-  criticalIncome: 20
-  killIncome: 120
+  hitIncome: 20
+  criticalIncome: 60
+  killIncome: 250
   hitTime: 0
   deathTime: 0
   targetRadiusDetection: 1000
@@ -240,8 +240,8 @@ MonoBehaviour:
   healthInc: 0
   damageInc: 1
   maxDamage: 40
-  speedInc: 0.6
-  maxSpeed: 20
+  speedInc: 0.4
+  maxSpeed: 16
   direction: {x: 0, y: 0, z: 0}
 --- !u!82 &1715051457052553438
 AudioSource:

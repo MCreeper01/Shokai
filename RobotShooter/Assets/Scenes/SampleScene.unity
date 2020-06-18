@@ -477,22 +477,22 @@ PrefabInstance:
     - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
         type: 3}
       propertyPath: maps.Array.data[1].enemySpawnPercentage.Array.data[1]
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
         type: 3}
       propertyPath: maps.Array.data[1].enemySpawnPercentage.Array.data[0]
-      value: 25
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
         type: 3}
       propertyPath: maps.Array.data[2].enemySpawnPercentage.Array.data[1]
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
         type: 3}
       propertyPath: maps.Array.data[2].enemySpawnPercentage.Array.data[0]
-      value: 30
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
         type: 3}
@@ -507,12 +507,12 @@ PrefabInstance:
     - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
         type: 3}
       propertyPath: maps.Array.data[3].enemySpawnPercentage.Array.data[1]
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
         type: 3}
       propertyPath: maps.Array.data[3].enemySpawnPercentage.Array.data[0]
-      value: 20
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
         type: 3}
@@ -522,7 +522,12 @@ PrefabInstance:
     - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
         type: 3}
       propertyPath: maps.Array.data[2].enemySpawnPercentage.Array.data[2]
-      value: 65
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[1].enemySpawnPercentage.Array.data[2]
+      value: 68
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d57da2d204c9f24b87426fa6ced1917, type: 3}
@@ -1525,6 +1530,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1016657044864452950, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -212
+      objectReference: {fileID: 0}
+    - target: {fileID: 1062984849641165632, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -211.99997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1085048176305822972, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2613335966163779439, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1585,16 +1605,38 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3690986089202818315, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_Text
+      value: ' EMP [6 max]
+
+        4.500 cr (2 units)'
+      objectReference: {fileID: 0}
     - target: {fileID: 4065766811323410809, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336593184056938621, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -427.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336593184056938621, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 700
       objectReference: {fileID: 0}
     - target: {fileID: 6518409942582566852, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 26960439}
+    - target: {fileID: 6739075768400493020, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6741499585434397001, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1610,6 +1652,31 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 26960439}
+    - target: {fileID: 7491397124255462144, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_Text
+      value: " Sticky grenade [6 max]\n 7.500 cr (2 units)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604321124902701042, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -427.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604321125423743296, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -642.00006
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604321125423743296, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -420
+      objectReference: {fileID: 0}
+    - target: {fileID: 7604321125873574213, guid: 68efa12444f4ef2488ee95029b098d33,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -642
+      objectReference: {fileID: 0}
     - target: {fileID: 7604321126332952956, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

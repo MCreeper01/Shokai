@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: StickyGrenade
   icon: {fileID: 21300000, guid: 5ebae69d0522dd844b4d29491614e0c3, type: 3}
-  cost: 7000
+  cost: 7500
   sellPrice: 0
   charges: 2
   maxStack: 6

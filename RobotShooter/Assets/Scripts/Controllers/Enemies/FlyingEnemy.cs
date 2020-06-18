@@ -145,8 +145,6 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                     break;
                 }
-                //pellets[i] = Random.rotation;
-                //Quaternion rot = Quaternion.RotateTowards(Camera.main.transform.rotation, pellets[i], playerModel.shotgunSpreadAngle);
                 transform.position += direction * speed * Time.deltaTime;
 
                 //Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
@@ -183,8 +181,6 @@ public class FlyingEnemy : MonoBehaviour
                 //Vector3 newDirectionGoBack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
                 //transform.rotation = Quaternion.LookRotation(newDirectionGoBack);
                 //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
-                // Spin the object around the world origin at 20 degrees/second.
-                //transform.RotateAround(target.transform.position, Vector3.up, Random.Range(20, 40) * Time.deltaTime);
                 transform.position += direction * speed * Time.deltaTime;
                 break;
             case State.DEATH:
@@ -200,10 +196,9 @@ public class FlyingEnemy : MonoBehaviour
         {
             case State.CHASE:
                 CancelInvoke("GoToTarget");
-                CancelInvoke("InstanceBullet");
                 break;
             case State.ATTACK:
-                //CancelInvoke("GoToTarget");
+                CancelInvoke("GoToTarget");
                 CancelInvoke("InstanceBullet");
                 break;
             case State.GO_BACK:
@@ -220,14 +215,13 @@ public class FlyingEnemy : MonoBehaviour
             case State.CHASE:
                 elapsedTime = 0;
                 InvokeRepeating("GoToTarget", 0, repathTime);
-                InvokeRepeating("InstanceBullet", 0, fireRate);
                 break;
             case State.ATTACK:
-                //InvokeRepeating("GoToTarget", 0, repathTime);
+                InvokeRepeating("GoToTarget", 0, repathTime);
                 InvokeRepeating("InstanceBullet", 0, fireRate);
                 break;
             case State.GO_BACK:
-                direction = -transform.forward * 2;
+                direction = Vector3.up;
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", true);
@@ -315,7 +309,6 @@ public class FlyingEnemy : MonoBehaviour
 
     void InstanceBullet()
     {
-        if (Vector3.Distance(target.transform.position, transform.position) > maxDistAttack) return;
         if (gameObject.activeInHierarchy)
         {
             GameObject b;

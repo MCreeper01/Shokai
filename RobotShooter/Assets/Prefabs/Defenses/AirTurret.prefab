@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b53a3517100dce4cbd51901eccf23cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2000
+  health: 1000
   speed: 12
   damagePerSecond: 30
   range: 50

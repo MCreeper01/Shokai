@@ -810,9 +810,9 @@ MonoBehaviour:
   fightRate: 1
   hitTime: 0
   deathTime: 0
-  hitIncome: 10
-  criticalIncome: 25
-  killIncome: 150
+  hitIncome: 20
+  criticalIncome: 60
+  killIncome: 250
   targetRadiusDetection: 1000
   rotSpeed: 3
   healthInc: 0

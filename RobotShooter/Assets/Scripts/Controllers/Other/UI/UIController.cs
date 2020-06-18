@@ -25,7 +25,7 @@ public class UIController : AController
     public Text roundCounter;
     public Text preparationTimeText;
     public Text fpsText;
-    public KeyCode skipPreparationKey = KeyCode.O;
+    public KeyCode skipPreparationKey;
     public List<GameObject> pointers;
     public InventoryController inventory;
 
