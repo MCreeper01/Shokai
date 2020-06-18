@@ -20,12 +20,19 @@ public class MainMenuController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !onCinematic)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            mainMenu.SetActive(true);
-            optionsMenu.SetActive(false);
-            howToPlayMenu.SetActive(false);
-            scoreboard.SetActive(false);
+            if (onCinematic)
+            {
+                StartCoroutine(StartGame());
+            }
+            else
+            {
+                mainMenu.SetActive(true);
+                optionsMenu.SetActive(false);
+                howToPlayMenu.SetActive(false);
+                scoreboard.SetActive(false);
+            }
         }    
     }
 
