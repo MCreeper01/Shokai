@@ -561,8 +561,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 500, y: 160}
-  m_SizeDelta: {x: 800, y: 325.3}
+  m_AnchoredPosition: {x: 505.39, y: 167.48}
+  m_SizeDelta: {x: 837.5, y: 300.45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3238353007503570196
 CanvasRenderer:
@@ -6139,6 +6139,7 @@ MonoBehaviour:
   inventory: {fileID: 11400000, guid: 0b752a8111dbcb44fb7142e109a3ee19, type: 2}
   itemsShop: []
   cashShopText: {fileID: 2122545705013533024}
+  preparationText: {fileID: 6452444538225898569}
   jetpackShop: {fileID: 7604321125423743297}
   grenadeShop: {fileID: 7604321124902701043}
   stickyGrenadeShop: {fileID: 9123881350394158141}

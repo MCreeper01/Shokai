@@ -234,7 +234,6 @@ public class PlayerController : AController
 
     void AnyStateUpdate()
     {
-        Debug.Log(actualWeapon);
         if (currentShieldDelay > 0 && shieldDelay) currentShieldDelay -= Time.deltaTime;
         else if (currentShieldDelay <= 0 && shieldDelay)
         {
@@ -658,6 +657,7 @@ public class PlayerController : AController
 
     public void DefenseEffect(SlotInfo sInfo, int num)
     {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("ChangeRight") || anim.GetCurrentAnimatorStateInfo(0).IsName("ChangeLeft")) return;
         defense = sInfo.content;
         switch (sInfo.content)
         {
@@ -961,7 +961,7 @@ public class PlayerController : AController
                         damage = playerModel.shotgunDamage * multiplier;
                         //GameObject impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
 
-                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Geometry"))
+                        if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Geometry") && hit.collider.tag != "DigitalWall")
                         {
                             GameObject impactHole = Instantiate(impactShotgunHole, new Vector3(hit.point.x, hit.point.y, hit.point.z), Quaternion.LookRotation(hit.normal));
 
@@ -1138,6 +1138,7 @@ public class PlayerController : AController
         }
         else
         {
+            shoping = false;
             ChangeState(previousState);
             Cursor.lockState = CursorLockMode.Locked;
         } 

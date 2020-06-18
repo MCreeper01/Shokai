@@ -32,15 +32,7 @@ public class UIController : AController
     [Header("Shop")]
     public List<GameObject> itemsShop;
     public Text cashShopText;
-    //public Text jetpackCost;
-    //public Text grenadeCost;
-    //public Text laserCost;
-    //public Text healthCost;
-    //public Text stickyGrenadeCost;
-    //public Text empCost;
-    //public Text mineCost;
-    //public Text terrainTurretCost;
-    //public Text airTurretCost;
+    public Text preparationText;
     public GameObject jetpackShop;
     public GameObject grenadeShop;
     public GameObject stickyGrenadeShop;
@@ -115,6 +107,10 @@ public class UIController : AController
             preparationTimeText.text = "Preparation time remining: " + ((int)gc.roundController.preparationTime - (int)gc.roundController.elapsedTime).ToString() + "\nPress [" + skipPreparationKey + "] to skip";
             if (Input.GetKeyDown(skipPreparationKey)) gc.roundController.ChangeState(RoundController.State.SPAWN);
         } 
+        if (gc != null && shopInterface.activeSelf)
+        {
+            preparationText.text = "Preparation time ends in: " + ((int)gc.roundController.preparationTime - (int)gc.roundController.elapsedTime).ToString() + " sec";
+        }
         deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
         float fps = 1.0f / deltaTime;
         fpsText.text = "FPS: " + Mathf.Ceil(fps).ToString();

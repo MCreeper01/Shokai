@@ -12,6 +12,7 @@ TagManager:
   - AirTurret
   - GroundTurret
   - HeightLimit
+  - DigitalWall
   layers:
   - Default
   - TransparentFX

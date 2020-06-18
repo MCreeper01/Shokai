@@ -115,9 +115,11 @@ public class ARBulletController : MonoBehaviour
             }
             if (layer == LayerMask.NameToLayer("Geometry"))
             {
-                GameObject impactHole = Instantiate(impactARHole, new Vector3(hits[i].point.x, hits[i].point.y, hits[i].point.z), Quaternion.LookRotation(hits[i].normal));
-                impactHole.transform.parent = hits[i].transform;
-
+                if (hits[i].collider.tag != "DigitalWall")
+                {
+                    GameObject impactHole = Instantiate(impactARHole, new Vector3(hits[i].point.x, hits[i].point.y, hits[i].point.z), Quaternion.LookRotation(hits[i].normal));
+                    impactHole.transform.parent = hits[i].transform;
+                }
                 gameObject.SetActive(false);
             }
         }       

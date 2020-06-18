@@ -43,6 +43,22 @@ namespace Shokai.Items
 
                             return itemSlot;
                         }
+                        else if (itemSlots[i].quantity < itemSlots[i].item.MaxStack && itemSlots[i].quantity + itemSlot.quantity > itemSlots[i].item.MaxStack)
+                        {
+                            itemSlots[i].quantity = itemSlots[i].item.MaxStack;
+
+                            itemSlot.quantity = 0;
+
+                            OnItemsUpdated.Invoke();
+
+                            GameManager.instance.player.cash -= itemSlot.item.Cost;
+
+                            GameManager.instance.uiController.ChangeCash(GameManager.instance.player.cash);
+
+                            AudioManager.instance.PlayOneShotSound("Buy", GameManager.instance.player.transform.position);
+
+                            return itemSlot;
+                        }
                         else if (slotRemainingSpace > 0)
                         {                           
                             itemSlots[i].quantity += slotRemainingSpace;
