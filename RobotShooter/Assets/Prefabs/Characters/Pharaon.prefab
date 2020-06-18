@@ -223,10 +223,10 @@ MonoBehaviour:
   source: {fileID: 1715051457052553438}
   source2: {fileID: -1858073269341649794}
   initHealth: 40
-  initSpeed: 12
-  initDamage: 5
-  minDistAttack: 10
-  maxDistAttack: 25
+  initSpeed: 14
+  initDamage: 15
+  minDistAttack: 20
+  maxDistAttack: 50
   goBackDist: 6
   fireRate: 1
   repathTime: 1
@@ -239,7 +239,7 @@ MonoBehaviour:
   rotSpeedCharacter: 1
   healthInc: 0
   damageInc: 1
-  maxDamage: 50
+  maxDamage: 40
   speedInc: 0.6
   maxSpeed: 20
   direction: {x: 0, y: 0, z: 0}

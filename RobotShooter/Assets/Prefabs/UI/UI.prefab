@@ -775,7 +775,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6978207890651654594
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1810,8 +1810,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 258.8, y: -0.00038528442}
-  m_SizeDelta: {x: 1290.6, y: 175.8}
+  m_AnchoredPosition: {x: 350, y: 0.0000038146973}
+  m_SizeDelta: {x: 1900, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2632259572108517794
 CanvasRenderer:
@@ -1852,7 +1852,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " AA sentry turret [3 max]\n 9.000 cr (1 units)"
+  m_Text: " AA sentry turret [3 max]\n 6.000 cr (1 units)"
 --- !u!1 &3092926887356917345
 GameObject:
   m_ObjectHideFlags: 0
@@ -2556,8 +2556,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 227.4, y: -0.00038528442}
-  m_SizeDelta: {x: 1090, y: 175.8}
+  m_AnchoredPosition: {x: 350, y: 0.0000038146973}
+  m_SizeDelta: {x: 1900, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7635427319579883295
 CanvasRenderer:
@@ -2598,7 +2598,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Repair module [6 max]\n 7.000 cr (3 units)"
+  m_Text: " Repair module [5 max]\n 2.000 cr (1 units)"
 --- !u!1 &4765287348251646689
 GameObject:
   m_ObjectHideFlags: 0
@@ -3282,8 +3282,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 251.5, y: -0.00038528442}
-  m_SizeDelta: {x: 1244.3, y: 175.8}
+  m_AnchoredPosition: {x: 350, y: 0.0000038146973}
+  m_SizeDelta: {x: 1900, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4867333838169963705
 CanvasRenderer:
@@ -3324,7 +3324,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Sentry turret [3 max]\n 10.000 cr (1 units)"
+  m_Text: ' Sentry turret [3 max]
+
+    7.000 cr (1 units)'
 --- !u!1 &5552208529934331209
 GameObject:
   m_ObjectHideFlags: 0
@@ -3914,8 +3916,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 255.5, y: -0.00038528442}
-  m_SizeDelta: {x: 1269.6, y: 175.8}
+  m_AnchoredPosition: {x: 350, y: 0.0000038146973}
+  m_SizeDelta: {x: 1900, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4627102474344319136
 CanvasRenderer:
@@ -3956,7 +3958,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Sticky grenade [8 max]\n 12.000 cr (4 units)"
+  m_Text: " Sticky grenade [6 max]\n 7.000 cr (2 units)"
 --- !u!1 &6624473424879261646
 GameObject:
   m_ObjectHideFlags: 0
@@ -4294,8 +4296,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 227.4, y: -0.00038528442}
-  m_SizeDelta: {x: 1090, y: 175.8}
+  m_AnchoredPosition: {x: 350, y: 0.0000038146973}
+  m_SizeDelta: {x: 1900, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321124729400083
 CanvasRenderer:
@@ -4336,7 +4338,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Grenade pack [10 max]\n 2.000 cr (2 units)"
+  m_Text: " Grenade pack [6 max]\n 7.000 cr (2 units)"
 --- !u!1 &7604321124746833783
 GameObject:
   m_ObjectHideFlags: 0
@@ -5332,8 +5334,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 227.4, y: -0.00038528442}
-  m_SizeDelta: {x: 1090, y: 175.8}
+  m_AnchoredPosition: {x: 350, y: 0}
+  m_SizeDelta: {x: 1900, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321125528882499
 CanvasRenderer:
@@ -5374,7 +5376,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Jetpack boost [12 max]\n 6.000 cr (2 units)"
+  m_Text: " Jetpack boost [8 max]\n 12.000 cr (2 units)"
 --- !u!1 &7604321125873574210
 GameObject:
   m_ObjectHideFlags: 0
@@ -5976,19 +5978,19 @@ MonoBehaviour:
   defenses:
   - name: Mine
     icon: {fileID: 2800000, guid: 3e35ea0ae648a2b42b0cfe7ea2a9db24, type: 3}
-    charges: 1
+    charges: 2
     maxCharges: 6
-    cost: 3000
+    cost: 4000
   - name: TerrainTurret
     icon: {fileID: 2800000, guid: 887cfac3b40ae5040b75fc78d6985743, type: 3}
     charges: 1
     maxCharges: 3
-    cost: 10000
+    cost: 7000
   - name: AirTurret
     icon: {fileID: 2800000, guid: 812e7fe9f2bde644ab70a5b5d51e2559, type: 3}
     charges: 1
     maxCharges: 3
-    cost: 9000
+    cost: 6000
   habilitySlots:
   - {fileID: 0}
   - {fileID: 0}
@@ -6188,8 +6190,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 254.6, y: -0.00038528442}
-  m_SizeDelta: {x: 1264.1, y: 175.8}
+  m_AnchoredPosition: {x: 350, y: 0.0000038146973}
+  m_SizeDelta: {x: 1900, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321126619112471
 CanvasRenderer:
@@ -6230,7 +6232,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Mines [6 max]\n 3.000 cr (1 units)"
+  m_Text: " Mines [6 max]\n 4.000 cr (2 units)"
 --- !u!1 &7604321126621431919
 GameObject:
   m_ObjectHideFlags: 0
@@ -6411,8 +6413,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 227.4, y: -0.00038528442}
-  m_SizeDelta: {x: 1090, y: 175.8}
+  m_AnchoredPosition: {x: 350, y: 0.0000038146973}
+  m_SizeDelta: {x: 1900, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321126624862058
 CanvasRenderer:
@@ -6453,7 +6455,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Laser charger [3 max]\n 30.000 cr (1 unit)"
+  m_Text: " Laser charger [2 max]\n 25.000 cr (1 unit)"
 --- !u!1 &7604321126641535681
 GameObject:
   m_ObjectHideFlags: 0
@@ -6616,7 +6618,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ABANDONE
+  m_Text: EXIT TO MENU
 --- !u!1 &8121006104099816177
 GameObject:
   m_ObjectHideFlags: 0
@@ -6690,8 +6692,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 227.4, y: -0.00038528442}
-  m_SizeDelta: {x: 1090, y: 175.8}
+  m_AnchoredPosition: {x: 350, y: 0.0000038146973}
+  m_SizeDelta: {x: 1900, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &112302698047112870
 CanvasRenderer:
@@ -6732,7 +6734,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " EMP [6 max]\n 3.000 cr (2 units)"
+  m_Text: " EMP [6 max]\n 5.000 cr (2 units)"
 --- !u!1 &9014618726177813385
 GameObject:
   m_ObjectHideFlags: 0

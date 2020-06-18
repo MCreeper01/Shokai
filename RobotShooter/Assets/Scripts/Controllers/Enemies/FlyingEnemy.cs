@@ -123,7 +123,7 @@ public class FlyingEnemy : MonoBehaviour
         if (target != null)
         {
             transform.forward = Vector3.Lerp(transform.forward, target.transform.position - transform.position, Time.deltaTime * rotSpeedCharacter);
-        } 
+        }
         switch (currentState)
         {
             case State.INITIAL:
@@ -145,6 +145,8 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.ATTACK);
                     break;
                 }
+                //pellets[i] = Random.rotation;
+                //Quaternion rot = Quaternion.RotateTowards(Camera.main.transform.rotation, pellets[i], playerModel.shotgunSpreadAngle);
                 transform.position += direction * speed * Time.deltaTime;
 
                 //Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
@@ -167,11 +169,13 @@ public class FlyingEnemy : MonoBehaviour
                     ChangeState(State.CHASE);
                     break;
                 }
+                transform.RotateAround(target.transform.position, Vector3.up, Random.Range(20, 40) * Time.deltaTime);
+                transform.position += direction * speed * Time.deltaTime;
                 //Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
                 //transform.rotation = Quaternion.LookRotation(newDirectionAttack);
                 //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
-            case State.GO_BACK:                
+            case State.GO_BACK:
                 if (DistanceToTargetSquared(gameObject, target) >= minDistAttack * minDistAttack)
                 {
                     ChangeState(State.ATTACK);
@@ -179,9 +183,11 @@ public class FlyingEnemy : MonoBehaviour
                 //Vector3 newDirectionGoBack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
                 //transform.rotation = Quaternion.LookRotation(newDirectionGoBack);
                 //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
+                // Spin the object around the world origin at 20 degrees/second.
+                //transform.RotateAround(target.transform.position, Vector3.up, Random.Range(20, 40) * Time.deltaTime);
                 transform.position += direction * speed * Time.deltaTime;
                 break;
-            case State.DEATH:                
+            case State.DEATH:
                 break;
         }
 
@@ -194,8 +200,10 @@ public class FlyingEnemy : MonoBehaviour
         {
             case State.CHASE:
                 CancelInvoke("GoToTarget");
+                CancelInvoke("InstanceBullet");
                 break;
             case State.ATTACK:
+                //CancelInvoke("GoToTarget");
                 CancelInvoke("InstanceBullet");
                 break;
             case State.GO_BACK:
@@ -205,15 +213,17 @@ public class FlyingEnemy : MonoBehaviour
                 break;
             case State.DEATH:
                 break;
-        }        
+        }
 
         switch (newState)
         {
             case State.CHASE:
                 elapsedTime = 0;
                 InvokeRepeating("GoToTarget", 0, repathTime);
+                InvokeRepeating("InstanceBullet", 0, fireRate);
                 break;
             case State.ATTACK:
+                //InvokeRepeating("GoToTarget", 0, repathTime);
                 InvokeRepeating("InstanceBullet", 0, fireRate);
                 break;
             case State.GO_BACK:
@@ -237,7 +247,7 @@ public class FlyingEnemy : MonoBehaviour
     }
 
     void DisableEnemy()
-    {        
+    {
         gameObject.SetActive(false);
     }
 
@@ -246,7 +256,7 @@ public class FlyingEnemy : MonoBehaviour
         if (currentState == State.DEATH) return;
         health -= damage;
         GameManager.instance.player.IncreaseCash(hitIncome);
-        if (health <= 0) ChangeState(State.DEATH);         
+        if (health <= 0) ChangeState(State.DEATH);
     }
 
     void IncrementStats()
@@ -305,6 +315,7 @@ public class FlyingEnemy : MonoBehaviour
 
     void InstanceBullet()
     {
+        if (Vector3.Distance(target.transform.position, transform.position) > maxDistAttack) return;
         if (gameObject.activeInHierarchy)
         {
             GameObject b;
@@ -319,7 +330,7 @@ public class FlyingEnemy : MonoBehaviour
                 source.clip = AudioManager.instance.clips[1];
                 source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
                 source.Play();
-            }            
+            }
         }
     }
 

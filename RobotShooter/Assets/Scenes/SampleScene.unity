@@ -474,6 +474,56 @@ PrefabInstance:
       propertyPath: transitionTrigger
       value: 
       objectReference: {fileID: 1994401293}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[1].enemySpawnPercentage.Array.data[1]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[1].enemySpawnPercentage.Array.data[0]
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[2].enemySpawnPercentage.Array.data[1]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[2].enemySpawnPercentage.Array.data[0]
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[0].enemySpawnPercentage.Array.data[0]
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[0].enemySpawnPercentage.Array.data[1]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[3].enemySpawnPercentage.Array.data[1]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[3].enemySpawnPercentage.Array.data[0]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[0].enemySpawnPercentage.Array.data[2]
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 5692141774538730585, guid: 2d57da2d204c9f24b87426fa6ced1917,
+        type: 3}
+      propertyPath: maps.Array.data[2].enemySpawnPercentage.Array.data[2]
+      value: 65
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d57da2d204c9f24b87426fa6ced1917, type: 3}
 --- !u!4 &463028031 stripped
@@ -1475,51 +1525,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 821562046108321928, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 821562046108321928, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1900
-      objectReference: {fileID: 0}
-    - target: {fileID: 821562046108321928, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: 821562046108321928, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 240
-      objectReference: {fileID: 0}
-    - target: {fileID: 1085048176305822972, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1203426674105213733, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_Text
-      value: " Sentry turret [3 max]\n 10.000 cr (1 units)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 1597187126954454856, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2613335966163779439, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 26960439}
-    - target: {fileID: 2835963443151456978, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_Text
-      value: EXIT TO MENU
-      objectReference: {fileID: 0}
     - target: {fileID: 2895855859043890792, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -1575,56 +1585,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3690986089202818315, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_Text
-      value: " EMP [6 max]\n 5.000 cr (2 units)"
-      objectReference: {fileID: 0}
     - target: {fileID: 4065766811323410809, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828729791699511168, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5206748232009942374, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_Text
-      value: " AA sentry turret [3 max]\n 9.000 cr (1 units)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953147151025800160, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953147151025800160, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1900
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953147151025800160, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953147151025800160, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 240
       objectReference: {fileID: 0}
     - target: {fileID: 6518409942582566852, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 26960439}
-    - target: {fileID: 6739075768400493020, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6741499585434397001, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -1635,106 +1605,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6756803528019522325, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -15.199829
-      objectReference: {fileID: 0}
-    - target: {fileID: 6872698833368168866, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_Text
-      value: " Repair module [5 max]\n 2.000 cr (1 units)"
-      objectReference: {fileID: 0}
     - target: {fileID: 7336615491581011011, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 26960439}
-    - target: {fileID: 7380228736062498920, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 7380228736062498920, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: 7380228736062498920, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1900
-      objectReference: {fileID: 0}
-    - target: {fileID: 7380228736062498920, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 240
-      objectReference: {fileID: 0}
-    - target: {fileID: 7491397124255462144, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_Text
-      value: " Sticky grenade [6 max]\n 5.000 cr (2 units)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321124729400080, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_Text
-      value: " Grenade pack [6 max]\n 3.000 cr (2 units)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321124729400081, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321124729400081, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1900
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321124729400081, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321124729400081, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 240
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321124787350405, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321125467165203, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321125528882496, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_Text
-      value: " Jetpack boost [8 max]\n 8.000 cr (2 units)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321125528882497, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321125528882497, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1900
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321125528882497, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321125528882497, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 240
-      objectReference: {fileID: 0}
     - target: {fileID: 7604321126332952956, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1750,25 +1625,10 @@ PrefabInstance:
       propertyPath: shop
       value: 
       objectReference: {fileID: 8137241354398140374}
-    - target: {fileID: 7604321126402369545, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: defenses.Array.data[0].cost
-      value: 4000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126402369545, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: defenses.Array.data[0].charges
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 7604321126498571290, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_Name
       value: UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126498571290, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7604321126498571297, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
@@ -1875,56 +1735,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7604321126619112468, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_Text
-      value: " Mines [6 max]\n 4.000 cr (2 units)"
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126619112469, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126619112469, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126619112469, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1900
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126619112469, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 240
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126624862056, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126624862056, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1900
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126624862056, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126624862056, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 240
-      objectReference: {fileID: 0}
-    - target: {fileID: 7604321126624862059, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_Text
-      value: " Laser charger [2 max]\n 25.000 cr (1 unit)"
-      objectReference: {fileID: 0}
     - target: {fileID: 7808209272292944208, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
@@ -1935,56 +1745,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8023625631557884964, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8327991537707116406, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 26960439}
-    - target: {fileID: 8518477282534836009, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 8518477282534836009, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1900
-      objectReference: {fileID: 0}
-    - target: {fileID: 8518477282534836009, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: 8518477282534836009, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 240
-      objectReference: {fileID: 0}
-    - target: {fileID: 8876599752595781242, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 350
-      objectReference: {fileID: 0}
-    - target: {fileID: 8876599752595781242, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: 8876599752595781242, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1900
-      objectReference: {fileID: 0}
-    - target: {fileID: 8876599752595781242, guid: 68efa12444f4ef2488ee95029b098d33,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 240
-      objectReference: {fileID: 0}
     - target: {fileID: 9199615731463557186, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_AnchorMax.x

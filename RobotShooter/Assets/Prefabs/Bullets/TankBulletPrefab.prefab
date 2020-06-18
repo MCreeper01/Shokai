@@ -61,9 +61,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  explosionRadius: 5
-  timeToDestroyWithoutImpact: 5
-  speed: 10
+  explosionRadius: 6
+  timeToDestroyWithoutImpact: 8
+  speed: 45
 --- !u!1001 &2152701820916946667
 PrefabInstance:
   m_ObjectHideFlags: 0

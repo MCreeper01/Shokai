@@ -816,7 +816,7 @@ MonoBehaviour:
   targetRadiusDetection: 1000
   rotSpeed: 3
   healthInc: 0
-  damageInc: 2
+  damageInc: 1.5
   maxDamage: 100
   speedInc: 0.6
   maxSpeed: 30

@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b53a3517100dce4cbd51901eccf23cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 700
-  speed: 10
-  damagePerSecond: 15
-  range: 40
+  health: 2000
+  speed: 12
+  damagePerSecond: 30
+  range: 50
   pointShoot: {fileID: 1059153341550950339}
   head: {fileID: 9048632478924623520}
   impactZone: {fileID: 1059153340823447468}
