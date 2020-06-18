@@ -99,7 +99,7 @@ public class AirTurretController : MonoBehaviour
                         FlyingEnemy fEnemy = hit.collider.GetComponentInParent<FlyingEnemy>();
                         if (fEnemy != null)
                         {
-                            fEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
+                            fEnemy.TakeDamage(damagePerSecond * Time.deltaTime, 1);
                             if (fEnemy.health <= 0)
                             {
                                 hasTarget = false;
@@ -146,7 +146,7 @@ public class AirTurretController : MonoBehaviour
         if (collider.GetComponentInParent<FlyingEnemy>() != null && collider.tag != "CriticalBox") colliders.Add(collider);
         if (collider.gameObject.layer == LayerMask.NameToLayer("EnemyAttack"))
         {
-            if (collider.gameObject.GetComponentInParent<FlyingEnemy>() != null) TakeDamage(collider.gameObject.GetComponentInParent<FlyingEnemy>().damage);
+            if (collider.gameObject.GetComponentInParent<GroundEnemy>() != null) TakeDamage(collider.gameObject.GetComponentInParent<GroundEnemy>().damage);
         }
     }
 

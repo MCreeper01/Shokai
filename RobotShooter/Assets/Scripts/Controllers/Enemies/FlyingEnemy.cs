@@ -245,11 +245,11 @@ public class FlyingEnemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, int whoAttacked = 0)
     {
         if (currentState == State.DEATH) return;
         health -= damage;
-        GameManager.instance.player.IncreaseCash(hitIncome);
+        if (whoAttacked == 0) GameManager.instance.player.IncreaseCash(hitIncome);
         if (health <= 0) ChangeState(State.DEATH);
     }
 

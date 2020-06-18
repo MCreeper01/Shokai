@@ -98,10 +98,9 @@ public class TerrainTurretController : MonoBehaviour
                         GroundEnemy gEnemy = hit.collider.GetComponentInParent<GroundEnemy>();
                         if (gEnemy != null)
                         {
-                            gEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
+                            gEnemy.TakeDamage(damagePerSecond * Time.deltaTime, 1);
                             if (gEnemy.health <= 0)
                             {
-                                gEnemy.ChangeState(GroundEnemy.State.DEATH);
                                 hasTarget = false;
                                 colliders.RemoveAt(colliderTarget);
                             }
@@ -111,10 +110,9 @@ public class TerrainTurretController : MonoBehaviour
                             TankEnemy tEnemy = hit.collider.GetComponentInParent<TankEnemy>();
                             if (tEnemy != null)
                             {
-                                tEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
+                                tEnemy.TakeDamage(damagePerSecond * Time.deltaTime, 1);
                                 if (tEnemy.health <= 0)
                                 {
-                                    tEnemy.ChangeState(TankEnemy.State.DEATH);
                                     hasTarget = false;
                                     colliders.RemoveAt(colliderTarget);
                                 }

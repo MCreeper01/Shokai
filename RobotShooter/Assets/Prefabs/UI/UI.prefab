@@ -394,7 +394,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6096405057761301710
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1852,7 +1852,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " AA sentry turret [3 max]\n 7.000 cr (1 units)"
+  m_Text: " AA sentry turret [3 max]\n 10.000 cr (1 units)"
 --- !u!1 &3092926887356917345
 GameObject:
   m_ObjectHideFlags: 0
@@ -1964,7 +1964,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 700, y: -218}
+  m_AnchoredPosition: {x: 700, y: -211.99997}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3455178270875187367
@@ -2410,11 +2410,11 @@ RectTransform:
   - {fileID: 5953147151025800160}
   - {fileID: 1699571410108338783}
   m_Father: {fileID: 7604321125143751941}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -420, y: -433.0001}
+  m_AnchoredPosition: {x: -420, y: -212}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3595639508967509649
@@ -3324,9 +3324,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ' Sentry turret [3 max]
-
-    7.000 cr (1 units)'
+  m_Text: " Sentry turret [3 max]\n 10.000 cr (1 units)"
 --- !u!1 &5552208529934331209
 GameObject:
   m_ObjectHideFlags: 0
@@ -3958,7 +3956,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Sticky grenade [6 max]\n 7.000 cr (2 units)"
+  m_Text: " Sticky grenade [6 max]\n 7.500 cr (2 units)"
 --- !u!1 &6624473424879261646
 GameObject:
   m_ObjectHideFlags: 0
@@ -4053,7 +4051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2311390440018911612
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4614,11 +4612,11 @@ RectTransform:
   - {fileID: 7604321124729400081}
   - {fileID: 5245975674464641913}
   m_Father: {fileID: 7604321125143751941}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -420, y: -218}
+  m_AnchoredPosition: {x: -420, y: -427.00006}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321124902701047
@@ -4861,11 +4859,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
-  - {fileID: 7604321124902701042}
   - {fileID: 1016657044864452950}
-  - {fileID: 5336593184056938621}
-  - {fileID: 1062984849641165632}
+  - {fileID: 7604321124902701042}
   - {fileID: 7604321125423743296}
+  - {fileID: 1062984849641165632}
+  - {fileID: 5336593184056938621}
   - {fileID: 7604321125873574213}
   m_Father: {fileID: 7604321124787350404}
   m_RootOrder: 2
@@ -5105,11 +5103,11 @@ RectTransform:
   - {fileID: 7604321125528882497}
   - {fileID: 2906685382449789895}
   m_Father: {fileID: 7604321125143751941}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 700, y: -433.0001}
+  m_AnchoredPosition: {x: -420, y: -642.00006}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321125423743301
@@ -5415,7 +5413,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 700, y: -648.00006}
+  m_AnchoredPosition: {x: 700, y: -642}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321125873574214
@@ -5985,12 +5983,12 @@ MonoBehaviour:
     icon: {fileID: 2800000, guid: 887cfac3b40ae5040b75fc78d6985743, type: 3}
     charges: 1
     maxCharges: 3
-    cost: 7000
+    cost: 10000
   - name: AirTurret
     icon: {fileID: 2800000, guid: 812e7fe9f2bde644ab70a5b5d51e2559, type: 3}
     charges: 1
     maxCharges: 3
-    cost: 7000
+    cost: 10000
   habilitySlots:
   - {fileID: 0}
   - {fileID: 0}
@@ -6734,7 +6732,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " EMP [6 max]\n 5.000 cr (2 units)"
+  m_Text: ' EMP [6 max]
+
+    4.500 cr (2 units)'
 --- !u!1 &9014618726177813385
 GameObject:
   m_ObjectHideFlags: 0
@@ -6842,11 +6842,11 @@ RectTransform:
   - {fileID: 821562046108321928}
   - {fileID: 2184625683715760070}
   m_Father: {fileID: 7604321125143751941}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -420, y: -648.0001}
+  m_AnchoredPosition: {x: 700, y: -427.00006}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8945745885092231217
@@ -9356,15 +9356,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ccebb0a6d8593f4d8bc950f8f34f35f, type: 3}
---- !u!224 &8023625631557884965 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 91980357660756631, guid: 1ccebb0a6d8593f4d8bc950f8f34f35f,
-    type: 3}
-  m_PrefabInstance: {fileID: 7935169532934805170}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8023625631557884964 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 91980357660756630, guid: 1ccebb0a6d8593f4d8bc950f8f34f35f,
+    type: 3}
+  m_PrefabInstance: {fileID: 7935169532934805170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &8023625631557884965 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 91980357660756631, guid: 1ccebb0a6d8593f4d8bc950f8f34f35f,
     type: 3}
   m_PrefabInstance: {fileID: 7935169532934805170}
   m_PrefabAsset: {fileID: 0}

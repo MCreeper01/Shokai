@@ -239,15 +239,17 @@ public class TankEnemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void TakeDamage(float damage/*, GameObject attacker*/)
+    public void TakeDamage(float damage, int whoAttacked = 0)
     {
         if (currentState == State.DEATH) return;
         health -= damage;
-        if (hittedByAR) GameManager.instance.player.IncreaseCash(punishHitIncome);
-        else GameManager.instance.player.IncreaseCash(hitIncome);
+        if (whoAttacked == 0)
+        {
+            if (hittedByAR) GameManager.instance.player.IncreaseCash(punishHitIncome);
+            else GameManager.instance.player.IncreaseCash(hitIncome);
+        }
         if (hittedByAR) hittedByAR = false;
         if (health <= 0) ChangeState(State.DEATH);
-        
     }
 
     void IncrementStats()

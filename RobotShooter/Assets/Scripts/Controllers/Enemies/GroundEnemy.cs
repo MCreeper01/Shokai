@@ -207,12 +207,12 @@ public class GroundEnemy : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void TakeDamage(float damage/*, GameObject attacker*/)
+    public void TakeDamage(float damage, int whoAttacked = 0)
     {
         if (currentState == State.DEATH) return;
         health -= damage;
-        GameManager.instance.player.IncreaseCash(hitIncome);
-        if (health <= 0) ChangeState(State.DEATH);   
+        if (whoAttacked == 0) GameManager.instance.player.IncreaseCash(hitIncome);
+        if (health <= 0) ChangeState(State.DEATH);
     }
 
     void IncrementStats()
