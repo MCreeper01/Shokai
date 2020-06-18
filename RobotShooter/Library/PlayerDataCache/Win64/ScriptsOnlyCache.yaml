@@ -349,7 +349,7 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 15924}
     - Class: 114
-      Script: {instanceID: 301540}
+      Script: {instanceID: 62882}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1985,4 +1985,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/LoadingScene.unity
   - Assets/Scenes/SampleScene.unity
-  playerPath: C:/Users/adria/Desktop/Roboshooter/Shokai.exe
+  playerPath: C:/Users/adria/Desktop/SHOKAI/Shokai.exe
