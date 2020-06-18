@@ -32,6 +32,8 @@ public class MainMenuController : MonoBehaviour
     public void PlayCameraAnimation()
     {
         mainMenu.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         Camera.main.GetComponent<Animation>().Play("CameraAnimation");
         onCinematic = true;
         StartCoroutine(StartGame());

@@ -17,7 +17,6 @@ public class Decal : MonoBehaviour
             {
                 Destroy(gameObject);
             }
-            else Debug.Log(hit.collider.name);
         }
         meshRenderer.enabled = true;
     }

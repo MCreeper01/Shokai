@@ -8,7 +8,7 @@ using FMODUnity;
 
 public class GroundEnemy : MonoBehaviour
 {
-    public enum State { INITIAL, CHASE, ATTACK, HIT, STUNNED, DEATH }
+    public enum State { INITIAL, CHASE, ATTACK, STUNNED, DEATH }
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
@@ -19,7 +19,7 @@ public class GroundEnemy : MonoBehaviour
 
     public GameObject collPoint;
     public GameObject explosionParticles;
-    [HideInInspector] public float health;
+    public float health;
     [HideInInspector] public float damage;
     [HideInInspector] public float speed;
     [HideInInspector] public PlayerController player;
@@ -135,9 +135,6 @@ public class GroundEnemy : MonoBehaviour
                 Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, new Vector3(target.transform.position.x - transform.position.x, 0, target.transform.position.z - transform.position.z), rotSpeed * Time.deltaTime, 0.0f);
                 transform.rotation = Quaternion.LookRotation(newDirectionAttack);
                 break;
-            case State.HIT:
-                if (health <= 0) ChangeState(State.DEATH);
-                break;
             case State.STUNNED:
                 break;
             case State.DEATH:                
@@ -145,7 +142,7 @@ public class GroundEnemy : MonoBehaviour
         }
     }
 
-    void ChangeState(State newState)
+    public void ChangeState(State newState)
     {
         switch (currentState)
         {
@@ -158,9 +155,6 @@ public class GroundEnemy : MonoBehaviour
                 anim.SetBool("Attacking", false);
                 obstacle.enabled = false;
                 StopCoroutine("ActivateCollider");
-                break;
-            case State.HIT:
-                obstacle.enabled = false;
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", false);
@@ -182,11 +176,6 @@ public class GroundEnemy : MonoBehaviour
                 anim.SetBool("Attacking", true);
                 obstacle.enabled = true;
                 StartCoroutine("ActivateCollider");
-                break;
-            case State.HIT:
-                obstacle.enabled = true;
-                GameManager.instance.player.IncreaseCash(hitIncome);
-                Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", true);
@@ -215,10 +204,8 @@ public class GroundEnemy : MonoBehaviour
     {
         if (currentState == State.DEATH) return;
         health -= damage;
-        if (health <= 0) ChangeState(State.DEATH);
-        else ChangeState(State.HIT);
-        //target = attacker;
-               
+        GameManager.instance.player.IncreaseCash(hitIncome);
+        if (health <= 0) ChangeState(State.DEATH);   
     }
 
     void IncrementStats()

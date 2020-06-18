@@ -15,11 +15,15 @@ public class AirTurretController : MonoBehaviour
     public GameObject shootParticles;
     public GameObject explosionParticles;
     public float angleThreshold;
+    public float smokeHealthPercentage;
+
+    public ParticleSystem smoke;
 
     [HideInInspector] public bool placed;
 
     List<Collider> colliders = new List<Collider>();
 
+    private float maxHealth;
     private int colliderTarget;
     private bool hasTarget;
     private GameObject target;
@@ -32,6 +36,7 @@ public class AirTurretController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        maxHealth = health;
         impactZone.radius = range;
         shootParticles.SetActive(false);
         GameManager.instance.AddActiveDefense(gameObject);
@@ -123,6 +128,7 @@ public class AirTurretController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
+        if ((health <= maxHealth * smokeHealthPercentage / 100) && !smoke.isPlaying) smoke.Play();
         if (health <= 0) DestroyDefenses();
     }
 

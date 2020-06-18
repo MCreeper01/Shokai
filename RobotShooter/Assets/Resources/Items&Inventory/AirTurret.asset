@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: AirTurret
   icon: {fileID: 21300000, guid: 6eef6156c6a896744b0b7e181401c023, type: 3}
-  cost: 400
+  cost: 10000
   sellPrice: 0
   charges: 1
-  maxStack: 4
+  maxStack: 3

@@ -47,6 +47,7 @@ public class PlayerController : AController
     private float recoveringFromDash;
 
     [HideInInspector] public bool atShop = false;
+    [HideInInspector] public bool shoping;
     private bool uncontrolable = false;
 
     [HideInInspector] public float nextTimeToFireAR = 0f;
@@ -129,7 +130,7 @@ public class PlayerController : AController
     [HideInInspector] public string defense;
     [HideInInspector] public GameObject attachedDefense;
     [HideInInspector] public bool gliding;
-    [HideInInspector] public bool readyToGlind;
+    [HideInInspector] public bool readyToGlid;
 
     [HideInInspector] public PlayerState currentState;
     [HideInInspector] public PlayerState previousState;
@@ -211,8 +212,7 @@ public class PlayerController : AController
         //Debug.Log(actualWeapon);
         //Debug.Log("Gliding: " + gliding);
         //Debug.Log(readyToGlind);
-        //Debug.Log(onGround);
-        if (Input.GetKeyDown(KeyCode.M)) TakeDamage(20, 0);
+        //Debug.Log(onGround);        
     }
 
     private void FixedUpdate()
@@ -234,13 +234,7 @@ public class PlayerController : AController
 
     void AnyStateUpdate()
     {
-        //#if UNITY_EDITOR
-        if (Input.GetKeyDown(playerModel.godMode))
-        {
-            godMode = !godMode;
-            Debug.Log("God Mode: " + (godMode ? "enabled" : "disabled"));
-        }
-        //#endif 
+        Debug.Log(actualWeapon);
         if (currentShieldDelay > 0 && shieldDelay) currentShieldDelay -= Time.deltaTime;
         else if (currentShieldDelay <= 0 && shieldDelay)
         {
@@ -469,10 +463,10 @@ public class PlayerController : AController
 
         //GRAVITY
         //…
-        if (Input.GetKeyDown(playerModel.jumpKeyCode) != onGround && !readyToGlind) readyToGlind = true;
-        if (verticalSpeed <= 0 && Input.GetKey(playerModel.jumpKeyCode) && !onGround && readyToGlind)
+        if (Input.GetKeyDown(playerModel.jumpKeyCode) != onGround && !readyToGlid) readyToGlid = true;
+        if (verticalSpeed <= 0 && Input.GetKey(playerModel.jumpKeyCode) && !onGround && readyToGlid)
         {
-            readyToGlind = false;
+            readyToGlid = false;
             gliding = true;
             if (!AudioManager.instance.isPlaying(jetpackGlideSound))
             {
@@ -574,7 +568,11 @@ public class PlayerController : AController
             case "Jetpack":
                 AudioManager.instance.PlayOneShotSound("JetpackBoost", transform.position);
                 verticalSpeed = playerModel.jetpackVerticalSpeed;
-                if (gliding) gliding = false;
+                if (gliding)
+                {
+                    gliding = false;
+                    readyToGlid = true;
+                } 
                 inventory.ItemContainer.Consume(num);
                 break;
             case "Grenade": 
@@ -595,6 +593,7 @@ public class PlayerController : AController
                     {
                         DestroyDefense();
                         gun.SetActive(true);
+                        anim.SetInteger("weaponToChange", (int)actualWeapon);
                     }
                     hasNormalGrenade = true;
                     ChangeState(new PSGrenadeLauncher(this));
@@ -638,6 +637,7 @@ public class PlayerController : AController
                     {
                         DestroyDefense();
                         gun.SetActive(true);
+                        anim.SetInteger("weaponToChange", (int)actualWeapon);
                     }
                     hasNormalGrenade = false;
                     ChangeState(new PSGrenadeLauncher(this));
@@ -721,6 +721,7 @@ public class PlayerController : AController
         {
             ChangeState(previousState);
             gun.SetActive(true);
+            anim.SetInteger("weaponToChange", (int)actualWeapon);
         }        
     }
 
@@ -750,6 +751,7 @@ public class PlayerController : AController
             
             DestroyDefense();
             gun.SetActive(true);
+            anim.SetInteger("weaponToChange", (int)actualWeapon);
             SlotInfo sInfo = gc.shopController.defenseSlots[defenseSlotNum].GetComponent<SlotInfo>();
             sInfo.Consume();
             ChangeState(previousState);
@@ -774,11 +776,7 @@ public class PlayerController : AController
         gc.uiController.ChangeShield(currentShield);
         gc.shopController.ResetHabilitiesAndDefenses();
         inventory.ItemContainer.ResetAllSlots();
-        if (actualWeapon == Weapon.launcher)
-        {
-            actualWeapon = pastWeapon;
-            currentState = previousState;
-        }
+        if (grenadeAmmo > 0) grenadeAmmo = 0;
         gc.DestroyDefenses();
         IncreaseCash(gc.roundController.roundPassedIncome);
     }
@@ -933,7 +931,7 @@ public class PlayerController : AController
                     //bulletAR.GetComponent<Rigidbody>().AddForce(bulletSpawner.transform.forward * playerModel.shootForceAR * bulletAR.GetComponent<Rigidbody>().mass, ForceMode.Impulse);
                 }               
 
-                actualOverheat += playerModel.bulletOverheat;
+                if (!godMode) actualOverheat += playerModel.bulletOverheat;
 
                 gc.uiController.ChangeAROverheat(actualOverheat);
                 if (actualOverheat >= playerModel.maxOverheatAR)
@@ -948,12 +946,13 @@ public class PlayerController : AController
                 float damage;
                 nextTimeToFireShotgun = Time.time + 1 / playerModel.fireRateShotgun;
                 AudioManager.instance.PlayOneShotSound("ShotgunShot", transform.position);
+                anim.speed = playerModel.fireRateShotgun;
                 //StartCoroutine(EndMuzzle());
                 for (int i = 0; i < pellets.Count; i++)
                 {
                     multiplier = 1;
                     pellets[i] = Random.rotation;
-                    Quaternion rot = Quaternion.RotateTowards(bulletSpawner.transform.rotation, pellets[i], playerModel.shotgunSpreadAngle);
+                    Quaternion rot = Quaternion.RotateTowards(Camera.main.transform.rotation, pellets[i], playerModel.shotgunSpreadAngle);
                     RaycastHit hit; 
                     if (Physics.Raycast(Camera.main.transform.position, rot * Vector3.forward, out hit, playerModel.rangeShotgun, shootLayerMask))
                     {
@@ -1075,7 +1074,11 @@ public class PlayerController : AController
 
     public void CheckWeaponToShoot()
     {
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("ChangeRight") || anim.GetCurrentAnimatorStateInfo(0).IsName("ChangeLeft")) return;
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("ChangeRight") || anim.GetCurrentAnimatorStateInfo(0).IsName("ChangeLeft"))
+        {
+            if (actualWeapon == Weapon.rifle) shooting = true;
+            return;
+        } 
         switch (actualWeapon)
         {            
             case Weapon.rifle:

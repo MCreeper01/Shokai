@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         CancelInvoke("StartGame");
         Invoke("StartGame", .1f);
 
+
         //else if (c is CheckpointController)
         //checkpointController = (CheckpointController)c;
     }
@@ -140,8 +141,14 @@ public class GameManager : MonoBehaviour
 
     void Debuging()
     {
-#if UNITY_EDITOR
-        if (Input.GetKeyDown(KeyCode.T))
+        if (!Input.GetKey(KeyCode.LeftControl)) return;
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            player.godMode = !player.godMode;
+            Debug.Log("God Mode: " + (player.godMode ? "enabled" : "disabled"));
+        }
+        if (Input.GetKeyDown(KeyCode.F2)) player.IncreaseCash(10000);
+        if (Input.GetKeyDown(KeyCode.F3))
         {
             foreach (GroundEnemy enemy in GameObject.FindObjectsOfType<GroundEnemy>())
             {
@@ -162,7 +169,6 @@ public class GameManager : MonoBehaviour
                 roundController.DecreaseEnemyCount();
             }
         }
-#endif
     }
 
 }

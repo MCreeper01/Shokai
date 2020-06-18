@@ -40,12 +40,12 @@ public class EnemyBullet : MonoBehaviour
         }
         if (collider.tag == "AirTurret")
         {
-            collider.GetComponent<AirTurretController>().TakeDamage(damage);
+            collider.GetComponentInParent<AirTurretController>().TakeDamage(damage);
             gameObject.SetActive(false);
         }
         if (collider.tag == "GroundTurret")
         {
-            collider.GetComponent<TerrainTurretController>().TakeDamage(damage);
+            collider.GetComponentInParent<TerrainTurretController>().TakeDamage(damage);
             gameObject.SetActive(false);
         }
         if (collider.gameObject.layer == LayerMask.NameToLayer("Geometry")) gameObject.SetActive(false);

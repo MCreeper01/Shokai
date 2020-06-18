@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: TerrainTurret
   icon: {fileID: 21300000, guid: afde56b9c11de60488f7836eaf9be03c, type: 3}
-  cost: 400
+  cost: 10000
   sellPrice: 0
   charges: 1
-  maxStack: 4
+  maxStack: 3

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: EMP
   icon: {fileID: 21300000, guid: 3b7d6c31c1903bd44bfb4531c48c5eb9, type: 3}
-  cost: 300
+  cost: 3000
   sellPrice: 0
   charges: 2
   maxStack: 6

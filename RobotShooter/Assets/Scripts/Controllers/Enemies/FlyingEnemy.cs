@@ -7,7 +7,7 @@ using UnityEngine.Audio;
 
 public class FlyingEnemy : MonoBehaviour
 {
-    public enum State { INITIAL, CHASE, ATTACK, GO_BACK, HIT, STUNNED, DEATH }
+    public enum State { INITIAL, CHASE, ATTACK, GO_BACK, STUNNED, DEATH }
     public State currentState = State.INITIAL;
 
     [Header("General")]
@@ -114,6 +114,10 @@ public class FlyingEnemy : MonoBehaviour
         {
             source2.Play();
         }
+        if (target != null)
+        {
+            transform.forward = Vector3.Lerp(transform.forward, target.transform.position - transform.position, Time.deltaTime * rotSpeedCharacter);
+        } 
         switch (currentState)
         {
             case State.INITIAL:
@@ -139,7 +143,7 @@ public class FlyingEnemy : MonoBehaviour
 
                 //Vector3 newDirectionChase = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
                 //transform.rotation = Quaternion.LookRotation(newDirectionChase);
-                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
+                //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.ATTACK:
                 if (target == null)
@@ -159,7 +163,7 @@ public class FlyingEnemy : MonoBehaviour
                 }
                 //Vector3 newDirectionAttack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
                 //transform.rotation = Quaternion.LookRotation(newDirectionAttack);
-                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
+                //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
                 break;
             case State.GO_BACK:                
                 if (DistanceToTargetSquared(gameObject, target) >= minDistAttack * minDistAttack)
@@ -168,12 +172,8 @@ public class FlyingEnemy : MonoBehaviour
                 }
                 //Vector3 newDirectionGoBack = Vector3.RotateTowards(transform.forward, target.transform.position - transform.position, rotSpeedCharacter * Time.deltaTime, 0.0f);
                 //transform.rotation = Quaternion.LookRotation(newDirectionGoBack);
-                transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
-                transform.position += direction * speed * Time.deltaTime;
-                break;
-            case State.HIT:
                 //transform.LookAt(new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z));
-                if (health <= 0) ChangeState(State.DEATH);
+                transform.position += direction * speed * Time.deltaTime;
                 break;
             case State.DEATH:                
                 break;
@@ -194,8 +194,6 @@ public class FlyingEnemy : MonoBehaviour
                 break;
             case State.GO_BACK:
                 break;
-            case State.HIT:
-                break;
             case State.STUNNED:
                 anim.SetBool("Stunned", false);
                 break;
@@ -214,10 +212,6 @@ public class FlyingEnemy : MonoBehaviour
                 break;
             case State.GO_BACK:
                 direction = -transform.forward * 2;
-                break;
-            case State.HIT:
-                GameManager.instance.player.IncreaseCash(hitIncome);
-                Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", true);
@@ -245,8 +239,8 @@ public class FlyingEnemy : MonoBehaviour
     {
         if (currentState == State.DEATH) return;
         health -= damage;
-        if (health <= 0) ChangeState(State.DEATH);    
-        else ChangeState(State.HIT);        
+        GameManager.instance.player.IncreaseCash(hitIncome);
+        if (health <= 0) ChangeState(State.DEATH);         
     }
 
     void IncrementStats()
@@ -310,7 +304,7 @@ public class FlyingEnemy : MonoBehaviour
             GameObject b;
             b = GameManager.instance.objectPoolerManager.airEnemyBulletOP.GetPooledObject();
             b.transform.position = cannon.position;
-            b.transform.forward = player.transform.position - transform.position;
+            b.transform.forward = target.transform.position - transform.position;
             b.GetComponent<EnemyBullet>().damage = damage;
             b.SetActive(true);
             //AudioManager.instance.PlayOneShotSound("ShootEnergyBall", transform.position);
@@ -342,5 +336,10 @@ public class FlyingEnemy : MonoBehaviour
 
         if (minDistance < radius) return closest;
         else return null;
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.tag == "HeightLimit") TakeDamage(0148383);
     }
 }

@@ -11,6 +11,7 @@ TagManager:
   - DeathZone
   - AirTurret
   - GroundTurret
+  - HeightLimit
   layers:
   - Default
   - TransparentFX

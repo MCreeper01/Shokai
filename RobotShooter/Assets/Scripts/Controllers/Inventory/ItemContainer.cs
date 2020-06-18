@@ -17,7 +17,8 @@ namespace Shokai.Items
         public ItemSlot GetSlotByIndex(int index) => itemSlots[index];
 
         public ItemSlot AddItem(ItemSlot itemSlot)
-        {            
+        {
+            if (itemSlot.item.Cost > GameManager.instance.player.cash) return itemSlot;
             for (int i = 0; i < itemSlots.Length; i++)
             {
                 if (itemSlots[i].item != null)
@@ -33,6 +34,10 @@ namespace Shokai.Items
                             itemSlot.quantity = 0;
 
                             OnItemsUpdated.Invoke();
+
+                            GameManager.instance.player.cash -= itemSlot.item.Cost;
+
+                            GameManager.instance.uiController.ChangeCash(GameManager.instance.player.cash);
 
                             AudioManager.instance.PlayOneShotSound("Buy", GameManager.instance.player.transform.position);
 
@@ -63,6 +68,10 @@ namespace Shokai.Items
                         itemSlot.quantity = 0;
 
                         OnItemsUpdated.Invoke();
+
+                        GameManager.instance.player.cash -= itemSlot.item.Cost;
+
+                        GameManager.instance.uiController.ChangeCash(GameManager.instance.player.cash);
 
                         AudioManager.instance.PlayOneShotSound("Buy", GameManager.instance.player.transform.position);
 

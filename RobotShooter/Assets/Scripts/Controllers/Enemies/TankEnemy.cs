@@ -7,7 +7,7 @@ using FMOD.Studio;
 
 public class TankEnemy : MonoBehaviour
 {
-    public enum State { INITIAL, CHASE, ATTACK, HIT, STUNNED, DEATH }
+    public enum State { INITIAL, CHASE, ATTACK, STUNNED, DEATH }
     public State currentState = State.INITIAL;
     NavMeshAgent agent;
     NavMeshObstacle obstacle;
@@ -165,11 +165,7 @@ public class TankEnemy : MonoBehaviour
                         Arms[1].localRotation = Quaternion.Lerp(Arms[1].localRotation, Quaternion.Euler(Vector3.Angle(transform.forward, tPos1), 0, 0), Time.deltaTime * rotSpeedArms);
                     }
                 }            
-                break;
-            case State.HIT:
-                if (health <= 0) ChangeState(State.DEATH);
-                if (hittedByAR) hittedByAR = false;
-                break;
+                break;         
             case State.STUNNED:
                 break;
             case State.DEATH:                
@@ -177,7 +173,7 @@ public class TankEnemy : MonoBehaviour
         }
     }
 
-    void ChangeState(State newState)
+    public void ChangeState(State newState)
     {
         switch (currentState)
         {
@@ -189,9 +185,6 @@ public class TankEnemy : MonoBehaviour
             case State.ATTACK:
                 obstacle.enabled = false;
                 CancelInvoke("InstanceBullet");
-                break;
-            case State.HIT:
-                obstacle.enabled = false;
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", false);
@@ -216,18 +209,6 @@ public class TankEnemy : MonoBehaviour
             case State.ATTACK:
                 obstacle.enabled = true;
                 InvokeRepeating("InstanceBullet", 0.3f, fireRate);
-                break;
-            case State.HIT:                
-                obstacle.enabled = true;
-                if (hittedByAR)
-                {
-                    GameManager.instance.player.IncreaseCash(punishHitIncome);
-                }
-                else
-                {
-                    GameManager.instance.player.IncreaseCash(hitIncome);
-                }
-                Invoke("ChangeToChase", hitTime);
                 break;
             case State.STUNNED:
                 anim.SetBool("Stunned", true);
@@ -256,12 +237,10 @@ public class TankEnemy : MonoBehaviour
     {
         if (currentState == State.DEATH) return;
         health -= damage;
+        if (hittedByAR) GameManager.instance.player.IncreaseCash(punishHitIncome);
+        else GameManager.instance.player.IncreaseCash(hitIncome);
+        if (hittedByAR) hittedByAR = false;
         if (health <= 0) ChangeState(State.DEATH);
-        else ChangeState(State.HIT);
-        /*if (attacker.GetType() != typeof(PlayerController))
-        {
-            target = attacker;
-        }   */
         
     }
 

@@ -236,7 +236,7 @@ MonoBehaviour:
   hitTime: 0
   deathTime: 0
   targetRadiusDetection: 1000
-  rotSpeedCharacter: 5
+  rotSpeedCharacter: 1
   healthInc: 2.5
   damageInc: 1
   maxDamage: 20

@@ -27,6 +27,7 @@ public class PSMovement : PlayerState {
 
     public override void Update(PlayerController pc)
     {
+        if (pc.anim.GetBool("shooting")) pc.anim.SetBool("shooting", false);
         pc.Move();
         pc.Aim();
         if (Input.GetKeyDown(pc.playerModel.interactKey) && pc.atShop) pc.Shop(true);

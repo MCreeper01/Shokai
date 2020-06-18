@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Shokai.Items;
 using UnityEngine.SceneManagement;
 
 public class UIController : AController
@@ -26,18 +27,32 @@ public class UIController : AController
     public Text fpsText;
     public KeyCode skipPreparationKey = KeyCode.O;
     public List<GameObject> pointers;
+    public InventoryController inventory;
 
     [Header("Shop")]
+    public List<GameObject> itemsShop;
     public Text cashShopText;
-    public Text jetpackCost;
-    public Text grenadeCost;
-    public Text laserCost;
-    public Text healthCost;
-    public Text stickyGrenadeCost;
-    public Text empCost;
-    public Text mineCost;
-    public Text terrainTurretCost;
-    public Text airTurretCost;
+    //public Text jetpackCost;
+    //public Text grenadeCost;
+    //public Text laserCost;
+    //public Text healthCost;
+    //public Text stickyGrenadeCost;
+    //public Text empCost;
+    //public Text mineCost;
+    //public Text terrainTurretCost;
+    //public Text airTurretCost;
+    public GameObject jetpackShop;
+    public GameObject grenadeShop;
+    public GameObject stickyGrenadeShop;
+    public GameObject laserShop;
+    public GameObject healthShop;
+    public GameObject empShop;
+    public GameObject tTurretShop;
+    public GameObject aTurretShop;
+    public GameObject mineShop;
+
+    public float alphaPurchaseLocked;
+    public float alphaPurchaseUnlocked;
 
     [Header("Pause")]
     public bool paused;
@@ -103,14 +118,204 @@ public class UIController : AController
         deltaTime += (Time.deltaTime - deltaTime) * 0.1f;
         float fps = 1.0f / deltaTime;
         fpsText.text = "FPS: " + Mathf.Ceil(fps).ToString();
+
+        if (gc != null && gc.player != null && gc.player.atShop)
+        {
+            if (gc.player.cash < inventory.jetpack.item.Cost)
+            {
+                GameObject shopIcon = jetpackShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseLocked);
+            }
+            else
+            {
+                GameObject shopIcon = jetpackShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+            }
+            if (gc.player.cash < inventory.grenade.item.Cost)
+            {
+                GameObject shopIcon = grenadeShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseLocked);
+            }
+            else
+            {
+                GameObject shopIcon = grenadeShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+            }
+            if (gc.player.cash < inventory.stickyGrenade.item.Cost)
+            {
+                GameObject shopIcon = stickyGrenadeShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseLocked);
+            }
+            else
+            {
+                GameObject shopIcon = stickyGrenadeShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+            }
+            if (gc.player.cash < inventory.emp.item.Cost)
+            {
+                GameObject shopIcon = empShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseLocked);
+            }
+            else
+            {
+                GameObject shopIcon = empShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+            }
+            if (gc.player.cash < inventory.laser.item.Cost)
+            {
+                GameObject shopIcon = laserShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseLocked);
+            }
+            else
+            {
+                GameObject shopIcon = laserShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+            }
+            if (gc.player.cash < inventory.health.item.Cost)
+            {
+                GameObject shopIcon = healthShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseLocked);
+            }
+            else
+            {
+                GameObject shopIcon = healthShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+            }
+            if (gc.player.cash < inventory.tTurret.item.Cost)
+            {
+                GameObject shopIcon = tTurretShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseLocked);
+            }
+            else
+            {
+                GameObject shopIcon = tTurretShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+            }
+            if (gc.player.cash < inventory.aTurret.item.Cost)
+            {
+                GameObject shopIcon = aTurretShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseLocked);
+            }
+            else
+            {
+                GameObject shopIcon = aTurretShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+            }
+            if (gc.player.cash < inventory.mine.item.Cost)
+            {
+                GameObject shopIcon = mineShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseLocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseLocked);
+            }
+            else
+            {
+                GameObject shopIcon = mineShop;
+                shopIcon.GetComponent<Image>().color = new Color(shopIcon.GetComponent<Image>().color.r, shopIcon.GetComponent<Image>().color.g,
+                    shopIcon.GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(0).GetComponent<Text>().color = new Color(shopIcon.transform.GetChild(0).GetComponent<Text>().color.r,
+                    shopIcon.transform.GetChild(0).GetComponent<Text>().color.g, shopIcon.transform.GetChild(0).GetComponent<Text>().color.b, alphaPurchaseUnlocked);
+                shopIcon.transform.GetChild(1).GetComponent<Image>().color = new Color(shopIcon.transform.GetChild(1).GetComponent<Image>().color.r,
+                    shopIcon.transform.GetChild(1).GetComponent<Image>().color.g, shopIcon.transform.GetChild(1).GetComponent<Image>().color.b, alphaPurchaseUnlocked);
+            }
+
+        }
     }
 
     public void Pause()
     {
-        paused = !paused;
-        Cursor.visible = paused;
+        paused = !paused;        
         pauseMenu.SetActive(paused);
         HUD.SetActive(!paused);
+        Cursor.visible = paused;
+        if (gc.player.shoping)
+        {
+            shopInterface.SetActive(!paused);
+            if (!paused) Cursor.visible = true;
+        }         
         optionsMenu.SetActive(false);
         if (paused)
         {
@@ -119,7 +324,8 @@ public class UIController : AController
         } 
         else
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            if (gc.player.shoping) Cursor.lockState = CursorLockMode.None;
+            else Cursor.lockState = CursorLockMode.Locked;
             AudioManager.instance.ResumeAll();
         }
         

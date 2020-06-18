@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4245037869641635411}
   m_Layer: 28
   m_Name: AirTurret
-  m_TagString: AirTurret
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -32,6 +32,7 @@ Transform:
   m_Children:
   - {fileID: 5460731735007018163}
   - {fileID: 5460731735328534477}
+  - {fileID: 3560639841558092125}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,9 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b53a3517100dce4cbd51901eccf23cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
+  health: 700
   speed: 10
-  damagePerSecond: 15
+  damagePerSecond: 25
   range: 40
   pointShoot: {fileID: 1059153341550950339}
   head: {fileID: 9048632478924623520}
@@ -57,6 +58,8 @@ MonoBehaviour:
   shootParticles: {fileID: 8054197696087103406}
   explosionParticles: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}
   angleThreshold: 5
+  smokeHealthPercentage: 35
+  smoke: {fileID: 3560639841538694173}
   placed: 0
 --- !u!135 &1059153340823447468
 SphereCollider:
@@ -131,6 +134,87 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0237312, y: 0.98270273, z: 1.5670089}
   m_Center: {x: 0.017260551, y: -0.116883636, z: 0.7835225}
+--- !u!1001 &780823698182899449
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1059153340823447469}
+    m_Modifications:
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4305410552387978116, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+        type: 3}
+      propertyPath: m_Name
+      value: Smoke
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 65fc59749a6e3424f9c2bccd2a93cb32, type: 3}
+--- !u!4 &3560639841558092125 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4305410552387755940, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+    type: 3}
+  m_PrefabInstance: {fileID: 780823698182899449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &3560639841538694173 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 4305410552372550372, guid: 65fc59749a6e3424f9c2bccd2a93cb32,
+    type: 3}
+  m_PrefabInstance: {fileID: 780823698182899449}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1059153341307819945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -213,6 +297,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 5fcc18a94b608124bb6c08c4b7507fa5,
+        type: 3}
+      propertyPath: m_TagString
+      value: AirTurret
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fcc18a94b608124bb6c08c4b7507fa5, type: 3}
@@ -310,6 +399,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e12f5cb9ce613614b9e1a52f51b5cf77,
+        type: 3}
+      propertyPath: m_TagString
+      value: AirTurret
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e12f5cb9ce613614b9e1a52f51b5cf77, type: 3}

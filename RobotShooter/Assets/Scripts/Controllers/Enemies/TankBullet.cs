@@ -49,11 +49,11 @@ public class TankBullet : MonoBehaviour
                 if (pc != null) pc.TakeDamage(damage, 0);
                 else
                 {
-                    TerrainTurretController tTurret = colliders[i].GetComponent<TerrainTurretController>();
+                    TerrainTurretController tTurret = colliders[i].GetComponentInParent<TerrainTurretController>();
                     if (tTurret != null) tTurret.TakeDamage(damage);
                     else
                     {
-                        AirTurretController aTurret = colliders[i].GetComponent<AirTurretController>();
+                        AirTurretController aTurret = colliders[i].GetComponentInParent<AirTurretController>();
                         if (aTurret != null) aTurret.TakeDamage(damage);
                     }
                 }
@@ -62,7 +62,7 @@ public class TankBullet : MonoBehaviour
         }
         if (collider.tag == "AirTurret")
         {
-            collider.GetComponent<AirTurretController>().TakeDamage(damage);
+            collider.GetComponentInParent<AirTurretController>().TakeDamage(damage);
             Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
             for (int i = 0; i < colliders.Length; i++)
             {
@@ -71,11 +71,11 @@ public class TankBullet : MonoBehaviour
                 if (pc != null) pc.TakeDamage(damage, 0);
                 else
                 {
-                    TerrainTurretController tTurret = colliders[i].GetComponent<TerrainTurretController>();
+                    TerrainTurretController tTurret = colliders[i].GetComponentInParent<TerrainTurretController>();
                     if (tTurret != null) tTurret.TakeDamage(damage);
                     else
                     {
-                        AirTurretController aTurret = colliders[i].GetComponent<AirTurretController>();
+                        AirTurretController aTurret = colliders[i].GetComponentInParent<AirTurretController>();
                         if (aTurret != null) aTurret.TakeDamage(damage);
                     }
                 }
@@ -84,7 +84,7 @@ public class TankBullet : MonoBehaviour
         }
         if (collider.tag == "GroundTurret")
         {
-            collider.GetComponent<TerrainTurretController>().TakeDamage(damage);
+            collider.GetComponentInParent<TerrainTurretController>().TakeDamage(damage);
             Collider[] colliders = Physics.OverlapSphere(transform.position, explosionRadius);
             for (int i = 0; i < colliders.Length; i++)
             {
@@ -93,11 +93,11 @@ public class TankBullet : MonoBehaviour
                 if (pc != null) pc.TakeDamage(damage, 0);
                 else
                 {
-                    TerrainTurretController tTurret = colliders[i].GetComponent<TerrainTurretController>();
+                    TerrainTurretController tTurret = colliders[i].GetComponentInParent<TerrainTurretController>();
                     if (tTurret != null) tTurret.TakeDamage(damage);
                     else
                     {
-                        AirTurretController aTurret = colliders[i].GetComponent<AirTurretController>();
+                        AirTurretController aTurret = colliders[i].GetComponentInParent<AirTurretController>();
                         if (aTurret != null) aTurret.TakeDamage(damage);
                     }
                 }
@@ -114,11 +114,11 @@ public class TankBullet : MonoBehaviour
                 if (pc != null) pc.TakeDamage(damage, 0);
                 else
                 {
-                    TerrainTurretController tTurret = colliders[i].GetComponent<TerrainTurretController>();
+                    TerrainTurretController tTurret = colliders[i].GetComponentInParent<TerrainTurretController>();
                     if (tTurret != null) tTurret.TakeDamage(damage);
                     else
                     {
-                        AirTurretController aTurret = colliders[i].GetComponent<AirTurretController>();
+                        AirTurretController aTurret = colliders[i].GetComponentInParent<AirTurretController>();
                         if (aTurret != null) aTurret.TakeDamage(damage);
                     }
                 }

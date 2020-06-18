@@ -6,6 +6,8 @@ public class PSDead : PlayerState
 {
     public PSDead(PlayerController pc)
     {
+        GameManager.instance.shopController.ResetHabilitiesAndDefenses();
+        pc.inventory.ItemContainer.ResetAllSlots();
         pc.StartDeath();
     }
 

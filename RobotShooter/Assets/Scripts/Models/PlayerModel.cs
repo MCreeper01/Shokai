@@ -107,7 +107,4 @@ public class PlayerModel : ScriptableObject
     public KeyCode pauseKey;
     public float electrocuteDamage;
     public float electricZoneDetectionRange;
-
-    [Header("TESTING")]
-    public KeyCode godMode;
 }

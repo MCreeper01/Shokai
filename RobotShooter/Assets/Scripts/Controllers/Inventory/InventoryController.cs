@@ -12,15 +12,15 @@ namespace Shokai.Items
         [SerializeField] private VoidEvent onInventoryItemsUpdated = null;
         [SerializeField] private ItemSlot testItemSlot = new ItemSlot();
         [Header("Items")]
-        [SerializeField] private ItemSlot jetpack = new ItemSlot();
-        [SerializeField] private ItemSlot grenade = new ItemSlot();
-        [SerializeField] private ItemSlot stickyGrenade = new ItemSlot();
-        [SerializeField] private ItemSlot emp = new ItemSlot();
-        [SerializeField] private ItemSlot laser = new ItemSlot();
-        [SerializeField] private ItemSlot health = new ItemSlot();
-        [SerializeField] private ItemSlot tTurret = new ItemSlot();
-        [SerializeField] private ItemSlot aTurret = new ItemSlot();
-        [SerializeField] private ItemSlot mine = new ItemSlot();
+        [SerializeField] public ItemSlot jetpack = new ItemSlot();
+        [SerializeField] public ItemSlot grenade = new ItemSlot();
+        [SerializeField] public ItemSlot stickyGrenade = new ItemSlot();
+        [SerializeField] public ItemSlot emp = new ItemSlot();
+        [SerializeField] public ItemSlot laser = new ItemSlot();
+        [SerializeField] public ItemSlot health = new ItemSlot();
+        [SerializeField] public ItemSlot tTurret = new ItemSlot();
+        [SerializeField] public ItemSlot aTurret = new ItemSlot();
+        [SerializeField] public ItemSlot mine = new ItemSlot();
 
         public ItemContainer ItemContainer { get; } = new ItemContainer(3);
 

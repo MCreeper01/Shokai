@@ -758,6 +758,83 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'Available credits:'
+--- !u!1 &1597187126954454856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6978207890651654594}
+  - component: {fileID: 9203620489991253122}
+  - component: {fileID: 9078259549653340722}
+  m_Layer: 5
+  m_Name: ItemStack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6978207890651654594
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597187126954454856}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.15290952, y: 0.15290952, z: 0.15290952}
+  m_Children: []
+  m_Father: {fileID: 7604321126364983917}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -25.974003, y: 8.2}
+  m_SizeDelta: {x: 195.02, y: 114.14}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &9203620489991253122
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597187126954454856}
+  m_CullTransparentMesh: 0
+--- !u!114 &9078259549653340722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1597187126954454856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: c42be64ae1b3368438725167fa7eb099, type: 3}
+    m_FontSize: 100
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 100
+    m_Alignment: 8
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 100
 --- !u!1 &1713605817413457270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,8 +1810,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 227.4, y: -0.00038528442}
-  m_SizeDelta: {x: 1090, y: 175.8}
+  m_AnchoredPosition: {x: 258.8, y: -0.00038528442}
+  m_SizeDelta: {x: 1290.6, y: 175.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2632259572108517794
 CanvasRenderer:
@@ -1775,7 +1852,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " AA sentry turret [3 max]\n 7.000 cr (1 units)"
+  m_Text: " AA sentry turret [3 max]\n 9.000 cr (1 units)"
 --- !u!1 &3092926887356917345
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,11 +1960,11 @@ RectTransform:
   - {fileID: 8518477282534836009}
   - {fileID: 3190331059903851924}
   m_Father: {fileID: 7604321125143751941}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 700, y: -648}
+  m_AnchoredPosition: {x: 700, y: -218}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3455178270875187367
@@ -1995,83 +2072,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineToChange: 6
   target: {fileID: 7604321125087269184}
---- !u!1 &3180781845211506205
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1935448442647020309}
-  - component: {fileID: 2802922873753835087}
-  - component: {fileID: 3750613661472416127}
-  m_Layer: 5
-  m_Name: ItemStack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &1935448442647020309
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3180781845211506205}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.15291858, y: 0.15291858, z: 0.1529023}
-  m_Children: []
-  m_Father: {fileID: 7604321126364983917}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -24.099976, y: 7}
-  m_SizeDelta: {x: -100, y: 114.14}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &2802922873753835087
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3180781845211506205}
-  m_CullTransparentMesh: 0
---- !u!114 &3750613661472416127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3180781845211506205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: c42be64ae1b3368438725167fa7eb099, type: 3}
-    m_FontSize: 100
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 1
-    m_MaxSize: 100
-    m_Alignment: 8
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 100
 --- !u!1 &3560158673591475282
 GameObject:
   m_ObjectHideFlags: 0
@@ -2410,11 +2410,11 @@ RectTransform:
   - {fileID: 5953147151025800160}
   - {fileID: 1699571410108338783}
   m_Father: {fileID: 7604321125143751941}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 700, y: -218.00003}
+  m_AnchoredPosition: {x: -420, y: -433.0001}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3595639508967509649
@@ -2598,7 +2598,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Repair module [3 max]\n 8.000 cr (1 units)"
+  m_Text: " Repair module [6 max]\n 7.000 cr (3 units)"
 --- !u!1 &4765287348251646689
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,7 +2707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 32.19995, y: -15.199951}
+  m_AnchoredPosition: {x: 32.19995, y: -15.199829}
   m_SizeDelta: {x: 133.9, y: 114.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2534451794208483832
@@ -2925,7 +2925,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -420, y: -200.99997}
+  m_AnchoredPosition: {x: -401.99994, y: -396}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7137027280177831604
@@ -3282,8 +3282,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 227.4, y: -0.00038528442}
-  m_SizeDelta: {x: 1090, y: 175.8}
+  m_AnchoredPosition: {x: 251.5, y: -0.00038528442}
+  m_SizeDelta: {x: 1244.3, y: 175.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4867333838169963705
 CanvasRenderer:
@@ -3324,7 +3324,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Sentry turret [3 max]\n 8.000 cr (1 units)"
+  m_Text: " Sentry turret [3 max]\n 10.000 cr (1 units)"
 --- !u!1 &5552208529934331209
 GameObject:
   m_ObjectHideFlags: 0
@@ -3699,7 +3699,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -420, y: -395.99997}
+  m_AnchoredPosition: {x: 700, y: -201}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4047794629685305222
@@ -3914,8 +3914,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 227.4, y: -0.00038528442}
-  m_SizeDelta: {x: 1090, y: 175.8}
+  m_AnchoredPosition: {x: 255.5, y: -0.00038528442}
+  m_SizeDelta: {x: 1269.6, y: 175.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4627102474344319136
 CanvasRenderer:
@@ -3956,7 +3956,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Sticky grenade [10 max]\n 3.000 cr (4 units)"
+  m_Text: " Sticky grenade [8 max]\n 12.000 cr (4 units)"
 --- !u!1 &6624473424879261646
 GameObject:
   m_ObjectHideFlags: 0
@@ -4068,7 +4068,7 @@ RectTransform:
   - {fileID: 2354513206660567055}
   - {fileID: 1024478938957777640}
   m_Father: {fileID: 7604321126498571297}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4336,7 +4336,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Grenade pack [10 max]\n 3.000 cr (5 units)"
+  m_Text: " Grenade pack [10 max]\n 2.000 cr (2 units)"
 --- !u!1 &7604321124746833783
 GameObject:
   m_ObjectHideFlags: 0
@@ -4455,7 +4455,7 @@ RectTransform:
   - {fileID: 3037636297582732147}
   - {fileID: 7604321125087269183}
   m_Father: {fileID: 7604321126498571297}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4612,11 +4612,11 @@ RectTransform:
   - {fileID: 7604321124729400081}
   - {fileID: 5245975674464641913}
   m_Father: {fileID: 7604321125143751941}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -420, y: -433.00006}
+  m_AnchoredPosition: {x: -420, y: -218}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321124902701047
@@ -4859,12 +4859,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
-  - {fileID: 7604321125423743296}
   - {fileID: 7604321124902701042}
-  - {fileID: 7604321125873574213}
   - {fileID: 1016657044864452950}
   - {fileID: 5336593184056938621}
   - {fileID: 1062984849641165632}
+  - {fileID: 7604321125423743296}
+  - {fileID: 7604321125873574213}
   m_Father: {fileID: 7604321124787350404}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5103,11 +5103,11 @@ RectTransform:
   - {fileID: 7604321125528882497}
   - {fileID: 2906685382449789895}
   m_Father: {fileID: 7604321125143751941}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -420, y: -218.00003}
+  m_AnchoredPosition: {x: 700, y: -433.0001}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321125423743301
@@ -5374,7 +5374,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Jetpack boost [12 max]\n 8.000 cr (4 units)"
+  m_Text: " Jetpack boost [12 max]\n 6.000 cr (2 units)"
 --- !u!1 &7604321125873574210
 GameObject:
   m_ObjectHideFlags: 0
@@ -5409,11 +5409,11 @@ RectTransform:
   - {fileID: 7604321126624862056}
   - {fileID: 4536386452526880182}
   m_Father: {fileID: 7604321125143751941}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -420, y: -648.00006}
+  m_AnchoredPosition: {x: 700, y: -648.00006}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321125873574214
@@ -5844,7 +5844,7 @@ RectTransform:
   m_Children:
   - {fileID: 7604321126641535680}
   - {fileID: 3475078693396177684}
-  - {fileID: 1935448442647020309}
+  - {fileID: 6978207890651654594}
   m_Father: {fileID: 4190341343213154224}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5976,19 +5976,19 @@ MonoBehaviour:
   defenses:
   - name: Mine
     icon: {fileID: 2800000, guid: 3e35ea0ae648a2b42b0cfe7ea2a9db24, type: 3}
-    charges: 3
-    maxCharges: 12
-    cost: 300
+    charges: 1
+    maxCharges: 6
+    cost: 3000
   - name: TerrainTurret
     icon: {fileID: 2800000, guid: 887cfac3b40ae5040b75fc78d6985743, type: 3}
     charges: 1
-    maxCharges: 4
-    cost: 400
+    maxCharges: 3
+    cost: 10000
   - name: AirTurret
     icon: {fileID: 2800000, guid: 812e7fe9f2bde644ab70a5b5d51e2559, type: 3}
     charges: 1
-    maxCharges: 4
-    cost: 400
+    maxCharges: 3
+    cost: 9000
   habilitySlots:
   - {fileID: 0}
   - {fileID: 0}
@@ -6028,9 +6028,9 @@ RectTransform:
   m_Children:
   - {fileID: 7604321126402369542}
   - {fileID: 7604321125467165202}
-  - {fileID: 2311390440018911612}
   - {fileID: 8023625631557884965}
   - {fileID: 7604321124787350404}
+  - {fileID: 2311390440018911612}
   - {fileID: 6756803528019522325}
   - {fileID: 6096405057761301710}
   m_Father: {fileID: 0}
@@ -6136,16 +6136,20 @@ MonoBehaviour:
   - {fileID: 6765781243164800197}
   - {fileID: 7406951478549658982}
   - {fileID: 1713605817413457270}
+  inventory: {fileID: 11400000, guid: 0b752a8111dbcb44fb7142e109a3ee19, type: 2}
+  itemsShop: []
   cashShopText: {fileID: 2122545705013533024}
-  jetpackCost: {fileID: 7604321125528882496}
-  grenadeCost: {fileID: 7604321124729400080}
-  laserCost: {fileID: 7604321126624862059}
-  healthCost: {fileID: 6872698833368168866}
-  stickyGrenadeCost: {fileID: 7491397124255462144}
-  empCost: {fileID: 3690986089202818315}
-  mineCost: {fileID: 7604321126619112468}
-  terrainTurretCost: {fileID: 1203426674105213733}
-  airTurretCost: {fileID: 5206748232009942374}
+  jetpackShop: {fileID: 7604321125423743297}
+  grenadeShop: {fileID: 7604321124902701043}
+  stickyGrenadeShop: {fileID: 9123881350394158141}
+  laserShop: {fileID: 7604321125873574210}
+  healthShop: {fileID: 4216881101278383622}
+  empShop: {fileID: 3095993322823558504}
+  tTurretShop: {fileID: 4891741483010585774}
+  aTurretShop: {fileID: 6528008781228319007}
+  mineShop: {fileID: 7604321126621431919}
+  alphaPurchaseLocked: 0.325
+  alphaPurchaseUnlocked: 1
   paused: 0
   scoreText: {fileID: 3798811280999050855}
   newRecordText: {fileID: 3644248805278559413}
@@ -6183,8 +6187,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 227.4, y: -0.00038528442}
-  m_SizeDelta: {x: 1090, y: 175.8}
+  m_AnchoredPosition: {x: 254.6, y: -0.00038528442}
+  m_SizeDelta: {x: 1264.1, y: 175.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321126619112471
 CanvasRenderer:
@@ -6225,7 +6229,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Mines [4 max]\n 5.000 cr (1 units)"
+  m_Text: " Mines [6 max]\n 3.000 cr (1 units)"
 --- !u!1 &7604321126621431919
 GameObject:
   m_ObjectHideFlags: 0
@@ -6264,7 +6268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 700, y: -201}
+  m_AnchoredPosition: {x: -401.9999, y: -201}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7604321126621431923
@@ -6448,7 +6452,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " Laser charger [3 max]\n 10.000 cr (1 unit)"
+  m_Text: " Laser charger [3 max]\n 30.000 cr (1 unit)"
 --- !u!1 &7604321126641535681
 GameObject:
   m_ObjectHideFlags: 0
@@ -6534,7 +6538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: 
   charges: 0
-  chargesText: {fileID: 3750613661472416127}
+  chargesText: {fileID: 9078259549653340722}
 --- !u!1 &7898346377747268030
 GameObject:
   m_ObjectHideFlags: 0
@@ -6727,7 +6731,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " EMP [4 max]\n 6.000 cr (2 units)"
+  m_Text: " EMP [6 max]\n 3.000 cr (2 units)"
 --- !u!1 &9014618726177813385
 GameObject:
   m_ObjectHideFlags: 0
@@ -6835,11 +6839,11 @@ RectTransform:
   - {fileID: 821562046108321928}
   - {fileID: 2184625683715760070}
   m_Father: {fileID: 7604321125143751941}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 700, y: -433.00006}
+  m_AnchoredPosition: {x: -420, y: -648.0001}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8945745885092231217
@@ -7562,6 +7566,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 752d0e109307f0741a67c6e5a6288c95, type: 3}
+--- !u!224 &3146767614246758882 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4620610470698342706, guid: 752d0e109307f0741a67c6e5a6288c95,
+    type: 3}
+  m_PrefabInstance: {fileID: 7760868486301970640}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3146767614246758880 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4620610470698342704, guid: 752d0e109307f0741a67c6e5a6288c95,
@@ -7574,12 +7584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &3146767614246758882 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4620610470698342706, guid: 752d0e109307f0741a67c6e5a6288c95,
-    type: 3}
-  m_PrefabInstance: {fileID: 7760868486301970640}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7895942998645012970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8757,7 +8761,7 @@ PrefabInstance:
     - target: {fileID: 91980357660756631, guid: 1ccebb0a6d8593f4d8bc950f8f34f35f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 91980357660756631, guid: 1ccebb0a6d8593f4d8bc950f8f34f35f,
         type: 3}

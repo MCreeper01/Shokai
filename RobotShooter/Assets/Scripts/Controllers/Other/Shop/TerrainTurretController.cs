@@ -15,11 +15,15 @@ public class TerrainTurretController : MonoBehaviour
     public GameObject shootParticles;
     public GameObject explosionParticles;
     public float angleThreshold;
+    public float smokeHealthPercentage;
+
+    public ParticleSystem smoke;
 
     [HideInInspector] public bool placed;
 
     List<Collider> colliders = new List<Collider>();
 
+    private float maxHealth;
     private int colliderTarget;
     private bool hasTarget;
     private GameObject target;
@@ -32,6 +36,7 @@ public class TerrainTurretController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        maxHealth = health;
         impactZone.radius = range;
         shootParticles.SetActive(false);
         GameManager.instance.AddActiveDefense(gameObject);
@@ -75,7 +80,7 @@ public class TerrainTurretController : MonoBehaviour
                     relativePosition = target.transform.position - head.transform.position;
                     targetRotation = Quaternion.LookRotation(relativePosition);
                     head.transform.rotation = Quaternion.Lerp(head.transform.rotation, targetRotation, speed * Time.deltaTime);
-                    if (Quaternion.Angle(head.transform.rotation, targetRotation) < angleThreshold ||
+                    if (Quaternion.Angle(head.transform.rotation, targetRotation) < angleThreshold &&
                         Quaternion.Angle(head.transform.rotation, targetRotation) > -angleThreshold) rotating = false;
                 }
                 else
@@ -96,6 +101,7 @@ public class TerrainTurretController : MonoBehaviour
                             gEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
                             if (gEnemy.health <= 0)
                             {
+                                gEnemy.ChangeState(GroundEnemy.State.DEATH);
                                 hasTarget = false;
                                 colliders.RemoveAt(colliderTarget);
                             }
@@ -108,6 +114,7 @@ public class TerrainTurretController : MonoBehaviour
                                 tEnemy.TakeDamage(damagePerSecond * Time.deltaTime);
                                 if (tEnemy.health <= 0)
                                 {
+                                    tEnemy.ChangeState(TankEnemy.State.DEATH);
                                     hasTarget = false;
                                     colliders.RemoveAt(colliderTarget);
                                 }
@@ -135,6 +142,7 @@ public class TerrainTurretController : MonoBehaviour
     public void TakeDamage(float damage)
     {
         health -= damage;
+        if ((health <= maxHealth * smokeHealthPercentage / 100) && !smoke.isPlaying) smoke.Play();
         if (health <= 0) DestroyDefenses();
     }
 

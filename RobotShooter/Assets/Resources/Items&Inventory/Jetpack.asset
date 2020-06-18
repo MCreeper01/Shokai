@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Jetpack
   icon: {fileID: 21300000, guid: bb7d60d708926ce44950a33ff09b64d1, type: 3}
-  cost: 300
+  cost: 6000
   sellPrice: 0
-  charges: 5
-  maxStack: 10
+  charges: 2
+  maxStack: 12
