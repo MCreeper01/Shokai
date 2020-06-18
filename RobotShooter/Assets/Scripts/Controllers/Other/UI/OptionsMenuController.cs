@@ -35,7 +35,11 @@ public class OptionsMenuController : MonoBehaviour
 
     void Start()
     {
-        if (PlayerPrefs.HasKey("showFPS")) RestoreDefaultSettings();
+        if (PlayerPrefs.GetInt("firstTime") != 1)
+        {
+            RestoreDefaultSettings();
+            PlayerPrefs.SetInt("firstTime", 1);
+        }
         gameObject.SetActive(false);
         maxSensitivity -= minSensitivity;
         InitializePlayerPrefs();
