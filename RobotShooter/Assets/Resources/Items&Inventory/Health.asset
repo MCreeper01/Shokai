@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Health
   icon: {fileID: 21300000, guid: 4bafa91bf8a3c4d4fa7a54c7b1c63a01, type: 3}
-  cost: 7000
+  cost: 2000
   sellPrice: 0
-  charges: 3
-  maxStack: 6
+  charges: 1
+  maxStack: 5

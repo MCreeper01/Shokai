@@ -801,25 +801,25 @@ MonoBehaviour:
   player: {fileID: 0}
   source: {fileID: 1531096018390107446}
   source2: {fileID: 7377139458023027074}
-  initHealth: 80
-  initSpeed: 8
+  initHealth: 40
+  initSpeed: 16
   initDamage: 20
   minDistAttack: 2
   maxDistAttack: 3
-  repathTime: 2
+  repathTime: 1.5
   fightRate: 1
   hitTime: 0
   deathTime: 0
   hitIncome: 10
   criticalIncome: 25
-  killIncome: 100
+  killIncome: 150
   targetRadiusDetection: 1000
   rotSpeed: 3
-  healthInc: 5
-  damageInc: 3
-  maxDamage: 50
+  healthInc: 0
+  damageInc: 2
+  maxDamage: 100
   speedInc: 0.6
-  maxSpeed: 15
+  maxSpeed: 30
 --- !u!195 &5274481885375113205
 NavMeshAgent:
   m_ObjectHideFlags: 0

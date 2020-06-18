@@ -25,7 +25,7 @@ MonoBehaviour:
     quantity: 2
   stickyGrenade:
     item: {fileID: 11400000, guid: e134f0e110b61934cbcb6038b9d35bbd, type: 2}
-    quantity: 4
+    quantity: 2
   emp:
     item: {fileID: 11400000, guid: f399c21b509e3f141a08c59de9274e13, type: 2}
     quantity: 2
@@ -34,7 +34,7 @@ MonoBehaviour:
     quantity: 1
   health:
     item: {fileID: 11400000, guid: f38afa789e3d6a74789ef1d9040b1c9e, type: 2}
-    quantity: 3
+    quantity: 1
   tTurret:
     item: {fileID: 11400000, guid: bd6a614db67250b4d81010bf8740daca, type: 2}
     quantity: 1
@@ -43,4 +43,4 @@ MonoBehaviour:
     quantity: 1
   mine:
     item: {fileID: 11400000, guid: b7e85b9a51b8139469cdd3a38f429b56, type: 2}
-    quantity: 1
+    quantity: 2

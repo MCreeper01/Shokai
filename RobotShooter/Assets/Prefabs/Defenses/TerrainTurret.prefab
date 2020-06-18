@@ -106,9 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e3383a33f54a8d4c9b43b8537cba6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 950
+  health: 1000
   speed: 1.5
-  damagePerSecond: 40
+  damagePerSecond: 18
   range: 30
   pointShoot: {fileID: 5130022269500433850}
   head: {fileID: 3751618355995664554}
@@ -455,7 +455,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a4bbcff6c42f5454d8643c211397f893, type: 2}
+      objectReference: {fileID: 2100000, guid: 2735675a99d56a945ac7ae79f8f92a20, type: 2}
     - target: {fileID: -927199367670048503, guid: 77b2859452f7e9f46a6f340c95a9ac04,
         type: 3}
       propertyPath: m_Name
@@ -557,7 +557,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 90642ccb85320a648a5716eba8410845, type: 2}
+      objectReference: {fileID: 2100000, guid: 5275dbede51c05141b3803267ff6f177, type: 2}
     - target: {fileID: -927199367670048503, guid: 1ea78bf11ea53034cb6b6543c8924fc0,
         type: 3}
       propertyPath: m_Name

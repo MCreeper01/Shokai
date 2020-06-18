@@ -59,17 +59,17 @@ MonoBehaviour:
   damageAR: 20
   fireRateAR: 10
   shootARCooldown: 0.1
-  rangeAR: 200
+  rangeAR: 300
   shootForceAR: 100
   maxOverheatAR: 100
-  bulletOverheat: 2
+  bulletOverheat: 1.4
   overHeatNormalReload: 35
   overHeatSlowReload: 25
   maxARDecals: 20
   fireRateShotgun: 1.2
   shootShotgunCooldown: 0.8
   rangeShotgun: 50
-  shotgunDamage: 20
+  shotgunDamage: 18
   pelletCount: 12
   shotgunSpreadAngle: 6
   maxShotgunDecals: 48
@@ -84,7 +84,7 @@ MonoBehaviour:
   laserDistance: 250
   laserTime: 3
   laserDamage: 696969
-  instantHealthAmount: 50
+  instantHealthAmount: 60
   healingParticlesTime: 2
   empRadius: 42
   empDuration: 2
@@ -93,4 +93,3 @@ MonoBehaviour:
   pauseKey: 27
   electrocuteDamage: 25
   electricZoneDetectionRange: 1.5
-  godMode: 282

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4152bf4bf7d2d4e865a4c8037d7bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDamage: 500
+  maxDamage: 1000
   maxDamageToPlayer: 50
   explosionRadius: 6
   explosionParticles: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}

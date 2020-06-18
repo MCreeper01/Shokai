@@ -222,26 +222,26 @@ MonoBehaviour:
   speed: 10
   source: {fileID: 1715051457052553438}
   source2: {fileID: -1858073269341649794}
-  initHealth: 30
-  initSpeed: 6
+  initHealth: 40
+  initSpeed: 12
   initDamage: 5
   minDistAttack: 10
-  maxDistAttack: 20
+  maxDistAttack: 25
   goBackDist: 6
   fireRate: 1
   repathTime: 1
   hitIncome: 8
   criticalIncome: 20
-  killIncome: 80
+  killIncome: 120
   hitTime: 0
   deathTime: 0
   targetRadiusDetection: 1000
   rotSpeedCharacter: 1
-  healthInc: 2.5
+  healthInc: 0
   damageInc: 1
-  maxDamage: 20
-  speedInc: 0.2
-  maxSpeed: 10
+  maxDamage: 50
+  speedInc: 0.6
+  maxSpeed: 20
   direction: {x: 0, y: 0, z: 0}
 --- !u!82 &1715051457052553438
 AudioSource:

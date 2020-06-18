@@ -123,10 +123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd80700866d8ba4496f7c9b9c2ff301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 3
+  delay: 2
   explosionRadius: 16
   force: 500
-  maxDamage: 180
+  maxDamage: 100
   maxDamageToPlayer: 50
   explosionParticles: {fileID: 100000, guid: f881607407b15cc46b24d6bda799037a, type: 3}
   explosionDecal: {fileID: 1477857083622046603, guid: aa6a323c33248a14db9200668c92102a,

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Laser
   icon: {fileID: 21300000, guid: ed49c4af8a414ab418a3f5f7cec1f5fe, type: 3}
-  cost: 30000
+  cost: 25000
   sellPrice: 0
   charges: 1
-  maxStack: 3
+  maxStack: 2
