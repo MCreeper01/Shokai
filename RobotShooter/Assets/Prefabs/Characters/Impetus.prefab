@@ -966,7 +966,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a838a9e4c2f11ed459b2946d3a7e4ef1, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.7
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1183,7 +1183,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3628181093065955768}
-  - component: {fileID: 6324814980102528053}
+  - component: {fileID: 2218465465100338856}
   m_Layer: 11
   m_Name: CriticalBox
   m_TagString: CriticalBox
@@ -1199,26 +1199,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5459931831814434278}
   m_LocalRotation: {x: -0.21972658, y: -0, z: -0, w: 0.9755615}
-  m_LocalPosition: {x: -0.01, y: 0.241, z: 0.222}
+  m_LocalPosition: {x: -0.01, y: 0.197, z: 0.13}
   m_LocalScale: {x: 2.6129, y: 2.98602, z: 4.27339}
   m_Children: []
   m_Father: {fileID: 884972285371190499}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -25.386002, y: 0, z: 0}
---- !u!64 &6324814980102528053
-MeshCollider:
+--- !u!65 &2218465465100338856
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5459931831814434278}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 8245426573784773463, guid: a8413658e8934414b856504461f7ba2e, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.30469283, y: 0.28035304, z: 0.06220517}
+  m_Center: {x: 0.0027113166, y: -0.002817488, z: 0.0061025834}
 --- !u!1 &6182840416433681173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,7 +1514,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8869503755422386469}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.51, z: 0}
+  m_LocalPosition: {x: 0, y: -0.66, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 884972285371190499}
@@ -1531,8 +1530,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.33863807
-  m_Height: 2.03038
+  m_Radius: 0.6
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: -0.036852956, y: -0.02287209, z: -0.030822039}
 --- !u!1001 &4782234573411979958

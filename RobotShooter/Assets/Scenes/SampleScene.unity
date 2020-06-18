@@ -751,6 +751,11 @@ PrefabInstance:
       propertyPath: crowdSource
       value: 
       objectReference: {fileID: 7355435838841020572}
+    - target: {fileID: 7988987211763712068, guid: 588e8e99b18f8444ebbed3bc0b370a3a,
+        type: 3}
+      propertyPath: unitySounds.Array.data[0].volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7988987211763712069, guid: 588e8e99b18f8444ebbed3bc0b370a3a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1664,7 +1669,7 @@ PrefabInstance:
     - target: {fileID: 6756803528019522325, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15.199951
+      value: -15.19989
       objectReference: {fileID: 0}
     - target: {fileID: 6872698833368168866, guid: 68efa12444f4ef2488ee95029b098d33,
         type: 3}
@@ -2302,6 +2307,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: cb0c2421e8c23d7469c6360c2f7da47b, type: 2}
+    - target: {fileID: 7355435838841020572, guid: 650b58b16d8431046bd522961cbe769b,
+        type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7355435840005338360, guid: 650b58b16d8431046bd522961cbe769b,
         type: 3}
       propertyPath: m_LocalPosition.x

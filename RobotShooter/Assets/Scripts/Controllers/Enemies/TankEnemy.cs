@@ -86,6 +86,8 @@ public class TankEnemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         obstacle = GetComponent<NavMeshObstacle>();
         //source = GetComponent<AudioSource>();
+        source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+        source2.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;
 
@@ -108,6 +110,10 @@ public class TankEnemy : MonoBehaviour
         if (!source2.isPlaying && !GameManager.instance.uiController.paused)
         {
             source2.Play();
+        }
+        if (GameManager.instance.player.currentHealth <= 0 && source2.isPlaying)
+        {
+            source2.Stop();
         }
         switch (currentState)
         {
@@ -341,7 +347,11 @@ public class TankEnemy : MonoBehaviour
             b.transform.forward = Arms[1].forward;
             b.SetActive(true);
         }
-        AudioManager.instance.PlayOneShotSound("PlasmaBallShot", b.transform.position);
+        if (GameManager.instance.player.currentHealth > 0)
+        {
+            AudioManager.instance.PlayOneShotSound("PlasmaBallShot", b.transform.position);
+        }
+        //AudioManager.instance.PlayOneShotSound("PlasmaBallShot", b.transform.position);
         b.GetComponent<TankBullet>().damage = damage;
         rightCannon = !rightCannon;
     }

@@ -122,7 +122,7 @@ MonoBehaviour:
     volume: 1
   - name: DeadExplosion
     path: event:/FX/Enemy/Enemy_explosion
-    volume: 1
+    volume: 0.8
   - name: LevitationSound
     path: event:/FX/Enemy/Levitation
     volume: 1
@@ -178,7 +178,7 @@ MonoBehaviour:
   unitySounds:
   - name: Crowd
     clip: {fileID: 8300000, guid: f67663447c593424a9aaf7f007b4c0ba, type: 3}
-    volume: 1
+    volume: 0
     source: {fileID: 0}
   - name: WarningHealth
     clip: {fileID: 8300000, guid: 302694935337bdc47b2862a5476af98e, type: 3}
@@ -212,23 +212,23 @@ MonoBehaviour:
   musics:
   - name: Song1
     clip: {fileID: 8300000, guid: 9fb6333276e65724fb2b5372310cc380, type: 3}
-    volume: 1
+    volume: 0.9
     source: {fileID: 284089927}
   - name: Song2
-    clip: {fileID: 8300000, guid: a435527c8e3131342b722f7ae68255c1, type: 3}
-    volume: 1
+    clip: {fileID: 8300000, guid: f08f5e5f8e3e06642a9fddc668da98a4, type: 3}
+    volume: 0.9
     source: {fileID: 284089927}
   - name: Song3
     clip: {fileID: 8300000, guid: 75300394825a2984db4d6bbf6401ef1a, type: 3}
-    volume: 1
+    volume: 0.9
     source: {fileID: 284089927}
   - name: Song4
     clip: {fileID: 8300000, guid: 9ff96aec2e8d73d4c892594bfd46556f, type: 3}
-    volume: 1
+    volume: 0.9
     source: {fileID: 284089927}
   - name: Song5
     clip: {fileID: 8300000, guid: d458d252edc002a4f9c562e15b4f92a2, type: 3}
-    volume: 1
+    volume: 0.9
     source: {fileID: 284089927}
   musicClipIndex: 0
 --- !u!82 &284089927

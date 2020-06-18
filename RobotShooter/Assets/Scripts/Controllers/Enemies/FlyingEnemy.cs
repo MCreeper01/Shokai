@@ -93,6 +93,8 @@ public class FlyingEnemy : MonoBehaviour
 
         anim = GetComponent<Animator>();
         //source = GetComponent<AudioSource>();
+        source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+        source2.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
         rb = GetComponent<Rigidbody>();
 
         IncrementStats();
@@ -113,6 +115,10 @@ public class FlyingEnemy : MonoBehaviour
         if (!source2.isPlaying && !GameManager.instance.uiController.paused)
         {
             source2.Play();
+        }
+        if (GameManager.instance.player.currentHealth <= 0 && source2.isPlaying)
+        {
+            source2.Stop();
         }
         if (target != null)
         {
@@ -308,9 +314,12 @@ public class FlyingEnemy : MonoBehaviour
             b.GetComponent<EnemyBullet>().damage = damage;
             b.SetActive(true);
             //AudioManager.instance.PlayOneShotSound("ShootEnergyBall", transform.position);
-            source.clip = AudioManager.instance.clips[1];
-            source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
-            source.Play();
+            if (GameManager.instance.player.currentHealth > 0)
+            {
+                source.clip = AudioManager.instance.clips[1];
+                source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+                source.Play();
+            }            
         }
     }
 

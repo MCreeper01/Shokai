@@ -75,6 +75,8 @@ public class GroundEnemy : MonoBehaviour
         obstacle = GetComponent<NavMeshObstacle>();
         anim = GetComponent<Animator>();
         //source = GetComponent<AudioSource>();
+        source.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
+        source2.volume *= AudioManager.instance.fXVolume * AudioManager.instance.masterVolume;
         target = player.gameObject;
         agent.speed = speed;
         agent.stoppingDistance = minDistAttack;        
@@ -99,6 +101,11 @@ public class GroundEnemy : MonoBehaviour
         {
             source2.Play();
         }
+        if (GameManager.instance.player.currentHealth <= 0 && source2.isPlaying)
+        {
+            source2.Stop();
+        }
+
         switch (currentState)
         {
             case State.INITIAL:
@@ -255,7 +262,10 @@ public class GroundEnemy : MonoBehaviour
     IEnumerator ActivateCollider()
     {
         collPoint.GetComponent<BoxCollider>().enabled = true;
-        AudioManager.instance.PlayOneShotSound("PlasmaSwordSwing", transform);
+        if (GameManager.instance.player.currentHealth > 0)
+        {
+            AudioManager.instance.PlayOneShotSound("PlasmaSwordSwing", transform);
+        }       
         yield return new WaitForSeconds(0.1f);
         collPoint.GetComponent<BoxCollider>().enabled = false;
     }
