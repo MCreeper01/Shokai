@@ -11,12 +11,8 @@ public class ShopController : AController
     public float shopAnimationSpeed;
     public float shopMinimumHeight;
     public float shopMaximumHeight;
-    [Header("Habilities")]
-    public Hability[] habilities;
     [Header("Defenses")]
     public Hability[] defenses;
-    [Header("HabilitySlots")]
-    public RawImage[] habilitySlots;
     [Header("DefenseSlots")]
     public RawImage[] defenseSlots;
 
@@ -42,53 +38,6 @@ public class ShopController : AController
     void Update()
     {
 
-    }
-
-    public void SetIconToHabilitySlot(string name)
-    {        
-        Hability h = Array.Find(habilities, hability => hability.name == name);
-        if (h == null)
-        {
-            Debug.LogWarning(name + " not found.");
-            return;
-        }
-        if (h.cost > gc.player.cash) return;
-        foreach (RawImage slot in habilitySlots)
-        {
-            foreach (RawImage slot2 in habilitySlots)
-            {
-                SlotInfo sInfo2 = slot2.gameObject.GetComponent<SlotInfo>();
-                if (sInfo2.content == h.name)
-                {
-                    if (sInfo2.charges < h.maxCharges)
-                    {
-                        if (sInfo2.charges + h.charges <= h.maxCharges) sInfo2.ChangeCharges(h.charges);
-                        else sInfo2.ChangeCharges(h.maxCharges - h.charges);
-                        AudioManager.instance.PlayOneShotSound("Buy", gc.player.transform.position);
-                        gc.player.cash -= h.cost;
-                        gc.uiController.ChangeCash(gc.player.cash);
-                        return;
-                    }
-                    else return;
-                }
-            }
-            if (!slot.gameObject.activeSelf || slot.gameObject.GetComponent<SlotInfo>().content == h.name)
-            {
-                SlotInfo sInfo = slot.gameObject.GetComponent<SlotInfo>();
-                slot.texture = h.icon;
-                slot.gameObject.SetActive(true);
-                sInfo.content = h.name;
-                if (sInfo.charges < h.maxCharges)
-                {
-                    if (sInfo.charges + h.charges <= h.maxCharges) sInfo.ChangeCharges(h.charges);
-                    else sInfo.ChangeCharges(h.maxCharges - h.charges);                    
-                    AudioManager.instance.PlayOneShotSound("Buy", gc.player.transform.position);
-                    gc.player.cash -= h.cost;
-                    gc.uiController.ChangeCash(gc.player.cash);
-                }
-                return;
-            }
-        }
     }
 
     public void SetIconToDefenseSlot(string name)
@@ -187,16 +136,12 @@ public class ShopController : AController
     }
 
     public int ReturnCost(string name)
-    {
-        Hability h = Array.Find(habilities, hability => hability.name == name);
+    {         
+        Hability h = Array.Find(defenses, defense => defense.name == name);
         if (h == null)
         {
-            h = Array.Find(defenses, defense => defense.name == name);
-            if (h == null)
-            {
-                Debug.LogWarning(name + " not found.");
-                return 0;
-            }                
+            Debug.LogWarning(name + " not found.");
+            return 0;
         }
         return h.cost;
     }
